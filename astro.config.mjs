@@ -17,6 +17,11 @@ export default defineConfig({
       accessToken: env.STORYBLOK_TOKEN,
       components: {
         // PAGES
+        'article': 'components/storyblok/pages/article',
+        'definition': 'components/storyblok/pages/definition',
+        'page': 'components/storyblok/pages/page',
+        'technology': 'components/storyblok/pages/technology',
+        'work': 'components/storyblok/pages/work',
         // SECTIONS
         // UI
       },
