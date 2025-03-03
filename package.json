@@ -13,6 +13,11 @@
     "storyblok-pull-components": "storyblok pull-components --space 316058 --file-name storyblok"
   },
   "dependencies": {
-    "astro": "^5.4.0"
+    "@storyblok/astro": "^6.0.1",
+    "astro": "^5.4.0",
+    "vite": "^6.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.8"
   }
 }
