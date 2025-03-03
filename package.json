@@ -7,7 +7,10 @@
     "build": "astro check && astro build",
     "check": "astro check",
     "dev": "astro dev",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "storyblok": "npm run storyblok-pull-components && npm run storyblok-generate-types",
+    "storyblok-generate-types": "storyblok generate-typescript-typedefs --sourceFilePaths ./components.storyblok.json --destinationFilePath ./src/types/storyblok.ts",
+    "storyblok-pull-components": "storyblok pull-components --space 316058 --file-name storyblok"
   },
   "dependencies": {
     "astro": "^5.4.0"
