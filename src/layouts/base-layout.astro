@@ -1,0 +1,30 @@
+---
+import Footer from '@/components/footer.astro';
+import Header from '@/components/header.astro';
+import '@/styles/global.css';
+import '@fontsource-variable/inter/opsz.css';
+import '@fontsource-variable/jetbrains-mono';
+
+interface Props {
+  metaTitle: string;
+}
+
+const { metaTitle } = Astro.props as Props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{metaTitle}</title>
+  </head>
+  <body class="flex min-h-screen flex-grow flex-col bg-gray-50 font-sans text-gray-950 antialiased">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
