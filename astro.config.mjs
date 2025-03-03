@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
 
 import { storyblok } from '@storyblok/astro';
+import tailwindcss from '@tailwindcss/vite';
 
 const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
@@ -19,6 +20,9 @@ export default defineConfig({
       apiOptions: {
         region: 'eu',
       },
-    })
-  ]
+    }),
+  ],
+  vite: {
+    plugins: [tailwindcss()]
+  }
 });
