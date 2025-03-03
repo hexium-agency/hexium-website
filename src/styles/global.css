@@ -1,2 +1,19 @@
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
+
+@theme {
+  --font-heading: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+  'Noto Color Emoji';
+  --font-mono: 'JetBrains Mono Variable',ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+  monospace;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+}
+
+.font-heading {
+  font-variation-settings: 'opsz' 32;
+}
+
+.font-sans {
+  font-variation-settings: 'opsz' 14;
+}
