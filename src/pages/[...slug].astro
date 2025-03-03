@@ -1,8 +1,37 @@
 ---
 import BaseLayout from '@/layouts/base-layout.astro';
+import { useStoryblokApi } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  slug: string;
+}
+
+// Get all the available paths
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+
+  const stories = await storyblokApi.getAll('cdn/links', {
+    version: import.meta.env.STORYBLOK_ENV,
+  });
+
+  return stories.map((story) => {
+    return {
+      params: { slug: story.slug === 'home' ? '/' : story.slug },
+    };
+  });
+}
+
+// Get the story for the given path
+const { slug } = Astro.params as AstroProps;
+
+const storyblokApi = useStoryblokApi();
+
+const { data } = await storyblokApi.get(`cdn/stories/${slug === undefined ? 'home' : slug}`, {
+  version: import.meta.env.STORYBLOK_ENV,
+});
 ---
 
 <BaseLayout metaTitle="Home">
-  <h1 class="font-heading text-7xl font-bold">Hello World</h1>
-  <h1 class="font-sans text-7xl font-bold">Hello World</h1>
+  <StoryblokComponent blok={data.story.content} story={data.story} />
 </BaseLayout>
