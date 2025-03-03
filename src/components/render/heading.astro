@@ -1,0 +1,14 @@
+---
+import slugify from 'slugify';
+
+interface AstroProps {
+  level: 1 | 2 | 3 | 4 | 5 | 6;
+  text: string;
+}
+
+const { level, text } = Astro.props as AstroProps;
+
+const Tag = `h${level === 1 ? 2 : level}`;
+---
+
+<Tag><a href={`#${slugify(text)}`}>{text}</a></Tag>

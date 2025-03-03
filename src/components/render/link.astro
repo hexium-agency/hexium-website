@@ -1,0 +1,50 @@
+---
+interface AstroProps {
+  href: string;
+  target?: '_blank';
+}
+
+const title = await Astro.slots.render('default');
+
+const { href, target } = Astro.props as AstroProps;
+---
+
+<a
+  href={href}
+  target={target}
+  class:list={[
+    'group/link fill-gray-200 stroke-gray-500 font-medium text-gray-950 no-underline transition-colors hover:fill-gray-950 hover:stroke-white',
+    target && 'pr-3.5',
+  ]}
+>
+  <span
+    class="underline decoration-gray-300 decoration-2 underline-offset-[0.25em] transition-colors group-hover/link:decoration-gray-950"
+    set:html={title}
+  />
+  {
+    target && (
+      <span class="select-none" aria-hidden="true">
+        &NoBreak;
+      </span>
+    )
+  }
+  {
+    target && (
+      <svg
+        viewBox="0 0 12 12"
+        aria-hidden="true"
+        class="absolute mt-[0.45rem] -ml-1 inline-block size-3"
+      >
+        <>
+          <rect width="12" height="12" stroke-width="0" rx="3" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="m3.75 8.25 4.5-4.5m0 0h-3.5m3.5 0v3.5"
+          />
+        </>
+      </svg>
+    )
+  }
+</a>

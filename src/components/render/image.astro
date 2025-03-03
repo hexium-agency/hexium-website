@@ -1,0 +1,12 @@
+---
+interface AstroProps {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+const { src, alt, width, height } = Astro.props as AstroProps;
+---
+
+<img class="rounded-lg" src={src} alt={alt} width={width} height={height} />

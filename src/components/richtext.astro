@@ -1,0 +1,55 @@
+---
+import Heading from '@/components/render/heading.astro';
+import Image from '@/components/render/image.astro';
+import Link from '@/components/render/link.astro';
+import Strong from '@/components/render/strong.astro';
+import type { MultilinkStoryblok, RichtextStoryblok } from '@/types/storyblok';
+import { parseStoryblokLink, parseStoryblokRichTextImage } from '@/utils/storyblok';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import type { RichTextType } from 'storyblok-rich-text-astro-renderer';
+import RichTextRenderer from 'storyblok-rich-text-astro-renderer/RichTextRenderer.astro';
+
+export interface Props {
+  text: RichTextType | RichtextStoryblok;
+}
+
+const { text } = Astro.props;
+---
+
+<RichTextRenderer
+  content={text as RichTextType}
+  schema={{
+    nodes: {
+      heading: (heading) => ({
+        component: Heading,
+        props: {
+          level: heading.attrs.level,
+          text: heading.content![0].text,
+        },
+      }),
+      image: (image) => ({
+        component: Image,
+        props: {
+          ...parseStoryblokRichTextImage(image.attrs),
+        },
+      }),
+    },
+    marks: {
+      bold: () => ({ component: Strong }),
+      link: (link) => ({
+        component: Link,
+        props: {
+          href:
+            link.attrs.linktype === 'email'
+              ? `mailto:${link.attrs.href}`
+              : parseStoryblokLink(link.attrs as MultilinkStoryblok),
+          target: link.attrs.linktype === 'url' ? '_blank' : null,
+        },
+      }),
+    },
+  }}
+  resolver={(blok) => ({
+    component: StoryblokComponent,
+    props: { blok },
+  })}
+/>
