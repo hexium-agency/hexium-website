@@ -27,6 +27,9 @@ export default defineConfig({
         'work': 'components/storyblok/pages/work',
         // SECTIONS
         // UI
+        'footerAgency': 'components/ui/footer-agency',
+        'footerLink': 'components/ui/footer-link',
+        'footerLinkGroup': 'components/ui/footer-link-group',
       },
       apiOptions: {
         region: 'eu',
