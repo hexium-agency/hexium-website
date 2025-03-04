@@ -14,6 +14,9 @@ export default defineConfig({
   experimental: {
     svg: true,
   },
+  image: {
+    domains: ["a.storyblok.com"],
+  },
   integrations: [
     react(),
     storyblok({
