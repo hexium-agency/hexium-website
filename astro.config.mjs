@@ -29,7 +29,11 @@ export default defineConfig({
         'technology': 'components/storyblok/pages/technology',
         'work': 'components/storyblok/pages/work',
         // SECTIONS
+        'call-to-action': 'components/storyblok/sections/call-to-action',
+        'horizontal': 'components/storyblok/sections/horizontal',
+        'vertical': 'components/storyblok/sections/vertical',
         // UI
+        'button': 'components/storyblok/ui/button',
         'footerAgency': 'components/ui/footer-agency',
         'footerLink': 'components/ui/footer-link',
         'footerLinkGroup': 'components/ui/footer-link-group',
