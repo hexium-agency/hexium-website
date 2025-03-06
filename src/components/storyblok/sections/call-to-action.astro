@@ -1,0 +1,34 @@
+---
+import type { CallToActionStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: CallToActionStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<section {...storyblokEditable(blok)} class="relative py-10 md:py-20">
+  <div class="container">
+    <div class="relative overflow-hidden rounded-3xl bg-gray-950 px-6 py-24 shadow-2xl md:px-10">
+      <div class="relative z-10 mx-auto max-w-xl text-white">
+        <h2 class="text-center font-mono text-xs font-medium text-gray-200 uppercase">
+          {blok.badge}
+        </h2>
+        <h3
+          class="font-heading mt-8 text-center text-3xl font-semibold tracking-tight text-balance md:text-4xl"
+        >
+          {blok.title}
+        </h3>
+        <div class="mx-auto mt-8 max-w-lg text-center text-base text-gray-200">
+          {blok.content}
+        </div>
+        <div class="mt-8 flex justify-center">
+          {blok.buttons?.map((item) => <StoryblokComponent blok={item} />)}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
