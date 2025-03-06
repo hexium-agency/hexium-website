@@ -13,7 +13,7 @@ const global = await storyblokService.getStory<GlobalStoryblok>('global');
 const { footerAgencies, footerColumns, footerLinks } = global.story.content;
 ---
 
-<footer class="relative overflow-hidden rounded-t-[45px] bg-gray-950 text-sm">
+<footer class="relative overflow-hidden bg-gray-950 text-sm">
   <div class="container pt-20">
     <div class="grid grid-cols-1 gap-x-2 gap-y-10 pb-8 sm:grid-cols-2 lg:grid-cols-4">
       {footerAgencies.map((footerAgency) => <StoryblokComponent blok={footerAgency} />)}
