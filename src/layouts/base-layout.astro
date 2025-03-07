@@ -19,6 +19,12 @@ const { metaTitle } = Astro.props as Props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{metaTitle}</title>
+    <script
+      async
+      data-strategy="afterInteractive"
+      defer
+      src="https://tag.clearbitscripts.com/v1/pk_9143c861efaa8e41be80e55d2acaabd4/tags.js"
+      referrerpolicy="strict-origin-when-cross-origin"></script>
   </head>
   <body class="flex min-h-screen flex-grow flex-col bg-gray-50 font-sans text-gray-950 antialiased">
     <Header />
