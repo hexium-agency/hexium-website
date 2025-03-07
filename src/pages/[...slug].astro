@@ -11,6 +11,8 @@ interface AstroProps {
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
 
+  // TODO: Exclude the pages that are not supposed to be published
+  // TODO: Handle the pages that are using a pagination (blog, works, ...)
   const stories = await storyblokApi.getAll('cdn/links', {
     version: import.meta.env.STORYBLOK_ENV,
   });
