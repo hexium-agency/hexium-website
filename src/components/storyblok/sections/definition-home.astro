@@ -1,0 +1,82 @@
+---
+import DotLineHorizontal from '@/components/effects/dot-line-horizontal.astro';
+import DotLineVerticalLeft from '@/components/effects/dot-line-vertical-left.astro';
+import DotLineVerticalRight from '@/components/effects/dot-line-vertical-right.astro';
+import definitionService from '@/services/definition';
+import type { DefinitionStoryblok } from '@/types/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+
+interface LetterGroup {
+  letter: string;
+  items: ISbStoryData<DefinitionStoryblok>[];
+}
+
+const definitions = await definitionService.getAll();
+
+const definitionsGroupedByLetter = definitions
+  .sort((a, b) => a.name.localeCompare(b.name))
+  .reduce<LetterGroup[]>((acc, def) => {
+    const letter = def.name.charAt(0).toUpperCase();
+    const group = acc.find((g) => g.letter === letter);
+
+    if (group) {
+      group.items.push(def);
+    } else {
+      acc.push({ letter, items: [def] });
+    }
+
+    return acc;
+  }, []);
+---
+
+<section class="container py-30">
+  <DotLineHorizontal />
+  <DotLineVerticalLeft />
+  <DotLineVerticalRight />
+  <div class="flex flex-wrap gap-2 py-6">
+    {
+      definitionsGroupedByLetter.map((group) => (
+        <a
+          href={`#${group.letter}`}
+          class="flex h-8 w-6 items-center justify-center rounded-sm border border-gray-200 text-sm font-medium text-gray-600 transition-colors hover:border-gray-200/50 hover:bg-gray-100"
+        >
+          {group.letter}
+        </a>
+      ))
+    }
+  </div>
+  {
+    definitionsGroupedByLetter.map((group) => (
+      <div id={group.letter} class="relative py-6">
+        <DotLineHorizontal />
+        <h2 class="font-mono text-3xl font-semibold text-gray-600">{group.letter}</h2>
+        <ul class="grid grid-cols-2 gap-x-4 gap-y-6 pt-4 sm:grid-cols-3 lg:grid-cols-4">
+          {group.items.map((item) => (
+            <li>
+              <a
+                href={item.full_slug}
+                class="group relative inline-flex w-fit items-center justify-center overflow-hidden rounded-sm border border-transparent px-3 py-1.5 font-medium transition-colors hover:border-gray-200/50 hover:bg-gray-100"
+              >
+                {item.name}
+                <svg
+                  viewBox="0 0 10 10"
+                  aria-hidden="true"
+                  class="before:transtion-opacity ml-2 h-3 w-3 flex-none translate-x-6 opacity-0 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-0 group-hover:opacity-70 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+                >
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                  />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</section>

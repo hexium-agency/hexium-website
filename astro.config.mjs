@@ -30,6 +30,7 @@ export default defineConfig({
         'work': 'components/storyblok/pages/work',
         // SECTIONS
         'call-to-action': 'components/storyblok/sections/call-to-action',
+        'definition-home': 'components/storyblok/sections/definition-home',
         'horizontal': 'components/storyblok/sections/horizontal',
         'vertical': 'components/storyblok/sections/vertical',
         // UI
