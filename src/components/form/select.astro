@@ -1,0 +1,176 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  required?: boolean;
+  label: string;
+}
+
+const { id, name, required = false, label } = Astro.props;
+---
+
+<div>
+  <label id={`${id}-label`} class="block text-sm/6 font-medium text-gray-900">{label}</label>
+  <div class="relative mt-1">
+    <button
+      type="button"
+      class="grid w-full cursor-pointer grid-cols-1 rounded-md border-[0.5px] border-gray-300 bg-white py-1.5 pr-2 pl-3 text-left text-gray-900 shadow transition-all duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900 hover:border-gray-400 text-sm"
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      aria-labelledby={`${id}-label`}
+      data-select-button
+    >
+      <span class="col-start-1 row-start-1 truncate pr-6" data-select-value></span>
+      <svg
+        class="col-start-1 row-start-1 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M5.22 10.22a.75.75 0 0 1 1.06 0L8 11.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-2.25 2.25a.75.75 0 0 1-1.06 0l-2.25-2.25a.75.75 0 0 1 0-1.06ZM10.78 5.78a.75.75 0 0 1-1.06 0L8 4.06 6.28 5.78a.75.75 0 0 1-1.06-1.06l2.25-2.25a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+
+    <ul
+      class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-gray-900/5 focus:outline-none opacity-0 invisible transition-all ease-in duration-100"
+      tabindex="-1"
+      role="listbox"
+      aria-labelledby={`${id}-label`}
+      data-select-options
+    >
+      <slot />
+    </ul>
+
+    <select id={id} name={name} required={required} class="sr-only" data-select-input>
+      <slot />
+    </select>
+  </div>
+</div>
+
+<script>
+  class CustomSelect {
+    private button: HTMLButtonElement;
+    private options: HTMLUListElement;
+    private select: HTMLSelectElement;
+    private valueSpan: HTMLSpanElement;
+    private isOpen = false;
+
+    constructor(container: HTMLElement) {
+      this.button = container.querySelector('[data-select-button]')!;
+      this.options = container.querySelector('[data-select-options]')!;
+      this.select = container.querySelector('[data-select-input]')!;
+      this.valueSpan = container.querySelector('[data-select-value]')!;
+
+      this.init();
+    }
+
+    private init() {
+      this.syncOptions();
+      
+      this.updateDisplayValue();
+      this.button.addEventListener('click', () => this.toggleOptions());
+      document.addEventListener('click', (e) => this.handleClickOutside(e));
+      
+      this.select.addEventListener('change', () => this.updateDisplayValue());
+
+      const optionItems = this.options.querySelectorAll('li');
+      optionItems.forEach(item => {
+        item.addEventListener('click', (e) => this.handleOptionClick(e));
+        item.addEventListener('mouseenter', () => this.handleOptionHover(item));
+        item.addEventListener('mouseleave', () => this.handleOptionLeave(item));
+      });
+    }
+
+    private syncOptions() {
+      this.select.innerHTML = '';
+      
+      const optionItems = this.options.querySelectorAll('li');
+      optionItems.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.dataset.value || '';
+        option.textContent = item.textContent?.trim() || '';
+        this.select.appendChild(option);
+      });
+
+      if (this.select.options.length > 0) {
+        this.select.selectedIndex = 0;
+      }
+    }
+
+    private handleOptionHover(item: HTMLLIElement) {
+      item.classList.add('bg-gray-900', 'text-white');
+      const checkmark = item.querySelector('.text-gray-900');
+      if (checkmark) {
+        checkmark.classList.remove('text-gray-900');
+        checkmark.classList.add('text-white');
+      }
+    }
+
+    private handleOptionLeave(item: HTMLLIElement) {
+      item.classList.remove('bg-gray-900', 'text-white');
+      const checkmark = item.querySelector('.text-white');
+      if (checkmark) {
+        checkmark.classList.remove('text-white');
+        checkmark.classList.add('text-gray-900');
+      }
+    }
+
+    private toggleOptions() {
+      this.isOpen = !this.isOpen;
+      
+      if (this.isOpen) {
+        this.options.classList.remove('invisible');
+        requestAnimationFrame(() => {
+          this.options.classList.remove('opacity-0');
+        });
+      } else {
+        this.options.classList.add('opacity-0');
+        this.options.addEventListener('transitionend', () => {
+          if (!this.isOpen) {
+            this.options.classList.add('invisible');
+          }
+        }, { once: true });
+      }
+      
+      this.button.setAttribute('aria-expanded', this.isOpen.toString());
+    }
+
+    private handleClickOutside(e: MouseEvent) {
+      if (this.isOpen && !this.button.contains(e.target as Node) && !this.options.contains(e.target as Node)) {
+        this.isOpen = false;
+        this.options.classList.add('opacity-0');
+        this.options.addEventListener('transitionend', () => {
+          if (!this.isOpen) {
+            this.options.classList.add('invisible');
+          }
+        }, { once: true });
+        this.button.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    private handleOptionClick(e: Event) {
+      const option = e.currentTarget as HTMLLIElement;
+      const value = option.dataset.value;
+      if (value) {
+        this.select.value = value;
+        this.select.dispatchEvent(new Event('change'));
+        this.toggleOptions();
+      }
+    }
+
+    private updateDisplayValue() {
+      const selectedOption = this.select.options[this.select.selectedIndex];
+      if (selectedOption) {
+        this.valueSpan.textContent = selectedOption.textContent;
+      }
+    }
+  }
+
+  document.querySelectorAll('[data-select-button]').forEach(select => {
+    new CustomSelect(select.closest('div')!);
+  });
+</script> 
