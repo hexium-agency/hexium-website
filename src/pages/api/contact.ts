@@ -1,37 +1,31 @@
+import { sendEmail } from '@/utils/brevo';
 import { uploadMultipleFilesToS3 } from '@/utils/s3';
 import { createProspect } from '@/utils/sellsy';
 import type { APIRoute } from 'astro';
-import console from 'console';
 
 export const prerender = false;
+export type Subject = 'project' | 'job' | 'collaboration' | 'other';
 
-async function sendEmail(to: string, subject: string, content: string): Promise<void> {
-  try {
-    console.log(`Sending email to: ${to}`);
-    console.log(`Subject: ${subject}`);
-    console.log(`Content: ${content}`);
-  } catch (error) {
-    console.error('Error sending email:', error);
-    throw error;
-  }
-}
-
-const emailConfig = {
+const emails: Record<Subject, { to: string; subject: string; templateId: number }> = {
   project: {
     to: 'anthony@hexium.io',
     subject: '[PROJET]',
+    templateId: 3,
   },
   job: {
     to: 'contact@hexium.io',
     subject: '[EMPLOI]',
+    templateId: 4,
   },
   collaboration: {
     to: 'contact@hexium.io',
     subject: '[COLLAB]',
+    templateId: 5,
   },
   other: {
     to: 'contact@hexium.io ',
     subject: '[AUTRE]',
+    templateId: 6,
   },
 };
 
@@ -46,11 +40,11 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
 
-    const subject = formData.get('subject') as string;
+    const subject = formData.get('subject') as Subject;
     const firstname = formData.get('firstname') as string;
     const lastname = formData.get('lastname') as string;
     const email = formData.get('email') as string;
-    const phone = (formData.get('phone') as string) || '';
+    const phone = (formData.get('phone') as string) || ''; // TODO: handle regex
     const company = (formData.get('company') as string) || '';
     const message = formData.get('message') as string;
     // const privacy = formData.get('privacy') as string; TODO: handle privacy document
@@ -60,31 +54,38 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const files = formData.getAll('files') as File[];
-    await uploadMultipleFilesToS3(files);
+
+    const fileUrls = await uploadMultipleFilesToS3(
+      files.filter((file) => file.name !== 'undefined')
+    );
 
     if (subject === 'project') {
-      try {
-        await createProspect({
-          firstname,
-          lastname,
-          email,
-          phone,
-          company,
-          message,
-        });
-        console.log('Successfully created prospect in Sellsy');
-      } catch (error) {
-        console.error('Error creating prospect in Sellsy:', error);
-      }
+      await createProspect({
+        firstname,
+        lastname,
+        email,
+        phone,
+        company,
+        message,
+      });
     }
 
-    try {
-      const emailCfg = emailConfig[subject as keyof typeof emailConfig] || emailConfig.other;
-      await sendEmail(emailCfg.to, emailCfg.subject, '');
-      console.log('Successfully sent email notification');
-    } catch (error) {
-      console.error('Error sending email:', error);
-    }
+    const emailConfig = emails[subject];
+
+    await sendEmail({
+      to: [{ email: 'corentin@hexium.io', name: `${firstname} ${lastname}` }],
+      templateId: emailConfig.templateId,
+      params: {
+        name: `${firstname} ${lastname}`,
+        company,
+        email,
+        phone,
+        message,
+        files: fileUrls.map((url) => `${url}`).join('\n'),
+      },
+      subject: emailConfig.subject,
+      replyTo: { email: 'corentin@hexium.io', name: `${firstname} ${lastname}` },
+    });
 
     return jsonResponse(true, 'Votre message a été envoyé avec succès.');
   } catch (error) {
