@@ -135,23 +135,8 @@ export interface CallToActionStoryblok {
   [k: string]: any;
 }
 
-export interface CardLightStoryblok {
-  title: string;
-  text: RichtextStoryblok;
-  icon: number | string;
-  component: "cardLight";
-  _uid: string;
-  [k: string]: any;
-}
-
 export interface CodeBlockStoryblok {
   component: "codeBlock";
-  _uid: string;
-  [k: string]: any;
-}
-
-export interface ContactStoryblok {
-  component: "contact";
   _uid: string;
   [k: string]: any;
 }
@@ -162,6 +147,12 @@ export interface DefinitionStoryblok {
   ogBadge: string;
   ogTitle: string;
   component: "definition";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface DefinitionHomeStoryblok {
+  component: "definitionHome";
   _uid: string;
   [k: string]: any;
 }
@@ -217,6 +208,32 @@ export interface GridStoryblok {
   [k: string]: any;
 }
 
+export interface HeroHomeStoryblok {
+  component: "heroHome";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface HeroHorizontalStoryblok {
+  badge?: string;
+  title: string;
+  text: string;
+  buttons?: ButtonStoryblok[];
+  component: "heroHorizontal";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface HeroVerticalStoryblok {
+  badge?: string;
+  title: string;
+  text: string;
+  buttons?: ButtonStoryblok[];
+  component: "heroVertical";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface HorizontalStoryblok {
   backgroundColor: number | string;
   badge: string;
@@ -231,15 +248,17 @@ export interface HorizontalStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
-    | CardLightStoryblok
     | CodeBlockStoryblok
-    | ContactStoryblok
     | DefinitionStoryblok
+    | DefinitionHomeStoryblok
     | FooterAgencyStoryblok
     | FooterLinkStoryblok
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
     | HorizontalStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
@@ -257,15 +276,17 @@ export interface HorizontalStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
-    | CardLightStoryblok
     | CodeBlockStoryblok
-    | ContactStoryblok
     | DefinitionStoryblok
+    | DefinitionHomeStoryblok
     | FooterAgencyStoryblok
     | FooterLinkStoryblok
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
     | HorizontalStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
@@ -290,7 +311,15 @@ export interface LastArticlesStoryblok {
 
 export interface PageStoryblok {
   metaTitle: string;
-  body: (CallToActionStoryblok | HorizontalStoryblok | VerticalStoryblok)[];
+  body: (
+    | CallToActionStoryblok
+    | DefinitionHomeStoryblok
+    | HorizontalStoryblok
+    | VerticalStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+  )[];
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
@@ -307,10 +336,12 @@ export interface SpacerStoryblok {
 }
 
 export interface TechnologyStoryblok {
+  logoFull: AssetStoryblok;
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
+  logoOutline: AssetStoryblok;
   component: "technology";
   _uid: string;
   [k: string]: any;
