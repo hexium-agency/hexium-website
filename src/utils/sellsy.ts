@@ -1,6 +1,9 @@
 const SELLSY_API_URL = 'https://api.sellsy.com/v2/';
 const SELLSY_CLIENT_ID = import.meta.env.SELLSY_CLIENT_ID;
 const SELLSY_CLIENT_SECRET = import.meta.env.SELLSY_CLIENT_SECRET;
+const SELLSY_SOURCE_ID = import.meta.env.SELLSY_SOURCE_ID;
+const SELLSY_PIPELINE_ID = import.meta.env.SELLSY_PIPELINE_ID;
+const SELLSY_STEP_ID = import.meta.env.SELLSY_STEP_ID;
 
 interface TokenData {
   access_token: string;
@@ -35,7 +38,7 @@ export async function createProspect(data: {
   message: string;
 }): Promise<void> {
   try {
-    if (!SELLSY_CLIENT_ID || !SELLSY_CLIENT_SECRET) {
+    if (!SELLSY_CLIENT_ID || !SELLSY_CLIENT_SECRET || !SELLSY_PIPELINE_ID || !SELLSY_STEP_ID) {
       throw new Error('Missing Sellsy API credentials. Please check your environment variables.');
     }
 
@@ -82,20 +85,20 @@ async function createCompanyProspect(
     note: string;
   }
 ): Promise<void> {
-  try {
-    const contact = await makeApiRequest('POST', 'contacts', contactData);
+  const contact = await makeApiRequest('POST', 'contacts', contactData);
 
-    const company = await makeApiRequest('POST', 'companies', {
-      ...companyData,
-      type: 'prospect',
-    });
+  const company = await makeApiRequest('POST', 'companies', {
+    ...companyData,
+    type: 'prospect',
+  });
 
-    await makeApiRequest('POST', `companies/${company.id}/contacts/${contact.id}`, {
-      roles: ['main', 'invoicing', 'dunning'],
-    });
-  } catch (error) {
-    throw error;
-  }
+  await makeApiRequest('POST', `companies/${company.id}/contacts/${contact.id}`);
+  await createCompanyOpportunity(
+    'Nouveau projet avec ' + companyData.name,
+    company.id,
+    contact.id,
+    companyData.note
+  );
 }
 
 /**
@@ -113,15 +116,79 @@ async function createIndividualProspect(
   },
   note: string
 ): Promise<void> {
-  try {
-    await makeApiRequest('POST', 'individuals', {
-      ...contactData,
-      type: 'prospect',
-      note: note,
-    });
-  } catch (error) {
-    throw error;
-  }
+  const individual = await makeApiRequest('POST', 'individuals', {
+    ...contactData,
+    type: 'prospect',
+    note: note,
+  });
+
+  await createIndividualOpportunity(
+    'Nouveau projet avec ' + contactData.first_name + ' ' + contactData.last_name,
+    individual.id,
+    note
+  );
+}
+
+/**
+ * Create an opportunity for an individual
+ * @param individualId - The ID of the individual
+ * @param note - The note to attach to the opportunity
+ * @returns {Promise<void>}
+ */
+async function createIndividualOpportunity(
+  name: string,
+  individualId: string,
+  note: string
+): Promise<void> {
+  const opportunityData = {
+    name,
+    note,
+    related: [
+      {
+        id: individualId,
+        type: 'individual' as const,
+      },
+    ],
+    source: SELLSY_SOURCE_ID,
+    pipeline: SELLSY_PIPELINE_ID,
+    step: SELLSY_STEP_ID,
+  };
+
+  await makeApiRequest('POST', 'opportunities', opportunityData);
+}
+
+/**
+ * Create an opportunity for a company and contact
+ * @param companyId - The ID of the company
+ * @param contactId - The ID of the contact
+ * @param note - The note to attach to the opportunity
+ * @returns {Promise<void>}
+ */
+async function createCompanyOpportunity(
+  name: string,
+  companyId: string,
+  contactId: string,
+  note: string
+): Promise<void> {
+  const opportunityData = {
+    name,
+    note,
+    related: [
+      {
+        id: companyId,
+        type: 'company' as const,
+      },
+      {
+        id: contactId,
+        type: 'contact' as const,
+      },
+    ],
+    source: SELLSY_SOURCE_ID,
+    pipeline: SELLSY_PIPELINE_ID,
+    step: SELLSY_STEP_ID,
+  };
+
+  await makeApiRequest('POST', 'opportunities', opportunityData);
 }
 
 /**
@@ -182,17 +249,22 @@ async function makeApiRequest(method: string, endpoint: string, data?: any): Pro
       method,
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
         Accept: 'application/json',
       },
     };
 
     if (data) {
       options.body = JSON.stringify(data);
+      options.headers = {
+        ...options.headers,
+        'Content-Type': 'application/json',
+      };
     }
 
     const response = await fetch(`${SELLSY_API_URL}${endpoint}`, options);
-    const responseData = await response.json();
+
+    const text = await response.text();
+    const responseData = text ? JSON.parse(text) : null;
 
     if (!response.ok) {
       const errorMessage = responseData.message || responseData.error || response.statusText;
