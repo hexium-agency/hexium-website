@@ -8,9 +8,11 @@ const { value, selected = false } = Astro.props;
 ---
 
 <li
-  class="relative cursor-pointer py-2 pr-9 pl-3 text-gray-900 hover:bg-gray-900 hover:text-white select-none"
+  class="relative cursor-pointer py-2 pr-9 pl-3 text-gray-900 hover:bg-gray-900 hover:text-white select-none focus:bg-gray-900 focus:text-white focus:outline-none"
   role="option"
   data-value={value}
+  aria-selected={selected}
+  tabindex="-1"
 >
   <span class:list={["block truncate", selected ? "font-semibold" : "font-normal"]}>
     <slot />

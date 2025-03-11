@@ -8,6 +8,7 @@ import Select from '@/components/form/select.astro';
 import Textarea from '@/components/form/textarea.astro';
 import Checkbox from '@/components/form/checkbox.astro';
 import BaseLayout from '@/layouts/base-layout.astro';
+import Alert from '@/components/alert.astro';
 ---
 
 <BaseLayout metaTitle="Contact">
@@ -25,7 +26,8 @@ import BaseLayout from '@/layouts/base-layout.astro';
     <div class="bg-gray-100 lg:w-1/2">
       <div class="mx-auto max-w-2xl p-8 lg:p-16">
         <form id="contactForm" class="space-y-4" action="/api/contact" method="POST" enctype="multipart/form-data">
-          <div id="formAlert" class="hidden rounded-md p-4 mb-4"></div>
+          <div id="formAlertContainer" class="hidden mb-4">
+          </div>
           
           <div>
             <Select id="subject" name="subject" required label="Sujet">
@@ -81,8 +83,8 @@ import BaseLayout from '@/layouts/base-layout.astro';
           />
 
           <div class="flex items-center justify-between">
-            <!-- <Button id="submitButton" isLink={false}>Envoyer</Button> -->
-             <button type="submit" id="submitButton">Envoyer</button>
+            <Button id="submitButton" isLink={false}>Envoyer</Button>
+           
             <div id="formSpinner" class="hidden">
               <svg class="animate-spin h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -95,15 +97,34 @@ import BaseLayout from '@/layouts/base-layout.astro';
     </div>
   </div>
 
+  <template id="successAlertTemplate">
+    <Alert 
+      type="success"
+      title="Succès"
+      message="Votre message a été envoyé avec succès."
+    />
+  </template>
+
+  <template id="dangerAlertTemplate">
+    <Alert 
+      type="danger"
+      title="Erreur"
+      message="Une erreur est survenue lors de l'envoi du message."
+    />
+  </template>
+
   <script>
     const subjectSelect = document.getElementById('subject') as HTMLSelectElement | null;
     const companyField = document.getElementById('companyField') as HTMLDivElement | null;
     const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
-    const formAlert = document.getElementById('formAlert') as HTMLDivElement | null;
+    const formAlertContainer = document.getElementById('formAlertContainer') as HTMLDivElement | null;
     const submitButton = document.getElementById('submitButton') as HTMLButtonElement | null;
     const formSpinner = document.getElementById('formSpinner') as HTMLDivElement | null;
+    const successAlertTemplate = document.getElementById('successAlertTemplate') as HTMLTemplateElement | null;
+    const dangerAlertTemplate = document.getElementById('dangerAlertTemplate') as HTMLTemplateElement | null;
+    const fileInput = document.getElementById('files') as HTMLInputElement | null;
+    const fileList = document.getElementById('fileList') as HTMLDivElement | null;
 
-    // Toggle company field based on subject
     function toggleCompanyField() {
       if (!subjectSelect || !companyField) return;
 
@@ -119,24 +140,64 @@ import BaseLayout from '@/layouts/base-layout.astro';
       toggleCompanyField();
     }
 
-    // Handle form submission
+    function showAlert(type: 'success' | 'danger') {
+      if (!formAlertContainer) return;
+      
+      formAlertContainer.innerHTML = '';
+      
+      const template = type === 'success' ? successAlertTemplate : dangerAlertTemplate;
+      if (!template) return;
+      
+      const alertElement = template.content.cloneNode(true) as DocumentFragment;
+      
+      formAlertContainer.appendChild(alertElement);
+      formAlertContainer.classList.remove('hidden');
+    }
+    
+    // Function to reset the select component visually
+    function resetSelectComponent() {
+      if (!subjectSelect) return;
+      
+      // Reset the select to first option
+      subjectSelect.selectedIndex = 0;
+      
+      // Update the visual display of the select
+      const selectValueSpan = document.querySelector('[data-select-value]') as HTMLSpanElement | null;
+      if (selectValueSpan && subjectSelect.options.length > 0) {
+        selectValueSpan.textContent = subjectSelect.options[0].textContent;
+      }
+      
+      // Trigger the change event to update any dependent fields (like companyField)
+      subjectSelect.dispatchEvent(new Event('change'));
+    }
+    
+    // Function to reset the file upload component visually
+    function resetFileUploadComponent() {
+      if (!fileList) return;
+      
+      // Clear the file list display
+      fileList.innerHTML = '';
+      
+      // Reset the DataTransfer object if needed
+      if (fileInput) {
+        const emptyDataTransfer = new DataTransfer();
+        fileInput.files = emptyDataTransfer.files;
+      }
+    }
+    
     if (contactForm) {
       contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-
-        console.log('submit');
         
-        if (!formAlert || !submitButton || !formSpinner) return;
+        if (!formAlertContainer || !submitButton || !formSpinner) return;
         
-        // Show loading state
         submitButton.disabled = true;
         formSpinner.classList.remove('hidden');
-        formAlert.classList.add('hidden');
+        formAlertContainer.classList.add('hidden');
         
         try {
           const formData = new FormData(contactForm);
           
-          // Send the form data to the API
           const response = await fetch('/api/contact', {
             method: 'POST',
             body: formData,
@@ -144,29 +205,22 @@ import BaseLayout from '@/layouts/base-layout.astro';
           
           const data = await response.json();
           
-          // Show success or error message
-          formAlert.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'bg-green-100', 'text-green-800');
-          
           if (data.success) {
-            formAlert.classList.add('bg-green-100', 'text-green-800');
-            formAlert.textContent = data.message;
+            showAlert('success');
             contactForm.reset();
+            // Reset select and file upload components visually
+            resetSelectComponent();
+            resetFileUploadComponent();
           } else {
-            formAlert.classList.add('bg-red-100', 'text-red-800');
-            formAlert.textContent = data.message;
+            showAlert('danger');
           }
         } catch (error) {
-          // Show error message
-          formAlert.classList.remove('hidden', 'bg-green-100', 'text-green-800');
-          formAlert.classList.add('bg-red-100', 'text-red-800');
-          formAlert.textContent = 'Une erreur est survenue lors de l\'envoi du message.';
+          showAlert('danger');
         } finally {
-          // Hide loading state
           submitButton.disabled = false;
           formSpinner.classList.add('hidden');
-          
-          // Scroll to the top of the form
-          formAlert.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+          formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     }
