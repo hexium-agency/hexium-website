@@ -113,6 +113,7 @@ export interface ButtonStoryblok {
   title: string;
   link: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
   style: "" | "blackFull" | "blackLink" | "blueFull" | "grayFull" | "whiteFull" | "whiteLink";
+  isArrowShowed?: boolean;
   component: "button";
   _uid: string;
   [k: string]: any;
@@ -234,7 +235,70 @@ export interface HeroVerticalStoryblok {
   [k: string]: any;
 }
 
-export interface HorizontalStoryblok {
+export interface LastArticlesStoryblok {
+  category?: ISbStoryData<BlogCategoryStoryblok> | string;
+  component: "lastArticles";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface PageStoryblok {
+  metaTitle: string;
+  body: (
+    | CallToActionStoryblok
+    | DefinitionHomeStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+  )[];
+  metaDescription: string;
+  ogBadge: string;
+  ogTitle: string;
+  component: "page";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface SectionStoryblok {
+  blocks?: (
+    | AccordionStoryblok
+    | AccordionGroupStoryblok
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | ButtonStoryblok
+    | ButtonGroupStoryblok
+    | CallToActionStoryblok
+    | CodeBlockStoryblok
+    | DefinitionStoryblok
+    | DefinitionHomeStoryblok
+    | FooterAgencyStoryblok
+    | FooterLinkStoryblok
+    | FooterLinkGroupStoryblok
+    | GlobalStoryblok
+    | GridStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | LastArticlesStoryblok
+    | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | SpacerStoryblok
+    | TechnologyStoryblok
+    | TestimonialStoryblok
+    | WorkStoryblok
+  )[];
+  backgroundColor: number | string;
+  component: "section";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface SectionHorizontalStoryblok {
   backgroundColor: number | string;
   badge: string;
   title: string;
@@ -259,13 +323,14 @@ export interface HorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | HorizontalStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
     | SpacerStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
-    | VerticalStoryblok
     | WorkStoryblok
   )[];
   bottomsItems?: (
@@ -287,43 +352,69 @@ export interface HorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | HorizontalStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
     | SpacerStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
-    | VerticalStoryblok
     | WorkStoryblok
   )[];
   revertSide?: boolean;
-  component: "horizontal";
+  component: "sectionHorizontal";
   _uid: string;
   [k: string]: any;
 }
 
-export interface LastArticlesStoryblok {
-  category?: ISbStoryData<BlogCategoryStoryblok> | string;
-  component: "lastArticles";
-  _uid: string;
-  [k: string]: any;
-}
-
-export interface PageStoryblok {
-  metaTitle: string;
-  body: (
+export interface SectionVerticalStoryblok {
+  backgroundColor: number | string;
+  titleMaxWidth: number | string;
+  textMaxWidth: number | string;
+  isCentered?: boolean;
+  style: "" | "centered" | "justified" | "shared";
+  badge: string;
+  title: string;
+  text?: RichtextStoryblok;
+  items?: (
+    | PageInlineRichtextStoryblok
+    | ButtonGroupStoryblok
+    | AccordionGroupStoryblok
+    | SpacerStoryblok
+    | LastArticlesStoryblok
+    | ContactStoryblok
+  )[];
+  blocks?: (
+    | AccordionStoryblok
+    | AccordionGroupStoryblok
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | ButtonStoryblok
+    | ButtonGroupStoryblok
     | CallToActionStoryblok
+    | CodeBlockStoryblok
+    | DefinitionStoryblok
     | DefinitionHomeStoryblok
-    | HorizontalStoryblok
-    | VerticalStoryblok
+    | FooterAgencyStoryblok
+    | FooterLinkStoryblok
+    | FooterLinkGroupStoryblok
+    | GlobalStoryblok
+    | GridStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | LastArticlesStoryblok
+    | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | SpacerStoryblok
+    | TechnologyStoryblok
+    | TestimonialStoryblok
+    | WorkStoryblok
   )[];
-  metaDescription: string;
-  ogBadge: string;
-  ogTitle: string;
-  component: "page";
+  component: "sectionVertical";
   _uid: string;
   [k: string]: any;
 }
@@ -355,27 +446,6 @@ export interface TestimonialStoryblok {
   position: string;
   content: string;
   component: "testimonial";
-  _uid: string;
-  [k: string]: any;
-}
-
-export interface VerticalStoryblok {
-  backgroundColor: number | string;
-  titleMaxWidth: number | string;
-  textMaxWidth: number | string;
-  isCentered?: boolean;
-  badge: string;
-  title: string;
-  text?: RichtextStoryblok;
-  items?: (
-    | PageInlineRichtextStoryblok
-    | ButtonGroupStoryblok
-    | AccordionGroupStoryblok
-    | SpacerStoryblok
-    | LastArticlesStoryblok
-    | ContactStoryblok
-  )[];
-  component: "vertical";
   _uid: string;
   [k: string]: any;
 }
