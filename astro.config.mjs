@@ -38,6 +38,7 @@ export default defineConfig({
         'section-vertical': 'components/storyblok/sections/section-vertical',
         // UI
         'button': 'components/storyblok/ui/button',
+        'spacer': 'components/storyblok/ui/spacer',
         'footerAgency': 'components/ui/footer-agency',
         'footerLink': 'components/ui/footer-link',
         'footerLinkGroup': 'components/ui/footer-link-group',
