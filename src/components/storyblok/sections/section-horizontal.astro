@@ -1,0 +1,18 @@
+---
+import type { SectionHorizontalStoryblok } from '@/types/storyblok';
+import { parseStoryblokBackgroundColor } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: SectionHorizontalStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<section
+  {...storyblokEditable(blok)}
+  class:list={parseStoryblokBackgroundColor(blok.backgroundColor)}
+>
+  HORIZONTAL
+</section>

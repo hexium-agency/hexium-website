@@ -33,7 +33,7 @@ export default defineConfig({
         'definition-home': 'components/storyblok/sections/definition-home',
         'hero-horizontal': 'components/storyblok/sections/hero-horizontal',
         'hero-vertical': 'components/storyblok/sections/hero-vertical',
-        'horizontal': 'components/storyblok/sections/horizontal',
+        'section-horizontal': 'components/storyblok/sections/section-horizontal',
         'section-vertical': 'components/storyblok/sections/section-vertical',
         // UI
         'button': 'components/storyblok/ui/button',
