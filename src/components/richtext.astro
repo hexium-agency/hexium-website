@@ -10,13 +10,15 @@ import type { RichTextType } from 'storyblok-rich-text-astro-renderer';
 import RichTextRenderer from 'storyblok-rich-text-astro-renderer/RichTextRenderer.astro';
 
 export interface Props {
+  class: string;
   text: RichTextType | RichtextStoryblok;
 }
 
-const { text } = Astro.props;
+const { class: className, text } = Astro.props;
 ---
 
 <RichTextRenderer
+  class:list={className}
   content={text as RichTextType}
   schema={{
     nodes: {
