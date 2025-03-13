@@ -1,0 +1,76 @@
+---
+import Richtext from '@/components/richtext.astro';
+import { cn } from '@/lib/utils';
+import type { SectionVerticalStoryblok } from '@/types/storyblok';
+import { parseStoryblokBackgroundColor, parseStoryblokMaxWidth } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: SectionVerticalStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const Title = blok.badge ? 'h2' : 'h1';
+// TODO: Badge color
+// TODO: Title size
+// TODO: Title max width
+// TODO: Text max width
+---
+
+<section
+  {...storyblokEditable(blok)}
+  class:list={parseStoryblokBackgroundColor(blok.backgroundColor)}
+>
+  <div class="container py-20 sm:py-32">
+    {
+      blok.badge && (
+        <h1
+          class:list={cn(
+            'text-2xs mb-6 font-mono font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200',
+            blok.style === 'centered' ? 'text-center' : 'text-left'
+          )}
+        >
+          {blok.badge}
+        </h1>
+      )
+    }
+    <div class:list={cn(blok.style === 'shared' && 'mt-6 lg:flex lg:justify-between lg:gap-x-16')}>
+      <Title
+        class:list={cn(
+          'text-3xl font-semibold tracking-tight text-balance text-gray-950 dark:text-white',
+          blok.style === 'centered' ? 'text-center' : 'text-left',
+          blok.style === 'centered' && parseStoryblokMaxWidth(blok.titleMaxWidth) + ' mx-auto',
+          blok.style === 'justified' && 'max-w-2xl',
+          blok.style === 'shared' && 'max-w-xl flex-auto text-pretty'
+        )}
+      >
+        {blok.title}
+      </Title>
+      {
+        blok.text && (
+          <Richtext
+            text={blok.text}
+            class={cn(
+              'mt-3 space-y-4 text-base/5 text-gray-600 dark:text-gray-400',
+              blok.style === 'centered' ? 'text-center' : 'text-left',
+              blok.style === 'centered' && parseStoryblokMaxWidth(blok.textMaxWidth) + ' mx-auto',
+              blok.style === 'justified' && 'max-w-xl text-pretty',
+              blok.style === 'shared' && 'mt-4 flex-auto text-pretty lg:mt-0'
+            )}
+          />
+        )
+      }
+    </div>
+    {
+      !!blok.blocks?.length && (
+        <div class="mt-16">
+          {blok.blocks?.map((block) => (
+            <StoryblokComponent blok={block} />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>

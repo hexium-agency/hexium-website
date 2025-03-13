@@ -34,7 +34,7 @@ export default defineConfig({
         'hero-horizontal': 'components/storyblok/sections/hero-horizontal',
         'hero-vertical': 'components/storyblok/sections/hero-vertical',
         'horizontal': 'components/storyblok/sections/horizontal',
-        'vertical': 'components/storyblok/sections/vertical',
+        'section-vertical': 'components/storyblok/sections/section-vertical',
         // UI
         'button': 'components/storyblok/ui/button',
         'footerAgency': 'components/ui/footer-agency',
