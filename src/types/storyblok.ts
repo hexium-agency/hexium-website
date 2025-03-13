@@ -302,38 +302,9 @@ export interface SectionHorizontalStoryblok {
   backgroundColor: number | string;
   badge: string;
   title: string;
-  text: RichtextStoryblok;
+  text?: RichtextStoryblok;
   leftItems?: GridStoryblok[];
-  rightItems: (
-    | AccordionStoryblok
-    | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | ButtonStoryblok
-    | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CodeBlockStoryblok
-    | DefinitionStoryblok
-    | DefinitionHomeStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
-    | GridStoryblok
-    | HeroHomeStoryblok
-    | HeroHorizontalStoryblok
-    | HeroVerticalStoryblok
-    | LastArticlesStoryblok
-    | PageStoryblok
-    | SectionStoryblok
-    | SectionHorizontalStoryblok
-    | SectionVerticalStoryblok
-    | SpacerStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | WorkStoryblok
-  )[];
-  bottomsItems?: (
+  rightItems?: (
     | AccordionStoryblok
     | AccordionGroupStoryblok
     | ArticleStoryblok
@@ -363,6 +334,36 @@ export interface SectionHorizontalStoryblok {
     | WorkStoryblok
   )[];
   revertSide?: boolean;
+  bottomItems?: (
+    | AccordionStoryblok
+    | AccordionGroupStoryblok
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | ButtonStoryblok
+    | ButtonGroupStoryblok
+    | CallToActionStoryblok
+    | CodeBlockStoryblok
+    | DefinitionStoryblok
+    | DefinitionHomeStoryblok
+    | FooterAgencyStoryblok
+    | FooterLinkStoryblok
+    | FooterLinkGroupStoryblok
+    | GlobalStoryblok
+    | GridStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | LastArticlesStoryblok
+    | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | SpacerStoryblok
+    | TechnologyStoryblok
+    | TestimonialStoryblok
+    | WorkStoryblok
+  )[];
+  sizeLeftColumn: "" | "half" | "third";
   component: "sectionHorizontal";
   _uid: string;
   [k: string]: any;
