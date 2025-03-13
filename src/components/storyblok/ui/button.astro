@@ -14,7 +14,7 @@ const { blok } = Astro.props as AstroProps;
 <ButtonBase
   {...storyblokEditable(blok)}
   isLink={true}
-  showArrow={true}
+  isArrowShowed={blok.isArrowShowed}
   color={blok.style}
   link={parseStoryblokLink(blok.link)}
 >

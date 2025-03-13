@@ -4,11 +4,16 @@ import { cn } from '@/lib/utils';
 interface AstroProps {
   color?: 'blackFull' | 'blackLink' | 'grayFull' | 'blueFull' | 'whiteFull' | 'whiteLink';
   isLink?: boolean;
-  showArrow?: boolean;
+  isArrowShowed?: boolean;
   link?: string;
 }
 
-const { color = 'blackFull', isLink = true, link, showArrow = true } = Astro.props as AstroProps;
+const {
+  color = 'blackFull',
+  isLink = true,
+  link,
+  isArrowShowed = true,
+} = Astro.props as AstroProps;
 
 const styles = {
   blackFull: 'bg-gray-900 text-white ring-gray-900 ring-1',
@@ -33,7 +38,7 @@ const Tag = isLink ? 'a' : 'button';
 >
   <slot />
   {
-    showArrow && (
+    isArrowShowed && (
       <>
         <svg
           viewBox="0 0 10 10"
