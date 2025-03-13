@@ -1,5 +1,18 @@
 import { type MultilinkStoryblok, type AssetStoryblok } from '@/types/storyblok';
 
+export function parseStoryblokBackgroundColor(backgroundColor: number | string) {
+  switch (backgroundColor) {
+    case 'white':
+      return 'bg-gray-50';
+    case 'gray':
+      return 'bg-gray-100';
+    case 'black':
+      return 'bg-gray-950 dark';
+    default:
+      return 'bg-gray-50';
+  }
+}
+
 export function parseStoryblokImage(image: AssetStoryblok) {
   const dimensions = image.filename.match(/\/(\d+)x(\d+)\//);
 
@@ -23,6 +36,37 @@ export function parseStoryblokLink(link: MultilinkStoryblok | undefined): string
   }
 
   return '';
+}
+
+export function parseStoryblokMaxWidth(maxWidth: number | string) {
+  switch (maxWidth) {
+    case 'NONE':
+      return 'max-w-none';
+    case 'XS':
+      return 'max-w-xs';
+    case 'SM':
+      return 'max-w-sm';
+    case 'MD':
+      return 'max-w-md';
+    case 'LG':
+      return 'max-w-lg';
+    case 'XL':
+      return 'max-w-xl';
+    case '2XL':
+      return 'max-w-2xl';
+    case '3XL':
+      return 'max-w-3xl';
+    case '4XL':
+      return 'max-w-4xl';
+    case '5XL':
+      return 'max-w-5xl';
+    case '6XL':
+      return 'max-w-6xl';
+    case '7XL':
+      return 'max-w-7xl';
+    default:
+      return '';
+  }
 }
 
 export function parseStoryblokRichTextImage(image: any) {
