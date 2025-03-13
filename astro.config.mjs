@@ -31,6 +31,7 @@ export default defineConfig({
         // SECTIONS
         'call-to-action': 'components/storyblok/sections/call-to-action',
         'definition-home': 'components/storyblok/sections/definition-home',
+        'hero-home': 'components/storyblok/sections/hero-home',
         'hero-horizontal': 'components/storyblok/sections/hero-horizontal',
         'hero-vertical': 'components/storyblok/sections/hero-vertical',
         'section-horizontal': 'components/storyblok/sections/section-horizontal',
