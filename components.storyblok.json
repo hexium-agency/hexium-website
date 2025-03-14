@@ -489,6 +489,140 @@
       "component_group_name": "SECTION"
     },
     {
+      "name": "cardIconTitleText",
+      "display_name": "CARD (ICÔNE - TITRE - TEXTE)",
+      "description": "",
+      "created_at": "2025-03-13T12:27:03.267Z",
+      "updated_at": "2025-03-14T10:26:01.396Z",
+      "id": 7081067,
+      "schema": {
+        "icon": {
+          "type": "asset",
+          "pos": 0,
+          "display_name": "ICÔNE",
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 681165,
+          "description": "Uniquement un SVG qui devra être normalisé avant",
+          "id": "tKMGIQNzTtS0gt9AdveLUQ"
+        },
+        "title": {
+          "type": "text",
+          "pos": 1,
+          "id": "lOVDahm7SxmWYscV9U62YA",
+          "display_name": "TITRE",
+          "required": true,
+          "description": "H4"
+        },
+        "text": {
+          "type": "textarea",
+          "pos": 2,
+          "customize_toolbar": true,
+          "toolbar": [
+            "bold",
+            "copy",
+            "cut",
+            "redo",
+            "undo",
+            "link"
+          ],
+          "required": true,
+          "display_name": "TEXTE",
+          "id": "5Q07nZ4dRRu4-5iZzm9x_Q"
+        },
+        "link": {
+          "type": "multilink",
+          "pos": 3,
+          "display_name": "LIEN",
+          "id": "ustSesQ4SempRD3kPMCO3Q"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CARD (ICÔNE - TITRE - TEXTE)",
+      "component_group_uuid": "all",
+      "color": null,
+      "icon": null,
+      "internal_tags_list": [],
+      "internal_tag_ids": [],
+      "content_type_asset_preview": null,
+      "component_group_name": ""
+    },
+    {
+      "name": "cardImageTitleText",
+      "display_name": "CARD (IMAGE - TITRE - TEXTE)",
+      "description": "",
+      "created_at": "2025-03-14T14:39:25.425Z",
+      "updated_at": "2025-03-14T14:41:45.579Z",
+      "id": 7088665,
+      "schema": {
+        "image": {
+          "type": "asset",
+          "pos": 0,
+          "display_name": "IMAGE",
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": null,
+          "description": "",
+          "id": "tKMGIQNzTtS0gt9AdveLUQ"
+        },
+        "title": {
+          "type": "text",
+          "pos": 1,
+          "id": "lOVDahm7SxmWYscV9U62YA",
+          "display_name": "TITRE",
+          "required": true,
+          "description": "H4"
+        },
+        "text": {
+          "type": "textarea",
+          "pos": 2,
+          "customize_toolbar": true,
+          "toolbar": [
+            "bold",
+            "copy",
+            "cut",
+            "redo",
+            "undo",
+            "link"
+          ],
+          "required": true,
+          "display_name": "TEXTE",
+          "id": "5Q07nZ4dRRu4-5iZzm9x_Q"
+        },
+        "link": {
+          "type": "multilink",
+          "pos": 3,
+          "display_name": "LIEN",
+          "id": "ustSesQ4SempRD3kPMCO3Q"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CARD (IMAGE - TITRE - TEXTE)",
+      "component_group_uuid": "all",
+      "color": null,
+      "icon": null,
+      "internal_tags_list": [],
+      "internal_tag_ids": [],
+      "content_type_asset_preview": null,
+      "component_group_name": ""
+    },
+    {
       "name": "codeBlock",
       "display_name": "CODE BLOCK",
       "description": null,
@@ -904,7 +1038,7 @@
       "display_name": "GRILLE",
       "description": null,
       "created_at": "2024-12-13T14:47:37.052Z",
-      "updated_at": "2025-03-14T09:52:32.689Z",
+      "updated_at": "2025-03-14T10:26:01.481Z",
       "id": 6687188,
       "schema": {
         "cols": {
@@ -958,7 +1092,7 @@
           "restrict_components": true,
           "component_whitelist": [
             "cardLight",
-            "item"
+            "cardIconTitleText"
           ],
           "minimum": 1,
           "required": true,
@@ -1316,73 +1450,6 @@
       ],
       "content_type_asset_preview": null,
       "component_group_name": "HERO"
-    },
-    {
-      "name": "item",
-      "display_name": "ITEM",
-      "description": "",
-      "created_at": "2025-03-13T12:27:03.267Z",
-      "updated_at": "2025-03-13T14:42:13.162Z",
-      "id": 7081067,
-      "schema": {
-        "icon": {
-          "type": "asset",
-          "pos": 0,
-          "display_name": "ICÔNE",
-          "required": true,
-          "filetypes": [
-            "images"
-          ],
-          "asset_folder_id": 681165,
-          "description": "Uniquement un SVG qui devra être normalisé avant",
-          "id": "tKMGIQNzTtS0gt9AdveLUQ"
-        },
-        "title": {
-          "type": "text",
-          "pos": 1,
-          "id": "lOVDahm7SxmWYscV9U62YA",
-          "display_name": "TITRE",
-          "required": true,
-          "description": "H4"
-        },
-        "text": {
-          "type": "textarea",
-          "pos": 2,
-          "customize_toolbar": true,
-          "toolbar": [
-            "bold",
-            "copy",
-            "cut",
-            "redo",
-            "undo",
-            "link"
-          ],
-          "required": true,
-          "display_name": "TEXTE",
-          "id": "5Q07nZ4dRRu4-5iZzm9x_Q"
-        },
-        "link": {
-          "type": "multilink",
-          "pos": 3,
-          "display_name": "LIEN",
-          "id": "ustSesQ4SempRD3kPMCO3Q"
-        }
-      },
-      "image": null,
-      "preview_field": null,
-      "is_root": false,
-      "preview_tmpl": null,
-      "is_nestable": true,
-      "all_presets": [],
-      "preset_id": null,
-      "real_name": "ITEM",
-      "component_group_uuid": "all",
-      "color": null,
-      "icon": null,
-      "internal_tags_list": [],
-      "internal_tag_ids": [],
-      "content_type_asset_preview": null,
-      "component_group_name": ""
     },
     {
       "name": "lastArticles",
@@ -1744,7 +1811,7 @@
       "display_name": "SECTION - VERTICAL",
       "description": null,
       "created_at": "2024-12-13T07:33:53.480Z",
-      "updated_at": "2025-03-12T13:40:28.200Z",
+      "updated_at": "2025-03-14T12:58:59.473Z",
       "id": 6684165,
       "schema": {
         "backgroundColor": {
@@ -1781,13 +1848,6 @@
           "default_value": "XL",
           "id": "Av5oG51lSZKEO0ULdH0oKQ",
           "description": "Effectif uniquement lorsque STYLE vaut CENTRÉ"
-        },
-        "isCentered": {
-          "type": "boolean",
-          "pos": 3,
-          "display_name": "CENTRÉ",
-          "default_value": true,
-          "id": "32iTGOGeQjuDQjmzR8lAMQ"
         },
         "style": {
           "type": "option",
@@ -1869,7 +1929,6 @@
             "backgroundColor",
             "titleMaxWidth",
             "textMaxWidth",
-            "isCentered",
             "style"
           ],
           "pos": 9,

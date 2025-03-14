@@ -136,6 +136,26 @@ export interface CallToActionStoryblok {
   [k: string]: any;
 }
 
+export interface CardIconTitleTextStoryblok {
+  icon: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "cardIconTitleText";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardImageTitleTextStoryblok {
+  image: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "cardImageTitleText";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface CodeBlockStoryblok {
   component: "codeBlock";
   _uid: string;
@@ -199,7 +219,7 @@ export interface GridStoryblok {
   colsMd?: number | string;
   colsLg?: number | string;
   colsXl?: number | string;
-  items: (CardLightStoryblok | ItemStoryblok)[];
+  items: (CardLightStoryblok | CardIconTitleTextStoryblok)[];
   spaceX: number | string;
   spaceXSm?: number | string;
   spaceXMd?: number | string;
@@ -241,16 +261,6 @@ export interface HeroVerticalStoryblok {
   [k: string]: any;
 }
 
-export interface ItemStoryblok {
-  icon: AssetStoryblok;
-  title: string;
-  text: string;
-  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
-  component: "item";
-  _uid: string;
-  [k: string]: any;
-}
-
 export interface LastArticlesStoryblok {
   category?: ISbStoryData<BlogCategoryStoryblok> | string;
   component: "lastArticles";
@@ -287,6 +297,8 @@ export interface SectionStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
+    | CardIconTitleTextStoryblok
+    | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
@@ -298,7 +310,6 @@ export interface SectionStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | ItemStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -329,6 +340,8 @@ export interface SectionHorizontalStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
+    | CardIconTitleTextStoryblok
+    | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
@@ -340,7 +353,6 @@ export interface SectionHorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | ItemStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -360,6 +372,8 @@ export interface SectionHorizontalStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
+    | CardIconTitleTextStoryblok
+    | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
@@ -371,7 +385,6 @@ export interface SectionHorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | ItemStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -392,7 +405,6 @@ export interface SectionVerticalStoryblok {
   backgroundColor: number | string;
   titleMaxWidth: number | string;
   textMaxWidth: number | string;
-  isCentered?: boolean;
   style: "" | "centered" | "justified" | "shared";
   badge: string;
   title: string;
@@ -413,6 +425,8 @@ export interface SectionVerticalStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
+    | CardIconTitleTextStoryblok
+    | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
@@ -424,7 +438,6 @@ export interface SectionVerticalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | ItemStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
