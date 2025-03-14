@@ -221,8 +221,6 @@ const spaceYLg: Record<string, string> = {
 
 const { blok } = Astro.props as AstroProps;
 
-console.log(blok.cols);
-
 const Tag = blok.tag;
 ---
 
@@ -230,7 +228,7 @@ const Tag = blok.tag;
   {...storyblokEditable(blok)}
   class:list={[
     'grid',
-    parseStoryblokMaxWidth(blok.maxWidth),
+    parseStoryblokMaxWidth(blok.maxWidth!),
     cols[blok.cols!],
     blok.cols !== blok.colsSm && colsSm[blok.colsSm!],
     blok.colsSm !== blok.colsMd && colsMd[blok.colsMd!],
