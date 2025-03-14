@@ -1,0 +1,57 @@
+---
+import SvgDistant from '@/components/svg-distant.astro';
+import type { ItemStoryblok } from '@/types/storyblok';
+import { parseStoryblokLink } from '@/utils/storyblok';
+
+interface AstroProps {
+  blok: ItemStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const TitleWrapper = !!parseStoryblokLink(blok.link) ? 'a' : 'span';
+
+---
+
+<li class="list-none text-sm/5">
+  <h3 class="group relative flex gap-2.5 font-medium text-gray-950 dark:text-white">
+    <SvgDistant url={blok.icon} class="mt-0.5 size-4 flex-none" />
+    <TitleWrapper
+      class="inline-flex items-center justify-center"
+      {...(!!parseStoryblokLink(blok.link) ? { href: parseStoryblokLink(blok.link) } : {})}
+    >
+      {blok.title}
+      {!!parseStoryblokLink(blok.link) && (
+        <svg
+          viewBox="0 0 10 10"
+          aria-hidden="true"
+        class="before:transtion-opacity ml-2 h-2.5 w-2.5 flex-none opacity-60 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-6 group-hover:opacity-0 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+      >
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="m7.25 5-3.5-2.25v4.5L7.25 5Z"></path>
+      </svg>
+      <svg
+        viewBox="0 0 10 10"
+        aria-hidden="true"
+        class="before:transtion-opacity -ml-2.5 h-2.5 w-2.5 flex-none -translate-x-2 opacity-0 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-0 group-hover:opacity-100 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+      >
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="m7.25 5-3.5-2.25v4.5L7.25 5Z"></path>
+        </svg>
+      )}
+    </TitleWrapper>
+  </h3>
+  <p class="mt-2 text-gray-600 dark:text-gray-400">
+    {blok.text}
+  </p>
+</li>

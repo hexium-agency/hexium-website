@@ -39,6 +39,7 @@ export default defineConfig({
         // UI
         'button': 'components/storyblok/ui/button',
         'grid': 'components/storyblok/ui/grid',
+        'card-icon-title-text': 'components/storyblok/ui/card-icon-title-text',
         'spacer': 'components/storyblok/ui/spacer',
         'footerAgency': 'components/ui/footer-agency',
         'footerLink': 'components/ui/footer-link',
