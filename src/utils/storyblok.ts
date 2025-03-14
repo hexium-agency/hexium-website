@@ -27,11 +27,21 @@ export function parseStoryblokImage(image: AssetStoryblok) {
 export function parseStoryblokLink(link: MultilinkStoryblok | undefined): string {
   if (link?.linktype === 'story') {
     const url = link.cached_url || link.href || '';
+
+    if (url === 'home') {
+      return '/';
+    }
+
     return `/${url}`.replace(/\/$/, '');
   }
 
   if (link?.linktype === 'url') {
     const url = link.cached_url || link.href || '';
+
+    if (url === 'home') {
+      return '/';
+    }
+
     return url as string;
   }
 
