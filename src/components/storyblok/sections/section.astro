@@ -16,6 +16,6 @@ const { blok } = Astro.props as AstroProps;
   class:list={parseStoryblokBackgroundColor(blok.backgroundColor)}
 >
   <div class="container py-20 sm:py-32">
-    {!!blok.blocks?.length && blok.blocks?.map((block) => <StoryblokComponent blok={block} />)}
+    {blok.blocks && blok.blocks?.map((block) => <StoryblokComponent blok={block} />)}
   </div>
 </section>
