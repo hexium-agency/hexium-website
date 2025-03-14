@@ -1,0 +1,73 @@
+---
+import type { CardImageTitleTextStoryblok } from '@/types/storyblok';
+import { parseStoryblokLink } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: CardImageTitleTextStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const TitleWrapper = !!parseStoryblokLink(blok.link) ? 'a' : 'span';
+
+// TODO: Add image
+---
+
+<div {...storyblokEditable(blok)} class="group relative">
+  <div
+    class="bg-gray-25 relative mb-6 aspect-[320/204] w-full overflow-hidden rounded-lg shadow-[0_4px_8px_rgba(32,42,54,0.05),0_1px_5px_-4px_rgba(19,19,22,0.7)] ring-1 ring-gray-900/7.5 dark:bg-gray-900 dark:shadow-[0_-1px_rgba(255,255,255,0.06),0_4px_8px_rgba(0,0,0,0.05),0_0_0_1px_rgba(255,255,255,0.1),0_1px_6px_-4px_#000] [&>img]:absolute [&>img]:inset-0 [&>img]:size-full [&>img]:object-cover"
+  >
+  </div>
+  <div>
+    <h3 class="text-[0.875rem]/5 font-medium text-gray-950 dark:text-white">
+      <TitleWrapper
+        {...!!parseStoryblokLink(blok.link) ? { href: parseStoryblokLink(blok.link) } : {}}
+        class="inline-flex items-center justify-center"
+      >
+        {blok.title}
+        {
+          !!parseStoryblokLink(blok.link) && (
+            <>
+              <svg
+                viewBox="0 0 10 10"
+                aria-hidden="true"
+                class="before:transtion-opacity ml-2 h-2.5 w-2.5 flex-none opacity-60 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-6 group-hover:opacity-0 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+              >
+                <path
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                />
+              </svg>
+              <svg
+                viewBox="0 0 10 10"
+                aria-hidden="true"
+                class="before:transtion-opacity -ml-2.5 h-2.5 w-2.5 flex-none -translate-x-2 opacity-0 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-0 group-hover:opacity-100 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+              >
+                <path
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                />
+              </svg>
+            </>
+          )
+        }
+        <span class="absolute inset-0" aria-hidden="true"></span>
+      </TitleWrapper>
+    </h3>
+    <div class="mt-2 text-[0.875rem]/5 text-gray-600 dark:text-gray-400">
+      <p>
+        Clerk offers multiple authentication strategies to identify legitimate users of your
+        application, and to allow them to make authenticated requests to your backend.
+      </p>
+    </div>
+  </div>
+</div>
