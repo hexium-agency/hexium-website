@@ -195,15 +195,21 @@ export interface GlobalStoryblok {
 }
 
 export interface GridStoryblok {
-  tag: "" | "div" | "ul";
-  maxWidth: number | string;
   cols: number | string;
-  mdCols: number | string;
-  lgCols: number | string;
-  xlCols: number | string;
-  spaceY: number | string;
+  colsMd?: number | string;
+  colsLg?: number | string;
+  colsXl?: number | string;
+  items: (CardLightStoryblok | ItemStoryblok)[];
   spaceX: number | string;
-  items: CardLightStoryblok[];
+  spaceXSm?: number | string;
+  spaceXMd?: number | string;
+  spaceXLg?: number | string;
+  spaceY: number | string;
+  spaceYSm?: number | string;
+  spaceYMd?: number | string;
+  spaceYLg?: number | string;
+  tag: "" | "div" | "ul";
+  maxWidth?: number | string;
   component: "grid";
   _uid: string;
   [k: string]: any;
@@ -231,6 +237,16 @@ export interface HeroVerticalStoryblok {
   text: string;
   buttons?: ButtonStoryblok[];
   component: "heroVertical";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface ItemStoryblok {
+  icon: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "item";
   _uid: string;
   [k: string]: any;
 }
@@ -282,6 +298,7 @@ export interface SectionStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | ItemStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -323,6 +340,7 @@ export interface SectionHorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | ItemStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -353,6 +371,7 @@ export interface SectionHorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | ItemStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -405,6 +424,7 @@ export interface SectionVerticalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | ItemStoryblok
     | LastArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -421,7 +441,10 @@ export interface SectionVerticalStoryblok {
 }
 
 export interface SpacerStoryblok {
-  space?: number | string;
+  space: number | string;
+  smSpace: number | string;
+  mdSpace: number | string;
+  lgSpace: number | string;
   component: "spacer";
   _uid: string;
   [k: string]: any;
