@@ -50,8 +50,6 @@ export function parseStoryblokLink(link: MultilinkStoryblok | undefined): string
 
 export function parseStoryblokMaxWidth(maxWidth: number | string) {
   switch (maxWidth) {
-    case 'NONE':
-      return 'max-w-none';
     case 'XS':
       return 'max-w-xs';
     case 'SM':
@@ -75,7 +73,7 @@ export function parseStoryblokMaxWidth(maxWidth: number | string) {
     case '7XL':
       return 'max-w-7xl';
     default:
-      return '';
+      return 'max-w-none';
   }
 }
 
