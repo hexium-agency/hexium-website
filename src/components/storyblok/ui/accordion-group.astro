@@ -1,0 +1,23 @@
+---
+import { cn } from '@/lib/utils';
+import type { AccordionGroupStoryblok } from '@/types/storyblok';
+import { parseStoryblokMaxWidth } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: AccordionGroupStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div
+  {...storyblokEditable(blok)}
+  class={cn(
+    'mx-auto space-y-1 divide-y-1 divide-gray-200 py-20 dark:divide-gray-900',
+    parseStoryblokMaxWidth(blok.maxWidth)
+  )}
+>
+  {blok.accordions.map((accordion) => <StoryblokComponent blok={accordion} />)}
+</div>

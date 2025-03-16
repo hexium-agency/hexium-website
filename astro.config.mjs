@@ -37,6 +37,8 @@ export default defineConfig({
         'section-horizontal': 'components/storyblok/sections/section-horizontal',
         'section-vertical': 'components/storyblok/sections/section-vertical',
         // UI
+        'accordion-group': 'components/storyblok/ui/accordion-group',
+        'accordion': 'components/storyblok/ui/accordion',
         'button': 'components/storyblok/ui/button',
         'grid': 'components/storyblok/ui/grid',
         'card-icon-title-text': 'components/storyblok/ui/card-icon-title-text',
