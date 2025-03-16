@@ -12,14 +12,15 @@ export interface RichtextStoryblok {
 
 export interface AccordionStoryblok {
   title: string;
-  content: RichtextStoryblok;
+  text: RichtextStoryblok;
   component: "accordion";
   _uid: string;
   [k: string]: any;
 }
 
 export interface AccordionGroupStoryblok {
-  items: AccordionStoryblok[];
+  maxWidth: number | string;
+  accordions: AccordionStoryblok[];
   component: "accordionGroup";
   _uid: string;
   [k: string]: any;
@@ -465,11 +466,11 @@ export interface SpacerStoryblok {
 
 export interface TechnologyStoryblok {
   logoFull: AssetStoryblok;
+  logoOutline: AssetStoryblok;
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
-  logoOutline: AssetStoryblok;
   component: "technology";
   _uid: string;
   [k: string]: any;

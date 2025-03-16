@@ -5,7 +5,7 @@
       "display_name": "ACCORDÉON",
       "description": null,
       "created_at": "2024-12-09T09:43:12.145Z",
-      "updated_at": "2024-12-09T09:48:19.863Z",
+      "updated_at": "2025-03-16T15:12:16.363Z",
       "id": 6665120,
       "schema": {
         "title": {
@@ -14,12 +14,13 @@
           "display_name": "TITRE",
           "required": true,
           "tooltip": true,
-          "description": "H3"
+          "description": "H4",
+          "id": "EUpb7Zt1RJ-awi0tVU_31A"
         },
-        "content": {
+        "text": {
           "type": "richtext",
           "pos": 1,
-          "display_name": "CONTENU",
+          "display_name": "TEXTE",
           "required": true,
           "customize_toolbar": true,
           "toolbar": [
@@ -27,8 +28,6 @@
             "list",
             "copy",
             "cut",
-            "emoji",
-            "image",
             "italic",
             "link",
             "olist",
@@ -37,7 +36,8 @@
             "redo",
             "underline",
             "undo"
-          ]
+          ],
+          "id": "ogDUEGR5SniEB_ejRCWitQ"
         }
       },
       "image": null,
@@ -68,20 +68,32 @@
       "display_name": "ACCORDÉON - GROUPE",
       "description": "",
       "created_at": "2024-12-09T09:41:36.090Z",
-      "updated_at": "2024-12-09T09:48:59.595Z",
+      "updated_at": "2025-03-16T16:11:58.852Z",
       "id": 6665057,
       "schema": {
-        "items": {
-          "type": "bloks",
+        "maxWidth": {
+          "type": "option",
           "pos": 0,
-          "display_name": "ITEMS",
+          "use_uuid": true,
+          "required": true,
+          "display_name": "LARGEUR MAXIMALE",
+          "source": "internal",
+          "datasource_slug": "max-width",
+          "default_value": "2XL",
+          "id": "dTckxeKnTGeegfMaaN9_gg"
+        },
+        "accordions": {
+          "type": "bloks",
+          "pos": 1,
+          "display_name": "ACCORDÉONS",
           "required": true,
           "minimum": 1,
           "restrict_type": "",
           "restrict_components": true,
           "component_whitelist": [
             "accordion"
-          ]
+          ],
+          "id": "49ESJG9tTrix7wNkHLnWAw"
         }
       },
       "image": null,
@@ -2062,21 +2074,30 @@
       "display_name": "TECHNOLOGY",
       "description": null,
       "created_at": "2024-12-08T16:04:33.858Z",
-      "updated_at": "2025-03-05T14:48:06.936Z",
+      "updated_at": "2025-03-14T20:16:02.664Z",
       "id": 6663004,
       "schema": {
-        "color": {
+        "colorLight": {
           "type": "custom",
           "pos": 0,
           "field_type": "storyblok-colorpicker",
           "options": [],
           "id": "YJ3SJWnFSoWW9vGdX2FxXQ",
-          "display_name": "COULEUR",
+          "display_name": "COULEUR - FOND CLAIR",
           "required": true
+        },
+        "colorDark": {
+          "type": "custom",
+          "pos": 1,
+          "required": true,
+          "display_name": "COULEUR - FOND SOMBRE",
+          "field_type": "storyblok-colorpicker",
+          "options": [],
+          "id": "N7nrS3LeS9mYNSL14FQuJQ"
         },
         "logoFull": {
           "type": "asset",
-          "pos": 1,
+          "pos": 2,
           "id": "387qfYMySOKjpHx_YqE5Vg",
           "display_name": "LOGO - FULL",
           "required": true,
@@ -2085,22 +2106,35 @@
           ],
           "asset_folder_id": 758910
         },
+        "logoOutline": {
+          "type": "asset",
+          "pos": 3,
+          "id": "Nngn-pmqThaaIsc3TIkn1w",
+          "display_name": "LOGO - OUTLINE",
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 758911
+        },
         "tab-0b0bffd8-c9e1-4bbb-a886-813caa0a2db4": {
           "display_name": "Config",
           "keys": [
             "logoPlain",
             "logoFull",
             "logoOutline",
-            "color"
+            "color",
+            "colorLight",
+            "colorDark"
           ],
-          "pos": 2,
+          "pos": 4,
           "type": "tab",
           "name": "tab-0b0bffd8-c9e1-4bbb-a886-813caa0a2db4",
           "id": "Cwv_2MnhS7uohoE8qgottA"
         },
         "metaTitle": {
           "type": "text",
-          "pos": 3,
+          "pos": 5,
           "display_name": "META - TITRE",
           "required": true,
           "max_length": 70,
@@ -2114,14 +2148,14 @@
             "metaDescription",
             "metaTitle"
           ],
-          "pos": 4,
+          "pos": 6,
           "type": "tab",
           "name": "tab-e51a51e8-b02d-4127-8f59-1686a65aca4f",
           "id": "5RpR6LAtQSePWRaGplrKTw"
         },
         "metaDescription": {
           "type": "textarea",
-          "pos": 5,
+          "pos": 7,
           "display_name": "META - DESCRIPTION",
           "required": true,
           "max_length": 160,
@@ -2129,7 +2163,7 @@
         },
         "ogBadge": {
           "type": "text",
-          "pos": 6,
+          "pos": 8,
           "display_name": "OG - BADGE",
           "required": true,
           "max_length": 30,
@@ -2137,22 +2171,11 @@
         },
         "ogTitle": {
           "type": "text",
-          "pos": 7,
+          "pos": 9,
           "display_name": "OG - TITRE",
           "required": true,
           "max_length": 80,
           "id": "vy7ujPECQ26RUvJMHe7n8w"
-        },
-        "logoOutline": {
-          "type": "asset",
-          "pos": 8,
-          "id": "Nngn-pmqThaaIsc3TIkn1w",
-          "display_name": "LOGO - OUTLINE",
-          "required": true,
-          "filetypes": [
-            "images"
-          ],
-          "asset_folder_id": 758911
         }
       },
       "image": null,
