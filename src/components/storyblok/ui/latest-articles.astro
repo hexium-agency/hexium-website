@@ -1,0 +1,29 @@
+---
+import ArticleCard from '@/components/ui/article-card.astro';
+import blogService from '@/services/blog';
+import type { LastArticlesStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: LastArticlesStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const latestArticles = await blogService.getLatest(blok.category);
+
+console.log(latestArticles);
+---
+
+<div
+  {...storyblokEditable(blok)}
+  class="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3"
+>
+  {
+    latestArticles.map((article, index) => (
+      <div class:list={[index == 3 && 'xl:hidden']}>
+        <ArticleCard article={article} />
+      </div>
+    ))
+  }
+</div>
