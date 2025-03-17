@@ -505,7 +505,7 @@
       "display_name": "CARD (ICÔNE - TITRE - TEXTE)",
       "description": "",
       "created_at": "2025-03-13T12:27:03.267Z",
-      "updated_at": "2025-03-14T10:26:01.396Z",
+      "updated_at": "2025-03-17T10:08:16.692Z",
       "id": 7081067,
       "schema": {
         "icon": {
@@ -549,6 +549,12 @@
           "pos": 3,
           "display_name": "LIEN",
           "id": "ustSesQ4SempRD3kPMCO3Q"
+        },
+        "isInline": {
+          "type": "boolean",
+          "pos": 4,
+          "display_name": "TITRE + TEXTE SUR LA MÊME LIGNE ?",
+          "id": "uf8iPa_sQj6qexwadlU6ow"
         }
       },
       "image": null,

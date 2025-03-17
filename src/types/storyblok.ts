@@ -142,6 +142,7 @@ export interface CardIconTitleTextStoryblok {
   title: string;
   text: string;
   link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  isInline?: boolean;
   component: "cardIconTitleText";
   _uid: string;
   [k: string]: any;
