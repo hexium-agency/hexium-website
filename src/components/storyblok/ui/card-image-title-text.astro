@@ -20,7 +20,7 @@ const TitleWrapper = !!parseStoryblokLink(blok.link) ? 'a' : 'span';
   >
   </div>
   <div>
-    <h3 class="text-[0.875rem]/5 font-medium text-gray-950 dark:text-white">
+    <h4 class="text-[0.875rem]/5 font-medium text-gray-950 dark:text-white">
       <TitleWrapper
         {...!!parseStoryblokLink(blok.link) ? { href: parseStoryblokLink(blok.link) } : {}}
         class="inline-flex items-center justify-center"
@@ -62,7 +62,7 @@ const TitleWrapper = !!parseStoryblokLink(blok.link) ? 'a' : 'span';
         }
         <span class="absolute inset-0" aria-hidden="true"></span>
       </TitleWrapper>
-    </h3>
+    </h4>
     <div class="mt-2 text-[0.875rem]/5 text-gray-600 dark:text-gray-400">
       <p>
         Clerk offers multiple authentication strategies to identify legitimate users of your
