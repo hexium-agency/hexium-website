@@ -180,6 +180,13 @@ export interface DefinitionHomeStoryblok {
   [k: string]: any;
 }
 
+export interface FeaturedTechnologiesStoryblok {
+  technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
+  component: "featuredTechnologies";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface FooterAgencyStoryblok {
   city: string;
   adressOne: string;
@@ -263,9 +270,9 @@ export interface HeroVerticalStoryblok {
   [k: string]: any;
 }
 
-export interface LastArticlesStoryblok {
+export interface LatestArticlesStoryblok {
   category?: ISbStoryData<BlogCategoryStoryblok> | string;
-  component: "lastArticles";
+  component: "latestArticles";
   _uid: string;
   [k: string]: any;
 }
@@ -304,6 +311,7 @@ export interface SectionStoryblok {
     | CodeBlockStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
     | FooterAgencyStoryblok
     | FooterLinkStoryblok
     | FooterLinkGroupStoryblok
@@ -312,7 +320,7 @@ export interface SectionStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | LastArticlesStoryblok
+    | LatestArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
     | SectionHorizontalStoryblok
@@ -347,6 +355,7 @@ export interface SectionHorizontalStoryblok {
     | CodeBlockStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
     | FooterAgencyStoryblok
     | FooterLinkStoryblok
     | FooterLinkGroupStoryblok
@@ -355,7 +364,7 @@ export interface SectionHorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | LastArticlesStoryblok
+    | LatestArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
     | SectionHorizontalStoryblok
@@ -379,6 +388,7 @@ export interface SectionHorizontalStoryblok {
     | CodeBlockStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
     | FooterAgencyStoryblok
     | FooterLinkStoryblok
     | FooterLinkGroupStoryblok
@@ -387,7 +397,7 @@ export interface SectionHorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | LastArticlesStoryblok
+    | LatestArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
     | SectionHorizontalStoryblok
@@ -416,8 +426,8 @@ export interface SectionVerticalStoryblok {
     | ButtonGroupStoryblok
     | AccordionGroupStoryblok
     | SpacerStoryblok
-    | LastArticlesStoryblok
     | ContactStoryblok
+    | LatestArticlesStoryblok
   )[];
   blocks?: (
     | AccordionStoryblok
@@ -432,6 +442,7 @@ export interface SectionVerticalStoryblok {
     | CodeBlockStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
     | FooterAgencyStoryblok
     | FooterLinkStoryblok
     | FooterLinkGroupStoryblok
@@ -440,7 +451,7 @@ export interface SectionVerticalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | LastArticlesStoryblok
+    | LatestArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
     | SectionHorizontalStoryblok
@@ -466,8 +477,9 @@ export interface SpacerStoryblok {
 }
 
 export interface TechnologyStoryblok {
-  logoFull: AssetStoryblok;
   logoOutline: AssetStoryblok;
+  logoFullDark: AssetStoryblok;
+  logoFullLight: AssetStoryblok;
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;

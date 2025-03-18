@@ -801,6 +801,46 @@
       "component_group_name": "SECTION"
     },
     {
+      "name": "featuredTechnologies",
+      "display_name": "TECHNOLOGIES MISES EN AVANT",
+      "description": "",
+      "created_at": "2025-03-17T14:23:55.387Z",
+      "updated_at": "2025-03-17T17:26:17.166Z",
+      "id": 7095505,
+      "schema": {
+        "technologies": {
+          "type": "options",
+          "pos": 0,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "card",
+          "allow_advanced_search": true,
+          "display_name": "TECHNOLOGIES",
+          "required": true,
+          "filter_content_type": [
+            "technology"
+          ],
+          "min_options": "1",
+          "id": "lszMBe3oS4Wp77nfjSWFnQ"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "TECHNOLOGIES MISES EN AVANT",
+      "component_group_uuid": "all",
+      "color": null,
+      "icon": null,
+      "internal_tags_list": [],
+      "internal_tag_ids": [],
+      "content_type_asset_preview": null,
+      "component_group_name": ""
+    },
+    {
       "name": "footerAgency",
       "display_name": "FOOTER - AGENCE",
       "description": null,
@@ -1470,11 +1510,11 @@
       "component_group_name": "HERO"
     },
     {
-      "name": "lastArticles",
+      "name": "latestArticles",
       "display_name": "DERNIERS ARTICLES",
       "description": "",
       "created_at": "2025-01-11T15:06:30.115Z",
-      "updated_at": "2025-01-11T16:13:06.982Z",
+      "updated_at": "2025-03-17T13:36:08.249Z",
       "id": 6780380,
       "schema": {
         "category": {
@@ -1829,7 +1869,7 @@
       "display_name": "SECTION - VERTICAL",
       "description": null,
       "created_at": "2024-12-13T07:33:53.480Z",
-      "updated_at": "2025-03-14T12:58:59.473Z",
+      "updated_at": "2025-03-17T13:36:08.397Z",
       "id": 6684165,
       "schema": {
         "backgroundColor": {
@@ -1964,8 +2004,8 @@
             "buttonGroup",
             "accordionGroup",
             "spacer",
-            "lastArticles",
-            "contact"
+            "contact",
+            "latestArticles"
           ],
           "id": "xG0r3Qm9SMSUEUvq9qcXjg"
         },
@@ -2080,41 +2120,12 @@
       "display_name": "TECHNOLOGY",
       "description": null,
       "created_at": "2024-12-08T16:04:33.858Z",
-      "updated_at": "2025-03-14T20:16:02.664Z",
+      "updated_at": "2025-03-17T17:21:15.156Z",
       "id": 6663004,
       "schema": {
-        "colorLight": {
-          "type": "custom",
-          "pos": 0,
-          "field_type": "storyblok-colorpicker",
-          "options": [],
-          "id": "YJ3SJWnFSoWW9vGdX2FxXQ",
-          "display_name": "COULEUR - FOND CLAIR",
-          "required": true
-        },
-        "colorDark": {
-          "type": "custom",
-          "pos": 1,
-          "required": true,
-          "display_name": "COULEUR - FOND SOMBRE",
-          "field_type": "storyblok-colorpicker",
-          "options": [],
-          "id": "N7nrS3LeS9mYNSL14FQuJQ"
-        },
-        "logoFull": {
-          "type": "asset",
-          "pos": 2,
-          "id": "387qfYMySOKjpHx_YqE5Vg",
-          "display_name": "LOGO - FULL",
-          "required": true,
-          "filetypes": [
-            "images"
-          ],
-          "asset_folder_id": 758910
-        },
         "logoOutline": {
           "type": "asset",
-          "pos": 3,
+          "pos": 0,
           "id": "Nngn-pmqThaaIsc3TIkn1w",
           "display_name": "LOGO - OUTLINE",
           "required": true,
@@ -2122,6 +2133,46 @@
             "images"
           ],
           "asset_folder_id": 758911
+        },
+        "logoFullDark": {
+          "type": "asset",
+          "pos": 1,
+          "id": "387qfYMySOKjpHx_YqE5Vg",
+          "display_name": "LOGO - FULL - DARK",
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 758910
+        },
+        "logoFullLight": {
+          "type": "asset",
+          "pos": 2,
+          "filetypes": [
+            "images"
+          ],
+          "required": true,
+          "display_name": "LOGO - FULL - LIGHT",
+          "id": "kFPw3Ha2QsqaXerqJLzCGQ",
+          "asset_folder_id": 758910
+        },
+        "colorLight": {
+          "type": "custom",
+          "pos": 3,
+          "field_type": "native-color-picker",
+          "options": [],
+          "id": "YJ3SJWnFSoWW9vGdX2FxXQ",
+          "display_name": "COULEUR - FOND CLAIR",
+          "required": true
+        },
+        "colorDark": {
+          "type": "custom",
+          "pos": 4,
+          "required": true,
+          "display_name": "COULEUR - FOND SOMBRE",
+          "field_type": "native-color-picker",
+          "options": [],
+          "id": "N7nrS3LeS9mYNSL14FQuJQ"
         },
         "tab-0b0bffd8-c9e1-4bbb-a886-813caa0a2db4": {
           "display_name": "Config",
@@ -2131,16 +2182,18 @@
             "logoOutline",
             "color",
             "colorLight",
-            "colorDark"
+            "colorDark",
+            "logoFullDark",
+            "logoFullLight"
           ],
-          "pos": 4,
+          "pos": 5,
           "type": "tab",
           "name": "tab-0b0bffd8-c9e1-4bbb-a886-813caa0a2db4",
           "id": "Cwv_2MnhS7uohoE8qgottA"
         },
         "metaTitle": {
           "type": "text",
-          "pos": 5,
+          "pos": 6,
           "display_name": "META - TITRE",
           "required": true,
           "max_length": 70,
@@ -2154,14 +2207,14 @@
             "metaDescription",
             "metaTitle"
           ],
-          "pos": 6,
+          "pos": 7,
           "type": "tab",
           "name": "tab-e51a51e8-b02d-4127-8f59-1686a65aca4f",
           "id": "5RpR6LAtQSePWRaGplrKTw"
         },
         "metaDescription": {
           "type": "textarea",
-          "pos": 7,
+          "pos": 8,
           "display_name": "META - DESCRIPTION",
           "required": true,
           "max_length": 160,
@@ -2169,7 +2222,7 @@
         },
         "ogBadge": {
           "type": "text",
-          "pos": 8,
+          "pos": 9,
           "display_name": "OG - BADGE",
           "required": true,
           "max_length": 30,
@@ -2177,7 +2230,7 @@
         },
         "ogTitle": {
           "type": "text",
-          "pos": 9,
+          "pos": 10,
           "display_name": "OG - TITRE",
           "required": true,
           "max_length": 80,
