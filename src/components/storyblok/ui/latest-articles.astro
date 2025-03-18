@@ -11,8 +11,6 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 
 const latestArticles = await blogService.getLatest(blok.category);
-
-console.log(latestArticles);
 ---
 
 <div
