@@ -30,6 +30,7 @@ const { slug } = Astro.params as AstroProps;
 const storyblokApi = useStoryblokApi();
 
 const { data } = await storyblokApi.get(`cdn/stories/${slug === undefined ? 'home' : slug}`, {
+  resolve_relations: ['featuredTechnologies.technologies'],
   version: import.meta.env.STORYBLOK_ENV,
 });
 ---
