@@ -96,7 +96,6 @@ export class Shader {
       return shader;
     }
 
-    console.error('Shader compilation error:', this.gl.getShaderInfoLog(shader));
     this.gl.deleteShader(shader);
     return null;
   }
@@ -116,7 +115,6 @@ export class Shader {
       return program;
     }
 
-    console.error('Program linking error:', this.gl.getProgramInfoLog(program));
     return null;
   }
 
@@ -189,7 +187,6 @@ export class Shader {
     this.ctx = this.canvas.getContext('2d')!;
 
     if (!this.gl || !this.ctx) {
-      console.error('WebGL2 not supported');
       return;
     }
 
@@ -197,13 +194,11 @@ export class Shader {
     const fragmentShader = this.createShader(this.gl.FRAGMENT_SHADER, this.source);
 
     if (!vertexShader || !fragmentShader) {
-      console.error('Failed to compile shaders');
       return;
     }
 
     this.program = this.createProgram(vertexShader, fragmentShader);
     if (!this.program) {
-      console.error('Failed to create shader program');
       return;
     }
 
@@ -318,9 +313,7 @@ export class Shader {
         this.textureObjects = textureInfos;
         this.scheduleNextFrame();
       })
-      .catch((err) => {
-        console.error('Failed to load textures:', err);
-      });
+      .catch((err) => {});
   }
 
   destroy(): void {
