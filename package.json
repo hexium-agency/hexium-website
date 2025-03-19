@@ -24,6 +24,7 @@
     "astro": "^5.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "hex-rgb": "^5.0.0",
     "lucide-react": "^0.477.0",
     "motion": "^12.4.7",
     "react": "^19.0.0",
