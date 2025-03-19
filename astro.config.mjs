@@ -40,6 +40,7 @@ export default defineConfig({
         'accordion-group': 'components/storyblok/ui/accordion-group',
         'accordion': 'components/storyblok/ui/accordion',
         'button': 'components/storyblok/ui/button',
+        'card-bento': 'components/storyblok/ui/card-bento',
         'card-icon-title-text': 'components/storyblok/ui/card-icon-title-text',
         'card-image-title-text': 'components/storyblok/ui/card-image-title-text',
         'featured-technologies': 'components/storyblok/ui/featured-technologies',
