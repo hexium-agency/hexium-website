@@ -1,11 +1,11 @@
-import { Shader } from "./shader";
+import { Shader } from './shader';
 
 interface DotsOptions {
   colors?: number[][];
   opacities?: number[];
   totalSize?: number;
   dotSize?: number;
-  center?: ("x" | "y")[];
+  center?: ('x' | 'y')[];
   init?: string;
   shader?: string;
   maxFps?: number;
@@ -14,7 +14,10 @@ interface DotsOptions {
 export class Dots {
   private shader: Shader | null = null;
 
-  constructor(private element: HTMLElement, private options: DotsOptions = {}) {
+  constructor(
+    private element: HTMLElement,
+    private options: DotsOptions = {}
+  ) {
     this.init();
   }
 
@@ -39,9 +42,9 @@ export class Dots {
       ],
       totalSize: this.options.totalSize || 4,
       dotSize: this.options.dotSize || 2,
-      center: this.options.center || ["x", "y"],
-      init: this.options.init || "",
-      shader: this.options.shader || "",
+      center: this.options.center || ['x', 'y'],
+      init: this.options.init || '',
+      shader: this.options.shader || '',
       maxFps: this.options.maxFps || 60,
     };
   }
@@ -58,10 +61,7 @@ export class Dots {
     ];
 
     if (options.colors.length === 2) {
-      expandedColors = [
-        ...Array(3).fill(options.colors[0]),
-        ...Array(3).fill(options.colors[1]),
-      ];
+      expandedColors = [...Array(3).fill(options.colors[0]), ...Array(3).fill(options.colors[1])];
     } else if (options.colors.length === 3) {
       expandedColors = [
         options.colors[0],
@@ -75,23 +75,19 @@ export class Dots {
 
     return {
       u_colors: {
-        type: "uniform3fv",
-        value: expandedColors.map((color) => [
-          color[0] / 255,
-          color[1] / 255,
-          color[2] / 255,
-        ]),
+        type: 'uniform3fv',
+        value: expandedColors.map((color) => [color[0] / 255, color[1] / 255, color[2] / 255]),
       },
       u_opacities: {
-        type: "uniform1fv",
+        type: 'uniform1fv',
         value: options.opacities,
       },
       u_total_size: {
-        type: "uniform1f",
+        type: 'uniform1f',
         value: options.totalSize,
       },
       u_dot_size: {
-        type: "uniform1f",
+        type: 'uniform1f',
         value: options.dotSize,
       },
     };
@@ -126,14 +122,14 @@ void main() {
   vec2 st = fragCoord.xy;
 
   ${
-    options.center.includes("x")
-      ? "st.x -= abs(floor((mod(u_resolution.x, u_total_size) - u_dot_size) * 0.5));"
-      : ""
+    options.center.includes('x')
+      ? 'st.x -= abs(floor((mod(u_resolution.x, u_total_size) - u_dot_size) * 0.5));'
+      : ''
   }
   ${
-    options.center.includes("y")
-      ? "st.y -= abs(floor((mod(u_resolution.y, u_total_size) - u_dot_size) * 0.5));"
-      : ""
+    options.center.includes('y')
+      ? 'st.y -= abs(floor((mod(u_resolution.y, u_total_size) - u_dot_size) * 0.5));'
+      : ''
   }
 
   float opacity = step(0.0, st.x);
