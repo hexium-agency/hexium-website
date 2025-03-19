@@ -10,7 +10,6 @@ interface TextureInfo {
   location: WebGLUniformLocation | null;
 }
 
-// Helper type for WebGL texture units
 type TextureUnit =
   | 'TEXTURE0'
   | 'TEXTURE1'
@@ -122,7 +121,6 @@ export class Shader {
   }
 
   private getTextureUnit(index: number): TextureUnit {
-    // Ensure index is within valid range (0-15 for most WebGL implementations)
     if (index < 0 || index > 15) {
       throw new Error('Texture unit index out of range');
     }
@@ -222,11 +220,9 @@ export class Shader {
     this.gl.enableVertexAttribArray(coordinatesLocation);
     this.gl.vertexAttribPointer(coordinatesLocation, 2, this.gl.FLOAT, false, 0, 0);
 
-    // Set up uniforms
     const resolutionLocation = this.gl.getUniformLocation(this.program, 'u_resolution');
     this.gl.uniform2f(resolutionLocation, this.canvas.width / dpr, this.canvas.height / dpr);
 
-    // Set custom uniforms
     for (const [name, uniform] of Object.entries(this.uniforms)) {
       const location = this.gl.getUniformLocation(this.program, name);
 
@@ -247,16 +243,13 @@ export class Shader {
       }
     }
 
-    // Set up blending
     this.gl.enable(this.gl.BLEND);
     this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE);
     this.gl.disable(this.gl.DEPTH_TEST);
 
-    // Clean up shaders
     this.gl.deleteShader(vertexShader);
     this.gl.deleteShader(fragmentShader);
 
-    // Set up resize observer
     this.resizeObserver = new ResizeObserver(() => {
       this.canvas.width = this.offscreenCanvas.width = this.canvas.offsetWidth * dpr;
       this.canvas.height = this.offscreenCanvas.height = this.canvas.offsetHeight * dpr;
@@ -265,7 +258,6 @@ export class Shader {
 
     this.resizeObserver.observe(this.canvas);
 
-    // Start animation
     this.startAnimation();
   }
 
@@ -293,7 +285,6 @@ export class Shader {
 
     this.currentTime = currentTime - this.startTime;
 
-    // Update uniforms
     const timeLocation = this.gl.getUniformLocation(this.program, 'u_time');
     const scrollLocation = this.gl.getUniformLocation(this.program, 'u_scroll');
     const eventTimeLocation = this.gl.getUniformLocation(this.program, 'u_event_time');
@@ -302,19 +293,15 @@ export class Shader {
     this.gl.uniform1f(scrollLocation, window.scrollY);
     this.gl.uniform1f(eventTimeLocation, this.eventTime);
 
-    // Clear and prepare for rendering
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-    // Bind textures
     this.textureObjects.forEach((textureObject, index) => {
       this.bindTexture(textureObject, index);
     });
 
-    // Draw
     this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
 
-    // Copy to visible canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.gl.canvas, 0, 0);
 
@@ -326,7 +313,6 @@ export class Shader {
   }
 
   private startAnimation(): void {
-    // Load textures
     Promise.all(this.textures.map((url, index) => this.loadTexture(url, index)))
       .then((textureInfos) => {
         this.textureObjects = textureInfos;
@@ -345,14 +331,12 @@ export class Shader {
     this.resizeObserver?.disconnect();
 
     if (this.gl && this.program) {
-      // Clean up WebGL resources
       this.textureObjects.forEach(({ texture }) => {
         this.gl.deleteTexture(texture);
       });
       this.gl.deleteProgram(this.program);
     }
 
-    // Remove canvas from DOM
     this.canvas.remove();
   }
 }

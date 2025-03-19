@@ -43,13 +43,13 @@ const technologiesColors = technologies.map((technology) =>
               preserveDesc
               preserveId
               url={technology.content.logoFullLight}
-              class="absolute inset-0 hidden h-full w-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus:opacity-100 dark:block"
+              class="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus:opacity-100 dark:hidden"
             />
             <SvgDistant
               preserveDesc
               preserveId
               url={technology.content.logoFullDark}
-              class="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus:opacity-100 dark:hidden"
+              class="hidden h-full absolute inset-0  w-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus:opacity-100 dark:block"
             />
           </div>
           <div class="no-hover:opacity-100 mt-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:delay-75 group-focus:opacity-100 group-focus:delay-75">
@@ -61,8 +61,7 @@ const technologiesColors = technologies.map((technology) =>
   }
 </div>
 <script>
-  import { DotsHoverBlock } from '@/dots/dots-hover-block';
-import { DotsHoverGroup } from '@/dots/dots-hover-group';
+  import { DotsHoverBlock } from '@/lib/dots/dots-hover-block';
 
   document.addEventListener('DOMContentLoaded', () => {
     const containers = document.querySelectorAll('.featured-technologies');
@@ -72,12 +71,9 @@ import { DotsHoverGroup } from '@/dots/dots-hover-group';
       let maxZ = links.length;
 
       links.forEach((link) => {
-        const dotsGroup = new DotsHoverGroup(container);
-
-        const color = link.getAttribute('data-color');
+        const color = link.getAttribute('data-color') || '#FFFFFF';
         const colorArray = color.split(',').map(Number);
-      
-        new DotsHoverBlock(link, dotsGroup, 'test', [colorArray]);
+        new DotsHoverBlock(link, [colorArray]);
 
         link.addEventListener('mouseenter', () => {
           maxZ += 1;
