@@ -505,43 +505,73 @@
       "display_name": "CARD - BENTO",
       "description": "",
       "created_at": "2025-03-19T09:43:43.122Z",
-      "updated_at": "2025-03-19T11:51:53.551Z",
+      "updated_at": "2025-03-19T16:39:37.323Z",
       "id": 7103983,
       "schema": {
-        "title": {
-          "type": "text",
-          "pos": 0,
-          "id": "hApBtwmWRCiO3WNl8pHQmQ",
-          "required": true,
-          "display_name": "TITRE",
-          "description": "H4"
-        },
-        "tab-0a5255ea-77af-4265-9f3f-1037f649d086": {
-          "display_name": "Config",
-          "keys": [
-            "colSpan",
-            "rowSpan",
-            "isTextUpside"
-          ],
-          "pos": 0,
-          "type": "tab",
-          "id": "ClJV6nevQmWfPxA39knQhg"
-        },
-        "text": {
-          "type": "textarea",
-          "pos": 1,
-          "id": "0-mX5spiTCSv_fSnQF4jXA",
-          "required": true,
-          "display_name": "TEXTE"
-        },
-        "illustration": {
-          "type": "bloks",
-          "pos": 2,
-          "id": "Q8Ba3m4_S4KO8e9VgVXAHA"
-        },
-        "colSpan": {
+        "colSpanMd": {
           "type": "option",
-          "pos": 4,
+          "pos": 0,
+          "use_uuid": true,
+          "options": [
+            {
+              "_uid": "a69d203b-4499-44bf-b877-e544d932d294",
+              "name": "1",
+              "value": "1"
+            },
+            {
+              "_uid": "2181a07e-efbf-4bac-9485-6db516304ad5",
+              "value": "2",
+              "name": "2"
+            }
+          ],
+          "default_value": "",
+          "display_name": "COL SPAN (768px - 1024px)",
+          "id": "CbKub1D0TWS8o58TfGSVDA"
+        },
+        "rowSpanMd": {
+          "type": "option",
+          "pos": 1,
+          "use_uuid": true,
+          "id": "0h36FV3GRw28_uYbi8UNTQ",
+          "display_name": "ROW SPAN (768px - 1024px)",
+          "options": [
+            {
+              "_uid": "60ed8ea0-916c-4042-b067-4ddbb6af0342",
+              "name": "1",
+              "value": "1"
+            },
+            {
+              "_uid": "9d775bb2-1128-4d48-be14-b2ae24e75be5",
+              "value": "2",
+              "name": "2"
+            }
+          ],
+          "default_value": ""
+        },
+        "rowSpanLg": {
+          "type": "option",
+          "pos": 2,
+          "use_uuid": true,
+          "id": "3EvntoKFQ3WBwykiVy4d7Q",
+          "display_name": "ROW SPAN (1024px +)",
+          "required": true,
+          "options": [
+            {
+              "_uid": "241eb143-d234-4d43-97cf-212e6b406c90",
+              "name": "1",
+              "value": "1"
+            },
+            {
+              "_uid": "81f5272a-3e2a-4915-aee4-a94f9d767450",
+              "value": "2",
+              "name": "2"
+            }
+          ],
+          "default_value": ""
+        },
+        "colSpanLg": {
+          "type": "option",
+          "pos": 3,
           "use_uuid": true,
           "display_name": "COL SPAN (LARGEUR)",
           "required": true,
@@ -557,39 +587,53 @@
               "name": "2"
             }
           ],
-          "default_value": "1",
+          "default_value": "",
           "id": "BLqBimh7S3mse4TPQ2oIWw"
         },
-        "rowSpan": {
-          "type": "option",
-          "pos": 5,
-          "use_uuid": true,
-          "id": "3EvntoKFQ3WBwykiVy4d7Q",
-          "display_name": "ROW SPAN (HAUTEUR)",
+        "title": {
+          "type": "text",
+          "pos": 4,
+          "id": "hApBtwmWRCiO3WNl8pHQmQ",
           "required": true,
-          "options": [
-            {
-              "_uid": "241eb143-d234-4d43-97cf-212e6b406c90",
-              "name": "1",
-              "value": "1"
-            },
-            {
-              "_uid": "81f5272a-3e2a-4915-aee4-a94f9d767450",
-              "value": "2",
-              "name": "2"
-            }
-          ],
-          "default_value": "1"
+          "display_name": "TITRE",
+          "description": "H4"
         },
-        "isTextUpside": {
-          "type": "boolean",
+        "text": {
+          "type": "textarea",
+          "pos": 5,
+          "id": "0-mX5spiTCSv_fSnQF4jXA",
+          "required": true,
+          "display_name": "TEXTE"
+        },
+        "illustration": {
+          "type": "bloks",
           "pos": 6,
+          "id": "Q8Ba3m4_S4KO8e9VgVXAHA"
+        },
+        "isTextOnTop": {
+          "type": "boolean",
+          "pos": 7,
           "display_name": "CONTENU TEXTUEL EN HAUT ?",
           "id": "ozR7PxmFTRuQZScVVOQuJw"
+        },
+        "tab-0a5255ea-77af-4265-9f3f-1037f649d086": {
+          "display_name": "Config",
+          "keys": [
+            "colSpan",
+            "rowSpan",
+            "isTextUpside",
+            "colSpanLg",
+            "rowSpanLg",
+            "rowSpanMd",
+            "colSpanMd"
+          ],
+          "pos": 8,
+          "type": "tab",
+          "id": "ClJV6nevQmWfPxA39knQhg"
         }
       },
       "image": null,
-      "preview_field": null,
+      "preview_field": "title",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
@@ -1200,91 +1244,19 @@
       "display_name": "GRILLE",
       "description": null,
       "created_at": "2024-12-13T14:47:37.052Z",
-      "updated_at": "2025-03-19T10:07:05.515Z",
+      "updated_at": "2025-03-19T16:43:34.848Z",
       "id": 6687188,
       "schema": {
-        "cols": {
-          "type": "option",
-          "pos": 0,
-          "use_uuid": true,
-          "display_name": "COLONNES (0px - 768px)",
-          "required": true,
-          "source": "internal",
-          "datasource_slug": "cols",
-          "default_value": "1",
-          "id": "ykYkRxUgQa2pGSTUUEZHSA"
-        },
-        "colsMd": {
-          "type": "option",
-          "pos": 1,
-          "use_uuid": true,
-          "source": "internal",
-          "datasource_slug": "cols",
-          "default_value": "",
-          "required": false,
-          "display_name": "COLONNES (768px - 1024px)",
-          "id": "HGdhmE1pSz6aPeZBccQVlA"
-        },
-        "colsLg": {
-          "type": "option",
-          "pos": 2,
-          "use_uuid": true,
-          "display_name": "COLONNES (1024px - 1280px)",
-          "required": false,
-          "source": "internal",
-          "datasource_slug": "cols",
-          "default_value": "",
-          "id": "2D21FdTGRH6PvqFQnQq4aw"
-        },
-        "colsXl": {
-          "type": "option",
-          "pos": 3,
-          "use_uuid": true,
-          "display_name": "COLONNES (1280px +)",
-          "source": "internal",
-          "datasource_slug": "cols",
-          "default_value": "",
-          "required": false,
-          "id": "LD1K1_ZJS3C0aG-5JtIZVg"
-        },
-        "items": {
-          "type": "bloks",
-          "pos": 4,
-          "restrict_type": "",
-          "restrict_components": true,
-          "component_whitelist": [
-            "cardLight",
-            "cardIconTitleText",
-            "cardImageTitleText",
-            "cardBento"
-          ],
-          "minimum": 1,
-          "required": true,
-          "display_name": "ITEMS",
-          "id": "rgkytDxvSqO2xbVfDHr-zQ"
-        },
         "tab-fe6a1b9e-7164-4e3a-b621-5bef269e4cf6": {
           "display_name": "Config",
           "keys": [
             "maxWidth",
             "tag"
           ],
-          "pos": 5,
+          "pos": 0,
           "type": "tab",
           "id": "_mobnnFkTjq2IVvvJp5M9g",
           "name": "tab-fe6a1b9e-7164-4e3a-b621-5bef269e4cf6"
-        },
-        "spaceX": {
-          "type": "option",
-          "pos": 6,
-          "use_uuid": true,
-          "display_name": "ESPACE HORIZONTAL (0px - 640px)",
-          "required": true,
-          "default_value": "10",
-          "source": "internal",
-          "datasource_slug": "space",
-          "id": "CwwcCQY2T2e9vZhApTMOTA",
-          "description": ""
         },
         "tab-a3c3a28e-bcee-478b-aab3-0cdc3e36a521": {
           "display_name": "Columns",
@@ -1297,21 +1269,10 @@
             "colsLg",
             "colsXl"
           ],
-          "pos": 7,
+          "pos": 1,
           "type": "tab",
           "id": "o8OijrzuR4uqswzcPjalIQ",
           "name": "tab-a3c3a28e-bcee-478b-aab3-0cdc3e36a521"
-        },
-        "spaceXSm": {
-          "type": "option",
-          "pos": 8,
-          "use_uuid": true,
-          "id": "Cv_341CpQPCLlf4CcGzuMw",
-          "display_name": "ESPACE HORIZONTAL (640px - 768px)",
-          "required": false,
-          "source": "internal",
-          "datasource_slug": "space",
-          "default_value": ""
         },
         "tab-17d11fa8-0764-4b5c-a140-94618c4b7506": {
           "display_name": "Spaces",
@@ -1325,14 +1286,109 @@
             "spaceYSm",
             "spaceY"
           ],
-          "pos": 9,
+          "pos": 2,
           "type": "tab",
           "id": "F9EfqAdkS1yhQJRhjEt1Bg",
           "name": "tab-17d11fa8-0764-4b5c-a140-94618c4b7506"
         },
+        "tab-73c0d7b3-d764-44fe-980b-64bd09687ca0": {
+          "display_name": "Rows",
+          "keys": [
+            "rows",
+            "rowsMd",
+            "rowsLg"
+          ],
+          "pos": 3,
+          "type": "tab",
+          "id": "c8DXs9dkRP6YC2S9CWh8oA",
+          "name": "tab-73c0d7b3-d764-44fe-980b-64bd09687ca0"
+        },
+        "cols": {
+          "type": "option",
+          "pos": 3,
+          "use_uuid": true,
+          "display_name": "COLONNES (0px - 768px)",
+          "required": true,
+          "source": "internal",
+          "datasource_slug": "cols",
+          "default_value": "1",
+          "id": "ykYkRxUgQa2pGSTUUEZHSA"
+        },
+        "colsMd": {
+          "type": "option",
+          "pos": 5,
+          "use_uuid": true,
+          "source": "internal",
+          "datasource_slug": "cols",
+          "default_value": "",
+          "required": false,
+          "display_name": "COLONNES (768px - 1024px)",
+          "id": "HGdhmE1pSz6aPeZBccQVlA"
+        },
+        "colsLg": {
+          "type": "option",
+          "pos": 7,
+          "use_uuid": true,
+          "display_name": "COLONNES (1024px - 1280px)",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "cols",
+          "default_value": "",
+          "id": "2D21FdTGRH6PvqFQnQq4aw"
+        },
+        "colsXl": {
+          "type": "option",
+          "pos": 9,
+          "use_uuid": true,
+          "display_name": "COLONNES (1280px +)",
+          "source": "internal",
+          "datasource_slug": "cols",
+          "default_value": "",
+          "required": false,
+          "id": "LD1K1_ZJS3C0aG-5JtIZVg"
+        },
+        "items": {
+          "type": "bloks",
+          "pos": 10,
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "cardLight",
+            "cardIconTitleText",
+            "cardImageTitleText",
+            "cardBento"
+          ],
+          "minimum": 1,
+          "required": true,
+          "display_name": "ITEMS",
+          "id": "rgkytDxvSqO2xbVfDHr-zQ"
+        },
+        "spaceX": {
+          "type": "option",
+          "pos": 11,
+          "use_uuid": true,
+          "display_name": "ESPACE HORIZONTAL (0px - 640px)",
+          "required": true,
+          "default_value": "10",
+          "source": "internal",
+          "datasource_slug": "space",
+          "id": "CwwcCQY2T2e9vZhApTMOTA",
+          "description": ""
+        },
+        "spaceXSm": {
+          "type": "option",
+          "pos": 12,
+          "use_uuid": true,
+          "id": "Cv_341CpQPCLlf4CcGzuMw",
+          "display_name": "ESPACE HORIZONTAL (640px - 768px)",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "space",
+          "default_value": ""
+        },
         "spaceXMd": {
           "type": "option",
-          "pos": 10,
+          "pos": 13,
           "use_uuid": true,
           "id": "qCiI0amPTySlA54vDhE2uA",
           "display_name": "ESPACE HORIZONTAL (768px - 1024px)",
@@ -1343,7 +1399,7 @@
         },
         "spaceXLg": {
           "type": "option",
-          "pos": 11,
+          "pos": 14,
           "use_uuid": true,
           "id": "3NFwlWCUSsmuCKa_fVUheg",
           "display_name": "ESPACE HORIZONTAL (1024px+)",
@@ -1354,7 +1410,7 @@
         },
         "spaceY": {
           "type": "option",
-          "pos": 12,
+          "pos": 15,
           "use_uuid": true,
           "source": "internal",
           "datasource_slug": "space",
@@ -1365,7 +1421,7 @@
         },
         "spaceYSm": {
           "type": "option",
-          "pos": 13,
+          "pos": 16,
           "use_uuid": true,
           "id": "e4IdfyIgStWMP-Msconc8w",
           "display_name": "ESPACE VERTICAL (640px - 768px)",
@@ -1376,7 +1432,7 @@
         },
         "spaceYMd": {
           "type": "option",
-          "pos": 14,
+          "pos": 17,
           "use_uuid": true,
           "id": "lcMhZ9LYTWuYMgDJCpNlHQ",
           "display_name": "ESPACE VERTICAL (768px - 1024px)",
@@ -1387,7 +1443,7 @@
         },
         "spaceYLg": {
           "type": "option",
-          "pos": 15,
+          "pos": 18,
           "use_uuid": true,
           "id": "8VmXbV6yRGSKApYhW0LoKQ",
           "display_name": "ESPACE VERTICAL (1024px+)",
@@ -1398,7 +1454,7 @@
         },
         "tag": {
           "type": "option",
-          "pos": 16,
+          "pos": 19,
           "use_uuid": true,
           "display_name": "TAG",
           "required": true,
@@ -1417,9 +1473,18 @@
           "default_value": "div",
           "id": "Z20yhsEzT7W-E9wsPcNRWA"
         },
+        "rows": {
+          "type": "option",
+          "pos": 19,
+          "use_uuid": true,
+          "id": "wCGFqoOWSumlNWbBaZJflg",
+          "source": "internal",
+          "datasource_slug": "cols",
+          "display_name": "LIGNES (0px - 768px)"
+        },
         "maxWidth": {
           "type": "option",
-          "pos": 17,
+          "pos": 20,
           "use_uuid": true,
           "display_name": "LARGEUR MAX",
           "required": false,
@@ -1427,6 +1492,24 @@
           "datasource_slug": "max-width",
           "default_value": "",
           "id": "5xOIzdS7TmSxqJzAA1HS2w"
+        },
+        "rowsMd": {
+          "type": "option",
+          "pos": 20,
+          "use_uuid": true,
+          "id": "mXdlESquRcSGz4Te2NJOVw",
+          "source": "internal",
+          "datasource_slug": "cols",
+          "display_name": "LIGNES (768px - 1024px)"
+        },
+        "rowsLg": {
+          "type": "option",
+          "pos": 21,
+          "use_uuid": true,
+          "id": "IzpO26ukRrW4zvBLm2ZKqA",
+          "source": "internal",
+          "datasource_slug": "cols",
+          "display_name": "LIGNES (1024px +)"
         }
       },
       "image": null,

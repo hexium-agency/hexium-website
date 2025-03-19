@@ -173,6 +173,10 @@ export interface CallToActionStoryblok {
 }
 
 export interface CardBentoStoryblok {
+  colSpanMd?: "" | "1" | "2";
+  rowSpanMd?: "" | "1" | "2";
+  rowSpanLg: "" | "1" | "2";
+  colSpanLg: "" | "1" | "2";
   title: string;
   text: string;
   illustration?: (
@@ -209,9 +213,7 @@ export interface CardBentoStoryblok {
     | TestimonialStoryblok
     | WorkStoryblok
   )[];
-  colSpan: "" | "1" | "2";
-  rowSpan: "" | "1" | "2";
-  isTextUpside?: boolean;
+  isTextOnTop?: boolean;
   component: "cardBento";
   _uid: string;
   [k: string]: any;
@@ -318,7 +320,10 @@ export interface GridStoryblok {
   spaceYMd?: number | string;
   spaceYLg?: number | string;
   tag: "" | "div" | "ul";
+  rows?: number | string;
   maxWidth?: number | string;
+  rowsMd?: number | string;
+  rowsLg?: number | string;
   component: "grid";
   _uid: string;
   [k: string]: any;
