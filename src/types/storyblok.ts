@@ -27,13 +27,27 @@ export interface AccordionGroupStoryblok {
 }
 
 export interface AssetStoryblok {
-  alt?: string;
-  copyright?: string;
+  alt: string | null;
+  copyright?: string | null;
+  fieldtype: "asset";
   id: number;
-  filename: string;
+  filename: string | null;
   name: string;
-  title?: string;
-  focus?: string;
+  title: string | null;
+  focus: string | null;
+  meta_data?: {
+    [k: string]: any;
+  };
+  source?: string | null;
+  is_external_url?: boolean;
+  is_private?: boolean;
+  src?: string;
+  updated_at?: string;
+  width?: number | null;
+  height?: number | null;
+  aspect_ratio?: number | null;
+  public_id?: string | null;
+  content_type?: string;
   [k: string]: any;
 }
 
@@ -59,11 +73,16 @@ export interface BlogCategoryStoryblok {
 
 export type MultilinkStoryblok =
   | {
-      id?: string;
-      cached_url?: string;
+      fieldtype: "multilink";
+      id: string;
+      url: string;
+      cached_url: string;
+      target?: "_blank" | "_self";
       anchor?: string;
-      linktype?: "story";
-      target?: "_self" | "_blank";
+      rel?: string;
+      title?: string;
+      prep?: string;
+      linktype: "story";
       story?: {
         name: string;
         created_at?: string;
@@ -96,17 +115,33 @@ export type MultilinkStoryblok =
       [k: string]: any;
     }
   | {
-      url?: string;
-      cached_url?: string;
-      anchor?: string;
-      linktype?: "asset" | "url";
-      target?: "_self" | "_blank";
+      fieldtype: "multilink";
+      id: string;
+      url: string;
+      cached_url: string;
+      target?: "_blank" | "_self";
+      linktype: "url";
+      rel?: string;
+      title?: string;
       [k: string]: any;
     }
   | {
+      fieldtype: "multilink";
+      id: string;
+      url: string;
+      cached_url: string;
+      target?: "_blank" | "_self";
       email?: string;
-      linktype?: "email";
-      target?: "_self" | "_blank";
+      linktype: "email";
+      [k: string]: any;
+    }
+  | {
+      fieldtype: "multilink";
+      id: string;
+      url: string;
+      cached_url: string;
+      target?: "_blank" | "_self";
+      linktype: "asset";
       [k: string]: any;
     };
 
@@ -133,6 +168,51 @@ export interface CallToActionStoryblok {
   content: string;
   buttons: ButtonStoryblok[];
   component: "callToAction";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardBentoStoryblok {
+  title: string;
+  text: string;
+  illustration?: (
+    | AccordionStoryblok
+    | AccordionGroupStoryblok
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | ButtonStoryblok
+    | ButtonGroupStoryblok
+    | CallToActionStoryblok
+    | CardBentoStoryblok
+    | CardIconTitleTextStoryblok
+    | CardImageTitleTextStoryblok
+    | CodeBlockStoryblok
+    | DefinitionStoryblok
+    | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FooterAgencyStoryblok
+    | FooterLinkStoryblok
+    | FooterLinkGroupStoryblok
+    | GlobalStoryblok
+    | GridStoryblok
+    | GridBentoStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | LatestArticlesStoryblok
+    | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | SpacerStoryblok
+    | TechnologyStoryblok
+    | TestimonialStoryblok
+    | WorkStoryblok
+  )[];
+  colSpan: "" | "1" | "2";
+  rowSpan: "" | "1" | "2";
+  isTextUpside?: boolean;
+  component: "cardBento";
   _uid: string;
   [k: string]: any;
 }
@@ -228,7 +308,7 @@ export interface GridStoryblok {
   colsMd?: number | string;
   colsLg?: number | string;
   colsXl?: number | string;
-  items: (CardLightStoryblok | CardIconTitleTextStoryblok)[];
+  items: (CardLightStoryblok | CardIconTitleTextStoryblok | CardImageTitleTextStoryblok | CardBentoStoryblok)[];
   spaceX: number | string;
   spaceXSm?: number | string;
   spaceXMd?: number | string;
@@ -240,6 +320,27 @@ export interface GridStoryblok {
   tag: "" | "div" | "ul";
   maxWidth?: number | string;
   component: "grid";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface GridBentoStoryblok {
+  cols: number | string;
+  colsMd?: number | string;
+  colsLg?: number | string;
+  colsXl?: number | string;
+  items: (CardLightStoryblok | CardIconTitleTextStoryblok)[];
+  spaceX: number | string;
+  spaceXSm?: number | string;
+  spaceXMd?: number | string;
+  spaceXLg?: number | string;
+  spaceY: number | string;
+  spaceYSm?: number | string;
+  spaceYMd?: number | string;
+  spaceYLg?: number | string;
+  tag: "" | "div" | "ul";
+  maxWidth?: number | string;
+  component: "gridBento";
   _uid: string;
   [k: string]: any;
 }
@@ -306,6 +407,7 @@ export interface SectionStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
+    | CardBentoStoryblok
     | CardIconTitleTextStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
@@ -317,6 +419,7 @@ export interface SectionStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
+    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -350,6 +453,7 @@ export interface SectionHorizontalStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
+    | CardBentoStoryblok
     | CardIconTitleTextStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
@@ -361,6 +465,7 @@ export interface SectionHorizontalStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
+    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -383,6 +488,7 @@ export interface SectionHorizontalStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
+    | CardBentoStoryblok
     | CardIconTitleTextStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
@@ -394,6 +500,7 @@ export interface SectionHorizontalStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
+    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -437,6 +544,7 @@ export interface SectionVerticalStoryblok {
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
+    | CardBentoStoryblok
     | CardIconTitleTextStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
@@ -448,6 +556,7 @@ export interface SectionVerticalStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
+    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -484,6 +593,7 @@ export interface TechnologyStoryblok {
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
+  ogDescription?: string;
   component: "technology";
   _uid: string;
   [k: string]: any;

@@ -501,6 +501,110 @@
       "component_group_name": "SECTION"
     },
     {
+      "name": "cardBento",
+      "display_name": "CARD - BENTO",
+      "description": "",
+      "created_at": "2025-03-19T09:43:43.122Z",
+      "updated_at": "2025-03-19T11:51:53.551Z",
+      "id": 7103983,
+      "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0,
+          "id": "hApBtwmWRCiO3WNl8pHQmQ",
+          "required": true,
+          "display_name": "TITRE",
+          "description": "H4"
+        },
+        "tab-0a5255ea-77af-4265-9f3f-1037f649d086": {
+          "display_name": "Config",
+          "keys": [
+            "colSpan",
+            "rowSpan",
+            "isTextUpside"
+          ],
+          "pos": 0,
+          "type": "tab",
+          "id": "ClJV6nevQmWfPxA39knQhg"
+        },
+        "text": {
+          "type": "textarea",
+          "pos": 1,
+          "id": "0-mX5spiTCSv_fSnQF4jXA",
+          "required": true,
+          "display_name": "TEXTE"
+        },
+        "illustration": {
+          "type": "bloks",
+          "pos": 2,
+          "id": "Q8Ba3m4_S4KO8e9VgVXAHA"
+        },
+        "colSpan": {
+          "type": "option",
+          "pos": 4,
+          "use_uuid": true,
+          "display_name": "COL SPAN (LARGEUR)",
+          "required": true,
+          "options": [
+            {
+              "_uid": "dc28ae08-2d61-4760-a4cb-ae1c2527a437",
+              "name": "1",
+              "value": "1"
+            },
+            {
+              "_uid": "bef551f7-84c1-47b8-9a94-fc6e9f8d87e2",
+              "value": "2",
+              "name": "2"
+            }
+          ],
+          "default_value": "1",
+          "id": "BLqBimh7S3mse4TPQ2oIWw"
+        },
+        "rowSpan": {
+          "type": "option",
+          "pos": 5,
+          "use_uuid": true,
+          "id": "3EvntoKFQ3WBwykiVy4d7Q",
+          "display_name": "ROW SPAN (HAUTEUR)",
+          "required": true,
+          "options": [
+            {
+              "_uid": "241eb143-d234-4d43-97cf-212e6b406c90",
+              "name": "1",
+              "value": "1"
+            },
+            {
+              "_uid": "81f5272a-3e2a-4915-aee4-a94f9d767450",
+              "value": "2",
+              "name": "2"
+            }
+          ],
+          "default_value": "1"
+        },
+        "isTextUpside": {
+          "type": "boolean",
+          "pos": 6,
+          "display_name": "CONTENU TEXTUEL EN HAUT ?",
+          "id": "ozR7PxmFTRuQZScVVOQuJw"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CARD - BENTO",
+      "component_group_uuid": "all",
+      "color": null,
+      "icon": null,
+      "internal_tags_list": [],
+      "internal_tag_ids": [],
+      "content_type_asset_preview": null,
+      "component_group_name": ""
+    },
+    {
       "name": "cardIconTitleText",
       "display_name": "CARD (ICÔNE - TITRE - TEXTE)",
       "description": "",
@@ -1096,8 +1200,265 @@
       "display_name": "GRILLE",
       "description": null,
       "created_at": "2024-12-13T14:47:37.052Z",
-      "updated_at": "2025-03-14T10:26:01.481Z",
+      "updated_at": "2025-03-19T10:07:05.515Z",
       "id": 6687188,
+      "schema": {
+        "cols": {
+          "type": "option",
+          "pos": 0,
+          "use_uuid": true,
+          "display_name": "COLONNES (0px - 768px)",
+          "required": true,
+          "source": "internal",
+          "datasource_slug": "cols",
+          "default_value": "1",
+          "id": "ykYkRxUgQa2pGSTUUEZHSA"
+        },
+        "colsMd": {
+          "type": "option",
+          "pos": 1,
+          "use_uuid": true,
+          "source": "internal",
+          "datasource_slug": "cols",
+          "default_value": "",
+          "required": false,
+          "display_name": "COLONNES (768px - 1024px)",
+          "id": "HGdhmE1pSz6aPeZBccQVlA"
+        },
+        "colsLg": {
+          "type": "option",
+          "pos": 2,
+          "use_uuid": true,
+          "display_name": "COLONNES (1024px - 1280px)",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "cols",
+          "default_value": "",
+          "id": "2D21FdTGRH6PvqFQnQq4aw"
+        },
+        "colsXl": {
+          "type": "option",
+          "pos": 3,
+          "use_uuid": true,
+          "display_name": "COLONNES (1280px +)",
+          "source": "internal",
+          "datasource_slug": "cols",
+          "default_value": "",
+          "required": false,
+          "id": "LD1K1_ZJS3C0aG-5JtIZVg"
+        },
+        "items": {
+          "type": "bloks",
+          "pos": 4,
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "cardLight",
+            "cardIconTitleText",
+            "cardImageTitleText",
+            "cardBento"
+          ],
+          "minimum": 1,
+          "required": true,
+          "display_name": "ITEMS",
+          "id": "rgkytDxvSqO2xbVfDHr-zQ"
+        },
+        "tab-fe6a1b9e-7164-4e3a-b621-5bef269e4cf6": {
+          "display_name": "Config",
+          "keys": [
+            "maxWidth",
+            "tag"
+          ],
+          "pos": 5,
+          "type": "tab",
+          "id": "_mobnnFkTjq2IVvvJp5M9g",
+          "name": "tab-fe6a1b9e-7164-4e3a-b621-5bef269e4cf6"
+        },
+        "spaceX": {
+          "type": "option",
+          "pos": 6,
+          "use_uuid": true,
+          "display_name": "ESPACE HORIZONTAL (0px - 640px)",
+          "required": true,
+          "default_value": "10",
+          "source": "internal",
+          "datasource_slug": "space",
+          "id": "CwwcCQY2T2e9vZhApTMOTA",
+          "description": ""
+        },
+        "tab-a3c3a28e-bcee-478b-aab3-0cdc3e36a521": {
+          "display_name": "Columns",
+          "keys": [
+            "xlCols",
+            "lgCols",
+            "mdCols",
+            "cols",
+            "colsMd",
+            "colsLg",
+            "colsXl"
+          ],
+          "pos": 7,
+          "type": "tab",
+          "id": "o8OijrzuR4uqswzcPjalIQ",
+          "name": "tab-a3c3a28e-bcee-478b-aab3-0cdc3e36a521"
+        },
+        "spaceXSm": {
+          "type": "option",
+          "pos": 8,
+          "use_uuid": true,
+          "id": "Cv_341CpQPCLlf4CcGzuMw",
+          "display_name": "ESPACE HORIZONTAL (640px - 768px)",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "space",
+          "default_value": ""
+        },
+        "tab-17d11fa8-0764-4b5c-a140-94618c4b7506": {
+          "display_name": "Spaces",
+          "keys": [
+            "spaceXMd",
+            "spaceXLg",
+            "spaceXSm",
+            "spaceX",
+            "spaceYLg",
+            "spaceYMd",
+            "spaceYSm",
+            "spaceY"
+          ],
+          "pos": 9,
+          "type": "tab",
+          "id": "F9EfqAdkS1yhQJRhjEt1Bg",
+          "name": "tab-17d11fa8-0764-4b5c-a140-94618c4b7506"
+        },
+        "spaceXMd": {
+          "type": "option",
+          "pos": 10,
+          "use_uuid": true,
+          "id": "qCiI0amPTySlA54vDhE2uA",
+          "display_name": "ESPACE HORIZONTAL (768px - 1024px)",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "space",
+          "default_value": ""
+        },
+        "spaceXLg": {
+          "type": "option",
+          "pos": 11,
+          "use_uuid": true,
+          "id": "3NFwlWCUSsmuCKa_fVUheg",
+          "display_name": "ESPACE HORIZONTAL (1024px+)",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "space",
+          "default_value": ""
+        },
+        "spaceY": {
+          "type": "option",
+          "pos": 12,
+          "use_uuid": true,
+          "source": "internal",
+          "datasource_slug": "space",
+          "default_value": "10",
+          "required": true,
+          "display_name": "ESPACE VERTICAL (0px - 640px)",
+          "id": "BsivaaRdQCSoZ_4e8mAb8g"
+        },
+        "spaceYSm": {
+          "type": "option",
+          "pos": 13,
+          "use_uuid": true,
+          "id": "e4IdfyIgStWMP-Msconc8w",
+          "display_name": "ESPACE VERTICAL (640px - 768px)",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "space",
+          "default_value": ""
+        },
+        "spaceYMd": {
+          "type": "option",
+          "pos": 14,
+          "use_uuid": true,
+          "id": "lcMhZ9LYTWuYMgDJCpNlHQ",
+          "display_name": "ESPACE VERTICAL (768px - 1024px)",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "space",
+          "default_value": ""
+        },
+        "spaceYLg": {
+          "type": "option",
+          "pos": 15,
+          "use_uuid": true,
+          "id": "8VmXbV6yRGSKApYhW0LoKQ",
+          "display_name": "ESPACE VERTICAL (1024px+)",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "space",
+          "default_value": ""
+        },
+        "tag": {
+          "type": "option",
+          "pos": 16,
+          "use_uuid": true,
+          "display_name": "TAG",
+          "required": true,
+          "options": [
+            {
+              "_uid": "851c1599-0dc0-4b3f-a606-bcb628d07820",
+              "name": "DIV",
+              "value": "div"
+            },
+            {
+              "_uid": "1a49785d-b807-4465-9995-9c038992a7c4",
+              "value": "ul",
+              "name": "UL (LISTE)"
+            }
+          ],
+          "default_value": "div",
+          "id": "Z20yhsEzT7W-E9wsPcNRWA"
+        },
+        "maxWidth": {
+          "type": "option",
+          "pos": 17,
+          "use_uuid": true,
+          "display_name": "LARGEUR MAX",
+          "required": false,
+          "source": "internal",
+          "datasource_slug": "max-width",
+          "default_value": "",
+          "id": "5xOIzdS7TmSxqJzAA1HS2w"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "GRILLE",
+      "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
+      "color": "#4656ae",
+      "icon": "block-1-2block",
+      "internal_tags_list": [
+        {
+          "id": 53107,
+          "name": "ui"
+        }
+      ],
+      "internal_tag_ids": [
+        "53107"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "UI"
+    },
+    {
+      "name": "gridBento",
+      "display_name": "GRILLE - BENTO",
+      "description": null,
+      "created_at": "2025-03-19T09:47:09.266Z",
+      "updated_at": "2025-03-19T09:47:26.890Z",
+      "id": 7104021,
       "schema": {
         "cols": {
           "type": "option",
@@ -1330,8 +1691,8 @@
       "is_nestable": true,
       "all_presets": [],
       "preset_id": null,
-      "real_name": "GRILLE",
-      "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
+      "real_name": "GRILLE - BENTO",
+      "component_group_uuid": "all",
       "color": "#4656ae",
       "icon": "block-1-2block",
       "internal_tags_list": [
@@ -1344,7 +1705,7 @@
         "53107"
       ],
       "content_type_asset_preview": null,
-      "component_group_name": "UI"
+      "component_group_name": ""
     },
     {
       "name": "heroHome",
@@ -2120,7 +2481,7 @@
       "display_name": "TECHNOLOGY",
       "description": null,
       "created_at": "2024-12-08T16:04:33.858Z",
-      "updated_at": "2025-03-17T17:21:15.156Z",
+      "updated_at": "2025-03-18T21:06:04.639Z",
       "id": 6663004,
       "schema": {
         "logoOutline": {
@@ -2138,7 +2499,7 @@
           "type": "asset",
           "pos": 1,
           "id": "387qfYMySOKjpHx_YqE5Vg",
-          "display_name": "LOGO - FULL - DARK",
+          "display_name": "LOGO - FULL - FOND SOMBRE",
           "required": true,
           "filetypes": [
             "images"
@@ -2152,7 +2513,7 @@
             "images"
           ],
           "required": true,
-          "display_name": "LOGO - FULL - LIGHT",
+          "display_name": "LOGO - FULL - FOND CLAIR",
           "id": "kFPw3Ha2QsqaXerqJLzCGQ",
           "asset_folder_id": 758910
         },
@@ -2205,7 +2566,8 @@
             "ogTitle",
             "ogBadge",
             "metaDescription",
-            "metaTitle"
+            "metaTitle",
+            "ogDescription"
           ],
           "pos": 7,
           "type": "tab",
@@ -2235,6 +2597,13 @@
           "required": true,
           "max_length": 80,
           "id": "vy7ujPECQ26RUvJMHe7n8w"
+        },
+        "ogDescription": {
+          "type": "textarea",
+          "pos": 11,
+          "id": "yeShJ4YoTHiRtXopFq-M9A",
+          "display_name": "OG - DESCRIPTION",
+          "max_length": 150
         }
       },
       "image": null,
@@ -2412,6 +2781,50 @@
       ],
       "content_type_asset_preview": null,
       "component_group_name": "DATA"
+    }
+  ],
+  "component_groups": [
+    {
+      "name": "DATA",
+      "id": 455860,
+      "uuid": "04509216-f19d-4707-af87-46fe49b02750",
+      "parent_id": null,
+      "parent_uuid": null
+    },
+    {
+      "name": "HERO",
+      "id": 515569,
+      "uuid": "93a7a4d7-21bc-4948-85aa-4e23e114a336",
+      "parent_id": null,
+      "parent_uuid": null
+    },
+    {
+      "name": "NAVBAR & FOOTER",
+      "id": 456319,
+      "uuid": "d3e0d305-798c-4225-811a-87ae6e31b456",
+      "parent_id": null,
+      "parent_uuid": null
+    },
+    {
+      "name": "ORPHAN",
+      "id": 456170,
+      "uuid": "1434373d-383c-4e2f-96ee-ed921c348597",
+      "parent_id": null,
+      "parent_uuid": null
+    },
+    {
+      "name": "SECTION",
+      "id": 459017,
+      "uuid": "106bc6ec-816a-497e-bac8-2a812c419ee0",
+      "parent_id": null,
+      "parent_uuid": null
+    },
+    {
+      "name": "UI",
+      "id": 456171,
+      "uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
+      "parent_id": null,
+      "parent_uuid": null
     }
   ]
 }
