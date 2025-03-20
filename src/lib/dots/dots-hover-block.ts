@@ -41,7 +41,7 @@ export class DotsHoverBlock {
         colors: this.colors,
         opacities: [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
         totalSize: 3,
-        dotSize: 1,
+        dotSize: 2,
         center: ['x'],
         shader:
           'float intro_offset = distance(u_resolution / 2.0 / u_total_size, st2) * 0.01 + (random(st2) * 0.15); opacity *= step(intro_offset, u_time); opacity *= clamp((1.0 - step(intro_offset + 0.1, u_time)) * 1.25, 1.0, 1.25);',
