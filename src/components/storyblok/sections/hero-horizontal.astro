@@ -14,7 +14,7 @@ const Title = blok.badge ? 'h2' : 'h1';
 
 <section {...storyblokEditable(blok)} class="bg-gray-950">
   <div class="container flex flex-col justify-between py-16 sm:py-40 lg:flex-row lg:gap-x-10">
-    <div class="max-w-2xl">
+    <div class="w-full max-w-2xl">
       {
         blok.badge && (
           <h1 class="mb-4 font-mono text-xs/6 font-medium tracking-wider text-balance text-gray-200 uppercase">
@@ -34,6 +34,6 @@ const Title = blok.badge ? 'h2' : 'h1';
         {blok.buttons?.map((button) => <StoryblokComponent blok={button} />)}
       </div>
     </div>
-    <div class="w-full text-white">ASIDE</div>
+    <div class="text-white">ASIDE</div>
   </div>
 </section>
