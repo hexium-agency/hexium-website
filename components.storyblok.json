@@ -505,12 +505,45 @@
       "display_name": "CARD - BENTO",
       "description": "",
       "created_at": "2025-03-19T09:43:43.122Z",
-      "updated_at": "2025-03-19T16:39:37.323Z",
+      "updated_at": "2025-03-19T17:22:25.597Z",
       "id": 7103983,
       "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0,
+          "id": "hApBtwmWRCiO3WNl8pHQmQ",
+          "required": true,
+          "display_name": "TITRE",
+          "description": "H4"
+        },
+        "text": {
+          "type": "textarea",
+          "pos": 1,
+          "id": "0-mX5spiTCSv_fSnQF4jXA",
+          "required": true,
+          "display_name": "TEXTE"
+        },
+        "illustration": {
+          "type": "bloks",
+          "pos": 2,
+          "id": "Q8Ba3m4_S4KO8e9VgVXAHA",
+          "display_name": "ILLUSTRATION"
+        },
+        "isTextOnTop": {
+          "type": "boolean",
+          "pos": 3,
+          "display_name": "CONTENU TEXTUEL EN HAUT ?",
+          "id": "ozR7PxmFTRuQZScVVOQuJw"
+        },
+        "link": {
+          "type": "multilink",
+          "pos": 4,
+          "display_name": "LIEN",
+          "id": "pFU0bZR1S8aRMhYhvM0_kQ"
+        },
         "colSpanMd": {
           "type": "option",
-          "pos": 0,
+          "pos": 5,
           "use_uuid": true,
           "options": [
             {
@@ -530,7 +563,7 @@
         },
         "rowSpanMd": {
           "type": "option",
-          "pos": 1,
+          "pos": 6,
           "use_uuid": true,
           "id": "0h36FV3GRw28_uYbi8UNTQ",
           "display_name": "ROW SPAN (768px - 1024px)",
@@ -550,11 +583,11 @@
         },
         "rowSpanLg": {
           "type": "option",
-          "pos": 2,
+          "pos": 7,
           "use_uuid": true,
           "id": "3EvntoKFQ3WBwykiVy4d7Q",
           "display_name": "ROW SPAN (1024px +)",
-          "required": true,
+          "required": false,
           "options": [
             {
               "_uid": "241eb143-d234-4d43-97cf-212e6b406c90",
@@ -571,10 +604,10 @@
         },
         "colSpanLg": {
           "type": "option",
-          "pos": 3,
+          "pos": 8,
           "use_uuid": true,
-          "display_name": "COL SPAN (LARGEUR)",
-          "required": true,
+          "display_name": "COL SPAN (1024px +)",
+          "required": false,
           "options": [
             {
               "_uid": "dc28ae08-2d61-4760-a4cb-ae1c2527a437",
@@ -590,32 +623,6 @@
           "default_value": "",
           "id": "BLqBimh7S3mse4TPQ2oIWw"
         },
-        "title": {
-          "type": "text",
-          "pos": 4,
-          "id": "hApBtwmWRCiO3WNl8pHQmQ",
-          "required": true,
-          "display_name": "TITRE",
-          "description": "H4"
-        },
-        "text": {
-          "type": "textarea",
-          "pos": 5,
-          "id": "0-mX5spiTCSv_fSnQF4jXA",
-          "required": true,
-          "display_name": "TEXTE"
-        },
-        "illustration": {
-          "type": "bloks",
-          "pos": 6,
-          "id": "Q8Ba3m4_S4KO8e9VgVXAHA"
-        },
-        "isTextOnTop": {
-          "type": "boolean",
-          "pos": 7,
-          "display_name": "CONTENU TEXTUEL EN HAUT ?",
-          "id": "ozR7PxmFTRuQZScVVOQuJw"
-        },
         "tab-0a5255ea-77af-4265-9f3f-1037f649d086": {
           "display_name": "Config",
           "keys": [
@@ -627,7 +634,7 @@
             "rowSpanMd",
             "colSpanMd"
           ],
-          "pos": 8,
+          "pos": 9,
           "type": "tab",
           "id": "ClJV6nevQmWfPxA39knQhg"
         }

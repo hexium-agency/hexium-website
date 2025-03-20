@@ -173,10 +173,6 @@ export interface CallToActionStoryblok {
 }
 
 export interface CardBentoStoryblok {
-  colSpanMd?: "" | "1" | "2";
-  rowSpanMd?: "" | "1" | "2";
-  rowSpanLg: "" | "1" | "2";
-  colSpanLg: "" | "1" | "2";
   title: string;
   text: string;
   illustration?: (
@@ -214,6 +210,11 @@ export interface CardBentoStoryblok {
     | WorkStoryblok
   )[];
   isTextOnTop?: boolean;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  colSpanMd?: "" | "1" | "2";
+  rowSpanMd?: "" | "1" | "2";
+  rowSpanLg?: "" | "1" | "2";
+  colSpanLg?: "" | "1" | "2";
   component: "cardBento";
   _uid: string;
   [k: string]: any;
