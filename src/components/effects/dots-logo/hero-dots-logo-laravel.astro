@@ -1,7 +1,7 @@
 ---
 import hexRgb from 'hex-rgb';
 
-const color = hexRgb('#FF2D20', { format: 'array' });
+const colorLogo = hexRgb('#FF2D20', { format: 'array' });
 ---
 
 <div
@@ -12,7 +12,7 @@ const color = hexRgb('#FF2D20', { format: 'array' });
     <div
       id="laravel-dots-container"
       class="relative h-[500px] w-[500px] bg-gray-950"
-      data-color={color}
+      data-color={colorLogo}
     >
     </div>
   </div>
@@ -20,7 +20,7 @@ const color = hexRgb('#FF2D20', { format: 'array' });
 
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
-  const color = document.querySelector('#laravel-dots-container')?.getAttribute('data-color');
-  const colorArray = color?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#laravel-dots-container') as HTMLElement, [colorArray!]);
+  const logoColor = document.querySelector('#laravel-dots-container')?.getAttribute('data-color');
+  const logoColorRgb = logoColor?.split(',').map(Number);
+  new DotsBlock(document.querySelector('#laravel-dots-container') as HTMLElement, [logoColorRgb!]);
 </script>

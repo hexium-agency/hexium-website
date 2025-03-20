@@ -1,0 +1,50 @@
+---
+import hexRgb from 'hex-rgb';
+
+const color = hexRgb('#007ACD', { format: 'array' });
+const color2 = hexRgb('#FFF', { format: 'array' });
+---
+
+<div class="relative size-[500px]">
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221000%22%20height%3D%221000%22%20viewBox%3D%220%200%201000%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20clip-path%3D%22url(%23clip0_355_950)%22%3E%3Cpath%20d%3D%22M0%20500V1000H500H1000V500V0H500H0V500Z%22%20fill%3D%22%23007ACC%22%2F%3E%3C%2Fg%3E%3Cdefs%3E%3CclipPath%20id%3D%22clip0_355_950%22%3E%3Crect%20width%3D%221000%22%20height%3D%221000%22%20fill%3D%22white%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="typescript-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={color}
+      >
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221000%22%20height%3D%221000%22%20viewBox%3D%220%200%201000%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M221.14%20503.314L220.822%20544.266H285.902H350.981V729.187V914.107H397.013H443.044V729.187V544.266H508.124H573.203V504.107C573.203%20481.885%20572.727%20463.314%20572.092%20462.838C571.616%20462.203%20492.409%20461.885%20396.378%20462.044L221.616%20462.52L221.14%20503.314Z%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M806.901%20461.362C832.298%20467.712%20851.663%20478.981%20869.441%20497.394C878.647%20507.235%20892.298%20525.172%20893.409%20529.458C893.726%20530.727%20850.234%20559.934%20823.885%20576.283C822.933%20576.918%20819.123%20572.791%20814.837%20566.442C801.98%20547.712%20788.488%20539.616%20767.853%20538.188C737.536%20536.124%20718.012%20551.997%20718.171%20578.505C718.171%20586.283%20719.282%20590.886%20722.456%20597.235C729.123%20611.045%20741.504%20619.299%20780.393%20636.124C851.98%20666.918%20882.615%20687.235%20901.663%20716.124C922.933%20748.346%20927.695%20799.775%20913.25%20838.029C897.377%20879.616%20858.012%20907.87%20802.615%20917.235C785.472%20920.251%20744.837%20919.775%20726.425%20916.442C686.266%20909.299%20648.171%20889.458%20624.679%20863.426C615.472%20853.267%20597.536%20826.759%20598.647%20824.854C599.123%20824.219%20603.25%20821.68%20607.853%20818.981C612.298%20816.442%20629.123%20806.759%20644.996%20797.553L673.726%20780.886L679.758%20789.775C688.171%20802.632%20706.584%20820.251%20717.695%20826.124C749.599%20842.95%20793.409%20840.569%20814.996%20821.204C824.203%20812.791%20828.012%20804.061%20828.012%20791.204C828.012%20779.616%20826.583%20774.537%20820.552%20765.807C812.774%20754.696%20796.901%20745.331%20751.822%20725.807C700.234%20703.585%20678.012%20689.775%20657.695%20667.87C645.949%20655.172%20634.837%20634.854%20630.234%20617.87C626.425%20603.743%20625.472%20568.346%20628.488%20554.061C639.123%20504.219%20676.742%20469.458%20731.028%20459.14C748.647%20455.807%20789.599%20457.077%20806.901%20461.362Z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="typescript-letters-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={color2}
+      >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { DotsBlock } from '@/lib/dots/dots-block';
+  const color = document.querySelector('#typescript-dots-container')?.getAttribute('data-color');
+  const colorArray = color?.split(',').map(Number);
+  new DotsBlock(document.querySelector('#typescript-dots-container') as HTMLElement, [colorArray!]);
+
+  const color2 = document
+    .querySelector('#typescript-letters-dots-container')
+    ?.getAttribute('data-color');
+  const colorArray2 = color2?.split(',').map(Number);
+  new DotsBlock(document.querySelector('#typescript-letters-dots-container') as HTMLElement, [
+    colorArray2!,
+  ]);
+</script>

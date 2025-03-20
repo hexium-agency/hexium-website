@@ -1,0 +1,120 @@
+---
+import hexRgb from 'hex-rgb';
+
+const colorTop = hexRgb('#4FB5E2', { format: 'array' });
+const colorMiddle = hexRgb('#FAE500', { format: 'array' });
+const colorBottom = hexRgb('#F05751', { format: 'array' });
+const colorTopPoint = hexRgb('#0581B6', { format: 'array' });
+const colorBottomPoint = hexRgb('#CC4739', { format: 'array' });
+---
+
+<div class="relative size-[500px]">
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22886%22%20height%3D%221000%22%20viewBox%3D%220%200%20886%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M303.125%20303.124C353.125%20250%20421.875%20218.75%20500%20218.75C578.125%20218.75%20646.875%20250%20696.875%20299.999C740.625%20343.749%20809.375%20343.749%20853.125%20299.999C896.875%20256.25%20896.875%20187.5%20853.125%20143.75C762.5%2056.2499%20637.5%200%20500%200C362.5%200%20237.5%2056.2499%20146.875%20146.875C103.125%20190.625%20103.125%20259.375%20146.875%20303.124C190.625%20343.749%20259.375%20343.749%20303.125%20303.124Z%22%20fill%3D%22%234FB5E1%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="contentful-top-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={colorTop}
+      >
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22886%22%20height%3D%221000%22%20viewBox%3D%220%200%20886%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M303.125%20696.874C250%20646.874%20218.75%20578.124%20218.75%20499.999C218.75%20421.874%20250%20353.125%20300%20303.125C343.75%20259.375%20343.75%20190.625%20300%20146.875C256.25%20103.125%20187.5%20103.125%20143.75%20146.875C56.25%20237.5%200%20362.5%200%20499.999C0%20637.499%2056.25%20762.499%20146.875%20853.124C190.625%20896.874%20259.375%20896.874%20303.125%20853.124C343.75%20809.374%20343.75%20740.624%20303.125%20696.874Z%22%20fill%3D%22%23FAE501%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="contentful-middle-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={colorMiddle}
+      >
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22886%22%20height%3D%221000%22%20viewBox%3D%220%200%20886%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M696.875%20696.875C646.875%20750%20578.125%20781.25%20500%20781.25C421.875%20781.25%20353.125%20750%20303.125%20700C259.375%20656.25%20190.625%20656.25%20146.875%20700C103.125%20743.75%20103.125%20812.5%20146.875%20856.25C237.5%20943.75%20362.5%20999.999%20500%20999.999C637.5%20999.999%20762.5%20943.75%20853.125%20853.125C896.875%20809.375%20896.875%20740.625%20853.125%20696.875C809.375%20656.25%20740.625%20656.25%20696.875%20696.875Z%22%20fill%3D%22%23F05751%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="contentful-bottom-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={colorBottom}
+      >
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22886%22%20height%3D%221000%22%20viewBox%3D%220%200%20886%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M225%20334.375C285.406%20334.375%20334.375%20285.406%20334.375%20225C334.375%20164.594%20285.406%20115.625%20225%20115.625C164.594%20115.625%20115.625%20164.594%20115.625%20225C115.625%20285.406%20164.594%20334.375%20225%20334.375Z%22%20fill%3D%22%230681B6%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="contentful-top-point-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={colorTopPoint}
+      >
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22886%22%20height%3D%221000%22%20viewBox%3D%220%200%20886%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M225%20884.375C285.406%20884.375%20334.375%20835.406%20334.375%20775C334.375%20714.594%20285.406%20665.625%20225%20665.625C164.594%20665.625%20115.625%20714.594%20115.625%20775C115.625%20835.406%20164.594%20884.375%20225%20884.375Z%22%20fill%3D%22%23CD4739%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="contentful-bottom-point-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={colorBottomPoint}
+      >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { DotsBlock } from '@/lib/dots/dots-block';
+  const topColor = document
+    .querySelector('#contentful-top-dots-container')
+    ?.getAttribute('data-color');
+  const topColorRgb = topColor?.split(',').map(Number);
+  new DotsBlock(document.querySelector('#contentful-top-dots-container') as HTMLElement, [
+    topColorRgb!,
+  ]);
+
+  const middleColor = document
+    .querySelector('#contentful-middle-dots-container')
+    ?.getAttribute('data-color');
+  const middleColorRgb = middleColor?.split(',').map(Number);
+  new DotsBlock(document.querySelector('#contentful-middle-dots-container') as HTMLElement, [
+    middleColorRgb!,
+  ]);
+
+  const bottomColor = document
+    .querySelector('#contentful-bottom-dots-container')
+    ?.getAttribute('data-color');
+  const bottomColorRgb = bottomColor?.split(',').map(Number);
+  new DotsBlock(document.querySelector('#contentful-bottom-dots-container') as HTMLElement, [
+    bottomColorRgb!,
+  ]);
+
+  const topPointColor = document
+    .querySelector('#contentful-top-point-dots-container')
+    ?.getAttribute('data-color');
+  const topPointColorRgb = topPointColor?.split(',').map(Number);
+  new DotsBlock(document.querySelector('#contentful-top-point-dots-container') as HTMLElement, [
+    topPointColorRgb!,
+  ]);
+
+  const bottomPointColor = document
+    .querySelector('#contentful-bottom-point-dots-container')
+    ?.getAttribute('data-color');
+  const bottomPointColorRgb = bottomPointColor?.split(',').map(Number);
+  new DotsBlock(document.querySelector('#contentful-bottom-point-dots-container') as HTMLElement, [
+    bottomPointColorRgb!,
+  ]);
+</script>
