@@ -1,4 +1,7 @@
 ---
+import Laravel from '@/components/dots-animation/laravel.astro';
+import Node from '@/components/dots-animation/node.astro';
+import React from '@/components/dots-animation/react.astro';
 import type { PageStoryblok } from '@/types/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
@@ -10,6 +13,15 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 ---
 
-<div {...storyblokEditable(blok)}>
+<div {...storyblokEditable(blok)} class="relative bg-gray-950">
+  <div class="flex h-[800px] items-center justify-center bg-gray-950">
+    <React />
+  </div>
+  <div class="flex h-[800px] items-center justify-center bg-gray-950">
+    <Laravel />
+  </div>
+  <div class="flex h-[800px] items-center justify-center bg-gray-950">
+    <Node />
+  </div>
   {blok.body.map((item) => <StoryblokComponent blok={item} />)}
 </div>
