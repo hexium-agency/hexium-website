@@ -1,5 +1,14 @@
-import { type MultilinkStoryblok, type AssetStoryblok } from '@/types/storyblok';
+import {
+  type MultilinkStoryblok,
+  type AssetStoryblok,
+  type RichtextStoryblok,
+} from '@/types/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
+
+export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
+  // COMPLETE HERE
+}
+
 export function parseStoryblokBackgroundColor(backgroundColor: number | string) {
   switch (backgroundColor) {
     case 'white':
