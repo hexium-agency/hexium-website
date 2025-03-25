@@ -7,6 +7,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 import react from '@astrojs/react';
 
+import expressiveCode from 'astro-expressive-code';
+
 const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
 // https://astro.build/config
@@ -18,6 +20,13 @@ export default defineConfig({
     domains: ["a.storyblok.com"],
   },
   integrations: [
+    expressiveCode({
+      defaultLocale: 'fr',
+      styleOverrides: {
+        codeBackground: "#191919",
+        codeFontFamily: "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+      }
+    }),
     react(),
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
@@ -42,7 +51,7 @@ export default defineConfig({
         'button': 'components/storyblok/ui/button',
         'button-group': 'components/storyblok/ui/button-group',
         'card-bento': 'components/storyblok/ui/card-bento',
-        'card-icon-title-text': 'components/storyblok/ui/card-icon-title-text',
+        'card-icon-title-text-light': 'components/storyblok/ui/card-icon-title-text-light',
         'card-image-title-text': 'components/storyblok/ui/card-image-title-text',
         'featured-technologies': 'components/storyblok/ui/featured-technologies',
         'grid': 'components/storyblok/ui/grid',

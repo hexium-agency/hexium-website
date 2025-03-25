@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.2.1",
+    "@expressive-code/plugin-line-numbers": "^0.40.2",
     "@fontsource-variable/inter": "^5.2.5",
     "@fontsource-variable/jetbrains-mono": "^5.2.5",
     "@storyblok/astro": "^6.0.1",
@@ -22,6 +23,7 @@
     "@types/react-dom": "^19.0.4",
     "@uidotdev/usehooks": "^2.4.1",
     "astro": "^5.4.0",
+    "astro-expressive-code": "^0.40.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "hex-rgb": "^5.0.0",
