@@ -52,10 +52,10 @@ export interface AssetStoryblok {
 }
 
 export interface ArticleStoryblok {
+  categories: (ISbStoryData<BlogCategoryStoryblok> | string)[];
   cover: AssetStoryblok;
   description: string;
   content: RichtextStoryblok;
-  categories: (ISbStoryData<BlogCategoryStoryblok> | string)[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
@@ -227,6 +227,7 @@ export interface CardIconTitleTextStoryblok {
   text: string;
   link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
   isInline?: boolean;
+  style?: "" | "small" | "normal" | "card";
   component: "cardIconTitleText";
   _uid: string;
   [k: string]: any;
