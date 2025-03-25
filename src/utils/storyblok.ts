@@ -1,5 +1,5 @@
 import { type MultilinkStoryblok, type AssetStoryblok } from '@/types/storyblok';
-
+import type { ISbStoryData } from '@storyblok/astro';
 export function parseStoryblokBackgroundColor(backgroundColor: number | string) {
   switch (backgroundColor) {
     case 'white':
@@ -46,6 +46,10 @@ export function parseStoryblokLink(link: MultilinkStoryblok | undefined): string
   }
 
   return '';
+}
+
+export function parseStoryblokStoryToLink(story: ISbStoryData) {
+  return `/${story.full_slug}`.replace(/\/$/, '');
 }
 
 export function parseStoryblokMaxWidth(maxWidth: number | string) {
