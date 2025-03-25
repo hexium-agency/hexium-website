@@ -4,6 +4,7 @@ import type { ArticleStoryblok } from '@/types/storyblok';
 import { parseStoryblokImage } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
+import { Code } from 'astro-expressive-code/components';
 
 interface AstroProps {
   blok: ArticleStoryblok;
@@ -37,6 +38,23 @@ const { blok, story } = Astro.props as AstroProps;
             style="color: transparent;"
           />
         </div>
+        <Code
+          code={`import { defineConfig } from 'astro/config'
+  import astroExpressiveCode from 'astro-expressive-code'
+
+  export default defineConfig({
+    integrations: [
+      astroExpressiveCode({
+        // Replace the default themes with a custom set of bundled themes:
+        // "dracula" (a dark theme) and "solarized-light"
+        themes: ['dracula', 'solarized-light'],
+      }),
+    ],
+  })`}
+          showLineNumbers
+          lang="js"
+          title={'aaa'}
+        />
         <div
           class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none [&_:is(h1,h2,h3,h4,h5)+*]:mt-0"
         >
