@@ -9,12 +9,12 @@ interface AstroProps {
 const { level, text } = Astro.props as AstroProps;
 
 const Tag = `h${level === 1 ? 2 : level}`;
+
+const slugifiedText = slugify(text, {
+  lower: true,
+});
 ---
 
-<Tag
-  ><a
-    href={`#${slugify(text, {
-      lower: true,
-    })}`}>{text}</a
-  ></Tag
->
+<Fragment
+  set:html={`<${Tag} id="${slugifiedText}"><a href="#${slugifiedText}">${text}</a></${Tag}>`}
+/>
