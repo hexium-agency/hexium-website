@@ -1,0 +1,87 @@
+---
+interface Heading {
+  level: number;
+  text: string;
+  id: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+const LevelsPaddings: Record<number, string> = {
+  2: 'pl-0',
+  3: 'pl-2',
+  4: 'pl-4',
+  5: 'pl-6',
+  6: 'pl-8',
+};
+---
+
+<nav class="space-y-4">
+  <div class="fixed top-0 left-0 z-50 h-1 bg-indigo-900" id="progress-bar"></div>
+  <h2 class="font-heading text-lg font-semibold text-gray-900">On this page</h2>
+  <ul class="space-y-3 pl-4 text-sm font-medium text-gray-950">
+    {
+      headings.map((heading) => (
+        <li class={`${LevelsPaddings[heading.level]}`}>
+          <a
+            href={`#${heading.id}`}
+            class="text-sm font-medium text-gray-950 data-[active]:font-medium data-[active]:text-indigo-900"
+            data-heading-link={heading.level === 2 ? '' : null}
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -80% 0px',
+    threshold: 0.1,
+  };
+
+  const headingLinks = document.querySelectorAll('[data-heading-link]');
+  const headingIds = Array.from(headingLinks).map((link) => link.getAttribute('href')?.slice(1));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const id = entry.target.getAttribute('id');
+      const link = document.querySelector(`[href="#${id}"]`);
+
+      if (entry.isIntersecting) {
+        headingLinks.forEach((link) => link.removeAttribute('data-active'));
+        link?.setAttribute('data-active', '');
+      }
+    });
+  }, observerOptions);
+
+  headingIds.forEach((id) => {
+    const element = document.getElementById(id!);
+    if (element) observer.observe(element);
+  });
+
+  const progressBar = document.getElementById('progress-bar');
+  
+  function updateProgressBar() {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight - windowHeight;
+    const scrolled = window.scrollY;
+    const progress = (scrolled / documentHeight) * 100;
+    
+    if (progressBar) {
+      progressBar.style.width = `${progress}%`;
+    }
+  }
+
+  window.addEventListener('scroll', updateProgressBar);
+  window.addEventListener('resize', updateProgressBar);
+  
+  updateProgressBar();
+</script>
