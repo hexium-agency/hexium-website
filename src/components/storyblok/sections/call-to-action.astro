@@ -13,16 +13,16 @@ const { blok } = Astro.props as AstroProps;
 <section {...storyblokEditable(blok)} class="relative py-10 md:py-20">
   <div class="container">
     <div class="relative overflow-hidden rounded-3xl bg-gray-950 px-6 py-24 shadow-2xl md:px-10">
-      <div class="relative z-10 mx-auto max-w-xl text-white">
+      <div class="relative z-10 mx-auto max-w-lg text-white">
         <h2 class="text-center font-mono text-xs leading-none font-medium text-gray-200 uppercase">
           {blok.badge}
         </h2>
         <h3
-          class="font-heading mt-8 text-center text-3xl font-semibold tracking-tight text-balance md:text-4xl"
+          class="font-heading mt-8 text-center text-3xl font-semibold tracking-tight text-pretty md:text-4xl"
         >
           {blok.title}
         </h3>
-        <div class="mx-auto mt-8 max-w-lg text-center text-base text-gray-200">
+        <div class="mx-auto mt-8 text-center text-[0.875rem]/5 text-gray-200">
           {blok.content}
         </div>
         <div class="mt-8 flex flex-wrap justify-center gap-4">
