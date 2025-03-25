@@ -199,6 +199,7 @@ export interface CardBentoStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
     | LatestArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -362,6 +363,7 @@ export interface HeroHorizontalStoryblok {
   title: string;
   text: string;
   buttons?: ButtonStoryblok[];
+  effects?: HighlightWordsStoryblok[];
   component: "heroHorizontal";
   _uid: string;
   [k: string]: any;
@@ -373,6 +375,12 @@ export interface HeroVerticalStoryblok {
   text: string;
   buttons?: ButtonStoryblok[];
   component: "heroVertical";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface HighlightWordsStoryblok {
+  component: "highlightWords";
   _uid: string;
   [k: string]: any;
 }
@@ -429,6 +437,7 @@ export interface SectionStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
     | LatestArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -475,6 +484,7 @@ export interface SectionHorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
     | LatestArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -510,6 +520,7 @@ export interface SectionHorizontalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
     | LatestArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -534,14 +545,6 @@ export interface SectionVerticalStoryblok {
   badge: string;
   title: string;
   text?: RichtextStoryblok;
-  items?: (
-    | PageInlineRichtextStoryblok
-    | ButtonGroupStoryblok
-    | AccordionGroupStoryblok
-    | SpacerStoryblok
-    | ContactStoryblok
-    | LatestArticlesStoryblok
-  )[];
   blocks?: (
     | AccordionStoryblok
     | AccordionGroupStoryblok
@@ -566,6 +569,7 @@ export interface SectionVerticalStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
     | LatestArticlesStoryblok
     | PageStoryblok
     | SectionStoryblok
@@ -600,6 +604,41 @@ export interface TechnologyStoryblok {
   ogBadge: string;
   ogTitle: string;
   ogDescription?: string;
+  body?: (
+    | AccordionStoryblok
+    | AccordionGroupStoryblok
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | ButtonStoryblok
+    | ButtonGroupStoryblok
+    | CallToActionStoryblok
+    | CardBentoStoryblok
+    | CardIconTitleTextStoryblok
+    | CardImageTitleTextStoryblok
+    | CodeBlockStoryblok
+    | DefinitionStoryblok
+    | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FooterAgencyStoryblok
+    | FooterLinkStoryblok
+    | FooterLinkGroupStoryblok
+    | GlobalStoryblok
+    | GridStoryblok
+    | GridBentoStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
+    | LatestArticlesStoryblok
+    | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | SpacerStoryblok
+    | TechnologyStoryblok
+    | TestimonialStoryblok
+    | WorkStoryblok
+  )[];
   component: "technology";
   _uid: string;
   [k: string]: any;

@@ -434,7 +434,7 @@
       "display_name": "CALL TO ACTION",
       "description": null,
       "created_at": "2024-12-05T14:20:35.927Z",
-      "updated_at": "2025-01-11T10:36:39.636Z",
+      "updated_at": "2025-03-19T21:00:39.343Z",
       "id": 6650651,
       "schema": {
         "badge": {
@@ -465,7 +465,7 @@
         "buttons": {
           "type": "bloks",
           "pos": 3,
-          "maximum": 1,
+          "maximum": 2,
           "restrict_type": "",
           "restrict_components": true,
           "component_whitelist": [
@@ -1833,14 +1833,24 @@
       "display_name": "HERO - HORIZONTAL",
       "description": "",
       "created_at": "2025-03-05T14:32:38.496Z",
-      "updated_at": "2025-03-11T11:56:42.062Z",
+      "updated_at": "2025-03-22T11:39:21.908Z",
       "id": 7046807,
       "schema": {
         "badge": {
           "type": "text",
           "pos": 0,
           "id": "8THkDTduSJijYVYLgbywxw",
-          "display_name": "BADGE"
+          "display_name": "BADGE",
+          "description": "H1"
+        },
+        "tab-a6f4d7a7-a826-4fcd-b55e-fd0e1c770198": {
+          "display_name": "Effects",
+          "keys": [
+            "effects"
+          ],
+          "pos": 0,
+          "type": "tab",
+          "id": "pvTXp6gmT821Xv0OHHcBmA"
         },
         "title": {
           "type": "text",
@@ -1868,6 +1878,17 @@
             "button"
           ],
           "id": "SPb3AtMDSCOy57MHYZV62g"
+        },
+        "effects": {
+          "type": "bloks",
+          "pos": 5,
+          "display_name": "EFFETS",
+          "id": "PdMEBd9UQHSWrIIV79ZkHQ",
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "highlightWords"
+          ]
         }
       },
       "image": null,
@@ -1959,6 +1980,40 @@
       ],
       "content_type_asset_preview": null,
       "component_group_name": "HERO"
+    },
+    {
+      "name": "highlightWords",
+      "display_name": "HIGHLIGHT WORD",
+      "description": "",
+      "created_at": "2025-03-22T11:37:36.402Z",
+      "updated_at": "2025-03-22T11:40:32.639Z",
+      "id": 7117729,
+      "schema": {
+        "color": {
+          "type": "custom",
+          "pos": 0,
+          "display_name": "COULEUR",
+          "required": true,
+          "field_type": "native-color-picker",
+          "options": [],
+          "id": "BbOD5JtATwWEYuSwArF3Xw"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "HIGHLIGHT WORD",
+      "component_group_uuid": "all",
+      "color": null,
+      "icon": null,
+      "internal_tags_list": [],
+      "internal_tag_ids": [],
+      "content_type_asset_preview": null,
+      "component_group_name": ""
     },
     {
       "name": "latestArticles",
@@ -2320,7 +2375,7 @@
       "display_name": "SECTION - VERTICAL",
       "description": null,
       "created_at": "2024-12-13T07:33:53.480Z",
-      "updated_at": "2025-03-17T13:36:08.397Z",
+      "updated_at": "2025-03-19T17:52:40.076Z",
       "id": 6684165,
       "schema": {
         "backgroundColor": {
@@ -2389,7 +2444,7 @@
           "pos": 5,
           "display_name": "BADGE",
           "required": true,
-          "tooltip": true,
+          "tooltip": false,
           "description": "H2",
           "id": "SOOgIJleRA-X_vFmNVD4xg"
         },
@@ -2398,7 +2453,7 @@
           "pos": 6,
           "display_name": "TITRE",
           "required": true,
-          "tooltip": true,
+          "tooltip": false,
           "description": "H3",
           "id": "Oqh-taHASNmUtc1Y6pakyQ"
         },
@@ -2422,16 +2477,6 @@
           ],
           "id": "vM68osgsQi2aW876vD15fg"
         },
-        "tab-8b241c29-6304-426b-981d-2580107bafe1": {
-          "display_name": "Items",
-          "keys": [
-            "items"
-          ],
-          "pos": 8,
-          "type": "tab",
-          "id": "iyQcKWMEQmuYHSWAEHuv4Q",
-          "name": "tab-8b241c29-6304-426b-981d-2580107bafe1"
-        },
         "tab-0ebd2001-f948-4c35-97b3-0b17901dd5db": {
           "display_name": "Config",
           "keys": [
@@ -2444,21 +2489,6 @@
           "type": "tab",
           "id": "Dr0gAflITDWXswsXkB3V2w",
           "name": "tab-0ebd2001-f948-4c35-97b3-0b17901dd5db"
-        },
-        "items": {
-          "type": "bloks",
-          "pos": 10,
-          "restrict_type": "",
-          "restrict_components": true,
-          "component_whitelist": [
-            "pageInlineRichtext",
-            "buttonGroup",
-            "accordionGroup",
-            "spacer",
-            "contact",
-            "latestArticles"
-          ],
-          "id": "xG0r3Qm9SMSUEUvq9qcXjg"
         },
         "blocks": {
           "type": "bloks",
@@ -2571,7 +2601,7 @@
       "display_name": "TECHNOLOGY",
       "description": null,
       "created_at": "2024-12-08T16:04:33.858Z",
-      "updated_at": "2025-03-18T21:06:04.639Z",
+      "updated_at": "2025-03-20T09:26:47.716Z",
       "id": 6663004,
       "schema": {
         "logoOutline": {
@@ -2647,7 +2677,7 @@
           "pos": 6,
           "display_name": "META - TITRE",
           "required": true,
-          "max_length": 70,
+          "max_length": 60,
           "id": "DN7iyWyRQEWcHIVwGPxUCA"
         },
         "tab-e51a51e8-b02d-4127-8f59-1686a65aca4f": {
@@ -2694,6 +2724,12 @@
           "id": "yeShJ4YoTHiRtXopFq-M9A",
           "display_name": "OG - DESCRIPTION",
           "max_length": 150
+        },
+        "body": {
+          "type": "bloks",
+          "pos": 12,
+          "display_name": "BODY",
+          "id": "nuDZe6ppTcWW7EleZcqzvA"
         }
       },
       "image": null,
