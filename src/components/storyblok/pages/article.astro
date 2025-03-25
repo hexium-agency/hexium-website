@@ -11,28 +11,38 @@ interface AstroProps {
 }
 
 const { blok, story } = Astro.props as AstroProps;
+console.log(blok.content.content[1]);
 ---
 
 <article {...storyblokEditable(blok)} class="container">
-  <div class="mx-auto max-w-3xl">
+  <div class="mx-auto max-w-3xl xl:max-w-none">
+    <header class="max-w-[49rem]">
+      <h1 class="font-heading mt-6 text-4xl font-bold text-pretty text-gray-950">
+        {story.name}
+      </h1>
+      <p class="mt-4 text-lg text-gray-700">{blok.description}</p>
+    </header>
     <div
-      class="relative mt-12 aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
+      class="mx-auto mt-12 xl:grid xl:max-w-none xl:grid-cols-[49rem_1fr] xl:items-start xl:gap-x-20"
     >
-      <img
-        {...parseStoryblokImage(blok.cover)}
-        class="absolute inset-0 size-full object-cover"
-        style="color: transparent;"
-      />
-    </div>
-    <h1 class="font-heading mt-6 text-center text-4xl font-bold text-pretty text-gray-950">
-      {story.name}
-    </h1>
-    <p class="mt-4 text-center text-lg text-gray-700">{blok.description}</p>
-    <div class="mx-auto mt-12">
-      <div
-        class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none [&_:is(h1,h2,h3,h4,h5)+*]:mt-0"
-      >
-        <RichText text={blok.content} />
+      <aside class="sticky top-28 order-last hidden xl:block">
+        <div class="h-20 w-full bg-red-500"></div>
+      </aside>
+      <div>
+        <div
+          class="relative mb-12 aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
+        >
+          <img
+            {...parseStoryblokImage(blok.cover)}
+            class="absolute inset-0 size-full object-cover"
+            style="color: transparent;"
+          />
+        </div>
+        <div
+          class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none [&_:is(h1,h2,h3,h4,h5)+*]:mt-0"
+        >
+          <RichText text={blok.content} />
+        </div>
       </div>
     </div>
   </div>
