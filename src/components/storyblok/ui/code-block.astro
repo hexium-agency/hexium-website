@@ -1,0 +1,13 @@
+---
+import type { CodeBlockStoryblok } from '@/types/storyblok';
+
+interface AstroProps {
+  blok: CodeBlockStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+console.log(blok);
+---
+
+MANGEZ DES POMMES

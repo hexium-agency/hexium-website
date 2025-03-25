@@ -53,6 +53,7 @@ export default defineConfig({
         'card-bento': 'components/storyblok/ui/card-bento',
         'card-icon-title-text-light': 'components/storyblok/ui/card-icon-title-text-light',
         'card-image-title-text': 'components/storyblok/ui/card-image-title-text',
+        'code-block': 'components/storyblok/ui/code-block',
         'featured-technologies': 'components/storyblok/ui/featured-technologies',
         'grid': 'components/storyblok/ui/grid',
         'latest-articles': 'components/storyblok/ui/latest-articles',
