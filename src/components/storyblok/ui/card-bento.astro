@@ -35,19 +35,62 @@ const rowSpanLg = {
 const TitleWrapper = !!parseStoryblokLink(blok.link) ? 'a' : 'span';
 ---
 
-<!-- TITLE -->
 <div
   {...storyblokEditable(blok)}
   class={cn(
-    'group isolate flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.04),0_24px_68px_rgba(47,48,55,0.05),0_2px_3px_rgba(0,0,0,0.04)] dark:bg-gray-900 dark:shadow-[inset_0_1px,inset_0_0_0_1px] dark:shadow-white/[0.05]',
+    'group isolate relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.04),0_24px_68px_rgba(47,48,55,0.05),0_2px_3px_rgba(0,0,0,0.04)] dark:bg-gray-900 dark:shadow-[inset_0_1px,inset_0_0_0_1px] dark:shadow-white/[0.05]',
+    !!parseStoryblokLink(blok.link) && 'cursor-pointer',
     colSpanMd[blok.colSpanMd as keyof typeof colSpanMd],
     rowSpanMd[blok.rowSpanMd as keyof typeof rowSpanMd],
     colSpanLg[blok.colSpanLg as keyof typeof colSpanLg],
     rowSpanLg[blok.rowSpanLg as keyof typeof rowSpanLg]
   )}
 >
-  <div class={cn('relative z-10 flex-none px-6', blok.isTextOnTop ? 'pt-6' : 'order-last pb-6')}>
-    <h4 class="text-sm font-medium text-gray-950 dark:text-white">{blok.title}</h4>
+  <!-- TODO: confirm removing relative here doesn't impact -->
+  <div class={cn('z-10 flex-none px-6', blok.isTextOnTop ? 'pt-6' : 'order-last pb-6')}>
+    <h4 class="text-sm font-medium text-gray-950 dark:text-white">
+      <TitleWrapper
+        class="inline-flex items-center justify-center"
+        {...!!parseStoryblokLink(blok.link) ? { href: parseStoryblokLink(blok.link) } : {}}
+      >
+        {blok.title}
+        {
+          !!parseStoryblokLink(blok.link) && (
+            <>
+              <svg
+                viewBox="0 0 10 10"
+                aria-hidden="true"
+                class="before:transtion-opacity ml-2 h-2.5 w-2.5 flex-none opacity-60 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-6 group-hover:opacity-0 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+              >
+                <path
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                />
+              </svg>
+              <svg
+                viewBox="0 0 10 10"
+                aria-hidden="true"
+                class="before:transtion-opacity -ml-2.5 h-2.5 w-2.5 flex-none -translate-x-2 opacity-0 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-0 group-hover:opacity-100 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+              >
+                <path
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                />
+              </svg>
+            </>
+          )
+        }
+        <span class="absolute inset-0" aria-hidden="true"></span>
+      </TitleWrapper>
+    </h4>
     <p class="mt-2 text-sm/5 text-pretty text-gray-600 dark:text-gray-400">
       {blok.text}
     </p>
