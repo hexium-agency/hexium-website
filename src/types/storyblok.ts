@@ -184,7 +184,9 @@ export interface CardBentoStoryblok {
     | ButtonGroupStoryblok
     | CallToActionStoryblok
     | CardBentoStoryblok
-    | CardIconTitleTextStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
@@ -221,14 +223,33 @@ export interface CardBentoStoryblok {
   [k: string]: any;
 }
 
-export interface CardIconTitleTextStoryblok {
+export interface CardIconTitleTextFullStoryblok {
+  icon: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "cardIconTitleTextFull";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardIconTitleTextLightStoryblok {
   icon: AssetStoryblok;
   title: string;
   text: string;
   link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
   isInline?: boolean;
-  style?: "" | "small" | "normal" | "card";
-  component: "cardIconTitleText";
+  component: "cardIconTitleTextLight";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardIconTitleTextNormalStoryblok {
+  icon: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "cardIconTitleTextNormal";
   _uid: string;
   [k: string]: any;
 }
@@ -313,7 +334,7 @@ export interface GridStoryblok {
   colsMd?: number | string;
   colsLg?: number | string;
   colsXl?: number | string;
-  items: (CardLightStoryblok | CardIconTitleTextStoryblok | CardImageTitleTextStoryblok | CardBentoStoryblok)[];
+  items: (CardLightStoryblok | CardImageTitleTextStoryblok | CardBentoStoryblok | CardIconTitleTextLightStoryblok)[];
   spaceX: number | string;
   spaceXSm?: number | string;
   spaceXMd?: number | string;
@@ -337,7 +358,7 @@ export interface GridBentoStoryblok {
   colsMd?: number | string;
   colsLg?: number | string;
   colsXl?: number | string;
-  items: (CardLightStoryblok | CardIconTitleTextStoryblok)[];
+  items: (CardLightStoryblok | CardIconTitleTextLightStoryblok)[];
   spaceX: number | string;
   spaceXSm?: number | string;
   spaceXMd?: number | string;
@@ -423,7 +444,9 @@ export interface SectionStoryblok {
     | ButtonGroupStoryblok
     | CallToActionStoryblok
     | CardBentoStoryblok
-    | CardIconTitleTextStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
@@ -470,7 +493,9 @@ export interface SectionHorizontalStoryblok {
     | ButtonGroupStoryblok
     | CallToActionStoryblok
     | CardBentoStoryblok
-    | CardIconTitleTextStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
@@ -506,7 +531,9 @@ export interface SectionHorizontalStoryblok {
     | ButtonGroupStoryblok
     | CallToActionStoryblok
     | CardBentoStoryblok
-    | CardIconTitleTextStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
@@ -555,7 +582,9 @@ export interface SectionVerticalStoryblok {
     | ButtonGroupStoryblok
     | CallToActionStoryblok
     | CardBentoStoryblok
-    | CardIconTitleTextStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
@@ -614,7 +643,9 @@ export interface TechnologyStoryblok {
     | ButtonGroupStoryblok
     | CallToActionStoryblok
     | CardBentoStoryblok
-    | CardIconTitleTextStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | DefinitionStoryblok
