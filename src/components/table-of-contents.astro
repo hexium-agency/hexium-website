@@ -13,75 +13,94 @@ const { headings } = Astro.props;
 
 const LevelsPaddings: Record<number, string> = {
   2: 'pl-0',
-  3: 'pl-2',
-  4: 'pl-4',
-  5: 'pl-6',
-  6: 'pl-8',
+  3: 'pl-1',
+  4: 'pl-2',
+  5: 'pl-3',
+  6: 'pl-4',
 };
 ---
 
-<nav class="space-y-4">
-  <div class="fixed top-0 left-0 z-50 h-1 bg-indigo-900" id="progress-bar"></div>
-  <h2 class="font-heading text-lg font-semibold text-gray-900">On this page</h2>
-  <ul class="space-y-3 pl-4 text-sm font-medium text-gray-950">
-    {
-      headings.map((heading) => (
-        <li class={`${LevelsPaddings[heading.level]}`}>
-          <a
-            href={`#${heading.id}`}
-            class="text-sm font-medium text-gray-950 data-[active]:font-medium data-[active]:text-indigo-900"
-            data-heading-link={heading.level === 2 ? '' : null}
-          >
-            {heading.text}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</nav>
+<div>
+  <nav
+    class="rounded-lg bg-gray-50/50 p-4 shadow-[0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.04),0_24px_68px_rgba(47,48,55,0.05),0_2px_3px_rgba(0,0,0,0.04)]"
+  >
+    <h2 class="font-heading font-mono text-sm font-bold uppercase">Sommaire</h2>
+    <ul class="space-y-1 text-sm font-medium">
+      {
+        headings.map((heading) => (
+          <li class={`${LevelsPaddings[heading.level]}`}>
+            <a
+              href={`#${heading.id}`}
+              class="text-sm font-medium transition-colors hover:opacity-80 data-[active]:font-medium data-[active]:text-blue-600"
+              data-heading-link
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
 
 <script>
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px 0px -80% 0px',
-    threshold: 0.1,
-  };
-
   const headingLinks = document.querySelectorAll('[data-heading-link]');
-  const headingIds = Array.from(headingLinks).map((link) => link.getAttribute('href')?.slice(1));
+  const headings = Array.from(
+    document.querySelectorAll('h2[id], h3[id], h4[id], h5[id], h6[id]')
+  ) as HTMLElement[];
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      const id = entry.target.getAttribute('id');
-      const link = document.querySelector(`[href="#${id}"]`);
-
-      if (entry.isIntersecting) {
-        headingLinks.forEach((link) => link.removeAttribute('data-active'));
-        link?.setAttribute('data-active', '');
-      }
-    });
-  }, observerOptions);
-
-  headingIds.forEach((id) => {
-    const element = document.getElementById(id!);
-    if (element) observer.observe(element);
-  });
-
-  const progressBar = document.getElementById('progress-bar');
-  
-  function updateProgressBar() {
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight - windowHeight;
-    const scrolled = window.scrollY;
-    const progress = (scrolled / documentHeight) * 100;
-    
-    if (progressBar) {
-      progressBar.style.width = `${progress}%`;
-    }
+  function debounce(func: any, wait: any) {
+    let timeout: any;
+    return function executedFunction(...args: any[]) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   }
 
-  window.addEventListener('scroll', updateProgressBar);
-  window.addEventListener('resize', updateProgressBar);
-  
-  updateProgressBar();
+  const updateActiveHeading = debounce(() => {
+    if (headings.length === 0) return;
+
+    const scrollPosition = window.scrollY;
+    const offset = 100; // Adjust this value to change when headings become active
+
+    const distances = headings.map((heading) => ({
+      id: heading.id,
+      distance: Math.abs(heading.offsetTop - scrollPosition - offset),
+    }));
+
+    const closest = distances.reduce((prev, curr) => (curr.distance < prev.distance ? curr : prev));
+
+    headingLinks.forEach((link) => {
+      const headingId = link.getAttribute('href')?.slice(1);
+      if (headingId === closest.id) {
+        link.setAttribute('data-active', '');
+      } else {
+        link.removeAttribute('data-active');
+      }
+    });
+  }, 20);
+
+  window.addEventListener('scroll', updateActiveHeading);
+
+  headingLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href')?.slice(1);
+      const targetElement = document.getElementById(targetId as string);
+
+      if (targetElement) {
+        headingLinks.forEach((l) => l.removeAttribute('data-active'));
+        link.setAttribute('data-active', '');
+
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+        history.pushState(null, '', `#${targetId}`);
+      }
+    });
+  });
+
+  updateActiveHeading();
 </script>
