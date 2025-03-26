@@ -10,6 +10,6 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 ---
 
-<div {...storyblokEditable(blok)} class="relative bg-gray-950">
+<div {...storyblokEditable(blok)} class="relative">
   {blok.body.map((item) => <StoryblokComponent blok={item} />)}
 </div>
