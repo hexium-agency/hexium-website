@@ -1,5 +1,6 @@
 ---
 import type { CodeBlockStoryblok } from '@/types/storyblok';
+import { Code } from 'astro-expressive-code/components';
 
 interface AstroProps {
   blok: CodeBlockStoryblok;
@@ -7,7 +8,22 @@ interface AstroProps {
 
 const { blok } = Astro.props as AstroProps;
 
-console.log(blok);
+function filterHighlightStates(
+  highlightStates: string[],
+  neededState: 'attention' | 'add' | 'remove'
+): number[] {
+  return highlightStates
+    .map((state, lineNumber) => state === neededState ? lineNumber + 1 : -1)
+    .filter(lineNumber => lineNumber !== -1);
+}
 ---
 
-MANGEZ DES POMMES
+<Code
+  code={blok.code.code}
+  showLineNumbers
+  del={filterHighlightStates(blok.code.highlightStates, 'remove')}
+  ins={filterHighlightStates(blok.code.highlightStates, 'add')}
+  mark={filterHighlightStates(blok.code.highlightStates, 'attention')}
+  lang={blok.code.language?.toLowerCase()}
+  title={blok.code?.title}
+/>

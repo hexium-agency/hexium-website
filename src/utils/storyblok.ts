@@ -1,12 +1,23 @@
 import {
-  type MultilinkStoryblok,
   type AssetStoryblok,
+  type MultilinkStoryblok,
   type RichtextStoryblok,
 } from '@/types/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
+import slugify from 'slugify';
 
 export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
-  // COMPLETE HERE
+  if (!richText.content) return [];
+
+  return richText.content
+    .filter((item) => item.type === 'heading')
+    .map((heading) => ({
+      level: heading.attrs.level,
+      text: heading.content?.[0].text || '',
+      id: slugify(heading.content?.[0].text || '', {
+        lower: true,
+      }),
+    }));
 }
 
 export function parseStoryblokBackgroundColor(backgroundColor: number | string) {
@@ -99,4 +110,25 @@ export function parseStoryblokRichTextImage(image: any) {
     width: dimensions![1],
     height: dimensions![2],
   };
+}
+
+export function calculateReadingTime(richText: RichtextStoryblok) {
+  if (!richText.content) return 0;
+
+  const WORDS_PER_MINUTE = 265;
+
+  let totalWords = 0;
+
+  richText.content.forEach((node) => {
+    if (node.type === 'paragraph' && node.content) {
+      node.content.forEach((content) => {
+        if (content.text) {
+          totalWords += content.text.trim().split(/\s+/).length;
+        }
+      });
+    }
+  });
+
+  const minutes = totalWords / WORDS_PER_MINUTE;
+  return Math.max(1, Math.round(minutes));
 }
