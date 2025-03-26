@@ -1,12 +1,12 @@
 ---
 import SvgDistant from '@/components/svg-distant.astro';
 import { cn } from '@/lib/utils';
-import type { CardIconTitleTextStoryblok } from '@/types/storyblok';
+import type { CardIconTitleTextLightStoryblok } from '@/types/storyblok';
 import { parseStoryblokLink } from '@/utils/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 
 interface AstroProps {
-  blok: CardIconTitleTextStoryblok;
+  blok: CardIconTitleTextLightStoryblok;
 }
 
 const { blok } = Astro.props as AstroProps;
