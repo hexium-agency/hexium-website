@@ -72,6 +72,13 @@ export default defineConfig({
       },
     }),
   ],
+  redirects: {
+    '/technologies/nestjs': '/technologies/nest-js',
+    '/technologies/nextjs': '/technologies/next-js',
+    '/technologies/nodejs': '/technologies/node-js',
+    '/technologies/nuxtjs': '/technologies/nuxt-js',
+    '/technologies/vuejs': '/technologies/vue-js',
+  },
   vite: {
     plugins: [tailwindcss()]
   }
