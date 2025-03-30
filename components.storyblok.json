@@ -300,6 +300,37 @@
       "component_group_name": "DATA"
     },
     {
+      "name": "blogHome",
+      "display_name": "BLOG - HOME",
+      "description": "Utiliser uniquement sur la page home du blog",
+      "created_at": "2025-03-29T13:17:19.865Z",
+      "updated_at": "2025-03-29T13:20:17.658Z",
+      "id": 7144361,
+      "schema": {},
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "BLOG - HOME",
+      "component_group_uuid": "106bc6ec-816a-497e-bac8-2a812c419ee0",
+      "color": "#05807f",
+      "icon": "block-text-img-c",
+      "internal_tags_list": [
+        {
+          "id": 52942,
+          "name": "section"
+        }
+      ],
+      "internal_tag_ids": [
+        "52942"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "SECTION"
+    },
+    {
       "name": "button",
       "display_name": "BOUTON",
       "description": null,
@@ -661,7 +692,7 @@
       "display_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL",
       "description": "",
       "created_at": "2025-03-25T15:07:52.887Z",
-      "updated_at": "2025-03-25T15:09:43.135Z",
+      "updated_at": "2025-03-27T09:10:41.729Z",
       "id": 7128313,
       "schema": {
         "icon": {
@@ -708,7 +739,7 @@
         }
       },
       "image": null,
-      "preview_field": null,
+      "preview_field": "title",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
@@ -935,7 +966,7 @@
       "display_name": "CODE BLOCK",
       "description": null,
       "created_at": "2025-01-20T16:51:17.837Z",
-      "updated_at": "2025-01-20T17:01:02.967Z",
+      "updated_at": "2025-03-25T15:39:02.426Z",
       "id": 6822059,
       "schema": {
         "code": {
@@ -955,7 +986,7 @@
             },
             {
               "name": "languages",
-              "value": "[\"CSS\", \"DockerFile\", \"HTML\", \"JavaScript\", \"PHP\", \"Python\", \"XML\"]",
+              "value": "[\"Astro\", \"CSS\", \"DockerFile\", \"dotEnv\", \"GraphQL\", \"HTML\", \"JavaScript\", \"JSX\", \"JSON\", \"Markdown\", \"PHP\", \"Python\", \"XML\"]",
               "_uid": "a286eaef-62ce-4570-af0b-f1cca31c453e"
             },
             {
@@ -1386,7 +1417,7 @@
       "display_name": "GRILLE",
       "description": null,
       "created_at": "2024-12-13T14:47:37.052Z",
-      "updated_at": "2025-03-25T13:43:51.553Z",
+      "updated_at": "2025-03-26T10:10:37.680Z",
       "id": 6687188,
       "schema": {
         "tab-fe6a1b9e-7164-4e3a-b621-5bef269e4cf6": {
@@ -1498,7 +1529,9 @@
             "cardLight",
             "cardImageTitleText",
             "cardBento",
-            "cardIconTitleTextLight"
+            "cardIconTitleTextLight",
+            "cardIconTitleTextFull",
+            "cardIconTitleTextNormal"
           ],
           "minimum": 1,
           "required": true,
@@ -2054,7 +2087,7 @@
       "display_name": "HERO - VERTICAL",
       "description": "",
       "created_at": "2025-03-05T14:31:23.679Z",
-      "updated_at": "2025-03-11T09:30:44.392Z",
+      "updated_at": "2025-03-29T15:35:11.158Z",
       "id": 7046805,
       "schema": {
         "badge": {
@@ -2077,7 +2110,7 @@
           "type": "textarea",
           "pos": 2,
           "id": "eEijSNhCTyCgcmokfhjN1w",
-          "required": true,
+          "required": false,
           "display_name": "TEXTE"
         },
         "buttons": {
@@ -2966,6 +2999,60 @@
       ],
       "content_type_asset_preview": null,
       "component_group_name": "DATA"
+    },
+    {
+      "name": "text",
+      "display_name": "TEXTE",
+      "description": "",
+      "created_at": "2025-03-29T15:37:40.515Z",
+      "updated_at": "2025-03-29T15:39:08.591Z",
+      "id": 7144439,
+      "schema": {
+        "text": {
+          "type": "richtext",
+          "pos": 0,
+          "display_name": "TEXTE",
+          "id": "OcvrShZBRL2NPL_h1ybyqA",
+          "required": true,
+          "customize_toolbar": true,
+          "toolbar": [
+            "bold",
+            "list",
+            "inlinecode",
+            "copy",
+            "cut",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "image",
+            "italic",
+            "link",
+            "olist",
+            "paragraph",
+            "paste-action",
+            "redo",
+            "underline",
+            "undo"
+          ]
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "TEXTE",
+      "component_group_uuid": "all",
+      "color": null,
+      "icon": null,
+      "internal_tags_list": [],
+      "internal_tag_ids": [],
+      "content_type_asset_preview": null,
+      "component_group_name": ""
     },
     {
       "name": "work",

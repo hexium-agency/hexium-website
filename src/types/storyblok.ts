@@ -71,6 +71,12 @@ export interface BlogCategoryStoryblok {
   [k: string]: any;
 }
 
+export interface BlogHomeStoryblok {
+  component: "blogHome";
+  _uid: string;
+  [k: string]: any;
+}
+
 export type MultilinkStoryblok =
   | {
       fieldtype: "multilink";
@@ -180,6 +186,7 @@ export interface CardBentoStoryblok {
     | AccordionGroupStoryblok
     | ArticleStoryblok
     | BlogCategoryStoryblok
+    | BlogHomeStoryblok
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
@@ -210,6 +217,7 @@ export interface CardBentoStoryblok {
     | SpacerStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
+    | TextStoryblok
     | WorkStoryblok
   )[];
   isTextOnTop?: boolean;
@@ -334,7 +342,14 @@ export interface GridStoryblok {
   colsMd?: number | string;
   colsLg?: number | string;
   colsXl?: number | string;
-  items: (CardLightStoryblok | CardImageTitleTextStoryblok | CardBentoStoryblok | CardIconTitleTextLightStoryblok)[];
+  items: (
+    | CardLightStoryblok
+    | CardImageTitleTextStoryblok
+    | CardBentoStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextNormalStoryblok
+  )[];
   spaceX: number | string;
   spaceXSm?: number | string;
   spaceXMd?: number | string;
@@ -394,7 +409,7 @@ export interface HeroHorizontalStoryblok {
 export interface HeroVerticalStoryblok {
   badge?: string;
   title: string;
-  text: string;
+  text?: string;
   buttons?: ButtonStoryblok[];
   component: "heroVertical";
   _uid: string;
@@ -417,6 +432,7 @@ export interface LatestArticlesStoryblok {
 export interface PageStoryblok {
   metaTitle: string;
   body: (
+    | BlogHomeStoryblok
     | CallToActionStoryblok
     | DefinitionHomeStoryblok
     | SectionStoryblok
@@ -440,6 +456,7 @@ export interface SectionStoryblok {
     | AccordionGroupStoryblok
     | ArticleStoryblok
     | BlogCategoryStoryblok
+    | BlogHomeStoryblok
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
@@ -470,6 +487,7 @@ export interface SectionStoryblok {
     | SpacerStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
+    | TextStoryblok
     | WorkStoryblok
   )[];
   backgroundColor: number | string;
@@ -489,6 +507,7 @@ export interface SectionHorizontalStoryblok {
     | AccordionGroupStoryblok
     | ArticleStoryblok
     | BlogCategoryStoryblok
+    | BlogHomeStoryblok
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
@@ -519,6 +538,7 @@ export interface SectionHorizontalStoryblok {
     | SpacerStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
+    | TextStoryblok
     | WorkStoryblok
   )[];
   revertSide?: boolean;
@@ -527,6 +547,7 @@ export interface SectionHorizontalStoryblok {
     | AccordionGroupStoryblok
     | ArticleStoryblok
     | BlogCategoryStoryblok
+    | BlogHomeStoryblok
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
@@ -557,6 +578,7 @@ export interface SectionHorizontalStoryblok {
     | SpacerStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
+    | TextStoryblok
     | WorkStoryblok
   )[];
   sizeLeftColumn: "" | "half" | "third";
@@ -578,6 +600,7 @@ export interface SectionVerticalStoryblok {
     | AccordionGroupStoryblok
     | ArticleStoryblok
     | BlogCategoryStoryblok
+    | BlogHomeStoryblok
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
@@ -608,6 +631,7 @@ export interface SectionVerticalStoryblok {
     | SpacerStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
+    | TextStoryblok
     | WorkStoryblok
   )[];
   component: "sectionVertical";
@@ -639,6 +663,7 @@ export interface TechnologyStoryblok {
     | AccordionGroupStoryblok
     | ArticleStoryblok
     | BlogCategoryStoryblok
+    | BlogHomeStoryblok
     | ButtonStoryblok
     | ButtonGroupStoryblok
     | CallToActionStoryblok
@@ -669,6 +694,7 @@ export interface TechnologyStoryblok {
     | SpacerStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
+    | TextStoryblok
     | WorkStoryblok
   )[];
   component: "technology";
@@ -684,6 +710,13 @@ export interface TestimonialStoryblok {
   position: string;
   content: string;
   component: "testimonial";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface TextStoryblok {
+  text: RichtextStoryblok;
+  component: "text";
   _uid: string;
   [k: string]: any;
 }
