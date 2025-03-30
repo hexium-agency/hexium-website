@@ -73,6 +73,7 @@ export default defineConfig({
     }),
   ],
   redirects: {
+    '/e-commerce': '/',
     '/technologies/nestjs': '/technologies/nest-js',
     '/technologies/nextjs': '/technologies/next-js',
     '/technologies/nodejs': '/technologies/node-js',
