@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/base-layout.astro';
+import blogService from '@/services/blog';
 import { useStoryblokApi } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 
@@ -9,6 +10,7 @@ interface AstroProps {
 
 // Get all the available paths
 export async function getStaticPaths() {
+  let paths = [];
   const storyblokApi = useStoryblokApi();
 
   // TODO: Exclude the pages that are not supposed to be published
@@ -17,11 +19,35 @@ export async function getStaticPaths() {
     version: import.meta.env.STORYBLOK_ENV,
   });
 
-  return stories.map((story) => {
+  paths = stories.map((story) => {
     return {
       params: { slug: story.slug === 'home' ? '/' : story.slug },
     };
   });
+
+  // Handle pagination for blog home page
+  const blogHomeTotalPages = await blogService.getTotal();
+
+  for (let i = 2; i <= blogHomeTotalPages; i++) {
+    paths.push({
+      params: { slug: `blog/page/${i}` },
+    });
+  }
+
+  // Handle pagination for blog category home page
+  const blogCategories = await blogService.getCategories();
+
+  for (const blogCategory of blogCategories) {
+    const categoryTotalPages = await blogService.getTotal(blogCategory.uuid);
+
+    for (let i = 2; i <= categoryTotalPages; i++) {
+      paths.push({
+        params: { slug: `${blogCategory.full_slug}/page/${i}` },
+      });
+    }
+  }
+
+  return paths;
 }
 
 // Get the story for the given path
@@ -29,12 +55,24 @@ const { slug } = Astro.params as AstroProps;
 
 const storyblokApi = useStoryblokApi();
 
-const { data } = await storyblokApi.get(`cdn/stories/${slug === undefined ? 'home' : slug}`, {
+const isPaginatedBlog = /^blog\/page\/\d+$/.test(slug);
+
+let storyPath;
+
+if (!slug) {
+  storyPath = 'home';
+} else if (isPaginatedBlog) {
+  storyPath = 'blog';
+} else {
+  storyPath = slug;
+}
+
+const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
   resolve_relations: ['featuredTechnologies.technologies'],
   version: import.meta.env.STORYBLOK_ENV,
 });
 ---
 
-<BaseLayout metaTitle="Home">
+<BaseLayout metaTitle="Home" metaDescription="Home">
   <StoryblokComponent blok={data.story.content} story={data.story} />
 </BaseLayout>
