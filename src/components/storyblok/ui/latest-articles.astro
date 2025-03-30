@@ -1,11 +1,11 @@
 ---
 import ArticleCard from '@/components/ui/article-card.astro';
 import blogService from '@/services/blog';
-import type { LastArticlesStoryblok } from '@/types/storyblok';
+import type { LatestArticlesStoryblok } from '@/types/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 
 interface AstroProps {
-  blok: LastArticlesStoryblok;
+  blok: LatestArticlesStoryblok;
 }
 
 const { blok } = Astro.props as AstroProps;
