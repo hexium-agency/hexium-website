@@ -27,12 +27,20 @@ const Title = blok.badge ? 'h2' : 'h1';
       >
         {blok.title}
       </Title>
-      <div class="mx-auto mt-6 max-w-2xl text-[1rem]/6 text-gray-400">
-        {blok.text}
-      </div>
-      <div class="mt-8 flex items-center justify-center gap-x-6">
-        {blok.buttons?.map((button) => <StoryblokComponent blok={button} />)}
-      </div>
+      {
+        blok.text && (
+          <div class="mx-auto mt-6 max-w-2xl text-[1rem]/6 text-gray-400">{blok.text}</div>
+        )
+      }
+      {
+        !!blok.buttons?.length && (
+          <div class="mt-8 flex items-center justify-center gap-x-6">
+            {blok.buttons?.map((button) => (
+              <StoryblokComponent blok={button} />
+            ))}
+          </div>
+        )
+      }
     </div>
   </div>
 </section>
