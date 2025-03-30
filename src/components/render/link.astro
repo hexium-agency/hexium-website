@@ -30,20 +30,14 @@ const { href, target } = Astro.props as AstroProps;
   }
   {
     target && (
-      <svg
-        viewBox="0 0 12 12"
-        aria-hidden="true"
-        class="absolute mt-[0.45rem] -ml-1 inline-block size-3"
-      >
-        <>
-          <rect width="12" height="12" stroke-width="0" rx="3" />
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            d="m3.75 8.25 4.5-4.5m0 0h-3.5m3.5 0v3.5"
-          />
-        </>
+      <svg viewBox="0 0 12 12" aria-hidden="true" class="absolute mt-[0.45rem] inline-block size-3">
+        <rect width="12" height="12" stroke-width="0" rx="3" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="m3.75 8.25 4.5-4.5m0 0h-3.5m3.5 0v3.5"
+        />
       </svg>
     )
   }
