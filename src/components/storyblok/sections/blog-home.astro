@@ -64,25 +64,27 @@ const categories = await blogService.getCategories();
   <div class="my-10 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
     {articles.map((article) => <ArticleCard article={article} />)}
   </div>
-  <nav>
-    <ul class="flex flex-nowrap justify-center gap-2">
-      {
-        Array.from({ length: totalPages }, (_, index) => (
-          <li
-            data-active={index + 1 === pageNumber}
-            class="shrink-0 list-none rounded-full text-sm font-medium text-gray-950 transition-colors hover:text-gray-700 data-[active=true]:bg-gray-950 data-[active=true]:text-white data-[active=true]:hover:text-white"
-          >
-            <a
-              class="block w-8 text-center"
-              href={`/${isCategory ? `blog/${categoryMatch[1]}` : 'blog'}${index + 1 === 1 ? '' : `/page/${index + 1}`}`}
+  {
+    totalPages > 1 && (
+      <nav>
+        <ul class="flex flex-nowrap justify-center gap-2">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <li
+              data-active={index + 1 === pageNumber}
+              class="shrink-0 list-none rounded-full text-sm font-medium text-gray-950 transition-colors hover:text-gray-700 data-[active=true]:bg-gray-950 data-[active=true]:text-white data-[active=true]:hover:text-white"
             >
-              {index + 1}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
+              <a
+                class="block w-8 text-center"
+                href={`/${isCategory ? `blog/${categoryMatch[1]}` : 'blog'}${index + 1 === 1 ? '' : `/page/${index + 1}`}`}
+              >
+                {index + 1}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
 </div>
 
 <script>
