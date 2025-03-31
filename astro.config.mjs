@@ -6,6 +6,8 @@ import { storyblok } from '@storyblok/astro';
 import tailwindcss from '@tailwindcss/vite';
 
 import react from '@astrojs/react';
+import vercel from '@astrojs/vercel';
+
 
 import expressiveCode from 'astro-expressive-code';
 
@@ -13,6 +15,8 @@ const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
 // https://astro.build/config
 export default defineConfig({
+  adapter: vercel(),
+  output: 'server',
   experimental: {
     svg: true,
   },
