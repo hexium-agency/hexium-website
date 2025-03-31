@@ -33,6 +33,7 @@ export default defineConfig({
       components: {
         // PAGES
         'article': 'components/storyblok/pages/article',
+        'blog-category': 'components/storyblok/pages/blog-category',
         'definition': 'components/storyblok/pages/definition',
         'page': 'components/storyblok/pages/page',
         'technology': 'components/storyblok/pages/technology',
