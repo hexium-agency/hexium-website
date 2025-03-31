@@ -34,7 +34,7 @@ export function parseStoryblokBackgroundColor(backgroundColor: number | string) 
 }
 
 export function parseStoryblokImage(image: AssetStoryblok) {
-  const dimensions = image.filename.match(/\/(\d+)x(\d+)\//);
+  const dimensions = image.filename?.match(/\/(\d+)x(\d+)\//);
 
   return {
     src: image.filename,

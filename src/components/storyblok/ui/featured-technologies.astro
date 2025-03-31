@@ -5,13 +5,15 @@ import { parseStoryblokStoryToLink } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
 import hexRgb from 'hex-rgb';
+
 interface AstroProps {
   blok: FeaturedTechnologiesStoryblok;
 }
 
 const { blok } = Astro.props as AstroProps;
 
-const technologies: ISbStoryData<TechnologyStoryblok>[] = blok.technologies;
+const technologies = blok.technologies as ISbStoryData<TechnologyStoryblok>[];
+
 const technologiesColors = technologies.map((technology) =>
   hexRgb(technology.content.colorDark.color, { format: 'array' })
 );

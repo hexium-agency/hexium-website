@@ -44,7 +44,7 @@ const { class: className, text } = Astro.props;
           href:
             link.attrs.linktype === 'email'
               ? `mailto:${link.attrs.href}`
-              : parseStoryblokLink(link.attrs as MultilinkStoryblok),
+              : parseStoryblokLink(link.attrs as unknown as MultilinkStoryblok),
           target: link.attrs.linktype === 'url' ? '_blank' : null,
         },
       }),
