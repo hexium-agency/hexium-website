@@ -73,11 +73,16 @@ export default defineConfig({
     }),
   ],
   redirects: {
+    '/creation-site-internet': '/site-internet',
     '/e-commerce': '/',
+    '/services/creation-site-internet': '/site-internet',
+    '/services/developpement-mobile': '/developpement-mobile',
+    '/services/developpement-web': '/developpement-web',
     '/technologies/nestjs': '/technologies/nest-js',
     '/technologies/nextjs': '/technologies/next-js',
     '/technologies/nodejs': '/technologies/node-js',
     '/technologies/nuxtjs': '/technologies/nuxt-js',
+    '/technologies/vue': '/technologies/vue-js',
     '/technologies/vuejs': '/technologies/vue-js',
   },
   vite: {
