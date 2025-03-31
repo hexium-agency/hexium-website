@@ -2,7 +2,7 @@ import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok'
 import { useStoryblokApi, type ISbStoriesParams } from '@storyblok/astro';
 import { type ISbStoryData, type ISbStories } from '@storyblok/astro';
 
-const ARTICLES_PER_PAGE = 12;
+const ARTICLES_PER_PAGE = 1;
 
 async function getCategories() {
   const storyblokApi = useStoryblokApi();
@@ -13,6 +13,17 @@ async function getCategories() {
   });
 
   return data.stories as ISbStoryData<BlogCategoryStoryblok>[];
+}
+
+async function getCategoryBySlug(slug: string) {
+  const storyblokApi = useStoryblokApi();
+
+  const { data } = await storyblokApi.get(`cdn/stories/blog/${slug}`, {
+    content_type: 'blogCategory',
+    version: import.meta.env.STORYBLOK_ENV,
+  });
+
+  return data.story as ISbStoryData<BlogCategoryStoryblok>;
 }
 
 async function getLatest(category?: string) {
@@ -87,6 +98,7 @@ async function getTotal(category?: string) {
 
 const blogService = {
   getCategories,
+  getCategoryBySlug,
   getLatest,
   getPaginated,
   getTotal,
