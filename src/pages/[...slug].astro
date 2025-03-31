@@ -52,10 +52,12 @@ export async function getStaticPaths() {
 
 // Get the story for the given path
 const { slug } = Astro.params as AstroProps;
+const blogCategories = await blogService.getCategories();
 
 const storyblokApi = useStoryblokApi();
 
 const isPaginatedBlog = /^blog\/page\/\d+$/.test(slug);
+const isPaginatedBlogCategory = /^blog\/([^\/]+)\/page\/\d+$/.test(slug);
 
 let storyPath;
 
@@ -63,6 +65,8 @@ if (!slug) {
   storyPath = 'home';
 } else if (isPaginatedBlog) {
   storyPath = 'blog';
+} else if (isPaginatedBlogCategory) {
+  storyPath = `blog/${slug.split('/')[1]}`;
 } else {
   storyPath = slug;
 }
