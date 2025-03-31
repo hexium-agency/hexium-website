@@ -66,6 +66,44 @@ export interface ArticleStoryblok {
 }
 
 export interface BlogCategoryStoryblok {
+  body: (
+    | AccordionStoryblok
+    | AccordionGroupStoryblok
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | BlogHomeStoryblok
+    | ButtonStoryblok
+    | ButtonGroupStoryblok
+    | CallToActionStoryblok
+    | CardBentoStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
+    | CardImageTitleTextStoryblok
+    | CodeBlockStoryblok
+    | DefinitionStoryblok
+    | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FooterAgencyStoryblok
+    | FooterLinkStoryblok
+    | FooterLinkGroupStoryblok
+    | GlobalStoryblok
+    | GridStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
+    | LatestArticlesStoryblok
+    | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | SpacerStoryblok
+    | TechnologyStoryblok
+    | TestimonialStoryblok
+    | TextStoryblok
+    | WorkStoryblok
+  )[];
   component: "blogCategory";
   _uid: string;
   [k: string]: any;
@@ -204,7 +242,6 @@ export interface CardBentoStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
-    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -342,14 +379,7 @@ export interface GridStoryblok {
   colsMd?: number | string;
   colsLg?: number | string;
   colsXl?: number | string;
-  items: (
-    | CardLightStoryblok
-    | CardImageTitleTextStoryblok
-    | CardBentoStoryblok
-    | CardIconTitleTextLightStoryblok
-    | CardIconTitleTextFullStoryblok
-    | CardIconTitleTextNormalStoryblok
-  )[];
+  items: any[];
   spaceX: number | string;
   spaceXSm?: number | string;
   spaceXMd?: number | string;
@@ -364,27 +394,6 @@ export interface GridStoryblok {
   rowsMd?: number | string;
   rowsLg?: number | string;
   component: "grid";
-  _uid: string;
-  [k: string]: any;
-}
-
-export interface GridBentoStoryblok {
-  cols: number | string;
-  colsMd?: number | string;
-  colsLg?: number | string;
-  colsXl?: number | string;
-  items: (CardLightStoryblok | CardIconTitleTextLightStoryblok)[];
-  spaceX: number | string;
-  spaceXSm?: number | string;
-  spaceXMd?: number | string;
-  spaceXLg?: number | string;
-  spaceY: number | string;
-  spaceYSm?: number | string;
-  spaceYMd?: number | string;
-  spaceYLg?: number | string;
-  tag: "" | "div" | "ul";
-  maxWidth?: number | string;
-  component: "gridBento";
   _uid: string;
   [k: string]: any;
 }
@@ -474,7 +483,6 @@ export interface SectionStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
-    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -525,7 +533,6 @@ export interface SectionHorizontalStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
-    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -565,7 +572,6 @@ export interface SectionHorizontalStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
-    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -618,7 +624,6 @@ export interface SectionVerticalStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
-    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -658,7 +663,7 @@ export interface TechnologyStoryblok {
   ogBadge: string;
   ogTitle: string;
   ogDescription?: string;
-  body?: (
+  body: (
     | AccordionStoryblok
     | AccordionGroupStoryblok
     | ArticleStoryblok
@@ -681,7 +686,6 @@ export interface TechnologyStoryblok {
     | FooterLinkGroupStoryblok
     | GlobalStoryblok
     | GridStoryblok
-    | GridBentoStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -715,7 +719,7 @@ export interface TestimonialStoryblok {
 }
 
 export interface TextStoryblok {
-  text: RichtextStoryblok;
+  content: RichtextStoryblok;
   component: "text";
   _uid: string;
   [k: string]: any;
