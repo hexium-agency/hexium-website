@@ -8,6 +8,8 @@ interface AstroProps {
   slug: string;
 }
 
+export const prerender = true;
+
 // Get all the available paths
 export async function getStaticPaths() {
   let paths = [];
