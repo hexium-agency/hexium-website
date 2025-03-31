@@ -61,7 +61,7 @@ export async function GET({ url }: { url: string }) {
 
   return new ImageResponse(html, {
     width: 1200,
-    height: 600,
+    height: 630,
     fonts: [
       {
         name: 'JetBrains Mono',
