@@ -52,6 +52,7 @@ export default defineConfig({
         'section': 'components/storyblok/sections/section',
         'section-horizontal': 'components/storyblok/sections/section-horizontal',
         'section-vertical': 'components/storyblok/sections/section-vertical',
+        'workHome': 'components/storyblok/sections/work-home',
         // UI
         'accordion-group': 'components/storyblok/ui/accordion-group',
         'accordion': 'components/storyblok/ui/accordion',
