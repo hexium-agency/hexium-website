@@ -2,16 +2,32 @@
 import Footer from '@/components/footer.astro';
 import Header from '@/components/header.astro';
 import HomeSchema from '@/components/seo/home-schema.astro';
+import PageSeo from '@/components/seo/page-seo.astro';
 import '@/styles/global.css';
+import type {
+  ArticleStoryblok,
+  BlogCategoryStoryblok,
+  DefinitionStoryblok,
+  PageStoryblok,
+  TechnologyStoryblok,
+  WorkStoryblok,
+} from '@/types/storyblok';
 import '@fontsource-variable/inter/opsz.css';
 import '@fontsource-variable/jetbrains-mono';
+import type { ISbStoryData } from '@storyblok/astro';
 
-interface Props {
-  metaTitle: string;
-  metaDescription: string;
+interface AstroProps {
+  story: ISbStoryData<
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | DefinitionStoryblok
+    | PageStoryblok
+    | TechnologyStoryblok
+    | WorkStoryblok
+  >;
 }
 
-const { metaTitle, metaDescription } = Astro.props as Props;
+const { story } = Astro.props as AstroProps;
 
 const pathname = Astro.url.pathname;
 ---
@@ -21,14 +37,18 @@ const pathname = Astro.url.pathname;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href={import.meta.env.WEBSITE_URL + pathname} />
+    <link rel="apple-touch-icon" href="/favicon-180x180.png" type="image/png" sizes="180x180" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/favicon-180x180.png" type="image/png" sizes="180x180" />
     <link rel="icon" href="/favicon-192x192.png" type="image/png" sizes="192x192" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <title>{metaTitle}</title>
-    <meta name="description" content={metaDescription} />
+    <meta
+      name="robots"
+      content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+    />
+    <PageSeo story={story} />
     <script
       async
       data-strategy="afterInteractive"

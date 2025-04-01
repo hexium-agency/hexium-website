@@ -79,6 +79,6 @@ const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
 });
 ---
 
-<BaseLayout metaTitle="Home" metaDescription="Home">
+<BaseLayout story={data.story}>
   <StoryblokComponent blok={data.story.content} story={data.story} />
 </BaseLayout>
