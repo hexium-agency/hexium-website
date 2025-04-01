@@ -104,6 +104,10 @@ export interface BlogCategoryStoryblok {
     | TextStoryblok
     | WorkStoryblok
   )[];
+  metaTitle: string;
+  metaDescription: string;
+  ogBadge: string;
+  OgTitle: string;
   component: "blogCategory";
   _uid: string;
   [k: string]: any;

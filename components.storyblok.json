@@ -117,7 +117,7 @@
       "display_name": "ARTICLE",
       "description": null,
       "created_at": "2024-12-08T16:03:31.058Z",
-      "updated_at": "2025-03-25T14:23:49.416Z",
+      "updated_at": "2025-04-01T06:40:39.117Z",
       "id": 6663003,
       "schema": {
         "categories": {
@@ -208,7 +208,7 @@
         "metaTitle": {
           "type": "text",
           "pos": 4,
-          "max_length": 70,
+          "max_length": 60,
           "required": true,
           "display_name": "META - TITRE",
           "id": "OrhTY3xbS_CiYQcjQtqQsg"
@@ -273,7 +273,7 @@
       "display_name": "ARTICLE - CATEGORY",
       "description": null,
       "created_at": "2025-01-11T13:20:24.686Z",
-      "updated_at": "2025-03-31T19:22:25.944Z",
+      "updated_at": "2025-04-01T06:42:13.632Z",
       "id": 6780316,
       "schema": {
         "body": {
@@ -282,6 +282,48 @@
           "display_name": "BODY",
           "id": "SEE8FTGsTvezBB_Djdi9rQ",
           "minimum": 1,
+          "required": true
+        },
+        "tab-04264bcf-5dc6-4e7d-96d9-63fd00240221": {
+          "display_name": "Seo",
+          "keys": [
+            "metaTitle",
+            "metaDescription",
+            "ogBadge",
+            "OgTitle"
+          ],
+          "pos": 0,
+          "type": "tab",
+          "id": "BCZLz13GTn2W2WP9ACQCIQ"
+        },
+        "metaTitle": {
+          "type": "text",
+          "pos": 2,
+          "id": "k1GrpO4lTTCi9_GuOHU8_g",
+          "display_name": "META - TITRE",
+          "required": true,
+          "max_length": 60
+        },
+        "metaDescription": {
+          "type": "textarea",
+          "pos": 3,
+          "id": "nW5OmgMaR8iguhYPf5EFVw",
+          "display_name": "META - DESCRIPTION",
+          "required": true,
+          "max_length": 160
+        },
+        "ogBadge": {
+          "type": "text",
+          "pos": 4,
+          "id": "otSCaIr9QNyuO9sXJxLCbA",
+          "display_name": "OG - BADGE",
+          "required": true
+        },
+        "OgTitle": {
+          "type": "text",
+          "pos": 5,
+          "id": "dZ7g-MF9QRSR-X9ts6utFg",
+          "display_name": "OG - TITRE",
           "required": true
         }
       },
@@ -1972,7 +2014,7 @@
       "display_name": "PAGE",
       "description": null,
       "created_at": "2024-12-05T14:17:41.561Z",
-      "updated_at": "2025-03-10T16:21:44.219Z",
+      "updated_at": "2025-04-01T06:41:05.744Z",
       "id": 6650626,
       "schema": {
         "metaTitle": {
@@ -1980,7 +2022,7 @@
           "pos": 0,
           "display_name": "META - TITRE",
           "required": true,
-          "max_length": 70,
+          "max_length": 60,
           "id": "xLi_33YtSuafDmPBLY0vVQ"
         },
         "body": {
@@ -2808,7 +2850,7 @@
       "display_name": "WORK",
       "description": null,
       "created_at": "2024-12-09T09:31:18.424Z",
-      "updated_at": "2025-03-05T13:03:37.927Z",
+      "updated_at": "2025-04-01T06:40:52.334Z",
       "id": 6665046,
       "schema": {
         "metaTitle": {
@@ -2816,28 +2858,32 @@
           "pos": 0,
           "display_name": "META - TITRE",
           "required": true,
-          "max_length": 70
+          "max_length": 60,
+          "id": "ogCxEf8lQ4KLB_vIrig57g"
         },
         "metaDescription": {
           "type": "textarea",
           "pos": 1,
           "display_name": "META - DESCRIPTION",
           "required": true,
-          "max_length": 160
+          "max_length": 160,
+          "id": "yby6vlORRSuYqoFylUYf3w"
         },
         "ogBadge": {
           "type": "text",
           "pos": 2,
           "display_name": "OG - BADGE",
           "required": true,
-          "max_length": 30
+          "max_length": 30,
+          "id": "ILdspMXzSYCFZP1u0wIVIA"
         },
         "ogTitle": {
           "type": "text",
           "pos": 3,
           "display_name": "OG - TITRE",
           "required": true,
-          "max_length": 80
+          "max_length": 80,
+          "id": "6X_VudNBQeqNy8z9vUAmMw"
         },
         "tab-f0b6e482-4c0c-4cd4-a4a7-162bc23223e8": {
           "display_name": "Seo",
@@ -2848,7 +2894,8 @@
             "metaTitle"
           ],
           "pos": 4,
-          "type": "tab"
+          "type": "tab",
+          "id": "8LbkgkwMTNSkpxYrwjIj6A"
         }
       },
       "image": null,
