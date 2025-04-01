@@ -52,6 +52,7 @@ export interface AssetStoryblok {
 }
 
 export interface ArticleStoryblok {
+  author: (ISbStoryData<TeamStoryblok> | string)[];
   categories: (ISbStoryData<BlogCategoryStoryblok> | string)[];
   cover: AssetStoryblok;
   description: string;
@@ -99,6 +100,7 @@ export interface BlogCategoryStoryblok {
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
     | SpacerStoryblok
+    | TeamStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
     | TextStoryblok
@@ -256,6 +258,7 @@ export interface CardBentoStoryblok {
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
     | SpacerStoryblok
+    | TeamStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
     | TextStoryblok
@@ -324,6 +327,8 @@ export interface DefinitionStoryblok {
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
+  author: (ISbStoryData<TeamStoryblok> | string)[];
+  content: RichtextStoryblok;
   component: "definition";
   _uid: string;
   [k: string]: any;
@@ -497,6 +502,7 @@ export interface SectionStoryblok {
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
     | SpacerStoryblok
+    | TeamStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
     | TextStoryblok
@@ -547,6 +553,7 @@ export interface SectionHorizontalStoryblok {
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
     | SpacerStoryblok
+    | TeamStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
     | TextStoryblok
@@ -586,6 +593,7 @@ export interface SectionHorizontalStoryblok {
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
     | SpacerStoryblok
+    | TeamStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
     | TextStoryblok
@@ -638,6 +646,7 @@ export interface SectionVerticalStoryblok {
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
     | SpacerStoryblok
+    | TeamStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
     | TextStoryblok
@@ -654,6 +663,19 @@ export interface SpacerStoryblok {
   mdSpace: number | string;
   lgSpace: number | string;
   component: "spacer";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface TeamStoryblok {
+  picture?: AssetStoryblok;
+  firstname: string;
+  lastname: string;
+  position: string;
+  email: string;
+  linkedin?: string;
+  calendar?: string;
+  component: "team";
   _uid: string;
   [k: string]: any;
 }
@@ -700,6 +722,7 @@ export interface TechnologyStoryblok {
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
     | SpacerStoryblok
+    | TeamStoryblok
     | TechnologyStoryblok
     | TestimonialStoryblok
     | TextStoryblok
@@ -734,6 +757,7 @@ export interface WorkStoryblok {
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
+  technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
   component: "work";
   _uid: string;
   [k: string]: any;
