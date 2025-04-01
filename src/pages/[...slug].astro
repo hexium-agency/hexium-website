@@ -80,7 +80,13 @@ if (!slug) {
 }
 
 const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
-  resolve_relations: ['featuredTechnologies.technologies'],
+  resolve_relations: [
+    'article.author',
+    'article.categories',
+    'definition.author',
+    'featuredTechnologies.technologies',
+    'work.technologies',
+  ],
   version: import.meta.env.STORYBLOK_ENV,
 });
 ---
