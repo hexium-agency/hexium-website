@@ -15,13 +15,19 @@ export async function getStaticPaths() {
   let paths = [];
   const storyblokApi = useStoryblokApi();
 
-  // TODO: Exclude the pages that are not supposed to be published
-  // TODO: Handle the pages that are using a pagination (blog, works, ...)
   const stories = await storyblokApi.getAll('cdn/links', {
     version: import.meta.env.STORYBLOK_ENV,
   });
 
-  paths = stories.map((story) => {
+  // Exclude all stories that are used for data and not supposed to be published
+  const filteredStories = stories.filter(
+    (story) =>
+      !story.slug.startsWith('global') &&
+      !story.slug.startsWith('team/') &&
+      !story.slug.startsWith('testimonials/')
+  );
+
+  paths = filteredStories.map((story) => {
     return {
       params: { slug: story.slug === 'home' ? '/' : story.slug },
     };
