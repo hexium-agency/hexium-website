@@ -67,45 +67,7 @@ export interface ArticleStoryblok {
 }
 
 export interface BlogCategoryStoryblok {
-  body: (
-    | AccordionStoryblok
-    | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | BlogHomeStoryblok
-    | ButtonStoryblok
-    | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CardBentoStoryblok
-    | CardIconTitleTextFullStoryblok
-    | CardIconTitleTextLightStoryblok
-    | CardIconTitleTextNormalStoryblok
-    | CardImageTitleTextStoryblok
-    | CodeBlockStoryblok
-    | DefinitionStoryblok
-    | DefinitionHomeStoryblok
-    | FeaturedTechnologiesStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
-    | GridStoryblok
-    | HeroHomeStoryblok
-    | HeroHorizontalStoryblok
-    | HeroVerticalStoryblok
-    | HighlightWordsStoryblok
-    | LatestArticlesStoryblok
-    | PageStoryblok
-    | SectionStoryblok
-    | SectionHorizontalStoryblok
-    | SectionVerticalStoryblok
-    | SpacerStoryblok
-    | TeamStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | TextStoryblok
-    | WorkStoryblok
-  )[];
+  body: BlogHomeStoryblok[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
@@ -263,6 +225,8 @@ export interface CardBentoStoryblok {
     | TestimonialStoryblok
     | TextStoryblok
     | WorkStoryblok
+    | WorkCategoryStoryblok
+    | WorkHomeStoryblok
   )[];
   isTextOnTop?: boolean;
   link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
@@ -456,6 +420,7 @@ export interface PageStoryblok {
     | SectionStoryblok
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
+    | WorkHomeStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
@@ -507,6 +472,8 @@ export interface SectionStoryblok {
     | TestimonialStoryblok
     | TextStoryblok
     | WorkStoryblok
+    | WorkCategoryStoryblok
+    | WorkHomeStoryblok
   )[];
   backgroundColor: number | string;
   component: "section";
@@ -558,6 +525,8 @@ export interface SectionHorizontalStoryblok {
     | TestimonialStoryblok
     | TextStoryblok
     | WorkStoryblok
+    | WorkCategoryStoryblok
+    | WorkHomeStoryblok
   )[];
   revertSide?: boolean;
   bottomItems?: (
@@ -598,6 +567,8 @@ export interface SectionHorizontalStoryblok {
     | TestimonialStoryblok
     | TextStoryblok
     | WorkStoryblok
+    | WorkCategoryStoryblok
+    | WorkHomeStoryblok
   )[];
   sizeLeftColumn: "" | "half" | "third";
   component: "sectionHorizontal";
@@ -651,6 +622,8 @@ export interface SectionVerticalStoryblok {
     | TestimonialStoryblok
     | TextStoryblok
     | WorkStoryblok
+    | WorkCategoryStoryblok
+    | WorkHomeStoryblok
   )[];
   component: "sectionVertical";
   _uid: string;
@@ -727,6 +700,8 @@ export interface TechnologyStoryblok {
     | TestimonialStoryblok
     | TextStoryblok
     | WorkStoryblok
+    | WorkCategoryStoryblok
+    | WorkHomeStoryblok
   )[];
   component: "technology";
   _uid: string;
@@ -753,12 +728,31 @@ export interface TextStoryblok {
 }
 
 export interface WorkStoryblok {
+  category: (ISbStoryData<WorkCategoryStoryblok> | string)[];
+  technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
-  technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
+  services: (string)[];
   component: "work";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface WorkCategoryStoryblok {
+  body: BlogHomeStoryblok[];
+  metaTitle: string;
+  metaDescription: string;
+  ogBadge: string;
+  OgTitle: string;
+  component: "workCategory";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface WorkHomeStoryblok {
+  component: "workHome";
   _uid: string;
   [k: string]: any;
 }
