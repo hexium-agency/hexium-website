@@ -2,7 +2,11 @@
 import RichText from '@/components/richtext.astro';
 import TableOfContents from '@/components/table-of-contents.astro';
 import type { ArticleStoryblok } from '@/types/storyblok';
-import { calculateReadingTime, extractHeadingsFromRichText, parseStoryblokImage } from '@/utils/storyblok';
+import {
+  calculateReadingTime,
+  extractHeadingsFromRichText,
+  parseStoryblokImage,
+} from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
 
