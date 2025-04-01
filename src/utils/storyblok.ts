@@ -20,6 +20,45 @@ export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
     }));
 }
 
+export function getReadingTime(richText: RichtextStoryblok) {
+  if (!richText.content) return 0;
+
+  const WORDS_PER_MINUTE = 265;
+
+  let totalWords = 0;
+
+  richText.content.forEach((node) => {
+    if (node.type === 'paragraph' && node.content) {
+      node.content.forEach((content) => {
+        if (content.text) {
+          totalWords += content.text.trim().split(/\s+/).length;
+        }
+      });
+    }
+  });
+
+  const minutes = totalWords / WORDS_PER_MINUTE;
+  return Math.max(1, Math.round(minutes));
+}
+
+export function getWordsCount(richText: RichtextStoryblok) {
+  if (!richText.content) return 0;
+
+  let totalWords = 0;
+
+  richText.content.forEach((node) => {
+    if (node.type === 'paragraph' && node.content) {
+      node.content.forEach((content) => {
+        if (content.text) {
+          totalWords += content.text.trim().split(/\s+/).length;
+        }
+      });
+    }
+  });
+
+  return totalWords;
+}
+
 export function parseStoryblokBackgroundColor(backgroundColor: number | string) {
   switch (backgroundColor) {
     case 'white':
@@ -110,25 +149,4 @@ export function parseStoryblokRichTextImage(image: any) {
     width: dimensions![1],
     height: dimensions![2],
   };
-}
-
-export function calculateReadingTime(richText: RichtextStoryblok) {
-  if (!richText.content) return 0;
-
-  const WORDS_PER_MINUTE = 265;
-
-  let totalWords = 0;
-
-  richText.content.forEach((node) => {
-    if (node.type === 'paragraph' && node.content) {
-      node.content.forEach((content) => {
-        if (content.text) {
-          totalWords += content.text.trim().split(/\s+/).length;
-        }
-      });
-    }
-  });
-
-  const minutes = totalWords / WORDS_PER_MINUTE;
-  return Math.max(1, Math.round(minutes));
 }

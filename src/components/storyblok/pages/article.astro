@@ -3,8 +3,8 @@ import RichText from '@/components/richtext.astro';
 import TableOfContents from '@/components/table-of-contents.astro';
 import type { ArticleStoryblok } from '@/types/storyblok';
 import {
-  calculateReadingTime,
   extractHeadingsFromRichText,
+  getReadingTime,
   parseStoryblokImage,
 } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
@@ -18,7 +18,7 @@ interface AstroProps {
 const { blok, story } = Astro.props as AstroProps;
 
 const headings = extractHeadingsFromRichText(blok.content);
-const readingTime = calculateReadingTime(blok.content);
+const readingTime = getReadingTime(blok.content);
 ---
 
 <article {...storyblokEditable(blok)} class="container">
