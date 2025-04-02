@@ -341,51 +341,7 @@ export interface FooterLinkGroupStoryblok {
 }
 
 export interface GlobalStoryblok {
-  navbar?: (
-    | AccordionStoryblok
-    | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | BlogHomeStoryblok
-    | ButtonStoryblok
-    | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CardBentoStoryblok
-    | CardIconTitleTextFullStoryblok
-    | CardIconTitleTextLightStoryblok
-    | CardIconTitleTextNormalStoryblok
-    | CardImageTitleTextStoryblok
-    | CodeBlockStoryblok
-    | DefinitionStoryblok
-    | DefinitionHomeStoryblok
-    | FeaturedTechnologiesStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
-    | GridStoryblok
-    | HeroHomeStoryblok
-    | HeroHorizontalStoryblok
-    | HeroVerticalStoryblok
-    | HighlightWordsStoryblok
-    | LatestArticlesStoryblok
-    | NavbarColumnStoryblok
-    | NavbarDropdownStoryblok
-    | NavbarLinkStoryblok
-    | NavbarSubDropdownStoryblok
-    | PageStoryblok
-    | SectionStoryblok
-    | SectionHorizontalStoryblok
-    | SectionVerticalStoryblok
-    | SpacerStoryblok
-    | TeamStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | TextStoryblok
-    | WorkStoryblok
-    | WorkCategoryStoryblok
-    | WorkHomeStoryblok
-  )[];
+  navbar: (NavbarLinkStoryblok | NavbarDropdownStoryblok)[];
   footerAgencies: FooterAgencyStoryblok[];
   footerColumns: FooterLinkGroupStoryblok[];
   footerLinks: FooterLinkStoryblok[];
