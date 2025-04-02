@@ -42,6 +42,7 @@ export default defineConfig({
         'page': 'components/storyblok/pages/page',
         'technology': 'components/storyblok/pages/technology',
         'work': 'components/storyblok/pages/work',
+        'work-category': 'components/storyblok/pages/work-category',
         // SECTIONS
         'blog-home': 'components/storyblok/sections/blog-home',
         'call-to-action': 'components/storyblok/sections/call-to-action',

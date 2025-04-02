@@ -1,0 +1,15 @@
+---
+import type { WorkCategoryStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: WorkCategoryStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div {...storyblokEditable(blok)}>
+  {blok.body.map((item) => <StoryblokComponent blok={item} />)}
+</div>
