@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/base-layout.astro';
 import blogService from '@/services/blog';
+import workService from '@/services/work';
 import { useStoryblokApi } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 
@@ -55,17 +56,40 @@ export async function getStaticPaths() {
     }
   }
 
+  // Handle pagination for work home page
+  const workHomeTotalPages = await workService.getTotal();
+
+  for (let i = 2; i <= workHomeTotalPages; i++) {
+    paths.push({
+      params: { slug: `realisations/page/${i}` },
+    });
+  }
+
+  // Handle pagination for work category home page
+  const workCategories = await workService.getCategories();
+
+  for (const workCategory of workCategories) {
+    const categoryTotalPages = await workService.getTotal(workCategory.uuid);
+
+    for (let i = 2; i <= categoryTotalPages; i++) {
+      paths.push({
+        params: { slug: `${workCategory.full_slug}/page/${i}` },
+      });
+    }
+  }
+
   return paths;
 }
 
 // Get the story for the given path
 const { slug } = Astro.params as AstroProps;
-const blogCategories = await blogService.getCategories();
 
 const storyblokApi = useStoryblokApi();
 
 const isPaginatedBlog = /^blog\/page\/\d+$/.test(slug);
 const isPaginatedBlogCategory = /^blog\/([^\/]+)\/page\/\d+$/.test(slug);
+const isPaginatedWork = /^realisations\/page\/\d+$/.test(slug);
+const isPaginatedWorkCategory = /^realisations\/([^\/]+)\/page\/\d+$/.test(slug);
 
 let storyPath;
 
@@ -75,6 +99,10 @@ if (!slug) {
   storyPath = 'blog';
 } else if (isPaginatedBlogCategory) {
   storyPath = `blog/${slug.split('/')[1]}`;
+} else if (isPaginatedWork) {
+  storyPath = 'realisations';
+} else if (isPaginatedWorkCategory) {
+  storyPath = `realisations/${slug.split('/')[1]}`;
 } else {
   storyPath = slug;
 }
@@ -85,6 +113,8 @@ const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
     'article.categories',
     'definition.author',
     'featuredTechnologies.technologies',
+    'work.category',
+    'work.services',
     'work.technologies',
   ],
   version: import.meta.env.STORYBLOK_ENV,
