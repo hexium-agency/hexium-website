@@ -9,6 +9,7 @@ import {
 } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
+import { Image } from 'astro:assets';
 
 interface AstroProps {
   blok: ArticleStoryblok;
@@ -33,14 +34,26 @@ const readingTime = getReadingTime(blok.content);
     <div
       class="mx-auto mt-12 xl:grid xl:max-w-none xl:grid-cols-[49rem_1fr] xl:items-start xl:gap-x-20"
     >
-      <aside class="sticky top-28 order-last hidden xl:block">
+      <aside class="sticky top-28 order-last hidden space-y-10 xl:block">
+        <ul class="flex flex-wrap gap-2">
+          {
+            Array.isArray(story.content.categories) &&
+              story.content.categories.map((category: any) => (
+                <li class="flex shrink-0 list-none items-center justify-center rounded-full bg-gray-950 text-sm font-medium text-white transition-colors hover:text-white">
+                  <a class="px-2.5 py-0.5" href={`/${category.full_slug}`}>
+                    {category.name}
+                  </a>
+                </li>
+              ))
+          }
+        </ul>
         <TableOfContents headings={headings} />
       </aside>
       <div>
         <div
           class="relative mb-12 aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
         >
-          <img
+          <Image
             {...parseStoryblokImage(blok.cover)}
             class="absolute inset-0 size-full object-cover"
             style="color: transparent;"
