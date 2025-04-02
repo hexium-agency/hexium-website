@@ -76,10 +76,10 @@ export function parseStoryblokImage(image: AssetStoryblok) {
   const dimensions = image.filename?.match(/\/(\d+)x(\d+)\//);
 
   return {
-    src: image.filename,
-    alt: image.alt,
-    width: dimensions![1],
-    height: dimensions![2],
+    src: image.filename as string,
+    alt: image.alt as string,
+    width: parseInt(dimensions![1]),
+    height: parseInt(dimensions![2]),
   };
 }
 

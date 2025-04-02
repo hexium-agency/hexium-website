@@ -215,6 +215,10 @@ export interface CardBentoStoryblok {
     | HeroVerticalStoryblok
     | HighlightWordsStoryblok
     | LatestArticlesStoryblok
+    | NavbarColumnStoryblok
+    | NavbarDropdownStoryblok
+    | NavbarLinkStoryblok
+    | NavbarSubDropdownStoryblok
     | PageStoryblok
     | SectionStoryblok
     | SectionHorizontalStoryblok
@@ -337,6 +341,51 @@ export interface FooterLinkGroupStoryblok {
 }
 
 export interface GlobalStoryblok {
+  navbar?: (
+    | AccordionStoryblok
+    | AccordionGroupStoryblok
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | BlogHomeStoryblok
+    | ButtonStoryblok
+    | ButtonGroupStoryblok
+    | CallToActionStoryblok
+    | CardBentoStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
+    | CardImageTitleTextStoryblok
+    | CodeBlockStoryblok
+    | DefinitionStoryblok
+    | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FooterAgencyStoryblok
+    | FooterLinkStoryblok
+    | FooterLinkGroupStoryblok
+    | GlobalStoryblok
+    | GridStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
+    | LatestArticlesStoryblok
+    | NavbarColumnStoryblok
+    | NavbarDropdownStoryblok
+    | NavbarLinkStoryblok
+    | NavbarSubDropdownStoryblok
+    | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | SpacerStoryblok
+    | TeamStoryblok
+    | TechnologyStoryblok
+    | TestimonialStoryblok
+    | TextStoryblok
+    | WorkStoryblok
+    | WorkCategoryStoryblok
+    | WorkHomeStoryblok
+  )[];
   footerAgencies: FooterAgencyStoryblok[];
   footerColumns: FooterLinkGroupStoryblok[];
   footerLinks: FooterLinkStoryblok[];
@@ -411,9 +460,45 @@ export interface LatestArticlesStoryblok {
   [k: string]: any;
 }
 
+export interface NavbarColumnStoryblok {
+  title?: string;
+  links: NavbarLinkStoryblok[];
+  component: "navbarColumn";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface NavbarDropdownStoryblok {
+  title: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  items: (NavbarLinkStoryblok | NavbarColumnStoryblok | NavbarSubDropdownStoryblok)[];
+  component: "navbarDropdown";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface NavbarLinkStoryblok {
+  icon?: AssetStoryblok;
+  title: string;
+  link: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "navbarLink";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface NavbarSubDropdownStoryblok {
+  items: (NavbarColumnStoryblok | NavbarLinkStoryblok)[];
+  component: "navbarSubDropdown";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface PageStoryblok {
   metaTitle: string;
   body: (
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
     | BlogHomeStoryblok
     | CallToActionStoryblok
     | DefinitionHomeStoryblok
@@ -421,9 +506,11 @@ export interface PageStoryblok {
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
     | WorkHomeStoryblok
-    | HeroHomeStoryblok
-    | HeroHorizontalStoryblok
-    | HeroVerticalStoryblok
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
   )[];
   metaDescription: string;
   ogBadge: string;
@@ -435,45 +522,11 @@ export interface PageStoryblok {
 
 export interface SectionStoryblok {
   blocks?: (
-    | AccordionStoryblok
     | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | BlogHomeStoryblok
-    | ButtonStoryblok
     | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CardBentoStoryblok
-    | CardIconTitleTextFullStoryblok
-    | CardIconTitleTextLightStoryblok
-    | CardIconTitleTextNormalStoryblok
-    | CardImageTitleTextStoryblok
-    | CodeBlockStoryblok
-    | DefinitionStoryblok
-    | DefinitionHomeStoryblok
-    | FeaturedTechnologiesStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
     | GridStoryblok
-    | HeroHomeStoryblok
-    | HeroHorizontalStoryblok
-    | HeroVerticalStoryblok
-    | HighlightWordsStoryblok
     | LatestArticlesStoryblok
-    | PageStoryblok
-    | SectionStoryblok
-    | SectionHorizontalStoryblok
-    | SectionVerticalStoryblok
     | SpacerStoryblok
-    | TeamStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | TextStoryblok
-    | WorkStoryblok
-    | WorkCategoryStoryblok
-    | WorkHomeStoryblok
   )[];
   backgroundColor: number | string;
   component: "section";
@@ -486,89 +539,27 @@ export interface SectionHorizontalStoryblok {
   badge: string;
   title: string;
   text?: RichtextStoryblok;
-  leftItems?: GridStoryblok[];
-  rightItems?: (
-    | AccordionStoryblok
+  leftItems?: (
     | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | BlogHomeStoryblok
-    | ButtonStoryblok
     | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CardBentoStoryblok
-    | CardIconTitleTextFullStoryblok
-    | CardIconTitleTextLightStoryblok
-    | CardIconTitleTextNormalStoryblok
-    | CardImageTitleTextStoryblok
-    | CodeBlockStoryblok
-    | DefinitionStoryblok
-    | DefinitionHomeStoryblok
-    | FeaturedTechnologiesStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
     | GridStoryblok
-    | HeroHomeStoryblok
-    | HeroHorizontalStoryblok
-    | HeroVerticalStoryblok
-    | HighlightWordsStoryblok
     | LatestArticlesStoryblok
-    | PageStoryblok
-    | SectionStoryblok
-    | SectionHorizontalStoryblok
-    | SectionVerticalStoryblok
     | SpacerStoryblok
-    | TeamStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | TextStoryblok
-    | WorkStoryblok
-    | WorkCategoryStoryblok
-    | WorkHomeStoryblok
+  )[];
+  rightItems?: (
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
   )[];
   revertSide?: boolean;
   bottomItems?: (
-    | AccordionStoryblok
     | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | BlogHomeStoryblok
-    | ButtonStoryblok
     | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CardBentoStoryblok
-    | CardIconTitleTextFullStoryblok
-    | CardIconTitleTextLightStoryblok
-    | CardIconTitleTextNormalStoryblok
-    | CardImageTitleTextStoryblok
-    | CodeBlockStoryblok
-    | DefinitionStoryblok
-    | DefinitionHomeStoryblok
-    | FeaturedTechnologiesStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
     | GridStoryblok
-    | HeroHomeStoryblok
-    | HeroHorizontalStoryblok
-    | HeroVerticalStoryblok
-    | HighlightWordsStoryblok
     | LatestArticlesStoryblok
-    | PageStoryblok
-    | SectionStoryblok
-    | SectionHorizontalStoryblok
-    | SectionVerticalStoryblok
     | SpacerStoryblok
-    | TeamStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | TextStoryblok
-    | WorkStoryblok
-    | WorkCategoryStoryblok
-    | WorkHomeStoryblok
   )[];
   sizeLeftColumn: "" | "half" | "third";
   component: "sectionHorizontal";
@@ -585,45 +576,11 @@ export interface SectionVerticalStoryblok {
   title: string;
   text?: RichtextStoryblok;
   blocks?: (
-    | AccordionStoryblok
     | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | BlogHomeStoryblok
-    | ButtonStoryblok
     | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CardBentoStoryblok
-    | CardIconTitleTextFullStoryblok
-    | CardIconTitleTextLightStoryblok
-    | CardIconTitleTextNormalStoryblok
-    | CardImageTitleTextStoryblok
-    | CodeBlockStoryblok
-    | DefinitionStoryblok
-    | DefinitionHomeStoryblok
-    | FeaturedTechnologiesStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
     | GridStoryblok
-    | HeroHomeStoryblok
-    | HeroHorizontalStoryblok
-    | HeroVerticalStoryblok
-    | HighlightWordsStoryblok
     | LatestArticlesStoryblok
-    | PageStoryblok
-    | SectionStoryblok
-    | SectionHorizontalStoryblok
-    | SectionVerticalStoryblok
     | SpacerStoryblok
-    | TeamStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | TextStoryblok
-    | WorkStoryblok
-    | WorkCategoryStoryblok
-    | WorkHomeStoryblok
   )[];
   component: "sectionVertical";
   _uid: string;
@@ -663,45 +620,21 @@ export interface TechnologyStoryblok {
   ogTitle: string;
   ogDescription?: string;
   body: (
-    | AccordionStoryblok
-    | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | BlogHomeStoryblok
-    | ButtonStoryblok
-    | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CardBentoStoryblok
-    | CardIconTitleTextFullStoryblok
-    | CardIconTitleTextLightStoryblok
-    | CardIconTitleTextNormalStoryblok
-    | CardImageTitleTextStoryblok
-    | CodeBlockStoryblok
-    | DefinitionStoryblok
-    | DefinitionHomeStoryblok
-    | FeaturedTechnologiesStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
-    | GridStoryblok
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
-    | HighlightWordsStoryblok
-    | LatestArticlesStoryblok
-    | PageStoryblok
+    | BlogHomeStoryblok
+    | CallToActionStoryblok
+    | DefinitionHomeStoryblok
     | SectionStoryblok
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
-    | SpacerStoryblok
-    | TeamStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | TextStoryblok
-    | WorkStoryblok
-    | WorkCategoryStoryblok
     | WorkHomeStoryblok
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
   )[];
   component: "technology";
   _uid: string;
@@ -729,19 +662,20 @@ export interface TextStoryblok {
 
 export interface WorkStoryblok {
   category: (ISbStoryData<WorkCategoryStoryblok> | string)[];
+  services: (string)[];
   technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
+  content: RichtextStoryblok;
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
-  services: (string)[];
   component: "work";
   _uid: string;
   [k: string]: any;
 }
 
 export interface WorkCategoryStoryblok {
-  body: BlogHomeStoryblok[];
+  body: WorkHomeStoryblok[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
