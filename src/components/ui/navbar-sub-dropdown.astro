@@ -1,0 +1,16 @@
+---
+import type { NavbarSubDropdownStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: NavbarSubDropdownStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div {...storyblokEditable(blok)}>
+  NAVBAR SUB DROPDOWN
+  {blok.items.map((link) => <StoryblokComponent blok={link} />)}
+</div>

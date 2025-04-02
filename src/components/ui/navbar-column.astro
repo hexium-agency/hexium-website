@@ -1,0 +1,15 @@
+---
+import type { NavbarColumnStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+interface AstroProps {
+  blok: NavbarColumnStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div {...storyblokEditable(blok)}>
+  NAVBAR COLUMN
+  {blok.links.map((link) => <StoryblokComponent blok={link} />)}
+</div>
