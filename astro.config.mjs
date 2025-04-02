@@ -15,13 +15,17 @@ const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: vercel(),
+  adapter: vercel({
+    imageService: true,
+    devImageService: 'sharp',
+  }),
   output: 'server',
   experimental: {
     svg: true,
   },
   image: {
     domains: ["a.storyblok.com"],
+    remotePatterns: [{ protocol: "https" }],
   },
   integrations: [
     expressiveCode({

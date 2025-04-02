@@ -3,6 +3,7 @@ import type { ArticleStoryblok } from '@/types/storyblok';
 import { formatIsoToDate, formatIsoToReadable } from '@/utils/date';
 import { parseStoryblokImage } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
+import { Image } from 'astro:assets';
 
 interface AstroProps {
   article: ISbStoryData<ArticleStoryblok>;
@@ -17,10 +18,10 @@ const createdAt = article?.created_at! || article?.published_at!;
   <div
     class="relative aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
   >
-    <img
-      {...parseStoryblokImage(article.content.cover)}
+    <Image
       class="absolute inset-0 size-full object-cover transition-all duration-300 group-hover:scale-105"
       style="color: transparent;"
+      {...parseStoryblokImage(article.content.cover)}
     />
   </div>
   <div class="mt-6 flex flex-col lg:px-4">
