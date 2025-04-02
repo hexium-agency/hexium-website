@@ -16,6 +16,7 @@ import type {
 import '@fontsource-variable/inter/opsz.css';
 import '@fontsource-variable/jetbrains-mono';
 import type { ISbStoryData } from '@storyblok/astro';
+import { ClientRouter } from 'astro:transitions';
 
 interface AstroProps {
   story: ISbStoryData<
@@ -62,6 +63,7 @@ const pathname = Astro.url.pathname;
         <ArticleSchema story={story} />
       )
     }
+    <ClientRouter />
   </head>
   <body class="flex min-h-screen flex-grow flex-col bg-gray-50 font-sans text-gray-950 antialiased">
     <Header />
