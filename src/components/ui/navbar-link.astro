@@ -9,4 +9,6 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 ---
 
-<div {...storyblokEditable(blok)}>NAVBAR LINK</div>
+<div {...storyblokEditable(blok)}>
+  <a href={blok.link.url} class="text-blue-600">{blok.title}</a>
+</div>

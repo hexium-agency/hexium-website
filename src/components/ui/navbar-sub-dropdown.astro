@@ -10,7 +10,26 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 ---
 
-<div {...storyblokEditable(blok)}>
-  NAVBAR SUB DROPDOWN
-  {blok.items.map((link) => <StoryblokComponent blok={link} />)}
+<div {...storyblokEditable(blok)} class="navbar-sub-dropdown">
+    <div class="navbar-sub-dropdown-title">{blok.title}</div>
+    <div class="hidden absolute top-0 left-full bg-white shadow-lg navbar-sub-dropdown-items">
+      {blok.items.map((link) => <StoryblokComponent blok={link} />)}
+    </div>
 </div>
+
+<script>
+  document.querySelectorAll('.navbar-sub-dropdown-title').forEach(title => {
+    title.addEventListener('click', () => {
+      // First, hide all dropdown items
+      document.querySelectorAll('.navbar-sub-dropdown-items').forEach(items => {
+        items.classList.add('hidden');
+      });
+
+      // Then show only the clicked dropdown's items
+      const dropdownItems = title.parentElement?.querySelector('.navbar-sub-dropdown-items');
+      if (dropdownItems) {
+        dropdownItems.classList.remove('hidden');
+      }
+    });
+  });
+</script>

@@ -8,9 +8,15 @@ interface AstroProps {
 }
 
 const { blok } = Astro.props as AstroProps;
+
+const shouldFlexHorizontally = blok.items.every((item) => item.component === 'navbarColumn');
 ---
 
-<div {...storyblokEditable(blok)}>
-  NAVBAR DROPDOWN
-  {blok.items.map((link) => <StoryblokComponent blok={link} />)}
+<div {...storyblokEditable(blok)} class="relative group">
+  <h2 class="font-bold">{blok.title}</h2>
+  <div class="absolute left-0 top-full mt-2 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+    <div class={`p-8 flex gap-6 ${shouldFlexHorizontally ? 'flex-row' : 'flex-col'}`}>
+      {blok.items.map((link) => <StoryblokComponent blok={link} />)}
+    </div>
+  </div>
 </div>

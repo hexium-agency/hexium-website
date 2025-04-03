@@ -8,6 +8,8 @@ import { Image } from 'astro:assets';
 interface AstroProps {
   navbar: GlobalStoryblok['navbar'];
 }
+
+const { navbar } = Astro.props as AstroProps;
 ---
 
 <>
