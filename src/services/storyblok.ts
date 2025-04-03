@@ -1,5 +1,24 @@
-import { useStoryblokApi } from '@storyblok/astro';
-import { type ISbStory } from '@storyblok/astro';
+import { useStoryblokApi, type ISbStories, type ISbStory } from '@storyblok/astro';
+
+async function getAllStories<T>(
+  contentType?:
+    | 'article'
+    | 'blogCategory'
+    | 'definition'
+    | 'page'
+    | 'technology'
+    | 'work'
+    | 'workCategory'
+) {
+  const storyblokApi = useStoryblokApi();
+
+  const stories = await storyblokApi.getAll('cdn/stories', {
+    ...(contentType && { content_type: contentType }),
+    version: import.meta.env.STORYBLOK_ENV,
+  });
+
+  return stories as ISbStories<T>['data']['stories'];
+}
 
 async function getStory<T>(slug: string) {
   const storyblokApi = useStoryblokApi();
@@ -12,6 +31,7 @@ async function getStory<T>(slug: string) {
 }
 
 const storyblokService = {
+  getAllStories,
   getStory,
 };
 
