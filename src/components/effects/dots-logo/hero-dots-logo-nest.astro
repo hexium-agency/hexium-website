@@ -20,7 +20,9 @@ const colorLogo = hexRgb('#E1244E', { format: 'array' });
 
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
-  const logoColor = document.querySelector('#nest-dots-container')?.getAttribute('data-color');
-  const logoColorRgb = logoColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#nest-dots-container') as HTMLElement, [logoColorRgb!]);
+  document.addEventListener('astro:page-load', () => {
+    const logoColor = document.querySelector('#nest-dots-container')?.getAttribute('data-color');
+    const logoColorRgb = logoColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#nest-dots-container') as HTMLElement, [logoColorRgb!]);
+  });
 </script>

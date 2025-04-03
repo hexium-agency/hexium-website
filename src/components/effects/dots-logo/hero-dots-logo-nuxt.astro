@@ -50,25 +50,29 @@ const colorInner = hexRgb('#2E4A5D', { format: 'array' });
 
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
-  const leftColor = document.querySelector('#nuxt-left-dots-container')?.getAttribute('data-color');
-  const leftColorRgb = leftColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#nuxt-left-dots-container') as HTMLElement, [
-    leftColorRgb!,
-  ]);
+  document.addEventListener('astro:page-load', () => {
+    const leftColor = document
+      .querySelector('#nuxt-left-dots-container')
+      ?.getAttribute('data-color');
+    const leftColorRgb = leftColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#nuxt-left-dots-container') as HTMLElement, [
+      leftColorRgb!,
+    ]);
 
-  const rightColor = document
-    .querySelector('#nuxt-right-dots-container')
-    ?.getAttribute('data-color');
-  const rightColorRgb = rightColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#nuxt-right-dots-container') as HTMLElement, [
-    rightColorRgb!,
-  ]);
+    const rightColor = document
+      .querySelector('#nuxt-right-dots-container')
+      ?.getAttribute('data-color');
+    const rightColorRgb = rightColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#nuxt-right-dots-container') as HTMLElement, [
+      rightColorRgb!,
+    ]);
 
-  const innerColor = document
-    .querySelector('#nuxt-inner-dots-container')
-    ?.getAttribute('data-color');
-  const innerColorRgb = innerColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#nuxt-inner-dots-container') as HTMLElement, [
-    innerColorRgb!,
-  ]);
+    const innerColor = document
+      .querySelector('#nuxt-inner-dots-container')
+      ?.getAttribute('data-color');
+    const innerColorRgb = innerColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#nuxt-inner-dots-container') as HTMLElement, [
+      innerColorRgb!,
+    ]);
+  });
 </script>

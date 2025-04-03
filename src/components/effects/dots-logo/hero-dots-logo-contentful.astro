@@ -78,43 +78,46 @@ const colorBottomPoint = hexRgb('#CC4739', { format: 'array' });
 
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
-  const topColor = document
-    .querySelector('#contentful-top-dots-container')
-    ?.getAttribute('data-color');
-  const topColorRgb = topColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#contentful-top-dots-container') as HTMLElement, [
-    topColorRgb!,
-  ]);
+  document.addEventListener('astro:page-load', () => {
+    const topColor = document
+      .querySelector('#contentful-top-dots-container')
+      ?.getAttribute('data-color');
+    const topColorRgb = topColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#contentful-top-dots-container') as HTMLElement, [
+      topColorRgb!,
+    ]);
 
-  const middleColor = document
-    .querySelector('#contentful-middle-dots-container')
-    ?.getAttribute('data-color');
-  const middleColorRgb = middleColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#contentful-middle-dots-container') as HTMLElement, [
-    middleColorRgb!,
-  ]);
+    const middleColor = document
+      .querySelector('#contentful-middle-dots-container')
+      ?.getAttribute('data-color');
+    const middleColorRgb = middleColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#contentful-middle-dots-container') as HTMLElement, [
+      middleColorRgb!,
+    ]);
 
-  const bottomColor = document
-    .querySelector('#contentful-bottom-dots-container')
-    ?.getAttribute('data-color');
-  const bottomColorRgb = bottomColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#contentful-bottom-dots-container') as HTMLElement, [
-    bottomColorRgb!,
-  ]);
+    const bottomColor = document
+      .querySelector('#contentful-bottom-dots-container')
+      ?.getAttribute('data-color');
+    const bottomColorRgb = bottomColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#contentful-bottom-dots-container') as HTMLElement, [
+      bottomColorRgb!,
+    ]);
 
-  const topPointColor = document
-    .querySelector('#contentful-top-point-dots-container')
-    ?.getAttribute('data-color');
-  const topPointColorRgb = topPointColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#contentful-top-point-dots-container') as HTMLElement, [
-    topPointColorRgb!,
-  ]);
+    const topPointColor = document
+      .querySelector('#contentful-top-point-dots-container')
+      ?.getAttribute('data-color');
+    const topPointColorRgb = topPointColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#contentful-top-point-dots-container') as HTMLElement, [
+      topPointColorRgb!,
+    ]);
 
-  const bottomPointColor = document
-    .querySelector('#contentful-bottom-point-dots-container')
-    ?.getAttribute('data-color');
-  const bottomPointColorRgb = bottomPointColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#contentful-bottom-point-dots-container') as HTMLElement, [
-    bottomPointColorRgb!,
-  ]);
+    const bottomPointColor = document
+      .querySelector('#contentful-bottom-point-dots-container')
+      ?.getAttribute('data-color');
+    const bottomPointColorRgb = bottomPointColor?.split(',').map(Number);
+    new DotsBlock(
+      document.querySelector('#contentful-bottom-point-dots-container') as HTMLElement,
+      [bottomPointColorRgb!]
+    );
+  });
 </script>

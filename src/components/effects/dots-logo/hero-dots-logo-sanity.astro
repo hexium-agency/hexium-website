@@ -36,15 +36,19 @@ const colorInner = hexRgb('#F04A39', { format: 'array' });
 
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
-  const outerColor = document.querySelector('#sanity-dots-container')?.getAttribute('data-color');
-  const outerColorRgb = outerColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#sanity-dots-container') as HTMLElement, [outerColorRgb!]);
+  document.addEventListener('astro:page-load', () => {
+    const outerColor = document.querySelector('#sanity-dots-container')?.getAttribute('data-color');
+    const outerColorRgb = outerColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#sanity-dots-container') as HTMLElement, [
+      outerColorRgb!,
+    ]);
 
-  const innerColor = document
-    .querySelector('#sanity-inner-dots-container')
-    ?.getAttribute('data-color');
-  const innerColorRgb = innerColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#sanity-inner-dots-container') as HTMLElement, [
-    innerColorRgb!,
-  ]);
+    const innerColor = document
+      .querySelector('#sanity-inner-dots-container')
+      ?.getAttribute('data-color');
+    const innerColorRgb = innerColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#sanity-inner-dots-container') as HTMLElement, [
+      innerColorRgb!,
+    ]);
+  });
 </script>

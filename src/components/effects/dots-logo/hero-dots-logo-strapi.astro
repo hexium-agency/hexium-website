@@ -36,13 +36,17 @@ const color2 = hexRgb('#4C4179', { format: 'array' });
 
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
-  const color = document.querySelector('#strapi-dots-container')?.getAttribute('data-color');
-  const colorArray = color?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#strapi-dots-container') as HTMLElement, [colorArray!]);
+  document.addEventListener('astro:page-load', () => {
+    const color = document.querySelector('#strapi-dots-container')?.getAttribute('data-color');
+    const colorArray = color?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#strapi-dots-container') as HTMLElement, [colorArray!]);
 
-  const color2 = document.querySelector('#strapi-inner-dots-container')?.getAttribute('data-color');
-  const colorArray2 = color2?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#strapi-inner-dots-container') as HTMLElement, [
-    colorArray2!,
-  ]);
+    const color2 = document
+      .querySelector('#strapi-inner-dots-container')
+      ?.getAttribute('data-color');
+    const colorArray2 = color2?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#strapi-inner-dots-container') as HTMLElement, [
+      colorArray2!,
+    ]);
+  });
 </script>

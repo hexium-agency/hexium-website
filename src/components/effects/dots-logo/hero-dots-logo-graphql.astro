@@ -20,11 +20,13 @@ const color = hexRgb('#E536AB', { format: 'array' });
 
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
-  const colorGraphql = document
-    .querySelector('#graphql-dots-container')
-    ?.getAttribute('data-color');
-  const colorGraphqlRgb = colorGraphql?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#graphql-dots-container') as HTMLElement, [
-    colorGraphqlRgb!,
-  ]);
+  document.addEventListener('astro:page-load', () => {
+    const colorGraphql = document
+      .querySelector('#graphql-dots-container')
+      ?.getAttribute('data-color');
+    const colorGraphqlRgb = colorGraphql?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#graphql-dots-container') as HTMLElement, [
+      colorGraphqlRgb!,
+    ]);
+  });
 </script>

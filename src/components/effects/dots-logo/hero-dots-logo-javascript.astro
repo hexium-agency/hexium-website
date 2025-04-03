@@ -34,19 +34,21 @@ const colorLetters = hexRgb('#000', { format: 'array' });
 
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
-  const squareColor = document
-    .querySelector('#javascript-dots-container')
-    ?.getAttribute('data-color');
-  const squareColorRgb = squareColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#javascript-dots-container') as HTMLElement, [
-    squareColorRgb!,
-  ]);
+  document.addEventListener('astro:page-load', () => {
+    const squareColor = document
+      .querySelector('#javascript-dots-container')
+      ?.getAttribute('data-color');
+    const squareColorRgb = squareColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#javascript-dots-container') as HTMLElement, [
+      squareColorRgb!,
+    ]);
 
-  const lettersColor = document
-    .querySelector('#javascript-letters-dots-container')
-    ?.getAttribute('data-color');
-  const lettersColorRgb = lettersColor?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#javascript-letters-dots-container') as HTMLElement, [
-    lettersColorRgb!,
-  ]);
+    const lettersColor = document
+      .querySelector('#javascript-letters-dots-container')
+      ?.getAttribute('data-color');
+    const lettersColorRgb = lettersColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#javascript-letters-dots-container') as HTMLElement, [
+      lettersColorRgb!,
+    ]);
+  });
 </script>

@@ -20,7 +20,13 @@ const color = hexRgb('#009CDE', { format: 'array' });
 
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
-  const colorDrupal = document.querySelector('#drupal-dots-container')?.getAttribute('data-color');
-  const colorDrupalRgb = colorDrupal?.split(',').map(Number);
-  new DotsBlock(document.querySelector('#drupal-dots-container') as HTMLElement, [colorDrupalRgb!]);
+  document.addEventListener('astro:page-load', () => {
+    const colorDrupal = document
+      .querySelector('#drupal-dots-container')
+      ?.getAttribute('data-color');
+    const colorDrupalRgb = colorDrupal?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#drupal-dots-container') as HTMLElement, [
+      colorDrupalRgb!,
+    ]);
+  });
 </script>
