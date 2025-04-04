@@ -5,13 +5,16 @@
 @config '../../tailwind.config.js';
 
 @theme {
-  --font-heading: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-  'Noto Color Emoji';
+  --font-heading:
+    'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
   --font-heading--font-variation-settings: 'opsz' 32;
-  --font-mono: 'JetBrains Mono Variable',ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-  monospace;
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji';
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  --font-sans:
+    'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
   --font-sans--font-variation-settings: 'opsz' 14;
 
   --text-2xs: 0.6875rem;
@@ -64,5 +67,17 @@
 @layer utilities {
   .container {
     @apply relative mx-auto w-full px-6 sm:max-w-[40rem] md:max-w-[48rem] md:px-8 lg:max-w-[64rem] xl:max-w-[80rem];
+  }
+
+  .input-field {
+    transition-property: color, background-color, border-color, box-shadow, opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+  }
+
+  .input-field:focus {
+    box-shadow:
+      0px 0px 0px 1px #3b82f6,
+      0px 0px 0px 4px rgba(59, 130, 246, 0.2);
   }
 }
