@@ -1,5 +1,55 @@
 ---
+import Breadcrumb from '@/components/breadcrumb.astro';
+import RichText from '@/components/richtext.astro';
+import TableOfContents from '@/components/table-of-contents.astro';
+import type { DefinitionStoryblok } from '@/types/storyblok';
+import { extractHeadingsFromRichText } from '@/utils/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+import { storyblokEditable } from '@storyblok/astro';
 
+interface AstroProps {
+  blok: DefinitionStoryblok;
+  story: ISbStoryData<DefinitionStoryblok>;
+}
+
+const { blok, story } = Astro.props as AstroProps;
+
+const headings = extractHeadingsFromRichText(blok.content);
 ---
 
-<div>DEFINITION</div>
+<article {...storyblokEditable(blok)} class="container">
+  <div class="mx-auto max-w-3xl xl:max-w-5xl">
+    <header class="max-w-[44rem]">
+      <Breadcrumb
+        links={[
+          { label: 'Définitions', href: '/definitions' },
+          { label: story.name, href: story.full_slug },
+        ]}
+      />
+      <h1 class="font-heading mt-5 text-3xl font-bold text-pretty text-gray-950">
+        {story.name}
+      </h1>
+    </header>
+    <div
+      class="mx-auto mt-12 mb-20 xl:grid xl:max-w-none xl:grid-cols-[44rem_1fr] xl:items-start xl:gap-x-10"
+    >
+      <aside class="sticky top-28 order-last hidden space-y-10 xl:block">
+        <TableOfContents headings={headings} />
+      </aside>
+      <div>
+        <div
+          class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none"
+        >
+          <RichText
+            text={blok.content}
+            class="[&' >.prose:first-child>:first-child]:!mt-0 [&>.prose:last-child>:last-child]:!mb-0 [&>:first-child]:!mt-0 [&>:last-child]:!mb-0"
+          />
+        </div>
+        <footer class="mt-10 flex flex-col border-t border-gray-200 pt-4 text-xs text-gray-600">
+          <div class="ml-auto">Publié le 27/03/2025</div>
+          <div class="ml-auto">Mis à jour le 27/03/2025</div>
+        </footer>
+      </div>
+    </div>
+  </div>
+</article>
