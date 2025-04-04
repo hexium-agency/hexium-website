@@ -1,12 +1,9 @@
 ---
+import Breadcrumb from '@/components/breadcrumb.astro';
 import RichText from '@/components/richtext.astro';
 import TableOfContents from '@/components/table-of-contents.astro';
 import type { ArticleStoryblok } from '@/types/storyblok';
-import {
-  extractHeadingsFromRichText,
-  getReadingTime,
-  parseStoryblokImage,
-} from '@/utils/storyblok';
+import { extractHeadingsFromRichText, parseStoryblokImage } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
 import { Image } from 'astro:assets';
@@ -19,34 +16,30 @@ interface AstroProps {
 const { blok, story } = Astro.props as AstroProps;
 
 const headings = extractHeadingsFromRichText(blok.content);
-const readingTime = getReadingTime(blok.content);
 ---
 
 <article {...storyblokEditable(blok)} class="container">
-  <div class="mx-auto max-w-3xl xl:max-w-none">
-    <header class="max-w-[49rem]">
-      <p>{readingTime === 1 ? '1 minute de lecture' : `${readingTime} minutes de lecture`}</p>
-      <h1 class="font-heading mt-6 text-4xl font-bold text-pretty text-gray-950">
+  <div class="mx-auto max-w-3xl xl:max-w-5xl">
+    <header class="max-w-[44rem]">
+      <Breadcrumb
+        links={[
+          { label: 'Blog', href: '/blog' },
+          {
+            label: story.content.category[0].name,
+            href: `/${story.content.category[0].full_slug}`,
+          },
+          { label: story.name, href: story.full_slug },
+        ]}
+      />
+      <h1 class="font-heading mt-5 text-3xl font-bold text-pretty text-gray-950">
         {story.name}
       </h1>
       <p class="mt-4 text-lg text-gray-700">{blok.description}</p>
     </header>
     <div
-      class="mx-auto mt-12 xl:grid xl:max-w-none xl:grid-cols-[49rem_1fr] xl:items-start xl:gap-x-20"
+      class="mx-auto mt-12 mb-20 xl:grid xl:max-w-none xl:grid-cols-[44rem_1fr] xl:items-start xl:gap-x-10"
     >
       <aside class="sticky top-28 order-last hidden space-y-10 xl:block">
-        <ul class="flex flex-wrap gap-2">
-          {
-            Array.isArray(story.content.categories) &&
-              story.content.categories.map((category: any) => (
-                <li class="flex shrink-0 list-none items-center justify-center rounded-full bg-gray-950 text-sm font-medium text-white transition-colors hover:text-white">
-                  <a class="px-2.5 py-0.5" href={`/${category.full_slug}`}>
-                    {category.name}
-                  </a>
-                </li>
-              ))
-          }
-        </ul>
         <TableOfContents headings={headings} />
       </aside>
       <div>
@@ -60,10 +53,17 @@ const readingTime = getReadingTime(blok.content);
           />
         </div>
         <div
-          class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none [&_:is(h1,h2,h3,h4,h5)+*]:mt-0"
+          class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none"
         >
-          <RichText text={blok.content} />
+          <RichText
+            text={blok.content}
+            class="[&' >.prose:first-child>:first-child]:!mt-0 [&>.prose:last-child>:last-child]:!mb-0 [&>:first-child]:!mt-0 [&>:last-child]:!mb-0"
+          />
         </div>
+        <footer class="mt-10 flex flex-col text-xs text-gray-600">
+          <div class="ml-auto">Publié le 27/03/2025</div>
+          <div class="ml-auto">Mis à jour le 27/03/2025</div>
+        </footer>
       </div>
     </div>
   </div>
