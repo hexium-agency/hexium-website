@@ -21,11 +21,9 @@ const LevelsPaddings: Record<number, string> = {
 ---
 
 <div>
-  <nav
-    class="rounded-lg bg-gray-50/50 p-4 shadow-[0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.04),0_24px_68px_rgba(47,48,55,0.05),0_2px_3px_rgba(0,0,0,0.04)]"
-  >
-    <h2 class="font-heading font-mono text-sm font-bold uppercase">Sommaire</h2>
-    <ul class="space-y-1 text-sm font-medium">
+  <nav>
+    <span class="font-heading font-mono text-xs font-semibold uppercase">Sommaire</span>
+    <ul class="mt-2 space-y-1 border-l border-gray-200 pl-2 text-sm font-medium">
       {
         headings.map((heading) => (
           <li class={`${LevelsPaddings[heading.level]}`}>
