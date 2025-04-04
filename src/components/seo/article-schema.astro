@@ -29,10 +29,10 @@ const jsonLd = JSON.stringify({
   description: story.content.description,
   ...(isArticle && {
     articleSection: articleCategories,
+    image: [story.content.cover.filename],
   }),
   wordCount: wordCount,
   timeRequired: `PT${readingTime}M`,
-  image: [story.content.cover.filename],
   datePublished: datePublished,
   dateModified: dateModified,
   mainEntityOfPage: {
