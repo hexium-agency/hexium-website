@@ -8,6 +8,7 @@ interface AstroProps {
 }
 
 const { story } = Astro.props as AstroProps;
+const pathname = Astro.url.pathname;
 
 const { created_at, first_published_at, published_at, updated_at } = story;
 
@@ -25,7 +26,7 @@ const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: story.name,
-  url: import.meta.env.WEBSITE_URL + story.full_slug,
+  url: import.meta.env.WEBSITE_URL + pathname,
   description: story.content.description,
   ...(isArticle && {
     articleSection: articleCategories,
@@ -37,7 +38,7 @@ const jsonLd = JSON.stringify({
   dateModified: dateModified,
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': import.meta.env.WEBSITE_URL + story.full_slug,
+    '@id': import.meta.env.WEBSITE_URL + pathname,
   },
   publisher: {
     '@type': 'Organization',

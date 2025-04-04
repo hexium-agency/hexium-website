@@ -15,6 +15,7 @@ async function getAllStories<T>(
   const stories = await storyblokApi.getAll('cdn/stories', {
     ...(contentType && { content_type: contentType }),
     version: import.meta.env.STORYBLOK_ENV,
+    resolve_relations: ['article.category'],
   });
 
   return stories as ISbStories<T>['data']['stories'];

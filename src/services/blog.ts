@@ -4,6 +4,18 @@ import { type ISbStoryData, type ISbStories } from '@storyblok/astro';
 
 const ARTICLES_PER_PAGE = 12;
 
+async function getAllArticles() {
+  const storyblokApi = useStoryblokApi();
+
+  const articles = await storyblokApi.getAll('cdn/stories', {
+    content_type: 'article',
+    version: import.meta.env.STORYBLOK_ENV,
+    resolve_relations: ['article.category'],
+  });
+
+  return articles as ISbStoryData<ArticleStoryblok>[];
+}
+
 async function getCategories() {
   const storyblokApi = useStoryblokApi();
 
@@ -33,6 +45,7 @@ async function getLatest(category?: string) {
     version: import.meta.env.STORYBLOK_ENV,
     content_type: 'article',
     per_page: 4,
+    resolve_relations: ['article.category'],
     sort_by: 'published_at:desc',
   };
 
@@ -56,6 +69,7 @@ async function getPaginated({ category, page = 1 }: { category?: string; page?: 
     version: import.meta.env.STORYBLOK_ENV,
     content_type: 'article',
     per_page: ARTICLES_PER_PAGE,
+    resolve_relations: ['article.category'],
     sort_by: 'published_at:desc',
     page,
   };
@@ -97,6 +111,7 @@ async function getTotal(category?: string) {
 }
 
 const blogService = {
+  getAllArticles,
   getCategories,
   getCategoryBySlug,
   getLatest,

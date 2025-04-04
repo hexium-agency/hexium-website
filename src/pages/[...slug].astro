@@ -25,7 +25,8 @@ export async function getStaticPaths() {
     (story) =>
       !story.slug.startsWith('global') &&
       !story.slug.startsWith('team/') &&
-      !story.slug.startsWith('testimonials/')
+      !story.slug.startsWith('testimonials/') &&
+      !story.slug.startsWith('blog/')
   );
 
   paths = filteredStories.map((story) => {
@@ -40,6 +41,15 @@ export async function getStaticPaths() {
   for (let i = 2; i <= blogHomeTotalPages; i++) {
     paths.push({
       params: { slug: `blog/page/${i}` },
+    });
+  }
+
+  // Handle articles in blog category
+  const articles = await blogService.getAllArticles();
+
+  for (const article of articles) {
+    paths.push({
+      params: { slug: `blog/${article.content.category[0].slug}/${article.slug}` },
     });
   }
 
@@ -90,11 +100,14 @@ const isPaginatedBlog = /^blog\/page\/\d+$/.test(slug);
 const isPaginatedBlogCategory = /^blog\/([^\/]+)\/page\/\d+$/.test(slug);
 const isPaginatedWork = /^realisations\/page\/\d+$/.test(slug);
 const isPaginatedWorkCategory = /^realisations\/([^\/]+)\/page\/\d+$/.test(slug);
+const isArticle = /^blog\/[^\/]+\/(?!page\/)[^\/]+$/.test(slug);
 
 let storyPath;
 
 if (!slug) {
   storyPath = 'home';
+} else if (isArticle) {
+  storyPath = `blog/${slug.split('/').pop()}`;
 } else if (isPaginatedBlog) {
   storyPath = 'blog';
 } else if (isPaginatedBlogCategory) {
@@ -110,7 +123,7 @@ if (!slug) {
 const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
   resolve_relations: [
     'article.author',
-    'article.categories',
+    'article.category',
     'definition.author',
     'featuredTechnologies.technologies',
     'work.category',
