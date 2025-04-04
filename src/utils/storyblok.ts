@@ -23,7 +23,7 @@ export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
 export function getReadingTime(richText: RichtextStoryblok) {
   if (!richText.content) return 0;
 
-  const WORDS_PER_MINUTE = 265;
+  const WORDS_PER_MINUTE = 200;
 
   let totalWords = 0;
 
@@ -91,7 +91,7 @@ export function parseStoryblokLink(link: MultilinkStoryblok | undefined): string
       return '/';
     }
 
-    return `/${url}`.replace(/\/$/, '');
+    return (url.startsWith('/') ? url : `/${url}`).replace(/\/$/, '');
   }
 
   if (link?.linktype === 'url') {
