@@ -23,7 +23,7 @@ const LevelsPaddings: Record<number, string> = {
 <div>
   <nav>
     <span class="font-heading font-mono text-xs font-semibold uppercase">Sommaire</span>
-    <ul class="mt-2 space-y-1 border-l border-gray-200 pl-2 text-sm font-medium">
+    <ol class="mt-2 space-y-1 border-l border-gray-200 pl-2 text-sm font-medium">
       {
         headings.map((heading) => (
           <li class={`${LevelsPaddings[heading.level]}`}>
@@ -37,7 +37,7 @@ const LevelsPaddings: Record<number, string> = {
           </li>
         ))
       }
-    </ul>
+    </ol>
   </nav>
 </div>
 
