@@ -2,7 +2,8 @@
 import Breadcrumb from '@/components/breadcrumb.astro';
 import RichText from '@/components/richtext.astro';
 import TableOfContents from '@/components/table-of-contents.astro';
-import type { ArticleStoryblok } from '@/types/storyblok';
+import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
+import { formatIsoToDate, formatIsoToReadable } from '@/utils/date';
 import { extractHeadingsFromRichText, parseStoryblokImage } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
@@ -25,8 +26,8 @@ const headings = extractHeadingsFromRichText(blok.content);
         links={[
           { label: 'Blog', href: '/blog' },
           {
-            label: story.content.category[0].name,
-            href: `/${story.content.category[0].full_slug}`,
+            label: (story.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).name,
+            href: `/${(story.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).full_slug}`,
           },
           { label: story.name, href: story.full_slug },
         ]}
@@ -61,8 +62,51 @@ const headings = extractHeadingsFromRichText(blok.content);
           />
         </div>
         <footer class="mt-10 flex flex-col text-xs text-gray-600">
-          <div class="ml-auto">Publié le 27/03/2025</div>
-          <div class="ml-auto">Mis à jour le 27/03/2025</div>
+          <dl class="ml-auto">
+            <dt class="sr-only">Publié le</dt>
+            <dd class="text-right">
+              Publié le
+              <time
+                datetime={formatIsoToDate(
+                  story.first_published_at || story.published_at || story.created_at
+                )}
+              >
+                {
+                  formatIsoToReadable(
+                    story.first_published_at || story.published_at || story.created_at
+                  )
+                }
+              </time>
+            </dd>
+            {
+              formatIsoToReadable(
+                story.first_published_at || story.published_at || story.created_at
+              ) !==
+                formatIsoToReadable(
+                  story.published_at || story.first_published_at || (story.updated_at as string)
+                ) && (
+                <>
+                  <dt class="sr-only">Mis à jour le</dt>
+                  <dd class="text-right">
+                    Mis à jour le
+                    <time
+                      datetime={formatIsoToDate(
+                        story.first_published_at ||
+                          story.published_at ||
+                          (story.updated_at as string)
+                      )}
+                    >
+                      {formatIsoToReadable(
+                        story.published_at ||
+                          story.first_published_at ||
+                          (story.updated_at as string)
+                      )}
+                    </time>
+                  </dd>
+                </>
+              )
+            }
+          </dl>
         </footer>
       </div>
     </div>
