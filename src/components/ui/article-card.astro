@@ -1,5 +1,5 @@
 ---
-import type { ArticleStoryblok } from '@/types/storyblok';
+import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
 import { formatIsoToDate, formatIsoToReadable } from '@/utils/date';
 import { parseStoryblokImage } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
@@ -28,7 +28,9 @@ const createdAt = article?.created_at! || article?.published_at!;
     <h2
       class="font-heading mt-3 text-xl font-bold tracking-[-0.015em] text-pretty text-gray-950 transition-all group-hover:opacity-80"
     >
-      <a href={`/blog/${article.content.category[0].slug}/${article.slug}`}>
+      <a
+        href={`/blog/${(article.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).slug}/${article.slug}`}
+      >
         {article.name}
         <span class="absolute inset-0 z-10" aria-hidden="true"></span>
       </a>
