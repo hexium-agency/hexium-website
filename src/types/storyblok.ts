@@ -53,7 +53,7 @@ export interface AssetStoryblok {
 
 export interface ArticleStoryblok {
   author: (ISbStoryData<TeamStoryblok> | string)[];
-  categories: (ISbStoryData<BlogCategoryStoryblok> | string)[];
+  category: (ISbStoryData<BlogCategoryStoryblok> | string)[];
   cover: AssetStoryblok;
   description: string;
   content: RichtextStoryblok;
@@ -202,6 +202,8 @@ export interface CardBentoStoryblok {
     | CardIconTitleTextNormalStoryblok
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
+    | CompanyStoryblok
+    | CustomerStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
     | FeaturedTechnologiesStoryblok
@@ -286,6 +288,23 @@ export interface CardImageTitleTextStoryblok {
 
 export interface CodeBlockStoryblok {
   component: "codeBlock";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CompanyStoryblok {
+  component: "company";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CustomerStoryblok {
+  name: string;
+  customerSince: string;
+  description: string;
+  logoFull: AssetStoryblok;
+  logoWhite: AssetStoryblok;
+  component: "customer";
   _uid: string;
   [k: string]: any;
 }
@@ -443,6 +462,7 @@ export interface NavbarLinkStoryblok {
 }
 
 export interface NavbarSubDropdownStoryblok {
+  title?: string;
   items: (NavbarColumnStoryblok | NavbarLinkStoryblok)[];
   component: "navbarSubDropdown";
   _uid: string;
@@ -617,10 +637,13 @@ export interface TextStoryblok {
 }
 
 export interface WorkStoryblok {
+  cover: AssetStoryblok;
+  completionYear: string;
+  content: RichtextStoryblok;
+  customer: (ISbStoryData<CustomerStoryblok> | string)[];
   category: (ISbStoryData<WorkCategoryStoryblok> | string)[];
   services: (string)[];
   technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
-  content: RichtextStoryblok;
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;

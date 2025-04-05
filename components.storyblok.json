@@ -124,7 +124,7 @@
       "display_name": "ARTICLE",
       "description": null,
       "created_at": "2024-12-08T16:03:31.058Z",
-      "updated_at": "2025-04-02T09:10:55.133Z",
+      "updated_at": "2025-04-04T09:17:28.825Z",
       "id": 6663003,
       "schema": {
         "author": {
@@ -143,7 +143,7 @@
           "max_options": "1",
           "id": "hgpeNcWSSnSkGwsPXp5GQg"
         },
-        "categories": {
+        "category": {
           "type": "options",
           "pos": 1,
           "is_reference_type": true,
@@ -151,12 +151,12 @@
           "entry_appearance": "link",
           "allow_advanced_search": true,
           "required": true,
-          "display_name": "CATÉGORIES",
+          "display_name": "CATÉGORIE",
           "filter_content_type": [
             "blogCategory"
           ],
           "min_options": "1",
-          "max_options": "3",
+          "max_options": "1",
           "id": "Ppq2D7RnThCXhU2E4kdjQw"
         },
         "cover": {
@@ -1016,7 +1016,7 @@
       "display_name": "CARD (IMAGE - TITRE - TEXTE)",
       "description": "",
       "created_at": "2025-03-14T14:39:25.425Z",
-      "updated_at": "2025-04-02T08:47:04.561Z",
+      "updated_at": "2025-04-03T12:45:40.239Z",
       "id": 7088665,
       "schema": {
         "image": {
@@ -1027,7 +1027,7 @@
           "filetypes": [
             "images"
           ],
-          "asset_folder_id": null,
+          "asset_folder_id": 792072,
           "description": "",
           "id": "tKMGIQNzTtS0gt9AdveLUQ"
         },
@@ -1144,6 +1144,116 @@
       ],
       "content_type_asset_preview": null,
       "component_group_name": "CONTENT"
+    },
+    {
+      "name": "company",
+      "display_name": "ENTREPRISE",
+      "description": "",
+      "created_at": "2025-04-04T15:30:32.608Z",
+      "updated_at": "2025-04-04T15:31:27.998Z",
+      "id": 7171162,
+      "schema": {},
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "ENTREPRISE",
+      "component_group_uuid": "04509216-f19d-4707-af87-46fe49b02750",
+      "color": "#841d18",
+      "icon": "block-doc",
+      "internal_tags_list": [
+        {
+          "id": 52943,
+          "name": "data"
+        }
+      ],
+      "internal_tag_ids": [
+        "52943"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "DATA"
+    },
+    {
+      "name": "customer",
+      "display_name": "CLIENT",
+      "description": "",
+      "created_at": "2025-04-04T15:34:52.855Z",
+      "updated_at": "2025-04-04T16:54:38.391Z",
+      "id": 7171163,
+      "schema": {
+        "name": {
+          "type": "text",
+          "pos": 0,
+          "id": "nPdiNrIvSpGOoApApuPovw",
+          "display_name": "NOM",
+          "required": true
+        },
+        "customerSince": {
+          "type": "text",
+          "pos": 1,
+          "display_name": "CLIENT DEPUIS (ANNÉE)",
+          "required": true,
+          "regex": "^202[0-9]$",
+          "id": "rSXyqgv0THqCDkY-yS95pg"
+        },
+        "description": {
+          "type": "textarea",
+          "pos": 2,
+          "display_name": "DESCRIPTION",
+          "required": true,
+          "id": "zdkf24iaRMiolyATFI8pAw",
+          "max_length": 100
+        },
+        "logoFull": {
+          "type": "asset",
+          "pos": 3,
+          "display_name": "LOGO - FULL",
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 681166,
+          "id": "zYE4l5taQKudEwk1ZeMVVA",
+          "description": "LOGO - FULL et LOGO - WHITE doivent être similaires en dimensions"
+        },
+        "logoWhite": {
+          "type": "asset",
+          "pos": 4,
+          "display_name": "LOGO - BLANC",
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 681166,
+          "description": "LOGO - WHITE et LOGO - FULL doivent être similaires en dimensions",
+          "id": "gKUog-iIQVeC95JDkgMyRA"
+        }
+      },
+      "image": null,
+      "preview_field": "name",
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CLIENT",
+      "component_group_uuid": "04509216-f19d-4707-af87-46fe49b02750",
+      "color": "#841d18",
+      "icon": "block-doc",
+      "internal_tags_list": [
+        {
+          "id": 52943,
+          "name": "data"
+        }
+      ],
+      "internal_tag_ids": [
+        "52943"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "DATA"
     },
     {
       "name": "definition",
@@ -2364,12 +2474,17 @@
       "display_name": "NAVBAR - SOUS-DROPDOWN",
       "description": "",
       "created_at": "2025-04-02T14:54:42.006Z",
-      "updated_at": "2025-04-02T14:59:30.347Z",
+      "updated_at": "2025-04-03T09:40:39.013Z",
       "id": 7159975,
       "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0,
+          "id": "RWqkX9-fRJiRYGlZRx5PKA"
+        },
         "items": {
           "type": "bloks",
-          "pos": 0,
+          "pos": 1,
           "display_name": "ITEMS",
           "required": true,
           "minimum": 1,
@@ -2508,7 +2623,7 @@
       "display_name": "SECTION",
       "description": "",
       "created_at": "2025-03-12T14:45:10.314Z",
-      "updated_at": "2025-04-02T09:14:33.530Z",
+      "updated_at": "2025-04-02T17:01:52.389Z",
       "id": 7075252,
       "schema": {
         "blocks": {
@@ -2545,7 +2660,7 @@
         }
       },
       "image": null,
-      "preview_field": null,
+      "preview_field": "blocks",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
@@ -3370,58 +3485,31 @@
       "display_name": "WORK",
       "description": null,
       "created_at": "2024-12-09T09:31:18.424Z",
-      "updated_at": "2025-04-02T09:13:17.911Z",
+      "updated_at": "2025-04-04T17:47:21.396Z",
       "id": 6665046,
       "schema": {
-        "category": {
-          "type": "options",
+        "cover": {
+          "type": "asset",
           "pos": 0,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "card",
-          "allow_advanced_search": true,
-          "display_name": "CATÉGORIE",
+          "display_name": "COUVERTURE",
           "required": true,
-          "filter_content_type": [
-            "workCategory"
+          "filetypes": [
+            "images"
           ],
-          "min_options": "1",
-          "id": "olQ7SDW7TcmpDRzlNXWh5w",
-          "max_options": "1"
+          "asset_folder_id": 681166,
+          "id": "VIr9-JPsRWy58uHU6twG7Q"
         },
-        "services": {
-          "type": "options",
+        "completionYear": {
+          "type": "text",
           "pos": 1,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "card",
-          "allow_advanced_search": true,
-          "display_name": "SERVICES",
-          "filter_content_type": [],
-          "folder_slug": "audit/,application-mobile/,conseil/,design/,developpement-web,intelligence-artificielle/,site-internet/",
-          "min_options": "1",
-          "max_options": "",
-          "id": "0BkgaRDNSR2OlDxCx1bwjQ",
-          "required": true
-        },
-        "technologies": {
-          "type": "options",
-          "pos": 2,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "card",
-          "allow_advanced_search": true,
-          "display_name": "TECHNOLOGIES",
+          "display_name": "ANNÉE DE RÉALISATION",
           "required": true,
-          "filter_content_type": [
-            "technology"
-          ],
-          "min_options": "1",
-          "id": "lsk-LUntQ3umbvE4HCu1-Q"
+          "regex": "^202[0-9]$",
+          "id": "Ke3LocBzQ6mCoUp_oPJsxw"
         },
         "content": {
           "type": "richtext",
-          "pos": 3,
+          "pos": 2,
           "id": "rYHJRm6eSeuEmE7o7-g-yg",
           "required": true,
           "display_name": "CONTENU",
@@ -3453,14 +3541,77 @@
             "undo"
           ]
         },
+        "customer": {
+          "type": "options",
+          "pos": 3,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "CLIENT",
+          "required": true,
+          "filter_content_type": [
+            "customer"
+          ],
+          "min_options": "1",
+          "max_options": "1",
+          "id": "iXu9NgFgSmS-OaMu3FqHvg"
+        },
+        "category": {
+          "type": "options",
+          "pos": 4,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "CATÉGORIE",
+          "required": true,
+          "filter_content_type": [
+            "workCategory"
+          ],
+          "min_options": "1",
+          "id": "olQ7SDW7TcmpDRzlNXWh5w",
+          "max_options": "1"
+        },
+        "services": {
+          "type": "options",
+          "pos": 5,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "SERVICES",
+          "filter_content_type": [],
+          "folder_slug": "audit/,application-mobile/,conseil/,design/,developpement-web,intelligence-artificielle/,site-internet/",
+          "min_options": "1",
+          "max_options": "",
+          "id": "0BkgaRDNSR2OlDxCx1bwjQ",
+          "required": true
+        },
+        "technologies": {
+          "type": "options",
+          "pos": 6,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "TECHNOLOGIES",
+          "required": true,
+          "filter_content_type": [
+            "technology"
+          ],
+          "min_options": "1",
+          "id": "lsk-LUntQ3umbvE4HCu1-Q"
+        },
         "tab-3df233bc-78cd-46b3-8d49-c5f30ba5a39d": {
           "display_name": "Config",
           "keys": [
             "services",
             "technologies",
-            "category"
+            "category",
+            "customer"
           ],
-          "pos": 4,
+          "pos": 7,
           "type": "tab",
           "name": "tab-3df233bc-78cd-46b3-8d49-c5f30ba5a39d",
           "id": "PfIzvHjNRrONScXzC6WjnQ"
@@ -3473,14 +3624,14 @@
             "metaDescription",
             "metaTitle"
           ],
-          "pos": 5,
+          "pos": 8,
           "type": "tab",
           "id": "8LbkgkwMTNSkpxYrwjIj6A",
           "name": "tab-f0b6e482-4c0c-4cd4-a4a7-162bc23223e8"
         },
         "metaTitle": {
           "type": "text",
-          "pos": 6,
+          "pos": 9,
           "display_name": "META - TITRE",
           "required": true,
           "max_length": 60,
@@ -3488,7 +3639,7 @@
         },
         "metaDescription": {
           "type": "textarea",
-          "pos": 7,
+          "pos": 10,
           "display_name": "META - DESCRIPTION",
           "required": true,
           "max_length": 160,
@@ -3496,7 +3647,7 @@
         },
         "ogBadge": {
           "type": "text",
-          "pos": 8,
+          "pos": 11,
           "display_name": "OG - BADGE",
           "required": true,
           "max_length": 30,
@@ -3504,7 +3655,7 @@
         },
         "ogTitle": {
           "type": "text",
-          "pos": 9,
+          "pos": 12,
           "display_name": "OG - TITRE",
           "required": true,
           "max_length": 80,
