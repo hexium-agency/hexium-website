@@ -51,7 +51,7 @@ async function getLatest(category?: string) {
 
   if (category) {
     params.filter_query = {
-      categories: {
+      category: {
         in: category,
       },
     };
@@ -76,7 +76,7 @@ async function getPaginated({ category, page = 1 }: { category?: string; page?: 
 
   if (category) {
     params.filter_query = {
-      categories: {
+      category: {
         in: category,
       },
     };
@@ -99,7 +99,7 @@ async function getTotal(category?: string) {
 
   if (category) {
     params.filter_query = {
-      categories: {
+      category: {
         in: category,
       },
     };
