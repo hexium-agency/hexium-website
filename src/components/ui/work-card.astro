@@ -1,0 +1,43 @@
+---
+import type { CustomerStoryblok, WorkStoryblok } from '@/types/storyblok';
+import { parseStoryblokImage } from '@/utils/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+import { Image } from 'astro:assets';
+
+interface AstroProps {
+  work: ISbStoryData<WorkStoryblok>;
+}
+
+const { work } = Astro.props as AstroProps;
+---
+
+<div class="group relative isolate">
+  <div
+    class="relative aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
+  >
+    <Image
+      class="absolute inset-0 size-full object-cover transition-all duration-300 group-hover:scale-105"
+      style="color: transparent;"
+      {...parseStoryblokImage(work.content.cover)}
+    />
+    <div class="absolute inset-0 bg-gray-950/60"></div>
+    <Image
+      class="absolute top-1/2 left-1/2 w-[200px] -translate-x-1/2 -translate-y-1/2 object-cover object-center"
+      style="color: transparent;"
+      {...parseStoryblokImage(
+        (work.content.customer[0] as ISbStoryData<CustomerStoryblok>).content.logoWhite
+      )}
+    />
+    <div
+      class="absolute inset-0 flex p-6 transition-all group-hover:bg-gray-950/30 group-hover:backdrop-blur-xs"
+    >
+      <div class="flex flex-col justify-end">
+        <h3
+          class="translate-y-[300px] text-lg/5 font-semibold tracking-tight text-white transition-all group-hover:translate-y-0"
+        >
+          {work.content.project}
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
