@@ -1,7 +1,7 @@
 import { type ISbStoryData } from '@storyblok/astro';
 import storyblokService from '@/services/storyblok';
 import blogService from '@/services/blog';
-import type { ArticleStoryblok } from '@/types/storyblok';
+import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
 interface SitemapEntry {
   loc: string;
   lastmod: string;
@@ -21,7 +21,7 @@ export async function GET() {
     return articles.map((article) => {
       return createSitemapEntry({
         ...article,
-        full_slug: `blog/${(article.content as ArticleStoryblok).category[0].slug}/${article.slug}`,
+        full_slug: `blog/${((article.content as ArticleStoryblok).category[0] as ISbStoryData<BlogCategoryStoryblok>).slug}/${article.slug}`,
       });
     });
   });
