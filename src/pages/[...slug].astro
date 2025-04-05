@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/base-layout.astro';
 import blogService from '@/services/blog';
 import workService from '@/services/work';
+import type { BlogCategoryStoryblok } from '@/types/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
 import { useStoryblokApi } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 
@@ -24,9 +26,12 @@ export async function getStaticPaths() {
   const filteredStories = stories.filter(
     (story) =>
       !story.slug.startsWith('global') &&
+      !story.slug.startsWith('blog/') &&
+      !story.slug.startsWith('clients/') &&
+      !story.slug.startsWith('entreprises/') &&
+      !story.slug.startsWith('realisations/') &&
       !story.slug.startsWith('team/') &&
-      !story.slug.startsWith('testimonials/') &&
-      !story.slug.startsWith('blog/')
+      !story.slug.startsWith('testimonials/')
   );
 
   paths = filteredStories.map((story) => {
@@ -49,7 +54,9 @@ export async function getStaticPaths() {
 
   for (const article of articles) {
     paths.push({
-      params: { slug: `blog/${article.content.category[0].slug}/${article.slug}` },
+      params: {
+        slug: `blog/${(article.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).slug}/${article.slug}`,
+      },
     });
   }
 
@@ -58,6 +65,10 @@ export async function getStaticPaths() {
 
   for (const blogCategory of blogCategories) {
     const categoryTotalPages = await blogService.getTotal(blogCategory.uuid);
+
+    paths.push({
+      params: { slug: `${blogCategory.full_slug}` },
+    });
 
     for (let i = 2; i <= categoryTotalPages; i++) {
       paths.push({
@@ -80,6 +91,10 @@ export async function getStaticPaths() {
 
   for (const workCategory of workCategories) {
     const categoryTotalPages = await workService.getTotal(workCategory.uuid);
+
+    paths.push({
+      params: { slug: `${workCategory.full_slug}` },
+    });
 
     for (let i = 2; i <= categoryTotalPages; i++) {
       paths.push({
