@@ -1,0 +1,174 @@
+---
+import FileList from '@/components/form/file-list.astro';
+
+interface Props {
+  id: string;
+  name: string;
+  accept?: string;
+  multiple?: boolean;
+}
+
+const { 
+  id, 
+  name, 
+  accept = "image/*,.pdf,.doc,.docx",
+  multiple = true 
+} = Astro.props;
+---
+
+<div class="mt-1 flex justify-center rounded-md border-[0.5px] border-dashed border-gray-300 bg-white px-6 py-4 shadow transition-all duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] hover:border-gray-400 hover:bg-white/50 text-sm">
+  <div class="text-center">
+    <svg
+      class="mx-auto h-8 w-8 text-gray-400"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+      />
+    </svg>
+    <div class="mt-2 flex text-sm text-gray-600">
+      <label
+        for={id}
+        class="relative cursor-pointer rounded-md font-medium text-gray-900 focus-within:outline-none focus-within:ring-1 focus-within:ring-gray-900 hover:text-gray-700 transition-colors duration-300"
+      >
+        <span>Sélectionner des fichiers</span>
+        <input
+          id={id}
+          name={name}
+          type="file"
+          multiple={multiple}
+          accept={accept}
+          class="sr-only"
+        />
+      </label>
+      <p class="pl-1">ou glisser-déposer</p>
+    </div>
+    <p class="mt-1 text-xs text-gray-500">images et documents acceptés</p>
+    <FileList id="fileList" />
+  </div>
+</div>
+
+<script>
+  // Get the file input and file list elements
+  const fileInput = document.getElementById('files') as HTMLInputElement;
+  const fileList = document.getElementById('fileList') as HTMLDivElement;
+  const fileItemTemplate = document.getElementById('file-item-template') as HTMLTemplateElement;
+  
+  // Handle file selection
+  if (fileInput && fileList && fileItemTemplate) {
+    // Store the selected files
+    const selectedFiles: File[] = [];
+    
+    // Update the file list display
+    function updateFileList() {
+      // Clear the file list
+      fileList.innerHTML = '';
+      
+      // Add each file to the list
+      selectedFiles.forEach((file, index) => {
+        // Clone the template
+        const fileItem = fileItemTemplate.content.cloneNode(true) as DocumentFragment;
+        
+        // Set the file name
+        const fileNameElement = fileItem.querySelector('.file-name') as HTMLSpanElement;
+        if (fileNameElement) {
+          fileNameElement.textContent = file.name;
+        }
+        
+        // Add delete button event listener
+        const deleteButton = fileItem.querySelector('.delete-file') as HTMLButtonElement;
+        if (deleteButton) {
+          deleteButton.addEventListener('click', () => {
+            // Remove the file from the list
+            selectedFiles.splice(index, 1);
+            
+            // Update the file list display
+            updateFileList();
+            
+            // Update the file input
+            updateFileInput();
+          });
+        }
+        
+        // Add the file item to the list
+        fileList.appendChild(fileItem);
+      });
+    }
+    
+    // Update the file input with the selected files
+    function updateFileInput() {
+      // Create a new DataTransfer object
+      const dataTransfer = new DataTransfer();
+      
+      // Add each file to the DataTransfer object
+      selectedFiles.forEach(file => {
+        dataTransfer.items.add(file);
+      });
+      
+      // Set the file input files
+      fileInput.files = dataTransfer.files;
+    }
+    
+    // Handle file selection
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files) {
+        // Add the selected files to the list
+        for (let i = 0; i < fileInput.files.length; i++) {
+          selectedFiles.push(fileInput.files[i]);
+        }
+        
+        // Update the file list display
+        updateFileList();
+      }
+    });
+    
+    // Handle drag and drop
+    const dropZone = fileInput.closest('div');
+    if (dropZone) {
+      // Prevent default drag behaviors
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }, false);
+      });
+      
+      // Highlight drop zone when item is dragged over it
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+          dropZone.classList.add('border-gray-900');
+        }, false);
+      });
+      
+      // Remove highlight when item is dragged out or dropped
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+          dropZone.classList.remove('border-gray-900');
+        }, false);
+      });
+      
+      // Handle dropped files
+      dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        if (dt?.files) {
+          // Add the dropped files to the list
+          for (let i = 0; i < dt.files.length; i++) {
+            selectedFiles.push(dt.files[i]);
+          }
+          
+          // Update the file list display
+          updateFileList();
+          
+          // Update the file input
+          updateFileInput();
+        }
+      }, false);
+    }
+  }
+</script> 
