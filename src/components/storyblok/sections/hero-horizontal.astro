@@ -1,0 +1,62 @@
+---
+import HeroDotsLogoJavascript from '@/components/effects/dots-logo/hero-dots-logo-javascript.astro';
+import type { HeroVerticalStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: HeroVerticalStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const Title = blok.badge ? 'h2' : 'h1';
+
+function transformTitle(title: string, color: string) {
+  return title.replace(/#([^#]+)#/g, (_, words) => {
+    return words
+      .split(' ')
+      .map((word: string) => {
+        return `<span class="relative isolate inline-block font-semibold before:absolute before:inset-0 before:-z-10 before:blur-[5px] before:content-[var(--word)]" style="--word: attr(data-word); color: ${color}" data-word="${word}">${word}</span>`;
+      })
+      .join(' ');
+  });
+}
+
+const highlightWordsEffect = blok.effects?.find(
+  (effect: any) => effect.component === 'highlightWords'
+);
+
+const transformedTitle = highlightWordsEffect
+  ? transformTitle(blok.title, highlightWordsEffect.color.color)
+  : blok.title;
+---
+
+<section {...storyblokEditable(blok)} class="bg-gray-950">
+  <div
+    class="relative container flex flex-col justify-between py-16 sm:py-40 lg:flex-row lg:gap-x-10"
+  >
+    <div class="w-full max-w-2xl">
+      {
+        blok.badge && (
+          <h1 class="mb-4 font-mono text-xs/6 font-medium tracking-wider text-balance text-gray-200 uppercase">
+            {blok.badge}
+          </h1>
+        )
+      }
+      <Title
+        class="mx-auto text-4xl font-semibold tracking-tighter text-balance text-white sm:text-5xl lg:text-6xl"
+        set:html={transformedTitle}
+      />
+      <div class="mt-6 max-w-lg text-[1rem]/6 text-pretty text-gray-400">
+        {blok.text}
+      </div>
+      <div class="mt-8 flex items-center gap-x-6">
+        {blok.buttons?.map((button) => <StoryblokComponent blok={button} />)}
+      </div>
+    </div>
+    <div>
+      <HeroDotsLogoJavascript />
+    </div>
+  </div>
+</section>

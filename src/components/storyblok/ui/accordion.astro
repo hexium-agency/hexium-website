@@ -1,0 +1,65 @@
+---
+import Richtext from '@/components/richtext.astro';
+import type { AccordionStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: AccordionStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div {...storyblokEditable(blok)} class="accordion pb-1">
+  <h4
+    class="group flex cursor-pointer items-center justify-between gap-x-3 py-4 pb-3 text-base/5 font-medium text-gray-950 dark:text-white"
+  >
+    {blok.title}
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      class="size-5 flex-none rotate-180 stroke-gray-400 transition group-hover:stroke-gray-950 dark:stroke-gray-200 dark:group-hover/summary:stroke-white [.accordion-open_&]:rotate-0"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        d="M5.75 13.25 10 8.75l4.25 4.5"></path>
+    </svg>
+  </h4>
+  <div class="content-wrapper h-0 overflow-hidden">
+    <div class="content pb-4 text-[0.875rem]/5 text-pretty text-gray-600 dark:text-gray-400">
+      <Richtext text={blok.text} />
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.accordion').forEach((accordion) => {
+      const header = accordion.querySelector('h4') as HTMLHeadingElement;
+      const content = accordion.querySelector('.content-wrapper') as HTMLDivElement;
+      const contentInner = accordion.querySelector('.content') as HTMLDivElement;
+
+      content.style.transition = 'height 300ms';
+
+      header.addEventListener('click', () => {
+        const isOpen = accordion.classList.contains('accordion-open');
+
+        if (isOpen) {
+          content.style.height = contentInner.offsetHeight + 'px';
+          content.offsetHeight;
+          content.style.height = '0px';
+          accordion.classList.remove('accordion-open');
+        } else {
+          accordion.classList.add('accordion-open');
+          const height = contentInner.offsetHeight;
+          content.style.height = '0px';
+          content.offsetHeight;
+          content.style.height = height + 'px';
+        }
+      });
+    });
+  });
+</script>

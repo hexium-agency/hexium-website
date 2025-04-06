@@ -1,0 +1,78 @@
+---
+import hexRgb from 'hex-rgb';
+
+const colorLeft = hexRgb('#04C493', { format: 'array' });
+const colorRight = hexRgb('#028775', { format: 'array' });
+const colorInner = hexRgb('#2E4A5D', { format: 'array' });
+---
+
+<div class="relative size-[500px]">
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221346%22%20height%3D%221000%22%20viewBox%3D%220%200%201346%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M409.081%20965.757C408.081%20963.99%20407.189%20962.165%20406.411%20960.29C401.04%20947.849%20399.389%20934.119%20401.659%20920.76H83.5247L556.31%2088.7327L711.529%20361.596L756.527%20281.968L621.22%2043.6094C614.736%2031.4018%20605.296%2021.014%20593.762%2013.3958C582.228%205.77765%20568.969%201.17203%20555.196%200C541.451%200.624777%20528.158%205.09443%20516.828%2012.9005C505.498%2020.7066%20496.586%2031.5357%20491.106%2044.1561L12.139%20886.276C4.97954%20898.165%200.851615%20911.632%200.118316%20925.492C-0.614983%20939.351%202.06882%20953.178%207.93363%20965.757C15.2995%20977.373%2025.769%20986.696%2038.1579%20992.671C50.5468%20998.646%2064.3606%201001.04%2078.0367%20999.568H479.205C465.527%201001.06%20451.705%20998.679%20439.312%20992.701C426.919%20986.724%20416.431%20977.389%20409.081%20965.757Z%22%20fill%3D%22%2300C492%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="nuxt-left-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={colorLeft}
+      >
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221346%22%20height%3D%221000%22%20viewBox%3D%220%200%201346%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1331.4%20886.255L937.799%20192.941C931.342%20180.604%20921.882%20170.092%20910.291%20162.375C898.701%20154.658%20885.353%20149.984%20871.48%20148.785C857.753%20149.38%20844.469%20153.822%20833.145%20161.604C821.82%20169.385%20812.911%20180.193%20807.433%20192.794L756.527%20281.947L801.819%20361.596L871.901%20237.518L1261.29%20920.739H1113.22C1115.12%20932.032%201114.05%20943.622%201110.13%20954.382C1109.31%20956.76%201108.27%20959.061%201107.04%20961.257L1105.78%20963.781C1097.74%20975.142%201087.02%20984.347%201074.57%20990.582C1062.12%20996.816%201048.33%20999.888%201034.42%20999.526H1266.05C1279.96%20999.899%201293.76%20996.832%201306.21%20990.597C1318.66%20984.361%201329.38%20975.15%201337.41%20963.781C1343.75%20951.588%201346.55%20937.861%201345.49%20924.158C1344.43%20910.455%201339.55%20897.324%201331.4%20886.255Z%22%20fill%3D%22%23008776%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="nuxt-right-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={colorRight}
+      >
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221346%22%20height%3D%221000%22%20viewBox%3D%220%200%201346%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1105.8%20963.802L1107.06%20961.279C1108.29%20959.082%201109.32%20956.781%201110.13%20954.403C1114.05%20943.644%201115.12%20932.053%201113.23%20920.76C1111.04%20908.58%201106.67%20896.897%201100.31%20886.276L802.114%20361.597L756.549%20281.969L711.258%20361.597L413.162%20886.276C407.375%20897.025%20403.484%20908.69%20401.66%20920.76C399.261%20934.088%20400.772%20947.825%20406.013%20960.311C406.79%20962.187%20407.682%20964.013%20408.683%20965.778C416.052%20977.391%20426.522%20986.709%20438.911%20992.681C451.3%20998.652%20465.112%201001.04%20478.786%20999.568H1034C1047.98%20999.982%201061.85%20996.935%201074.37%20990.699C1086.9%20984.464%201097.68%20975.231%201105.78%20963.823L1105.8%20963.802ZM756.528%20441.246L1029.1%20920.739H484.085L756.528%20441.246Z%22%20fill%3D%22%232D4A5D%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="nuxt-inner-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={colorInner}
+      >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { DotsBlock } from '@/lib/dots/dots-block';
+  document.addEventListener('astro:page-load', () => {
+    const leftColor = document
+      .querySelector('#nuxt-left-dots-container')
+      ?.getAttribute('data-color');
+    const leftColorRgb = leftColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#nuxt-left-dots-container') as HTMLElement, [
+      leftColorRgb!,
+    ]);
+
+    const rightColor = document
+      .querySelector('#nuxt-right-dots-container')
+      ?.getAttribute('data-color');
+    const rightColorRgb = rightColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#nuxt-right-dots-container') as HTMLElement, [
+      rightColorRgb!,
+    ]);
+
+    const innerColor = document
+      .querySelector('#nuxt-inner-dots-container')
+      ?.getAttribute('data-color');
+    const innerColorRgb = innerColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#nuxt-inner-dots-container') as HTMLElement, [
+      innerColorRgb!,
+    ]);
+  });
+</script>

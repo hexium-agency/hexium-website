@@ -1,0 +1,52 @@
+---
+import hexRgb from 'hex-rgb';
+
+const color = hexRgb('#8E75FF', { format: 'array' });
+const color2 = hexRgb('#4C4179', { format: 'array' });
+---
+
+<div class="relative size-[500px]">
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22999%22%20height%3D%221000%22%20viewBox%3D%220%200%20999%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M664.519%20680.031V355.697C664.518%20350.15%20662.314%20344.832%20658.392%20340.91C654.469%20336.989%20649.15%20334.786%20643.604%20334.786H319.648V4.05747e-07H978.019C980.766%20-0.000540653%20983.486%200.540045%20986.024%201.59089C988.562%202.64173%20990.868%204.18223%20992.811%206.12443C994.753%208.06664%20996.294%2010.3725%20997.346%2012.9103C998.397%2015.4481%20998.938%2018.1681%20998.938%2020.9151V680.031H664.519Z%22%20fill%3D%22%238E75FF%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="strapi-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={color}
+      >
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute size-[500px]"
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22999%22%20height%3D%221000%22%20viewBox%3D%220%200%20999%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20opacity%3D%221%22%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M319.648%200V334.786H10.4568C8.38898%20334.785%206.36773%20334.172%204.64843%20333.023C2.92913%20331.874%201.58892%20330.241%200.797152%20328.331C0.0053795%20326.421%20-0.202431%20324.319%200.199977%20322.291C0.602385%20320.262%201.59695%20318.399%203.05802%20316.936L319.648%200ZM664.518%20989.547V680.031H998.937L682.372%20996.938C680.91%20998.4%20679.047%20999.396%20677.018%20999.799C674.99%201000.2%20672.888%20999.996%20670.977%20999.205C669.067%20998.414%20667.433%20997.074%20666.283%20995.355C665.134%20993.636%20664.519%20991.615%20664.518%20989.547ZM319.648%20334.786H654.058C656.832%20334.786%20659.492%20335.887%20661.453%20337.848C663.414%20339.808%20664.517%20342.468%20664.518%20345.241V680.031H340.563C337.816%20680.031%20335.096%20679.49%20332.559%20678.439C330.021%20677.388%20327.716%20675.847%20325.773%20673.905C323.831%20671.963%20322.291%20669.657%20321.24%20667.12C320.189%20664.582%20319.648%20661.863%20319.648%20659.116V334.786Z%22%20fill%3D%22%238E75FF%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="strapi-inner-dots-container"
+        class="relative h-[500px] w-[500px] bg-gray-950"
+        data-color={color2}
+      >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { DotsBlock } from '@/lib/dots/dots-block';
+  document.addEventListener('astro:page-load', () => {
+    const color = document.querySelector('#strapi-dots-container')?.getAttribute('data-color');
+    const colorArray = color?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#strapi-dots-container') as HTMLElement, [colorArray!]);
+
+    const color2 = document
+      .querySelector('#strapi-inner-dots-container')
+      ?.getAttribute('data-color');
+    const colorArray2 = color2?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#strapi-inner-dots-container') as HTMLElement, [
+      colorArray2!,
+    ]);
+  });
+</script>

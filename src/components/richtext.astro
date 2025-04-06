@@ -10,13 +10,15 @@ import type { RichTextType } from 'storyblok-rich-text-astro-renderer';
 import RichTextRenderer from 'storyblok-rich-text-astro-renderer/RichTextRenderer.astro';
 
 export interface Props {
+  class?: string;
   text: RichTextType | RichtextStoryblok;
 }
 
-const { text } = Astro.props;
+const { class: className, text } = Astro.props;
 ---
 
 <RichTextRenderer
+  class:list={className}
   content={text as RichTextType}
   schema={{
     nodes: {
@@ -42,7 +44,7 @@ const { text } = Astro.props;
           href:
             link.attrs.linktype === 'email'
               ? `mailto:${link.attrs.href}`
-              : parseStoryblokLink(link.attrs as MultilinkStoryblok),
+              : parseStoryblokLink(link.attrs as unknown as MultilinkStoryblok),
           target: link.attrs.linktype === 'url' ? '_blank' : null,
         },
       }),

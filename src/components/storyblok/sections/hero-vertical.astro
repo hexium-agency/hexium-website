@@ -1,0 +1,46 @@
+---
+import type { HeroVerticalStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: HeroVerticalStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const Title = blok.badge ? 'h2' : 'h1';
+---
+
+<section {...storyblokEditable(blok)} class="bg-gray-950">
+  <div class="container py-16 sm:py-40">
+    <div class="mx-auto text-center">
+      {
+        blok.badge && (
+          <h1 class="mx-auto mb-4 max-w-4xl font-mono text-xs/6 font-medium tracking-wider text-balance text-gray-200 uppercase">
+            {blok.badge}
+          </h1>
+        )
+      }
+      <Title
+        class="mx-auto max-w-4xl text-4xl font-semibold tracking-tighter text-balance text-white sm:text-5xl lg:text-6xl"
+      >
+        {blok.title}
+      </Title>
+      {
+        blok.text && (
+          <div class="mx-auto mt-6 max-w-2xl text-[1rem]/6 text-gray-400">{blok.text}</div>
+        )
+      }
+      {
+        !!blok.buttons?.length && (
+          <div class="mt-8 flex items-center justify-center gap-x-6">
+            {blok.buttons?.map((button) => (
+              <StoryblokComponent blok={button} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

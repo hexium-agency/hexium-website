@@ -1,0 +1,49 @@
+---
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Hexium - Agence & Studio de Développement',
+  legalName: 'Hexium',
+  description: 'Créateur de solutions digitales sur mesure',
+  url: import.meta.env.WEBSITE_URL,
+  logo: import.meta.env.WEBSITE_URL + '/images/logo-square-schema-organization.png',
+  image: import.meta.env.WEBSITE_URL + '/images/logo-rectangle-schema-organization.png',
+  address: [
+    {
+      '@type': 'PostalAddress',
+      addressCountry: 'FR',
+      addressLocality: 'Montpellier',
+      postalCode: '34000',
+      streetAddress: '222 Place Ernest Granier',
+    },
+    {
+      '@type': 'PostalAddress',
+      addressCountry: 'FR',
+      addressLocality: 'Paris',
+      postalCode: '75008',
+      streetAddress: '58 Rue de Monceau',
+    },
+    {
+      '@type': 'PostalAddress',
+      addressCountry: 'FR',
+      addressLocality: 'Toulouse',
+      postalCode: '31000',
+      streetAddress: '48 Allée François Verdier',
+    },
+  ],
+  founder: {
+    '@type': 'Person',
+    name: 'Anthony Rubio',
+    email: 'anthony@hexium.io',
+    jobTitle: 'CEO',
+    url: 'https://www.linkedin.com/in/anthonyrubiohexium/',
+  },
+  foundingDate: '2020-07-01',
+  sameAs: ['https://linkedin.com/company/hexium'],
+  vatID: 'FR12887922383',
+  email: 'contact@hexium.io',
+  telephone: '+33430966323',
+});
+---
+
+<script type="application/ld+json" set:html={jsonLd} />

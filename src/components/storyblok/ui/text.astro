@@ -1,0 +1,19 @@
+---
+import RichText from '@/components/richtext.astro';
+import type { TextStoryblok } from '@/types/storyblok';
+
+interface AstroProps {
+  blok: TextStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div
+  class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none [&_:is(h1,h2,h3,h4,h5,h6)+*]:mt-0 [&_:is(h1,h2,h3,h4,h5,h6):first-of-type]:mt-0"
+>
+  <RichText
+    text={blok.content}
+    class="[&' >.prose:first-child>:first-child]:!mt-0 [&>.prose:last-child>:last-child]:!mb-0 [&>:first-child]:!mt-0 [&>:last-child]:!mb-0"
+  />
+</div>

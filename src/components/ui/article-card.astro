@@ -1,0 +1,48 @@
+---
+import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
+import { formatIsoToDate, formatIsoToReadable } from '@/utils/date';
+import { parseStoryblokImage } from '@/utils/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+import { Image } from 'astro:assets';
+
+interface AstroProps {
+  article: ISbStoryData<ArticleStoryblok>;
+}
+
+const { article } = Astro.props as AstroProps;
+
+const createdAt = article?.created_at! || article?.published_at!;
+---
+
+<div class="group relative isolate">
+  <div
+    class="relative aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
+  >
+    <Image
+      class="absolute inset-0 size-full object-cover transition-all duration-300 group-hover:scale-105"
+      style="color: transparent;"
+      {...parseStoryblokImage(article.content.cover)}
+    />
+  </div>
+  <div class="mt-6 flex flex-col lg:px-4">
+    <h2
+      class="font-heading mt-3 text-xl font-bold tracking-[-0.015em] text-pretty text-gray-950 transition-all group-hover:opacity-80"
+    >
+      <a
+        href={`/blog/${(article.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).slug}/${article.slug}`}
+      >
+        {article.name}
+        <span class="absolute inset-0 z-10" aria-hidden="true"></span>
+      </a>
+    </h2>
+    <p class="mt-3 mb-auto line-clamp-2 text-sm/5 text-gray-600">
+      {article.content.description}
+    </p>
+    <dl class="order-first">
+      <dt class="sr-only">Publié le</dt>
+      <dd class="font-mono text-xs text-gray-950">
+        <time datetime={formatIsoToDate(createdAt)}>{formatIsoToReadable(createdAt)}</time>
+      </dd>
+    </dl>
+  </div>
+</div>

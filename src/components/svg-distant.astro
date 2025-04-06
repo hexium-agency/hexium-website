@@ -1,0 +1,35 @@
+---
+import type { AssetStoryblok } from '@/types/storyblok';
+
+interface AstroProps {
+  url: AssetStoryblok;
+  class?: string;
+  preserveDesc?: boolean;
+  preserveId?: boolean;
+}
+
+const {
+  class: className,
+  url,
+  preserveDesc = false,
+  preserveId = false,
+} = Astro.props as AstroProps;
+
+let svgContent = await fetch(url.filename!).then((res) => res.text());
+svgContent = svgContent.replace(/stroke="[^"]*"/g, 'stroke="currentColor"');
+svgContent = svgContent.replace('<svg', `<svg class="${className || ''}" aria-hidden="true"`);
+svgContent = svgContent.replace(/\sheight="[^"]*"/g, '');
+svgContent = svgContent.replace(/\swidth="[^"]*"/g, '');
+svgContent = svgContent.replace(/\sxmlns="[^"]*"/g, '');
+// svgContent = svgContent.replace(/stroke-width="[^"]*"/g, 'stroke-width="1.5"');
+
+if (!preserveDesc) {
+  svgContent = svgContent.replace(/<desc>.*?<\/desc>/g, '');
+}
+
+if (!preserveId) {
+  svgContent = svgContent.replace(/\sid="[^"]*"/g, '');
+}
+---
+
+<Fragment set:html={svgContent} />

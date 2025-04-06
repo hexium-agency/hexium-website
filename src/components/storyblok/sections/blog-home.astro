@@ -1,0 +1,93 @@
+---
+import ArticleCard from '@/components/ui/article-card.astro';
+import blogService from '@/services/blog';
+import type { BlogHomeStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: BlogHomeStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const { slug } = Astro.params;
+
+const categoryMatch = slug?.match(/^blog\/([^\/]+)(?:\/page\/(\d+))?$/);
+const paginationMatch = slug?.match(/^blog(?:\/[^\/]+)?\/page\/(\d+)$/);
+
+const isCategory = !!categoryMatch;
+const pageNumber = paginationMatch ? parseInt(paginationMatch[1], 10) : 1;
+
+let articles;
+let totalPages;
+
+if (isCategory) {
+  const category = await blogService.getCategoryBySlug(categoryMatch[1]);
+  totalPages = await blogService.getTotal(category.uuid);
+  articles = await blogService.getPaginated({ category: category.uuid, page: pageNumber });
+} else {
+  totalPages = await blogService.getTotal();
+  articles = await blogService.getPaginated({ page: pageNumber });
+}
+
+const categories = await blogService.getCategories();
+---
+
+<div {...storyblokEditable(blok)} class="container py-20 sm:py-32">
+  <nav class="relative">
+    <ul class="dragscroll scrollbar-hide flex flex-nowrap gap-2 overflow-x-auto pr-20">
+      <li
+        data-active={!isCategory}
+        class="flex shrink-0 list-none items-center justify-center rounded-full text-sm font-medium text-gray-950 transition-colors hover:text-gray-700 data-[active=true]:bg-gray-950 data-[active=true]:text-white data-[active=true]:hover:text-white"
+      >
+        <a class="px-2.5 py-0.5" href="/blog">Tout</a>
+      </li>
+      {
+        categories.map((category) => (
+          <li
+            data-active={isCategory && slug?.startsWith(category.full_slug)}
+            class="flex shrink-0 list-none items-center justify-center rounded-full text-sm font-medium text-gray-950 transition-colors hover:text-gray-700 data-[active=true]:bg-gray-950 data-[active=true]:text-white data-[active=true]:hover:text-white"
+          >
+            <a class="px-2.5 py-0.5" href={`/${category.full_slug}`}>
+              {category.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div
+      class="pointer-events-none absolute inset-0 -right-1 bg-gradient-to-r from-transparent from-80% to-gray-50 to-95%"
+      aria-hidden="true"
+    >
+    </div>
+  </nav>
+  <div class="my-10 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
+    {articles.map((article) => <ArticleCard article={article} />)}
+  </div>
+  {
+    totalPages > 1 && (
+      <nav>
+        <ul class="flex flex-nowrap justify-center gap-2">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <li
+              data-active={index + 1 === pageNumber}
+              class="shrink-0 list-none rounded-full text-sm font-medium text-gray-950 transition-colors hover:text-gray-700 data-[active=true]:bg-gray-950 data-[active=true]:text-white data-[active=true]:hover:text-white"
+            >
+              <a
+                class="block w-8 text-center"
+                href={`/${isCategory ? `blog/${categoryMatch[1]}` : 'blog'}${index + 1 === 1 ? '' : `/page/${index + 1}`}`}
+              >
+                {index + 1}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+</div>
+
+<script>
+  import dragscroll from 'dragscroll';
+  dragscroll.reset();
+</script>

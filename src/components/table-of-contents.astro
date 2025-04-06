@@ -1,0 +1,104 @@
+---
+interface Heading {
+  level: number;
+  text: string;
+  id: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+const LevelsPaddings: Record<number, string> = {
+  2: 'pl-0',
+  3: 'pl-1',
+  4: 'pl-2',
+  5: 'pl-3',
+  6: 'pl-4',
+};
+---
+
+<div>
+  <nav>
+    <span class="font-heading font-mono text-xs font-semibold uppercase">Sommaire</span>
+    <ol class="mt-2 space-y-1 border-l border-gray-200 pl-2 text-sm font-medium">
+      {
+        headings.map((heading) => (
+          <li class={`${LevelsPaddings[heading.level]}`}>
+            <a
+              href={`#${heading.id}`}
+              class="text-sm font-medium transition-colors hover:opacity-80 data-[active]:font-medium data-[active]:text-blue-600"
+              data-heading-link
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+</div>
+
+<script>
+  const headingLinks = document.querySelectorAll('[data-heading-link]');
+  const headings = Array.from(
+    document.querySelectorAll('h2[id], h3[id], h4[id], h5[id], h6[id]')
+  ) as HTMLElement[];
+
+  function debounce(func: any, wait: any) {
+    let timeout: any;
+    return function executedFunction(...args: any[]) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  const updateActiveHeading = debounce(() => {
+    if (headings.length === 0) return;
+
+    const scrollPosition = window.scrollY;
+    const offset = 100; // Adjust this value to change when headings become active
+
+    const distances = headings.map((heading) => ({
+      id: heading.id,
+      distance: Math.abs(heading.offsetTop - scrollPosition - offset),
+    }));
+
+    const closest = distances.reduce((prev, curr) => (curr.distance < prev.distance ? curr : prev));
+
+    headingLinks.forEach((link) => {
+      const headingId = link.getAttribute('href')?.slice(1);
+      if (headingId === closest.id) {
+        link.setAttribute('data-active', '');
+      } else {
+        link.removeAttribute('data-active');
+      }
+    });
+  }, 20);
+
+  window.addEventListener('scroll', updateActiveHeading);
+
+  headingLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href')?.slice(1);
+      const targetElement = document.getElementById(targetId as string);
+
+      if (targetElement) {
+        headingLinks.forEach((l) => l.removeAttribute('data-active'));
+        link.setAttribute('data-active', '');
+
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+        history.pushState(null, '', `#${targetId}`);
+      }
+    });
+  });
+
+  updateActiveHeading();
+</script>

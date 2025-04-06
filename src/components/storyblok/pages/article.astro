@@ -1,9 +1,13 @@
 ---
+import Breadcrumb from '@/components/breadcrumb.astro';
 import RichText from '@/components/richtext.astro';
-import type { ArticleStoryblok } from '@/types/storyblok';
-import { parseStoryblokImage } from '@/utils/storyblok';
+import TableOfContents from '@/components/table-of-contents.astro';
+import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
+import { formatIsoToDate, formatIsoToReadable } from '@/utils/date';
+import { extractHeadingsFromRichText, parseStoryblokImage } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
+import { Image } from 'astro:assets';
 
 interface AstroProps {
   blok: ArticleStoryblok;
@@ -11,28 +15,99 @@ interface AstroProps {
 }
 
 const { blok, story } = Astro.props as AstroProps;
+
+const headings = extractHeadingsFromRichText(blok.content);
 ---
 
 <article {...storyblokEditable(blok)} class="container">
-  <div class="mx-auto max-w-3xl">
-    <div
-      class="relative mt-12 aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
-    >
-      <img
-        {...parseStoryblokImage(blok.cover)}
-        class="absolute inset-0 size-full object-cover"
-        style="color: transparent;"
+  <div class="mx-auto max-w-3xl xl:max-w-5xl">
+    <header class="max-w-[44rem]">
+      <Breadcrumb
+        links={[
+          { label: 'Blog', href: '/blog' },
+          {
+            label: (story.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).name,
+            href: `/${(story.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).full_slug}`,
+          },
+          { label: story.name, href: story.full_slug },
+        ]}
       />
-    </div>
-    <h1 class="font-heading mt-6 text-center text-4xl font-bold text-pretty text-gray-950">
-      {story.name}
-    </h1>
-    <p class="mt-4 text-center text-lg text-gray-700">{blok.description}</p>
-    <div class="mx-auto mt-12">
-      <div
-        class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none [&_:is(h1,h2,h3,h4,h5)+*]:mt-0"
-      >
-        <RichText text={blok.content} />
+      <h1 class="font-heading mt-5 text-3xl font-bold text-pretty text-gray-950">
+        {story.name}
+      </h1>
+      <p class="mt-4 text-lg text-gray-700">{blok.description}</p>
+    </header>
+    <div
+      class="mx-auto mt-12 mb-20 xl:grid xl:max-w-none xl:grid-cols-[44rem_1fr] xl:items-start xl:gap-x-10"
+    >
+      <aside class="sticky top-28 order-last hidden space-y-10 xl:block">
+        <TableOfContents headings={headings} />
+      </aside>
+      <div>
+        <div
+          class="relative mb-12 aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
+        >
+          <Image
+            {...parseStoryblokImage(blok.cover)}
+            class="absolute inset-0 size-full object-cover"
+            style="color: transparent;"
+          />
+        </div>
+        <div
+          class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none"
+        >
+          <RichText
+            text={blok.content}
+            class="[&' >.prose:first-child>:first-child]:!mt-0 [&>.prose:last-child>:last-child]:!mb-0 [&>:first-child]:!mt-0 [&>:last-child]:!mb-0"
+          />
+        </div>
+        <footer class="mt-10 flex flex-col text-xs text-gray-600">
+          <dl class="ml-auto">
+            <dt class="sr-only">Publié le</dt>
+            <dd class="text-right">
+              Publié le
+              <time
+                datetime={formatIsoToDate(
+                  story.first_published_at || story.published_at || story.created_at
+                )}
+              >
+                {
+                  formatIsoToReadable(
+                    story.first_published_at || story.published_at || story.created_at
+                  )
+                }
+              </time>
+            </dd>
+            {
+              formatIsoToReadable(
+                story.first_published_at || story.published_at || story.created_at
+              ) !==
+                formatIsoToReadable(
+                  story.published_at || story.first_published_at || (story.updated_at as string)
+                ) && (
+                <>
+                  <dt class="sr-only">Mis à jour le</dt>
+                  <dd class="text-right">
+                    Mis à jour le
+                    <time
+                      datetime={formatIsoToDate(
+                        story.first_published_at ||
+                          story.published_at ||
+                          (story.updated_at as string)
+                      )}
+                    >
+                      {formatIsoToReadable(
+                        story.published_at ||
+                          story.first_published_at ||
+                          (story.updated_at as string)
+                      )}
+                    </time>
+                  </dd>
+                </>
+              )
+            }
+          </dl>
+        </footer>
       </div>
     </div>
   </div>

@@ -1,33 +1,83 @@
 ---
 import Footer from '@/components/footer.astro';
 import Header from '@/components/header.astro';
+import ArticleSchema from '@/components/seo/article-schema.astro';
+import HomeSchema from '@/components/seo/home-schema.astro';
+import PageSeo from '@/components/seo/page-seo.astro';
 import '@/styles/global.css';
+import type {
+  ArticleStoryblok,
+  BlogCategoryStoryblok,
+  DefinitionStoryblok,
+  PageStoryblok,
+  TechnologyStoryblok,
+  WorkStoryblok,
+} from '@/types/storyblok';
 import '@fontsource-variable/inter/opsz.css';
 import '@fontsource-variable/jetbrains-mono';
+import type { ISbStoryData } from '@storyblok/astro';
+import { ClientRouter } from 'astro:transitions';
 
-interface Props {
-  metaTitle: string;
+interface AstroProps {
+  story: ISbStoryData<
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | DefinitionStoryblok
+    | PageStoryblok
+    | TechnologyStoryblok
+    | WorkStoryblok
+  >;
 }
 
-const { metaTitle } = Astro.props as Props;
+const { story } = Astro.props as AstroProps;
+
+const pathname = Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{metaTitle}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href={import.meta.env.WEBSITE_URL + pathname} />
+    <link rel="apple-touch-icon" href="/favicon-180x180.png" type="image/png" sizes="180x180" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-192x192.png" type="image/png" sizes="192x192" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta
+      name="robots"
+      content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+    />
+    <PageSeo story={story} />
+    {story.slug === 'home' && <HomeSchema />}
+    {
+      (story.content.component === 'article' || story.content.component === 'definition') && (
+        <ArticleSchema story={story} />
+      )
+    }
+    <ClientRouter />
     <script
       async
-      data-strategy="afterInteractive"
+      defer
+      data-domain="hexium.io"
+      src="https://plausible.io/js/script.hash.pageview-props.tagged-events.js"></script>
+    <script>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (window.plausible.q = window.plausible.q || []).push(arguments);
+        };
+    </script>
+    <script
+      async
       defer
       src="https://tag.clearbitscripts.com/v1/pk_9143c861efaa8e41be80e55d2acaabd4/tags.js"
       referrerpolicy="strict-origin-when-cross-origin"></script>
   </head>
   <body class="flex min-h-screen flex-grow flex-col bg-gray-50 font-sans text-gray-950 antialiased">
-    <Header />
+    <Header navbar={story.content.navbar} />
     <main>
       <slot />
     </main>

@@ -1,4 +1,6 @@
 ---
+import { Image as AstroImage } from 'astro:assets';
+
 interface AstroProps {
   src: string;
   alt: string;
@@ -9,4 +11,4 @@ interface AstroProps {
 const { src, alt, width, height } = Astro.props as AstroProps;
 ---
 
-<img class="rounded-lg" src={src} alt={alt} width={width} height={height} />
+<AstroImage class="rounded-lg" src={src} alt={alt} width={width} height={height} />

@@ -12,35 +12,51 @@ export interface RichtextStoryblok {
 
 export interface AccordionStoryblok {
   title: string;
-  content: RichtextStoryblok;
+  text: RichtextStoryblok;
   component: "accordion";
   _uid: string;
   [k: string]: any;
 }
 
 export interface AccordionGroupStoryblok {
-  items: AccordionStoryblok[];
+  maxWidth: number | string;
+  accordions: AccordionStoryblok[];
   component: "accordionGroup";
   _uid: string;
   [k: string]: any;
 }
 
 export interface AssetStoryblok {
-  alt?: string;
-  copyright?: string;
+  alt: string | null;
+  copyright?: string | null;
+  fieldtype: "asset";
   id: number;
-  filename: string;
+  filename: string | null;
   name: string;
-  title?: string;
-  focus?: string;
+  title: string | null;
+  focus: string | null;
+  meta_data?: {
+    [k: string]: any;
+  };
+  source?: string | null;
+  is_external_url?: boolean;
+  is_private?: boolean;
+  src?: string;
+  updated_at?: string;
+  width?: number | null;
+  height?: number | null;
+  aspect_ratio?: number | null;
+  public_id?: string | null;
+  content_type?: string;
   [k: string]: any;
 }
 
 export interface ArticleStoryblok {
+  author: (ISbStoryData<TeamStoryblok> | string)[];
+  category: (ISbStoryData<BlogCategoryStoryblok> | string)[];
   cover: AssetStoryblok;
   description: string;
   content: RichtextStoryblok;
-  categories: (ISbStoryData<BlogCategoryStoryblok> | string)[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
@@ -51,18 +67,34 @@ export interface ArticleStoryblok {
 }
 
 export interface BlogCategoryStoryblok {
+  body: BlogHomeStoryblok[];
+  metaTitle: string;
+  metaDescription: string;
+  ogBadge: string;
+  OgTitle: string;
   component: "blogCategory";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface BlogHomeStoryblok {
+  component: "blogHome";
   _uid: string;
   [k: string]: any;
 }
 
 export type MultilinkStoryblok =
   | {
-      id?: string;
-      cached_url?: string;
+      fieldtype: "multilink";
+      id: string;
+      url: string;
+      cached_url: string;
+      target?: "_blank" | "_self";
       anchor?: string;
-      linktype?: "story";
-      target?: "_self" | "_blank";
+      rel?: string;
+      title?: string;
+      prep?: string;
+      linktype: "story";
       story?: {
         name: string;
         created_at?: string;
@@ -95,17 +127,33 @@ export type MultilinkStoryblok =
       [k: string]: any;
     }
   | {
-      url?: string;
-      cached_url?: string;
-      anchor?: string;
-      linktype?: "asset" | "url";
-      target?: "_self" | "_blank";
+      fieldtype: "multilink";
+      id: string;
+      url: string;
+      cached_url: string;
+      target?: "_blank" | "_self";
+      linktype: "url";
+      rel?: string;
+      title?: string;
       [k: string]: any;
     }
   | {
+      fieldtype: "multilink";
+      id: string;
+      url: string;
+      cached_url: string;
+      target?: "_blank" | "_self";
       email?: string;
-      linktype?: "email";
-      target?: "_self" | "_blank";
+      linktype: "email";
+      [k: string]: any;
+    }
+  | {
+      fieldtype: "multilink";
+      id: string;
+      url: string;
+      cached_url: string;
+      target?: "_blank" | "_self";
+      linktype: "asset";
       [k: string]: any;
     };
 
@@ -113,6 +161,7 @@ export interface ButtonStoryblok {
   title: string;
   link: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
   style: "" | "blackFull" | "blackLink" | "blueFull" | "grayFull" | "whiteFull" | "whiteLink";
+  isArrowShowed?: boolean;
   component: "button";
   _uid: string;
   [k: string]: any;
@@ -135,11 +184,104 @@ export interface CallToActionStoryblok {
   [k: string]: any;
 }
 
-export interface CardLightStoryblok {
+export interface CardBentoStoryblok {
   title: string;
-  text: RichtextStoryblok;
-  icon: number | string;
-  component: "cardLight";
+  text: string;
+  illustration?: (
+    | AccordionStoryblok
+    | AccordionGroupStoryblok
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | BlogHomeStoryblok
+    | ButtonStoryblok
+    | ButtonGroupStoryblok
+    | CallToActionStoryblok
+    | CardBentoStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
+    | CardImageTitleTextStoryblok
+    | CodeBlockStoryblok
+    | CompanyStoryblok
+    | CustomerStoryblok
+    | DefinitionStoryblok
+    | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FooterAgencyStoryblok
+    | FooterLinkStoryblok
+    | FooterLinkGroupStoryblok
+    | GlobalStoryblok
+    | GridStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
+    | LatestArticlesStoryblok
+    | NavbarColumnStoryblok
+    | NavbarDropdownStoryblok
+    | NavbarLinkStoryblok
+    | NavbarSubDropdownStoryblok
+    | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | SpacerStoryblok
+    | TeamStoryblok
+    | TechnologyStoryblok
+    | TestimonialStoryblok
+    | TextStoryblok
+    | WorkStoryblok
+    | WorkCategoryStoryblok
+    | WorkHomeStoryblok
+  )[];
+  isTextOnTop?: boolean;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  colSpanMd?: "" | "1" | "2";
+  rowSpanMd?: "" | "1" | "2";
+  rowSpanLg?: "" | "1" | "2";
+  colSpanLg?: "" | "1" | "2";
+  component: "cardBento";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardIconTitleTextFullStoryblok {
+  icon: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "cardIconTitleTextFull";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardIconTitleTextLightStoryblok {
+  icon: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  isInline?: boolean;
+  component: "cardIconTitleTextLight";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardIconTitleTextNormalStoryblok {
+  icon: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "cardIconTitleTextNormal";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardImageTitleTextStoryblok {
+  image: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "cardImageTitleText";
   _uid: string;
   [k: string]: any;
 }
@@ -150,8 +292,19 @@ export interface CodeBlockStoryblok {
   [k: string]: any;
 }
 
-export interface ContactStoryblok {
-  component: "contact";
+export interface CompanyStoryblok {
+  component: "company";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CustomerStoryblok {
+  name: string;
+  customerSince: string;
+  description: string;
+  logoFull: AssetStoryblok;
+  logoWhite: AssetStoryblok;
+  component: "customer";
   _uid: string;
   [k: string]: any;
 }
@@ -161,7 +314,22 @@ export interface DefinitionStoryblok {
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
+  author: (ISbStoryData<TeamStoryblok> | string)[];
+  content: RichtextStoryblok;
   component: "definition";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface DefinitionHomeStoryblok {
+  component: "definitionHome";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface FeaturedTechnologiesStoryblok {
+  technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
+  component: "featuredTechnologies";
   _uid: string;
   [k: string]: any;
 }
@@ -192,6 +360,7 @@ export interface FooterLinkGroupStoryblok {
 }
 
 export interface GlobalStoryblok {
+  navbar: (NavbarLinkStoryblok | NavbarDropdownStoryblok)[];
   footerAgencies: FooterAgencyStoryblok[];
   footerColumns: FooterLinkGroupStoryblok[];
   footerLinks: FooterLinkStoryblok[];
@@ -203,94 +372,122 @@ export interface GlobalStoryblok {
 }
 
 export interface GridStoryblok {
-  tag: "" | "div" | "ul";
-  maxWidth: number | string;
   cols: number | string;
-  mdCols: number | string;
-  lgCols: number | string;
-  xlCols: number | string;
-  spaceY: number | string;
+  colsMd?: number | string;
+  colsLg?: number | string;
+  colsXl?: number | string;
+  items: any[];
   spaceX: number | string;
-  items: CardLightStoryblok[];
+  spaceXSm?: number | string;
+  spaceXMd?: number | string;
+  spaceXLg?: number | string;
+  spaceY: number | string;
+  spaceYSm?: number | string;
+  spaceYMd?: number | string;
+  spaceYLg?: number | string;
+  tag: "" | "div" | "ul";
+  rows?: number | string;
+  maxWidth?: number | string;
+  rowsMd?: number | string;
+  rowsLg?: number | string;
   component: "grid";
   _uid: string;
   [k: string]: any;
 }
 
-export interface HorizontalStoryblok {
-  backgroundColor: number | string;
-  badge: string;
-  title: string;
-  text: RichtextStoryblok;
-  leftItems?: GridStoryblok[];
-  rightItems: (
-    | AccordionStoryblok
-    | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | ButtonStoryblok
-    | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CardLightStoryblok
-    | CodeBlockStoryblok
-    | ContactStoryblok
-    | DefinitionStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
-    | GridStoryblok
-    | HorizontalStoryblok
-    | LastArticlesStoryblok
-    | PageStoryblok
-    | SpacerStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | VerticalStoryblok
-    | WorkStoryblok
-  )[];
-  bottomsItems?: (
-    | AccordionStoryblok
-    | AccordionGroupStoryblok
-    | ArticleStoryblok
-    | BlogCategoryStoryblok
-    | ButtonStoryblok
-    | ButtonGroupStoryblok
-    | CallToActionStoryblok
-    | CardLightStoryblok
-    | CodeBlockStoryblok
-    | ContactStoryblok
-    | DefinitionStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
-    | GridStoryblok
-    | HorizontalStoryblok
-    | LastArticlesStoryblok
-    | PageStoryblok
-    | SpacerStoryblok
-    | TechnologyStoryblok
-    | TestimonialStoryblok
-    | VerticalStoryblok
-    | WorkStoryblok
-  )[];
-  revertSide?: boolean;
-  component: "horizontal";
+export interface HeroHomeStoryblok {
+  component: "heroHome";
   _uid: string;
   [k: string]: any;
 }
 
-export interface LastArticlesStoryblok {
+export interface HeroHorizontalStoryblok {
+  badge?: string;
+  title: string;
+  text: string;
+  buttons?: ButtonStoryblok[];
+  effects?: HighlightWordsStoryblok[];
+  component: "heroHorizontal";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface HeroVerticalStoryblok {
+  badge?: string;
+  title: string;
+  text?: string;
+  buttons?: ButtonStoryblok[];
+  component: "heroVertical";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface HighlightWordsStoryblok {
+  component: "highlightWords";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface LatestArticlesStoryblok {
   category?: ISbStoryData<BlogCategoryStoryblok> | string;
-  component: "lastArticles";
+  component: "latestArticles";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface NavbarColumnStoryblok {
+  title?: string;
+  links: NavbarLinkStoryblok[];
+  component: "navbarColumn";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface NavbarDropdownStoryblok {
+  title: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  items: (NavbarLinkStoryblok | NavbarColumnStoryblok | NavbarSubDropdownStoryblok)[];
+  component: "navbarDropdown";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface NavbarLinkStoryblok {
+  icon?: AssetStoryblok;
+  title: string;
+  link: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "navbarLink";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface NavbarSubDropdownStoryblok {
+  title?: string;
+  items: (NavbarColumnStoryblok | NavbarLinkStoryblok)[];
+  component: "navbarSubDropdown";
   _uid: string;
   [k: string]: any;
 }
 
 export interface PageStoryblok {
   metaTitle: string;
-  body: (CallToActionStoryblok | HorizontalStoryblok | VerticalStoryblok)[];
+  body: (
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | BlogHomeStoryblok
+    | CallToActionStoryblok
+    | DefinitionHomeStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | WorkHomeStoryblok
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
+  )[];
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
@@ -299,18 +496,122 @@ export interface PageStoryblok {
   [k: string]: any;
 }
 
+export interface SectionStoryblok {
+  blocks?: (
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
+  )[];
+  backgroundColor: number | string;
+  component: "section";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface SectionHorizontalStoryblok {
+  backgroundColor: number | string;
+  badge: string;
+  title: string;
+  text?: RichtextStoryblok;
+  leftItems?: (
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
+  )[];
+  rightItems?: (
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
+  )[];
+  revertSide?: boolean;
+  bottomItems?: (
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
+  )[];
+  sizeLeftColumn: "" | "half" | "third";
+  component: "sectionHorizontal";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface SectionVerticalStoryblok {
+  backgroundColor: number | string;
+  titleMaxWidth: number | string;
+  textMaxWidth: number | string;
+  style: "" | "centered" | "justified" | "shared";
+  badge: string;
+  title: string;
+  text?: RichtextStoryblok;
+  blocks?: (
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
+  )[];
+  component: "sectionVertical";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface SpacerStoryblok {
-  space?: number | string;
+  space: number | string;
+  smSpace: number | string;
+  mdSpace: number | string;
+  lgSpace: number | string;
   component: "spacer";
   _uid: string;
   [k: string]: any;
 }
 
+export interface TeamStoryblok {
+  picture?: AssetStoryblok;
+  firstname: string;
+  lastname: string;
+  position: string;
+  email: string;
+  linkedin?: string;
+  calendar?: string;
+  component: "team";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface TechnologyStoryblok {
+  logoOutline: AssetStoryblok;
+  logoFullDark: AssetStoryblok;
+  logoFullLight: AssetStoryblok;
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
+  ogDescription?: string;
+  body: (
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | BlogHomeStoryblok
+    | CallToActionStoryblok
+    | DefinitionHomeStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | WorkHomeStoryblok
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
+  )[];
   component: "technology";
   _uid: string;
   [k: string]: any;
@@ -328,33 +629,43 @@ export interface TestimonialStoryblok {
   [k: string]: any;
 }
 
-export interface VerticalStoryblok {
-  backgroundColor: number | string;
-  titleMaxWidth: number | string;
-  textMaxWidth: number | string;
-  isCentered?: boolean;
-  badge: string;
-  title: string;
-  text?: RichtextStoryblok;
-  items?: (
-    | PageInlineRichtextStoryblok
-    | ButtonGroupStoryblok
-    | AccordionGroupStoryblok
-    | SpacerStoryblok
-    | LastArticlesStoryblok
-    | ContactStoryblok
-  )[];
-  component: "vertical";
+export interface TextStoryblok {
+  content: RichtextStoryblok;
+  component: "text";
   _uid: string;
   [k: string]: any;
 }
 
 export interface WorkStoryblok {
+  cover: AssetStoryblok;
+  completionYear: string;
+  content: RichtextStoryblok;
+  customer: (ISbStoryData<CustomerStoryblok> | string)[];
+  category: (ISbStoryData<WorkCategoryStoryblok> | string)[];
+  services: (string)[];
+  technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
   component: "work";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface WorkCategoryStoryblok {
+  body: WorkHomeStoryblok[];
+  metaTitle: string;
+  metaDescription: string;
+  ogBadge: string;
+  OgTitle: string;
+  component: "workCategory";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface WorkHomeStoryblok {
+  component: "workHome";
   _uid: string;
   [k: string]: any;
 }
