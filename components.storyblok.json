@@ -1177,6 +1177,37 @@
       "component_group_name": "DATA"
     },
     {
+      "name": "contactHome",
+      "display_name": "CONTACT - HOME",
+      "description": "",
+      "created_at": "2025-04-06T09:04:22.756Z",
+      "updated_at": "2025-04-06T09:06:01.443Z",
+      "id": 7173604,
+      "schema": {},
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CONTACT - HOME",
+      "component_group_uuid": "106bc6ec-816a-497e-bac8-2a812c419ee0",
+      "color": "#05807f",
+      "icon": "block-text-img-c",
+      "internal_tags_list": [
+        {
+          "id": 52942,
+          "name": "section"
+        }
+      ],
+      "internal_tag_ids": [
+        "52942"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "SECTION"
+    },
+    {
       "name": "customer",
       "display_name": "CLIENT",
       "description": "",
@@ -3485,12 +3516,19 @@
       "display_name": "WORK",
       "description": null,
       "created_at": "2024-12-09T09:31:18.424Z",
-      "updated_at": "2025-04-04T17:47:21.396Z",
+      "updated_at": "2025-04-04T18:14:31.020Z",
       "id": 6665046,
       "schema": {
+        "project": {
+          "type": "text",
+          "pos": 0,
+          "required": true,
+          "display_name": "PROJET",
+          "id": "GCMOwOMzTRG7h5W4xehr3A"
+        },
         "cover": {
           "type": "asset",
-          "pos": 0,
+          "pos": 1,
           "display_name": "COUVERTURE",
           "required": true,
           "filetypes": [
@@ -3501,7 +3539,7 @@
         },
         "completionYear": {
           "type": "text",
-          "pos": 1,
+          "pos": 2,
           "display_name": "ANNÉE DE RÉALISATION",
           "required": true,
           "regex": "^202[0-9]$",
@@ -3509,7 +3547,7 @@
         },
         "content": {
           "type": "richtext",
-          "pos": 2,
+          "pos": 3,
           "id": "rYHJRm6eSeuEmE7o7-g-yg",
           "required": true,
           "display_name": "CONTENU",
@@ -3543,7 +3581,7 @@
         },
         "customer": {
           "type": "options",
-          "pos": 3,
+          "pos": 4,
           "is_reference_type": true,
           "source": "internal_stories",
           "entry_appearance": "link",
@@ -3559,7 +3597,7 @@
         },
         "category": {
           "type": "options",
-          "pos": 4,
+          "pos": 5,
           "is_reference_type": true,
           "source": "internal_stories",
           "entry_appearance": "link",
@@ -3575,7 +3613,7 @@
         },
         "services": {
           "type": "options",
-          "pos": 5,
+          "pos": 6,
           "is_reference_type": true,
           "source": "internal_stories",
           "entry_appearance": "link",
@@ -3590,7 +3628,7 @@
         },
         "technologies": {
           "type": "options",
-          "pos": 6,
+          "pos": 7,
           "is_reference_type": true,
           "source": "internal_stories",
           "entry_appearance": "link",
@@ -3611,7 +3649,7 @@
             "category",
             "customer"
           ],
-          "pos": 7,
+          "pos": 8,
           "type": "tab",
           "name": "tab-3df233bc-78cd-46b3-8d49-c5f30ba5a39d",
           "id": "PfIzvHjNRrONScXzC6WjnQ"
@@ -3624,14 +3662,14 @@
             "metaDescription",
             "metaTitle"
           ],
-          "pos": 8,
+          "pos": 9,
           "type": "tab",
           "id": "8LbkgkwMTNSkpxYrwjIj6A",
           "name": "tab-f0b6e482-4c0c-4cd4-a4a7-162bc23223e8"
         },
         "metaTitle": {
           "type": "text",
-          "pos": 9,
+          "pos": 10,
           "display_name": "META - TITRE",
           "required": true,
           "max_length": 60,
@@ -3639,7 +3677,7 @@
         },
         "metaDescription": {
           "type": "textarea",
-          "pos": 10,
+          "pos": 11,
           "display_name": "META - DESCRIPTION",
           "required": true,
           "max_length": 160,
@@ -3647,7 +3685,7 @@
         },
         "ogBadge": {
           "type": "text",
-          "pos": 11,
+          "pos": 12,
           "display_name": "OG - BADGE",
           "required": true,
           "max_length": 30,
@@ -3655,7 +3693,7 @@
         },
         "ogTitle": {
           "type": "text",
-          "pos": 12,
+          "pos": 13,
           "display_name": "OG - TITRE",
           "required": true,
           "max_length": 80,

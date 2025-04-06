@@ -203,6 +203,7 @@ export interface CardBentoStoryblok {
     | CardImageTitleTextStoryblok
     | CodeBlockStoryblok
     | CompanyStoryblok
+    | ContactHomeStoryblok
     | CustomerStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
@@ -294,6 +295,12 @@ export interface CodeBlockStoryblok {
 
 export interface CompanyStoryblok {
   component: "company";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface ContactHomeStoryblok {
+  component: "contactHome";
   _uid: string;
   [k: string]: any;
 }
@@ -477,6 +484,7 @@ export interface PageStoryblok {
     | HeroVerticalStoryblok
     | BlogHomeStoryblok
     | CallToActionStoryblok
+    | ContactHomeStoryblok
     | DefinitionHomeStoryblok
     | SectionStoryblok
     | SectionHorizontalStoryblok
@@ -601,6 +609,7 @@ export interface TechnologyStoryblok {
     | HeroVerticalStoryblok
     | BlogHomeStoryblok
     | CallToActionStoryblok
+    | ContactHomeStoryblok
     | DefinitionHomeStoryblok
     | SectionStoryblok
     | SectionHorizontalStoryblok
@@ -637,6 +646,7 @@ export interface TextStoryblok {
 }
 
 export interface WorkStoryblok {
+  project: string;
   cover: AssetStoryblok;
   completionYear: string;
   content: RichtextStoryblok;
