@@ -35,7 +35,10 @@ const { work } = Astro.props as AstroProps;
         <h3
           class="translate-y-[300px] text-lg/5 font-semibold tracking-tight text-white transition-all group-hover:translate-y-0"
         >
-          {work.content.project}
+          <a href={work.full_slug}>
+            {work.content.project}
+            <span class="absolute inset-0 z-10" aria-hidden="true"></span>
+          </a>
         </h3>
       </div>
     </div>
