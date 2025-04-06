@@ -103,6 +103,15 @@ export async function getStaticPaths() {
     }
   }
 
+  // Handle work page
+  const works = await workService.getAllWorks();
+
+  for (const work of works) {
+    paths.push({
+      params: { slug: work.full_slug },
+    });
+  }
+
   return paths;
 }
 
