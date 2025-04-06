@@ -10,11 +10,11 @@ const { id, name, required = false, label } = Astro.props;
 ---
 
 <div>
-  <label id={`${id}-label`} class="block text-sm/6 font-medium text-gray-900">{label}</label>
+  <label id={`${id}-label`} class="block text-sm/6 font-medium text-gray-950">{label}</label>
   <div class="relative mt-1">
     <button
       type="button"
-      class="input-field grid w-full cursor-pointer grid-cols-1 rounded-md border-[0.5px] border-gray-300 bg-white py-1.5 pr-2 pl-3 text-left text-sm text-gray-900 shadow hover:bg-white/50"
+      class="input-field grid w-full cursor-pointer grid-cols-1 rounded-md border-[0.5px] border-gray-300 bg-white py-[3px] pr-2 pl-3 text-left text-sm text-gray-900 shadow hover:bg-white/50"
       aria-haspopup="listbox"
       aria-expanded="false"
       aria-labelledby={`${id}-label`}
@@ -111,7 +111,7 @@ const { id, name, required = false, label } = Astro.props;
     private handleOptionHover(item: HTMLLIElement) {
       if (this.optionItems) {
         this.optionItems.forEach((opt) => {
-          opt.classList.remove('bg-gray-900', 'text-white');
+          opt.classList.remove('bg-gray-200', 'text-white');
           const checkmark = opt.querySelector('.text-white');
           if (checkmark) {
             checkmark.classList.remove('text-white');
@@ -120,7 +120,7 @@ const { id, name, required = false, label } = Astro.props;
         });
       }
 
-      item.classList.add('bg-gray-900', 'text-white');
+      item.classList.add('bg-gray-200', 'text-white');
       const checkmark = item.querySelector('.text-gray-900');
       if (checkmark) {
         checkmark.classList.remove('text-gray-900');
@@ -133,7 +133,7 @@ const { id, name, required = false, label } = Astro.props;
     }
 
     private handleOptionLeave(item: HTMLLIElement) {
-      item.classList.remove('bg-gray-900', 'text-white');
+      item.classList.remove('bg-gray-200', 'text-white');
       const checkmark = item.querySelector('.text-white');
       if (checkmark) {
         checkmark.classList.remove('text-white');
@@ -304,7 +304,7 @@ const { id, name, required = false, label } = Astro.props;
       if (!this.optionItems || index < 0 || index >= this.optionItems.length) return;
 
       this.optionItems.forEach((item) => {
-        item.classList.remove('bg-gray-900', 'text-white');
+        item.classList.remove('bg-gray-200', 'text-white');
         const checkmark = item.querySelector('.text-white');
         if (checkmark) {
           checkmark.classList.remove('text-white');
@@ -313,7 +313,7 @@ const { id, name, required = false, label } = Astro.props;
       });
 
       const option = this.optionItems[index];
-      option.classList.add('bg-gray-900', 'text-white');
+      option.classList.add('bg-gray-200', 'text-white');
       const checkmark = option.querySelector('.text-gray-900');
       if (checkmark) {
         checkmark.classList.remove('text-gray-900');
@@ -354,4 +354,3 @@ const { id, name, required = false, label } = Astro.props;
     new CustomSelect(select.closest('div')!);
   });
 </script>
-

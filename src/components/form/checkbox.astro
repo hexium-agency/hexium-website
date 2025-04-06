@@ -19,32 +19,30 @@ const { id, name, required = false, label, checked = false } = Astro.props;
         name={name}
         required={required}
         checked={checked}
-        class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white transition-all duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] checked:border-gray-900 checked:bg-gray-900 indeterminate:border-gray-900 indeterminate:bg-gray-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 hover:border-gray-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 cursor-pointer"
+        class="col-start-1 row-start-1 cursor-pointer appearance-none rounded-sm border border-gray-300 bg-white transition-all duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] checked:border-gray-900 checked:bg-gray-900 indeterminate:border-gray-900 indeterminate:bg-gray-900 hover:border-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100"
       />
-      <svg 
-        class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25" 
-        viewBox="0 0 14 14" 
+      <svg
+        class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
+        viewBox="0 0 14 14"
         fill="none"
       >
-        <path 
-          class="opacity-0 group-has-checked:opacity-100" 
-          d="M3 8L6 11L11 3.5" 
-          stroke-width="2" 
-          stroke-linecap="round" 
-          stroke-linejoin="round" 
-        />
-        <path 
-          class="opacity-0 group-has-indeterminate:opacity-100" 
-          d="M3 7H11" 
-          stroke-width="2" 
-          stroke-linecap="round" 
-          stroke-linejoin="round" 
-        />
+        <path
+          class="opacity-0 group-has-checked:opacity-100"
+          d="M3 8L6 11L11 3.5"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <path
+          class="opacity-0 group-has-indeterminate:opacity-100"
+          d="M3 7H11"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
       </svg>
     </div>
   </div>
   <div class="text-sm/6">
-    <label for={id} class="font-medium text-gray-900 cursor-pointer">
+    <label for={id} class="cursor-pointer font-medium text-gray-950">
       {label}
     </label>
   </div>

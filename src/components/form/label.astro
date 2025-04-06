@@ -7,7 +7,7 @@ interface Props {
 const { for: htmlFor, optional } = Astro.props;
 ---
 
-<label for={htmlFor} class="mb-1 flex items-center gap-2 text-sm font-medium text-gray-700">
+<label for={htmlFor} class="mb-1 flex items-center gap-2 text-sm font-medium text-gray-950">
   <slot />
   {
     optional && (
@@ -17,4 +17,3 @@ const { for: htmlFor, optional } = Astro.props;
     )
   }
 </label>
-
