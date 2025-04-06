@@ -50,6 +50,7 @@ export default defineConfig({
         // SECTIONS
         'blog-home': 'components/storyblok/sections/blog-home',
         'call-to-action': 'components/storyblok/sections/call-to-action',
+        'contact-home': 'components/storyblok/sections/contact-home',
         'definition-home': 'components/storyblok/sections/definition-home',
         'hero-home': 'components/storyblok/sections/hero-home',
         'hero-horizontal': 'components/storyblok/sections/hero-horizontal',
