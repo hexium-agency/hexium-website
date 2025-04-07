@@ -36,7 +36,7 @@ const { blok } = Astro.props as AstroProps;
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     document.querySelectorAll('.accordion').forEach((accordion) => {
       const header = accordion.querySelector('h4') as HTMLHeadingElement;
       const content = accordion.querySelector('.content-wrapper') as HTMLDivElement;
