@@ -7,8 +7,10 @@ interface AstroProps {
 }
 
 const { blok } = Astro.props as AstroProps;
+
+console.log(blok);
 ---
 
 <div {...storyblokEditable(blok)}>
-  <a href={blok.link.url} class="text-blue-600">{blok.title}</a>
+  <a href={blok.link.cached_url} class="text-blue-600">{blok.title}</a>
 </div>

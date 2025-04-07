@@ -12,23 +12,24 @@ const { blok } = Astro.props as AstroProps;
 
 <div {...storyblokEditable(blok)} class="navbar-sub-dropdown">
     <div class="navbar-sub-dropdown-title">{blok.title}</div>
-    <div class="hidden absolute top-0 left-full bg-white shadow-lg navbar-sub-dropdown-items">
-      {blok.items.map((link) => <StoryblokComponent blok={link} />)}
-    </div>
 </div>
 
 <script>
   document.querySelectorAll('.navbar-sub-dropdown-title').forEach(title => {
+    const titleText = title.textContent;
+
     title.addEventListener('click', () => {
       // First, hide all dropdown items
-      document.querySelectorAll('.navbar-sub-dropdown-items').forEach(items => {
+      document.querySelectorAll(`[data-subdropdown]`).forEach(items => {
         items.classList.add('hidden');
       });
 
       // Then show only the clicked dropdown's items
-      const dropdownItems = title.parentElement?.querySelector('.navbar-sub-dropdown-items');
+      const dropdownItems = document.querySelector(`[data-subdropdown="${titleText}"]`);
+
       if (dropdownItems) {
         dropdownItems.classList.remove('hidden');
+        dropdownItems.classList.add('flex');
       }
     });
   });
