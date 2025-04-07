@@ -75,7 +75,7 @@ const categories = await workService.getCategories();
             >
               <a
                 class="block w-8 text-center"
-                href={`/${isCategory ? `blog/${categoryMatch[1]}` : 'blog'}${index + 1 === 1 ? '' : `/page/${index + 1}`}`}
+                href={`/${isCategory ? `realisations/${categoryMatch[1]}` : 'realisations'}${index + 1 === 1 ? '' : `/page/${index + 1}`}`}
               >
                 {index + 1}
               </a>
