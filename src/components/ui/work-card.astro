@@ -22,7 +22,7 @@ const { work } = Astro.props as AstroProps;
     />
     <div class="absolute inset-0 bg-gray-950/60"></div>
     <Image
-      class="absolute top-1/2 left-1/2 w-[200px] -translate-x-1/2 -translate-y-1/2 object-cover object-center"
+      class="absolute top-1/2 left-1/2 h-[100px] w-auto max-w-[200px] -translate-x-1/2 -translate-y-1/2 object-contain object-center"
       style="color: transparent;"
       {...parseStoryblokImage(
         (work.content.customer[0] as ISbStoryData<CustomerStoryblok>).content.logoWhite
