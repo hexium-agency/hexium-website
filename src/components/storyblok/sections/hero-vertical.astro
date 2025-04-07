@@ -12,7 +12,16 @@ const { blok } = Astro.props as AstroProps;
 const Title = blok.badge ? 'h2' : 'h1';
 ---
 
-<section {...storyblokEditable(blok)} class="bg-gray-950">
+<section {...storyblokEditable(blok)} class="relative bg-gray-900/50">
+  <div class="dots-container absolute inset-0 h-full w-full bg-gray-900">
+    <div
+      class="pointer-events-none absolute inset-0 bottom-0"
+      style="background: linear-gradient(to bottom, transparent -5%, transparent -3%, rgba(0, 0, 0, 1) 77%), 
+               radial-gradient(circle at 50% 0%, transparent 27%, rgba(0, 0, 0, 1) 100%), 
+               radial-gradient(circle at 50% 0%, transparent 60%, rgba(0, 0, 0, 1) 100%)"
+    >
+    </div>
+  </div>
   <div class="container py-16 sm:py-40">
     <div class="mx-auto text-center">
       {
@@ -44,3 +53,10 @@ const Title = blok.badge ? 'h2' : 'h1';
     </div>
   </div>
 </section>
+
+<script>
+  import { DotsBlock } from '@/lib/dots/dots-block';
+  document.addEventListener('astro:page-load', () => {
+    new DotsBlock(document.querySelector('.dots-container') as HTMLElement, [[255, 255, 255]]);
+  });
+</script>
