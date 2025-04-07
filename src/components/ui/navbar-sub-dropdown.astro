@@ -15,6 +15,16 @@ const { blok } = Astro.props as AstroProps;
 </div>
 
 <script>
+  // Show the first dropdown by default when the DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    const firstDropdown = document.querySelector('[data-subdropdown]');
+
+    if (firstDropdown) {
+      firstDropdown.classList.remove('hidden');
+      firstDropdown.classList.add('flex');
+    }
+  });
+
   document.querySelectorAll('.navbar-sub-dropdown-title').forEach(title => {
     const titleText = title.textContent;
 
@@ -22,6 +32,7 @@ const { blok } = Astro.props as AstroProps;
       // First, hide all dropdown items
       document.querySelectorAll(`[data-subdropdown]`).forEach(items => {
         items.classList.add('hidden');
+        items.classList.remove('flex');
       });
 
       // Then show only the clicked dropdown's items
