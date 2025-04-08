@@ -11,4 +11,11 @@ interface AstroProps {
 const { src, alt, width, height } = Astro.props as AstroProps;
 ---
 
-<AstroImage class="rounded-lg" src={src} alt={alt} width={width} height={height} />
+<AstroImage
+  sizes="(max-width: 767px) 80vw, (max-width: 1279px) 50vw, 33vw"
+  class="rounded-lg"
+  src={src}
+  alt={alt}
+  width={width}
+  height={height}
+/>

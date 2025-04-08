@@ -48,6 +48,7 @@ const headings = extractHeadingsFromRichText(blok.content);
           class="relative mb-12 aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
         >
           <Image
+            sizes="(max-width: 767px) 80vw, 50vw"
             {...parseStoryblokImage(blok.cover)}
             class="absolute inset-0 size-full object-cover"
             style="color: transparent;"
