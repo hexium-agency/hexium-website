@@ -47,7 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
     const phone = (formData.get('phone') as string) || ''; // TODO: handle regex
     const company = (formData.get('company') as string) || '';
     const message = formData.get('message') as string;
-    // const privacy = formData.get('privacy') as string; TODO: handle privacy document
+    const privacy = formData.get('privacy') as string;
 
     if (!subject || !firstname || !lastname || !email || !message) {
       throw new Error('Tous les champs obligatoires doivent être remplis.');
@@ -81,6 +81,7 @@ export const POST: APIRoute = async ({ request }) => {
         email,
         phone,
         message,
+        privacy: privacy === 'on' ? 'Accepté' : 'Refusé',
         files: fileUrls.map((url) => `${url}`).join('\n'),
       },
       subject: emailConfig.subject,
