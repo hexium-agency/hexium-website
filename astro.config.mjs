@@ -15,10 +15,7 @@ const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: vercel({
-    imageService: true,
-    devImageService: 'sharp',
-  }),
+  adapter: vercel(),
   output: 'server',
   experimental: {
     svg: true,
