@@ -11,7 +11,7 @@ interface AstroProps {
 const { work } = Astro.props as AstroProps;
 ---
 
-<div class="group relative isolate">
+<div class="group relative isolate cursor-pointer" data-href={`/${work.full_slug}`}>
   <div
     class="relative aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
   >
@@ -44,3 +44,17 @@ const { work } = Astro.props as AstroProps;
     </div>
   </div>
 </div>
+
+<script>
+  import { navigate } from 'astro:transitions/client';
+
+  const links = document.querySelectorAll('[data-href]');
+  links.forEach((link) => {
+    link.addEventListener('click', () => {
+      const href = link.getAttribute('data-href');
+      if (href) {
+        navigate(href);
+      }
+    });
+  });
+</script>
