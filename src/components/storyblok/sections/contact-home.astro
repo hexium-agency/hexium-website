@@ -82,11 +82,11 @@ import Textarea from '@/components/form/textarea.astro';
             <FileUpload id="files" name="files" />
           </div>
 
-          <div class="my-4">
+          <div class="my-4" id="privacyField">
             <Checkbox
               id="privacy"
               name="privacy"
-              label="J'accepte de recevoir un accord de confidentialité"
+              label="Je souhaite recevoir un accord de confidentialité"
             />
           </div>
         </fieldset>
@@ -137,6 +137,7 @@ import Textarea from '@/components/form/textarea.astro';
   const subjectSelect = document.getElementById('subject') as HTMLSelectElement | null;
   const companyField = document.getElementById('companyField') as HTMLDivElement | null;
   const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
+  const privacyField = document.getElementById('privacyField') as HTMLDivElement | null;
   const formAlertContainer = document.getElementById('formAlertContainer') as HTMLDivElement | null;
   const submitButton = document.getElementById('submitButton') as HTMLButtonElement | null;
   const formSpinner = document.getElementById('formSpinner') as HTMLDivElement | null;
@@ -160,9 +161,24 @@ import Textarea from '@/components/form/textarea.astro';
     }
   }
 
-  if (subjectSelect) {
-    subjectSelect.addEventListener('change', toggleCompanyField);
+  function togglePrivacyField() {
+    if (!privacyField) return;
+
+    if (subjectSelect?.value === 'project') {
+      privacyField.style.display = 'block';
+    } else {
+      privacyField.style.display = 'none';
+    }
+  }
+
+  function toggleSpecificFields() {
     toggleCompanyField();
+    togglePrivacyField();
+  }
+
+  if (subjectSelect) {
+    subjectSelect.addEventListener('change', toggleSpecificFields);
+    toggleSpecificFields();
   }
 
   function showAlert(type: 'success' | 'danger') {
@@ -216,7 +232,6 @@ import Textarea from '@/components/form/textarea.astro';
 
       if (!formAlertContainer || !submitButton || !formSpinner || !formFields) return;
 
-      formFields.disabled = true;
       formFields.classList.add('opacity-60');
 
       submitButton.disabled = true;
@@ -225,6 +240,7 @@ import Textarea from '@/components/form/textarea.astro';
 
       try {
         const formData = new FormData(contactForm);
+        formFields.disabled = true;
 
         const response = await fetch('/api/contact', {
           method: 'POST',
