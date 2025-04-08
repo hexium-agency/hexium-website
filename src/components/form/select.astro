@@ -111,20 +111,16 @@ const { id, name, required = false, label } = Astro.props;
     private handleOptionHover(item: HTMLLIElement) {
       if (this.optionItems) {
         this.optionItems.forEach((opt) => {
-          opt.classList.remove('bg-gray-200', 'text-white');
-          const checkmark = opt.querySelector('.text-white');
-          if (checkmark) {
-            checkmark.classList.remove('text-white');
-            checkmark.classList.add('text-gray-900');
+          const span = opt.querySelector('span');
+          if (span) {
+            span.classList.remove('bg-gray-50');
           }
         });
       }
 
-      item.classList.add('bg-gray-200', 'text-white');
-      const checkmark = item.querySelector('.text-gray-900');
-      if (checkmark) {
-        checkmark.classList.remove('text-gray-900');
-        checkmark.classList.add('text-white');
+      const span = item.querySelector('span');
+      if (span) {
+        span.classList.add('bg-gray-50');
       }
 
       if (this.optionItems) {
@@ -133,11 +129,9 @@ const { id, name, required = false, label } = Astro.props;
     }
 
     private handleOptionLeave(item: HTMLLIElement) {
-      item.classList.remove('bg-gray-200', 'text-white');
-      const checkmark = item.querySelector('.text-white');
-      if (checkmark) {
-        checkmark.classList.remove('text-white');
-        checkmark.classList.add('text-gray-900');
+      const span = item.querySelector('span');
+      if (span) {
+        span.classList.remove('bg-gray-50');
       }
     }
 
@@ -304,20 +298,16 @@ const { id, name, required = false, label } = Astro.props;
       if (!this.optionItems || index < 0 || index >= this.optionItems.length) return;
 
       this.optionItems.forEach((item) => {
-        item.classList.remove('bg-gray-200', 'text-white');
-        const checkmark = item.querySelector('.text-white');
-        if (checkmark) {
-          checkmark.classList.remove('text-white');
-          checkmark.classList.add('text-gray-900');
+        const span = item.querySelector('span');
+        if (span) {
+          span.classList.remove('bg-gray-50');
         }
       });
 
       const option = this.optionItems[index];
-      option.classList.add('bg-gray-200', 'text-white');
-      const checkmark = option.querySelector('.text-gray-900');
-      if (checkmark) {
-        checkmark.classList.remove('text-gray-900');
-        checkmark.classList.add('text-white');
+      const span = option.querySelector('span');
+      if (span) {
+        span.classList.add('bg-gray-50');
       }
 
       this.activeIndex = index;
