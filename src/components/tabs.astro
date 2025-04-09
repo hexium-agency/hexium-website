@@ -1,0 +1,86 @@
+---
+import { cn } from '@/lib/utils';
+
+interface Props {
+  tabs: Array<{
+    id: string;
+    label: string;
+    buttonClassName?: string;
+  }>;
+  buttonClassName?: string;
+  tabContentClassName?: string;
+}
+
+const { tabs, buttonClassName, tabContentClassName } = Astro.props;
+---
+
+<div class="tabs-container">
+  <div class="flex border-b border-gray-200">
+    {
+      tabs.map((tab) => (
+        <button
+          class={cn(
+            'tab-button cursor-pointer border-b-2 border-transparent px-4 py-2 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 data-active:border-gray-900 data-active:text-gray-900 data-inactive:text-gray-500 data-inactive:hover:border-gray-300 data-inactive:hover:text-gray-700',
+            buttonClassName,
+            tab.buttonClassName
+          )}
+          data-tab={tab.id}
+        >
+          {tab.label}
+        </button>
+      ))
+    }
+  </div>
+  <div class={cn('tab-content mt-4', tabContentClassName)}>
+    <slot />
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('[data-tab-content]');
+
+    function showTab(tabId: string) {
+      // Hide all tab contents
+      tabContents.forEach((content) => {
+        content.classList.add('hidden');
+      });
+
+      // Show selected tab content
+      const selectedContent = document.querySelector(`[data-tab-content="${tabId}"]`);
+      if (selectedContent) {
+        selectedContent.classList.remove('hidden');
+      }
+
+      // Update active state of buttons
+      tabButtons.forEach((button) => {
+        if (button.getAttribute('data-tab') === tabId) {
+          button.setAttribute('data-active', '');
+          button.removeAttribute('data-inactive');
+        } else {
+          button.removeAttribute('data-active');
+          button.setAttribute('data-inactive', '');
+        }
+      });
+    }
+
+    // Add click event listeners to tab buttons
+    tabButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        if (tabId) {
+          showTab(tabId);
+        }
+      });
+    });
+
+    // Show first tab by default
+    if (tabButtons.length > 0) {
+      const firstTabId = tabButtons[0].getAttribute('data-tab');
+      if (firstTabId) {
+        showTab(firstTabId);
+      }
+    }
+  });
+</script>
