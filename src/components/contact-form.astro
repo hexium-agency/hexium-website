@@ -8,20 +8,26 @@ import Label from '@/components/form/label.astro';
 import SelectOption from '@/components/form/select-option.astro';
 import Select from '@/components/form/select.astro';
 import Textarea from '@/components/form/textarea.astro';
+
+const { light = false } = Astro.props;
 ---
 
 <form id="contactForm" action="/api/contact" method="POST" enctype="multipart/form-data">
   <div id="formAlertContainer" class="mb-4 hidden"></div>
 
   <fieldset id="formFields" class="space-y-3">
-    <div>
-      <Select id="subject" name="subject" required label="Sujet">
-        <SelectOption value="project">Projet</SelectOption>
-        <SelectOption value="job">Emploi</SelectOption>
-        <SelectOption value="collaboration">Collaboration</SelectOption>
-        <SelectOption value="other">Autre</SelectOption>
-      </Select>
-    </div>
+    {
+      !light && (
+        <div>
+          <Select id="subject" name="subject" required label="Sujet">
+            <SelectOption value="project">Projet</SelectOption>
+            <SelectOption value="job">Emploi</SelectOption>
+            <SelectOption value="collaboration">Collaboration</SelectOption>
+            <SelectOption value="other">Autre</SelectOption>
+          </Select>
+        </div>
+      )
+    }
 
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>
@@ -45,31 +51,47 @@ import Textarea from '@/components/form/textarea.astro';
       </div>
     </div>
 
-    <div id="companyField">
-      <Label for="company" optional>Entreprise</Label>
-      <Input autocomplete="organization" id="company" name="company" />
-    </div>
+    {
+      !light && (
+        <div id="companyField">
+          <Label for="company" optional>
+            Entreprise
+          </Label>
+          <Input autocomplete="organization" id="company" name="company" />
+        </div>
+      )
+    }
 
     <div>
       <Label for="message">Message</Label>
       <Textarea id="message" name="message" required />
     </div>
 
-    <div>
-      <Label for="files" optional>Documents</Label>
-      <FileUpload id="files" name="files" />
-    </div>
+    {
+      !light && (
+        <div>
+          <Label for="files" optional>
+            Documents
+          </Label>
+          <FileUpload id="files" name="files" />
+        </div>
+      )
+    }
 
-    <div class="my-4" id="privacyField">
-      <Checkbox
-        id="privacy"
-        name="privacy"
-        label="Je souhaite recevoir un accord de confidentialité"
-      />
-    </div>
+    {
+      !light && (
+        <div class="mt-4" id="privacyField">
+          <Checkbox
+            id="privacy"
+            name="privacy"
+            label="Je souhaite recevoir un accord de confidentialité"
+          />
+        </div>
+      )
+    }
   </fieldset>
 
-  <div class="flex items-center justify-between">
+  <div class="mt-4 flex items-center justify-between">
     <Button id="submitButton" isArrowShowed={false} isLink={false}>Envoyer</Button>
 
     <div id="formSpinner" class="hidden">

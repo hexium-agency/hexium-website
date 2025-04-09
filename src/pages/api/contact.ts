@@ -40,7 +40,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
 
-    const subject = formData.get('subject') as Subject;
+    const subject = (formData.get('subject') || 'other') as Subject;
     const firstname = formData.get('firstname') as string;
     const lastname = formData.get('lastname') as string;
     const email = formData.get('email') as string;
