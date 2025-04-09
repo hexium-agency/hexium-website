@@ -46,7 +46,12 @@ const { blok } = Astro.props as AstroProps;
         }
         {blok.leftItems && blok.leftItems.map((blok) => <StoryblokComponent blok={blok} />)}
       </div>
-      <div class={cn(blok.sizeLeftColumn === 'third' && 'lg:col-span-2')}>
+      <div
+        class={cn(
+          'flex items-center justify-center',
+          blok.sizeLeftColumn === 'third' && 'lg:col-span-2'
+        )}
+      >
         {blok.rightItems && blok.rightItems.map((blok) => <StoryblokComponent blok={blok} />)}
       </div>
     </div>

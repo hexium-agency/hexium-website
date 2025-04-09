@@ -67,7 +67,24 @@ export interface ArticleStoryblok {
 }
 
 export interface BlogCategoryStoryblok {
-  body: BlogHomeStoryblok[];
+  body: (
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | BlogHomeStoryblok
+    | CallToActionStoryblok
+    | ContactHomeStoryblok
+    | DefinitionHomeStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | WorkHomeStoryblok
+    | AccordionGroupStoryblok
+    | ButtonGroupStoryblok
+    | GridStoryblok
+    | LatestArticlesStoryblok
+    | SpacerStoryblok
+  )[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
@@ -217,6 +234,7 @@ export interface CardBentoStoryblok {
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
     | HighlightWordsStoryblok
+    | ImageStoryblok
     | LatestArticlesStoryblok
     | NavbarColumnStoryblok
     | NavbarDropdownStoryblok
@@ -431,6 +449,13 @@ export interface HeroVerticalStoryblok {
 
 export interface HighlightWordsStoryblok {
   component: "highlightWords";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface ImageStoryblok {
+  image: AssetStoryblok;
+  component: "image";
   _uid: string;
   [k: string]: any;
 }

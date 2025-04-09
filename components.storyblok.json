@@ -298,7 +298,7 @@
       "display_name": "ARTICLE - CATEGORY",
       "description": null,
       "created_at": "2025-01-11T13:20:24.686Z",
-      "updated_at": "2025-04-02T08:51:37.694Z",
+      "updated_at": "2025-04-08T08:01:24.675Z",
       "id": 6780316,
       "schema": {
         "body": {
@@ -308,12 +308,15 @@
           "id": "SEE8FTGsTvezBB_Djdi9rQ",
           "minimum": 1,
           "required": true,
-          "restrict_type": "",
+          "restrict_type": "groups",
           "restrict_components": true,
-          "component_whitelist": [
-            "blogHome"
-          ],
-          "maximum": 1
+          "component_whitelist": [],
+          "maximum": 2,
+          "component_group_whitelist": [
+            "93a7a4d7-21bc-4948-85aa-4e23e114a336",
+            "106bc6ec-816a-497e-bac8-2a812c419ee0",
+            "83d83b65-3eb1-45c3-8681-76b4dd75c360"
+          ]
         },
         "tab-04264bcf-5dc6-4e7d-96d9-63fd00240221": {
           "display_name": "Seo",
@@ -2289,6 +2292,48 @@
       ],
       "content_type_asset_preview": null,
       "component_group_name": "EFFECT"
+    },
+    {
+      "name": "image",
+      "display_name": "IMAGE",
+      "description": "",
+      "created_at": "2025-04-09T06:18:19.763Z",
+      "updated_at": "2025-04-09T06:19:45.057Z",
+      "id": 7190675,
+      "schema": {
+        "image": {
+          "type": "asset",
+          "pos": 0,
+          "required": true,
+          "display_name": "IMAGE",
+          "filetypes": [
+            "images"
+          ],
+          "id": "UG-P_UUNQs2QtRWzBzXKXA"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "IMAGE",
+      "component_group_uuid": "1434373d-383c-4e2f-96ee-ed921c348597",
+      "color": "#424d6d",
+      "icon": "block-tag",
+      "internal_tags_list": [
+        {
+          "id": 53106,
+          "name": "orphan"
+        }
+      ],
+      "internal_tag_ids": [
+        "53106"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "ORPHAN"
     },
     {
       "name": "latestArticles",
