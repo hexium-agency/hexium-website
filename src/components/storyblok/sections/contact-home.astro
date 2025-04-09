@@ -231,17 +231,14 @@ import Textarea from '@/components/form/textarea.astro';
       e.preventDefault();
 
       if (!formAlertContainer || !submitButton || !formSpinner || !formFields) return;
-
+      const formData = new FormData(contactForm);
+      formFields.disabled = true;
       formFields.classList.add('opacity-60');
-
       submitButton.disabled = true;
       formSpinner.classList.remove('hidden');
       formAlertContainer.classList.add('hidden');
 
       try {
-        const formData = new FormData(contactForm);
-        formFields.disabled = true;
-
         const response = await fetch('/api/contact', {
           method: 'POST',
           body: formData,
