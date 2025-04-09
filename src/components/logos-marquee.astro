@@ -1,5 +1,16 @@
 ---
+import logo2Emotion from '@/assets/logos/logo-2emotion.webp';
+import logoAeroportMontpellier from '@/assets/logos/logo-aeroport-montpellier.webp';
+import logoAirFrance from '@/assets/logos/logo-airfrance.webp';
+import logoBelieve from '@/assets/logos/logo-believe.webp';
+import logoCreditMutuel from '@/assets/logos/logo-credit-mutuel.webp';
+import logoLaboratoireNative from '@/assets/logos/logo-laboratoire-native.webp';
+import logoMetropoleMontpellier from '@/assets/logos/logo-metropole-montpelleir.webp';
+import logoRegionOccitanie from '@/assets/logos/logo-region-occitanie.webp';
+import logoRepubliqueFrancaise from '@/assets/logos/logo-republique-francaise.webp';
+import logoRogerGallet from '@/assets/logos/logo-roger-gallet.webp';
 import { cn } from '@/lib/utils';
+import { Image } from 'astro:assets';
 
 interface Props {
   style?: Record<string, string>;
@@ -60,7 +71,32 @@ const {
     `}
   >
     <div class="rfm-initial-child-container flex flex-row items-center gap-8">
-      <slot />
+      <Image
+        src={logoLaboratoireNative}
+        alt="Laboratoire Native"
+        class="h-8 w-auto object-contain"
+      />
+      <Image
+        src={logoMetropoleMontpellier}
+        alt="Métropole Montpellier"
+        class="h-8 w-auto object-contain"
+      />
+      <Image
+        src={logoRepubliqueFrancaise}
+        alt="République Française"
+        class="h-8 w-auto object-contain"
+      />
+      <Image src={logoRogerGallet} alt="Roger & Gallet" class="h-8 w-auto object-contain" />
+      <Image
+        src={logoAeroportMontpellier}
+        alt="Aéroport Montpellier"
+        class="h-8 w-auto object-contain"
+      />
+      <Image src={logoRegionOccitanie} alt="Région Occitanie" class="h-8 w-auto object-contain" />
+      <Image src={logoBelieve} alt="Believe" class="h-8 w-auto object-contain" />
+      <Image src={logo2Emotion} alt="2Emotion" class="h-8 w-auto object-contain" />
+      <Image src={logoCreditMutuel} alt="Crédit Mutuel" class="h-8 w-auto object-contain" />
+      <Image src={logoAirFrance} alt="Air France" class="h-8 w-auto object-contain" />
     </div>
   </div>
   <div
@@ -73,7 +109,28 @@ const {
       --min-width: ${autoFill ? 'auto' : '100%'};
     `}
   >
-    <slot />
+    <Image src={logoLaboratoireNative} alt="Laboratoire Native" class="h-8 w-auto object-contain" />
+    <Image
+      src={logoMetropoleMontpellier}
+      alt="Métropole Montpellier"
+      class="h-8 w-auto object-contain"
+    />
+    <Image
+      src={logoRepubliqueFrancaise}
+      alt="République Française"
+      class="h-8 w-auto object-contain"
+    />
+    <Image src={logoRogerGallet} alt="Roger & Gallet" class="h-8 w-auto object-contain" />
+    <Image
+      src={logoAeroportMontpellier}
+      alt="Aéroport Montpellier"
+      class="h-8 w-auto object-contain"
+    />
+    <Image src={logoRegionOccitanie} alt="Région Occitanie" class="h-8 w-auto object-contain" />
+    <Image src={logoBelieve} alt="Believe" class="h-8 w-auto object-contain" />
+    <Image src={logo2Emotion} alt="2Emotion" class="h-8 w-auto object-contain" />
+    <Image src={logoCreditMutuel} alt="Crédit Mutuel" class="h-8 w-auto object-contain" />
+    <Image src={logoAirFrance} alt="Air France" class="h-8 w-auto object-contain" />
   </div>
 </div>
 
