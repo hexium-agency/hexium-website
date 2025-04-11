@@ -14,27 +14,37 @@ const shouldFlexHorizontally = blok.items.every((item) => item.component === 'na
 const subDropdownItems = blok.items.filter((item) => item.component === 'navbarSubDropdown');
 ---
 
-<div {...storyblokEditable(blok)} class="group relative">
-  <h2 class="dropdown-title font-bold">{blok.title}</h2>
+<div {...storyblokEditable(blok)} class="group/dropdown">
+  <h2 class="dropdown-title font-bold p-4 lg:p-0">{blok.title}</h2>
 
-  <div
-    class="dropdown-container w-full transform invisible top-0 absolute right-0 lg:top-full lg:left-0 z-50 lg:mt-2 lg:flex lg:gap-4 lg:rounded-md bg-white lg:opacity-0 lg:shadow-lg transition-all duration-200 lg:invisible lg:group-hover:visible lg:group-hover:opacity-100"
-  >
-    <div class={`lg:p-8 lg:flex lg:gap-6 h-full ${shouldFlexHorizontally ? 'flex-row' : 'flex-col'}`}>
-      <div class="lg:hidden back-button">Back</div>
-      {blok.items.map((link) => <StoryblokComponent blok={link} />)}
+
+    <div
+      class="dropdown-container h-screen lg:group/dropdown:hover:opacity-100 lg:group/dropdown:hover:visible invisible absolute top-0 left-0 z-50 flex w-full flex-col gap-4 bg-white opacity-0 transition-all duration-200 lg:top-full lg:mt-2 lg:w-auto lg:flex-row lg:rounded-md lg:shadow-lg"
+    >
+      <div
+        class={`lg:p-8 flex flex-col gap-6 ${shouldFlexHorizontally ? 'lg:flex-row' : 'lg:flex-col'}`}
+      >
+        <div class="back-button lg:hidden flex gap-2 items-center border border-gray-200 p-4">
+          {/* TODO: Add left arrow */}
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back
+        </div>
+        {blok.items.map((link) => <StoryblokComponent blok={link} />)}
+      </div>
+
+      {
+        subDropdownItems.map((item) => (
+          <div class="hidden gap-6 p-8" data-subdropdown={item.title}>
+            {item.items.map((link) => (
+              <StoryblokComponent blok={link} />
+            ))}
+          </div>
+        ))
+      }
     </div>
 
-    {
-      subDropdownItems.map((item) => (
-        <div class="hidden lg:gap-6 lg:p-8" data-subdropdown={item.title}>
-          {item.items.map((link) => (
-            <StoryblokComponent blok={link} />
-          ))}
-        </div>
-      ))
-    }
-  </div>
 </div>
 
 <script>
@@ -43,7 +53,7 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
   const backButtons = document.querySelectorAll('.back-button');
 
   const visibleClasses = ['opacity-100', 'visible'];
-  const invisibleClasses = ['opacity-0', 'invisible', 'hidden'];
+  const invisibleClasses = ['opacity-0', 'invisible'];
 
   // Function to close all dropdowns
   const closeAllDropdowns = () => {
@@ -52,6 +62,12 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
       container.classList.add(...invisibleClasses);
     });
   };
+
+  backButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      closeAllDropdowns();
+    });
+  });
 
   dropdownItems.forEach((item) => {
     const container = item.nextElementSibling as HTMLElement;
@@ -64,7 +80,9 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
         return;
       }
 
-      const isHidden = container.classList.contains('hidden');
+      closeAllDropdowns();
+
+      const isHidden = container.classList.contains('opacity-0');
 
       if (isHidden) {
         container.classList.add(...visibleClasses);
@@ -75,12 +93,6 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
 
       container.classList.remove(...visibleClasses);
       container.classList.add(...invisibleClasses);
-    });
-  });
-
-  backButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      closeAllDropdowns();
     });
   });
 
