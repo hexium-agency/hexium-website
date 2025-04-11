@@ -1,0 +1,201 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  reviews: {
+    id: string;
+    name: string;
+    role: string;
+    company: string;
+    content: string;
+    logoImage: ImageMetadata;
+    reviewerImage: ImageMetadata;
+  }[];
+}
+
+const { reviews } = Astro.props;
+---
+
+<div class="partner-reviews rounded-lg border border-dashed border-gray-200 bg-white">
+  <div class="content-section relative overflow-hidden">
+    <div class="content-wrapper relative flex transition-all duration-500 ease-in-out">
+      {
+        reviews.map((review) => (
+          <article
+            class="review-content flex w-full flex-shrink-0 flex-col items-center justify-center py-16"
+            data-review-id={review.id}
+          >
+            <Image src={review.logoImage} alt={review.name} width={50} height={50} />
+            <blockquote class="mt-6">
+              <p class="prose text-center text-balance">"{review.content}"</p>
+              <footer class="mt-8 flex justify-center">
+                <cite class="mx-auto flex items-center gap-3">
+                  <Image
+                    class="mt-0 mb-0 rounded-lg p-0"
+                    src={review.reviewerImage}
+                    alt={review.name}
+                    width={44}
+                    height={44}
+                  />
+                  <div>
+                    <span class="block font-semibold">{review.name}</span>
+                    <span class="text-sm text-gray-600">
+                      {review.role} at {review.company}
+                    </span>
+                  </div>
+                </cite>
+              </footer>
+            </blockquote>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+  <nav class="navigation-section w-full bg-gray-100" aria-label="Review navigation">
+    <div class="flex w-full flex-col lg:flex-row">
+      {
+        reviews.map((review) => (
+          <button
+            class="nav-button relative flex flex-1 cursor-pointer flex-col items-center justify-center border-t border-b border-dashed border-gray-200 p-4 transition-colors hover:bg-gray-50 data-[active=true]:bg-white lg:border"
+            data-review-id={review.id}
+            data-active="false"
+            aria-label={`View review from ${review.name}`}
+          >
+            <div class="relative text-center">
+              <Image src={review.logoImage} alt={`${review.company} logo`} width={35} height={35} />
+            </div>
+            <div class="progress-bar absolute bottom-0 left-0 h-0.5 w-full overflow-hidden">
+              <div class="progress-fill h-full w-full origin-left transform rounded-b-xl bg-black" />
+            </div>
+          </button>
+        ))
+      }
+    </div>
+  </nav>
+</div>
+
+<style>
+  .review-content {
+    transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-fill {
+    transform: scaleX(0);
+    transition: transform 200ms linear;
+  }
+</style>
+
+<script>
+  const SLIDE_DURATION = 5000;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.querySelector('.content-wrapper') as HTMLElement;
+    const reviews = document.querySelectorAll('.review-content') as NodeListOf<HTMLElement>;
+    const buttons = document.querySelectorAll('.nav-button');
+    let currentIndex = 0;
+    let slideInterval: number | undefined;
+    let progressAnimationFrame: number | undefined;
+    const duration = SLIDE_DURATION;
+
+    function updateSlidePosition(index: number, prevIndex: number): void {
+      const slideWidth = reviews[0].offsetWidth;
+      const translateX = -index * slideWidth;
+      wrapper.style.transform = `translateX(${translateX}px)`;
+
+      buttons.forEach((button, i) => {
+        const isActive = i === index;
+        button.setAttribute('data-active', isActive.toString());
+
+        if (!isActive) {
+          const progressFill = button.querySelector('.progress-fill') as HTMLElement;
+          progressFill.style.transform = 'scaleX(0)';
+        }
+      });
+
+      reviews[prevIndex].setAttribute('aria-hidden', 'true');
+      reviews[index].setAttribute('aria-hidden', 'false');
+    }
+
+    function startProgressAnimation(): void {
+      if (progressAnimationFrame) {
+        cancelAnimationFrame(progressAnimationFrame);
+      }
+
+      const currentButton = buttons[currentIndex];
+      const progressFill = currentButton.querySelector('.progress-fill') as HTMLElement;
+
+      progressFill.style.transform = 'scaleX(0)';
+
+      let startTime: number | null = null;
+
+      function animateProgress(timestamp: number) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / (duration - 100), 1);
+
+        progressFill.style.transform = `scaleX(${progress})`;
+
+        if (progress < 1) {
+          progressAnimationFrame = requestAnimationFrame(animateProgress);
+        }
+      }
+
+      progressAnimationFrame = requestAnimationFrame(animateProgress);
+    }
+
+    function nextSlide(): void {
+      const prevIndex = currentIndex;
+      currentIndex = (currentIndex + 1) % reviews.length;
+      updateSlidePosition(currentIndex, prevIndex);
+      startProgressAnimation();
+    }
+
+    function startSlideshow(): void {
+      updateSlidePosition(0, 0);
+      startProgressAnimation();
+
+      if (slideInterval) {
+        clearInterval(slideInterval);
+      }
+
+      slideInterval = window.setInterval(nextSlide, duration);
+    }
+
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        if (slideInterval) {
+          clearInterval(slideInterval);
+        }
+
+        const prevIndex = currentIndex;
+        currentIndex = index;
+        updateSlidePosition(currentIndex, prevIndex);
+        startProgressAnimation();
+
+        slideInterval = window.setInterval(nextSlide, duration);
+      });
+    });
+
+    function handleResize(): void {
+      wrapper.style.transition = 'none';
+      updateSlidePosition(currentIndex, currentIndex);
+      void wrapper.offsetWidth;
+      wrapper.style.transition = '';
+    }
+
+    startSlideshow();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      if (slideInterval) {
+        clearInterval(slideInterval);
+      }
+      if (progressAnimationFrame) {
+        cancelAnimationFrame(progressAnimationFrame);
+      }
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+</script>
