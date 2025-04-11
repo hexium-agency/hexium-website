@@ -10,18 +10,28 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 ---
 
-<div {...storyblokEditable(blok)} class="navbar-sub-dropdown">
-    <div class="navbar-sub-dropdown-title">{blok.title}</div>
+<div {...storyblokEditable(blok)} class="navbar-sub-dropdown p-4 bg-gray-50 rounded-md lg:p-0 lg:bg-transparent lg:rounded-none">
+  <div class="navbar-sub-dropdown-title p-4 lg:p-0">{blok.title}</div>
+
+  <div class="navbar-sub-dropdown-items lg:hidden hidden flex-col" data-subdropdown-mobile={blok.title}>
+    {blok.items.map((item) => <StoryblokComponent blok={item} class="hidden" />)}
+  </div>
 </div>
 
 <script>
   // Show the first dropdown by default when the DOM is loaded
   document.addEventListener('DOMContentLoaded', () => {
     const firstDropdown = document.querySelector('[data-subdropdown]');
+    const firstDropdownMobile = document.querySelector('[data-subdropdown-mobile]');
 
     if (firstDropdown) {
-      firstDropdown.classList.remove('hidden');
-      firstDropdown.classList.add('flex');
+      firstDropdown.classList.remove('lg:hidden');
+      firstDropdown.classList.add('lg:flex');
+    }
+
+    if (firstDropdownMobile) {
+      firstDropdownMobile.classList.remove('hidden');
+      firstDropdownMobile.classList.add('flex');
     }
   });
 
@@ -31,16 +41,27 @@ const { blok } = Astro.props as AstroProps;
     title.addEventListener('click', () => {
       // First, hide all dropdown items
       document.querySelectorAll(`[data-subdropdown]`).forEach(items => {
+        items.classList.add('lg:hidden');
+        items.classList.remove('lg:flex');
+      });
+
+      document.querySelectorAll('[data-subdropdown-mobile]').forEach(items => {
         items.classList.add('hidden');
         items.classList.remove('flex');
       });
 
       // Then show only the clicked dropdown's items
       const dropdownItems = document.querySelector(`[data-subdropdown="${titleText}"]`);
+      const dropdownItemsMobile = document.querySelector(`[data-subdropdown-mobile="${titleText}"]`);
 
       if (dropdownItems) {
-        dropdownItems.classList.remove('hidden');
-        dropdownItems.classList.add('flex');
+        dropdownItems.classList.remove('lg:hidden');
+        dropdownItems.classList.add('lg:flex');
+      }
+
+      if (dropdownItemsMobile) {
+        dropdownItemsMobile.classList.remove('hidden');
+        dropdownItemsMobile.classList.add('flex');
       }
     });
   });

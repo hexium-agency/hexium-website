@@ -45,7 +45,7 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
 
     {
       subDropdownItems.map((item) => (
-        <div class="hidden gap-6 p-8" data-subdropdown={item.title}>
+        <div class="hidden lg:hidden gap-6 p-8" data-subdropdown={item.title}>
           {item.items.map((link) => (
             <StoryblokComponent blok={link} />
           ))}
