@@ -2,7 +2,6 @@
 import type { NavbarDropdownStoryblok } from '@/types/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
-import { map } from 'astro:schema';
 
 interface AstroProps {
   blok: NavbarDropdownStoryblok;
@@ -12,21 +11,86 @@ const { blok } = Astro.props as AstroProps;
 
 const shouldFlexHorizontally = blok.items.every((item) => item.component === 'navbarColumn');
 
-const containsOnlySubDropdowns = blok.items.every((item) => item.component === 'navbarSubDropdown');
-
 const subDropdownItems = blok.items.filter((item) => item.component === 'navbarSubDropdown');
-
 ---
 
-<div {...storyblokEditable(blok)} class="relative group">
-  <h2 class="font-bold">{blok.title}</h2>
-  <div class="absolute left-0 top-full mt-2 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 flex gap-4">
-    <div class={`p-8 flex gap-6 ${shouldFlexHorizontally ? 'flex-row' : 'flex-col'}`}>
+<div {...storyblokEditable(blok)} class="group relative">
+  <h2 class="dropdown-title font-bold">{blok.title}</h2>
+
+  <div
+    class="dropdown-container w-full transform invisible top-0 absolute right-0 lg:top-full lg:left-0 z-50 lg:mt-2 lg:flex lg:gap-4 lg:rounded-md bg-white lg:opacity-0 lg:shadow-lg transition-all duration-200 lg:invisible lg:group-hover:visible lg:group-hover:opacity-100"
+  >
+    <div class={`lg:p-8 lg:flex lg:gap-6 h-full ${shouldFlexHorizontally ? 'flex-row' : 'flex-col'}`}>
+      <div class="lg:hidden back-button">Back</div>
       {blok.items.map((link) => <StoryblokComponent blok={link} />)}
     </div>
 
-    {subDropdownItems.map(item => <div class="p-8 gap-6 hidden" data-subdropdown={item.title}>
-        {item.items.map((link) => <StoryblokComponent blok={link} />)}
-    </div>)}
+    {
+      subDropdownItems.map((item) => (
+        <div class="hidden lg:gap-6 lg:p-8" data-subdropdown={item.title}>
+          {item.items.map((link) => (
+            <StoryblokComponent blok={link} />
+          ))}
+        </div>
+      ))
+    }
   </div>
 </div>
+
+<script>
+  const dropdownItems = document.querySelectorAll('.dropdown-title');
+  const dropdownContainers = document.querySelectorAll('.dropdown-container');
+  const backButtons = document.querySelectorAll('.back-button');
+
+  const visibleClasses = ['opacity-100', 'visible'];
+  const invisibleClasses = ['opacity-0', 'invisible', 'hidden'];
+
+  // Function to close all dropdowns
+  const closeAllDropdowns = () => {
+    dropdownContainers.forEach((container) => {
+      container.classList.remove(...visibleClasses);
+      container.classList.add(...invisibleClasses);
+    });
+  };
+
+  dropdownItems.forEach((item) => {
+    const container = item.nextElementSibling as HTMLElement;
+
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+
+      // Toggle current dropdown
+      if (!container) {
+        return;
+      }
+
+      const isHidden = container.classList.contains('hidden');
+
+      if (isHidden) {
+        container.classList.add(...visibleClasses);
+        container.classList.remove(...invisibleClasses);
+
+        return;
+      }
+
+      container.classList.remove(...visibleClasses);
+      container.classList.add(...invisibleClasses);
+    });
+  });
+
+  backButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      closeAllDropdowns();
+    });
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (
+      !(e.target as Element).closest('.dropdown-container') &&
+      !(e.target as Element).closest('.dropdown-title')
+    ) {
+      closeAllDropdowns();
+    }
+  });
+</script>
