@@ -9,9 +9,15 @@ interface AstroProps {
 }
 
 const { work } = Astro.props as AstroProps;
+
+const hasContent = !!work.content.content.content?.[0]?.content;
+const LinkWrapper = hasContent ? 'a' : 'div';
 ---
 
-<div class="group relative isolate cursor-pointer" data-href={`/${work.full_slug}`}>
+<div
+  class="group relative isolate cursor-pointer"
+  {...hasContent ? { 'data-href': `/${work.full_slug}` } : {}}
+>
   <div
     class="relative aspect-[1200/630] overflow-hidden rounded-2xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
   >
@@ -41,10 +47,10 @@ const { work } = Astro.props as AstroProps;
         <h3
           class="translate-y-[300px] text-lg/5 font-semibold tracking-tight text-white transition-all group-hover:translate-y-0"
         >
-          <a href={`/${work.full_slug}`}>
+          <LinkWrapper {...hasContent ? { href: `/${work.full_slug}` } : {}}>
             {work.content.project}
             <span class="absolute inset-0 z-10" aria-hidden="true"></span>
-          </a>
+          </LinkWrapper>
         </h3>
       </div>
     </div>
