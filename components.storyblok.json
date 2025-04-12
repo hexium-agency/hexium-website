@@ -1587,6 +1587,53 @@
       "component_group_name": "ORPHAN"
     },
     {
+      "name": "featuredWorks",
+      "display_name": "RÉALISATIONS MISES EN AVANT",
+      "description": "",
+      "created_at": "2025-04-12T14:35:48.284Z",
+      "updated_at": "2025-04-12T14:38:38.678Z",
+      "id": 7211561,
+      "schema": {
+        "works": {
+          "type": "options",
+          "pos": 0,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "RÉALISATIONS",
+          "filter_content_type": [
+            "work"
+          ],
+          "max_options": "4",
+          "id": "TTMxHq8TQmOjoVKf_kZvZQ",
+          "description": "Si laissé vide, prendra les derniers projets en date."
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "RÉALISATIONS MISES EN AVANT",
+      "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
+      "color": "#4656ae",
+      "icon": "block-1-2block",
+      "internal_tags_list": [
+        {
+          "id": 53107,
+          "name": "ui"
+        }
+      ],
+      "internal_tag_ids": [
+        "53107"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "UI"
+    },
+    {
       "name": "footerAgency",
       "display_name": "FOOTER - AGENCE",
       "description": null,

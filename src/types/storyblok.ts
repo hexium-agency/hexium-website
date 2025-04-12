@@ -84,6 +84,7 @@ export interface BlogCategoryStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -232,6 +233,7 @@ export interface CardBentoStoryblok {
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
     | FeaturedTechnologiesStoryblok
+    | FeaturedWorksStoryblok
     | FooterAgencyStoryblok
     | FooterLinkStoryblok
     | FooterLinkGroupStoryblok
@@ -375,6 +377,13 @@ export interface DefinitionHomeStoryblok {
 export interface FeaturedTechnologiesStoryblok {
   technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
   component: "featuredTechnologies";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface FeaturedWorksStoryblok {
+  works?: (ISbStoryData<WorkStoryblok> | string)[];
+  component: "featuredWorks";
   _uid: string;
   [k: string]: any;
 }
@@ -548,6 +557,7 @@ export interface PageStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -568,6 +578,7 @@ export interface SectionStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -589,6 +600,7 @@ export interface SectionHorizontalStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -599,6 +611,7 @@ export interface SectionHorizontalStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -610,6 +623,7 @@ export interface SectionHorizontalStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -634,6 +648,7 @@ export interface SectionVerticalStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -694,6 +709,7 @@ export interface TechnologyStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
