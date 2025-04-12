@@ -1169,9 +1169,41 @@
       "display_name": "ENTREPRISE",
       "description": "",
       "created_at": "2025-04-04T15:30:32.608Z",
-      "updated_at": "2025-04-04T15:31:27.998Z",
+      "updated_at": "2025-04-12T12:07:10.863Z",
       "id": 7171162,
-      "schema": {},
+      "schema": {
+        "name": {
+          "type": "text",
+          "pos": 0,
+          "display_name": "NOM",
+          "required": true,
+          "id": "kq4-a0dIRzOMlFJXhmYRPQ"
+        },
+        "logoFull": {
+          "type": "asset",
+          "pos": 1,
+          "display_name": "LOGO - FULL",
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 792934,
+          "id": "LE4maAr7RKa4MKBnc0Di2w",
+          "description": "LOGO - FULL et LOGO - BLANC doivent être similaires en dimensions"
+        },
+        "logoWhite": {
+          "type": "asset",
+          "pos": 2,
+          "id": "wt3ffxiTTzWH-BrU6HwdOQ",
+          "display_name": "LOGO - BLANC",
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 792934,
+          "description": "LOGO - BLANC et LOGO - FULL doivent être similaires en dimensions"
+        }
+      },
       "image": null,
       "preview_field": null,
       "is_root": true,
@@ -1262,7 +1294,7 @@
       "display_name": "CLIENT",
       "description": "",
       "created_at": "2025-04-04T15:34:52.855Z",
-      "updated_at": "2025-04-06T16:58:02.676Z",
+      "updated_at": "2025-04-12T12:07:06.012Z",
       "id": 7171163,
       "schema": {
         "name": {
@@ -1298,7 +1330,7 @@
           ],
           "asset_folder_id": 681166,
           "id": "zYE4l5taQKudEwk1ZeMVVA",
-          "description": "LOGO - FULL et LOGO - WHITE doivent être similaires en dimensions"
+          "description": "LOGO - FULL et LOGO - BLANC doivent être similaires en dimensions"
         },
         "logoWhite": {
           "type": "asset",
@@ -1309,7 +1341,7 @@
             "images"
           ],
           "asset_folder_id": 681166,
-          "description": "LOGO - WHITE et LOGO - FULL doivent être similaires en dimensions",
+          "description": "LOGO - BLANC et LOGO - FULL doivent être similaires en dimensions",
           "id": "gKUog-iIQVeC95JDkgMyRA"
         }
       },
@@ -2420,6 +2452,92 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "DERNIERS ARTICLES",
+      "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
+      "color": "#4656ae",
+      "icon": "block-1-2block",
+      "internal_tags_list": [
+        {
+          "id": 53107,
+          "name": "ui"
+        }
+      ],
+      "internal_tag_ids": [
+        "53107"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "UI"
+    },
+    {
+      "name": "marqueeLogos",
+      "display_name": "MARQUEE - LOGOS",
+      "description": "",
+      "created_at": "2025-04-12T12:00:05.550Z",
+      "updated_at": "2025-04-12T13:11:49.207Z",
+      "id": 7211231,
+      "schema": {
+        "backgroundColor": {
+          "type": "option",
+          "pos": 0,
+          "use_uuid": true,
+          "display_name": "COULEUR DE FOND",
+          "required": true,
+          "source": "internal",
+          "datasource_slug": "background-colors",
+          "id": "u77vx9l7Q9mTLyisN9gAmg"
+        },
+        "logoColors": {
+          "type": "option",
+          "pos": 1,
+          "use_uuid": true,
+          "display_name": "COULEUR DES LOGOS",
+          "required": true,
+          "options": [
+            {
+              "_uid": "5e1966a3-43ee-4b66-a739-fa502e1bb14c",
+              "name": "ORIGINAL",
+              "value": "original"
+            },
+            {
+              "_uid": "b4c9f186-5a96-42c2-adb1-8fc0aefa2bc0",
+              "value": "white",
+              "name": "BLANC"
+            },
+            {
+              "_uid": "c6a01ae9-b239-4db5-9362-e172d9280910",
+              "value": "dark",
+              "name": "NOIR"
+            }
+          ],
+          "default_value": "white",
+          "id": "lbRXNswzQNefqEQhkrQpsw"
+        },
+        "companies": {
+          "type": "options",
+          "pos": 2,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "ENTREPRISES",
+          "min_options": "4",
+          "max_options": "20",
+          "folder_slug": "",
+          "filter_content_type": [
+            "company",
+            "customer"
+          ],
+          "id": "i10e7YhVQ2KXm8_5M-gp6w",
+          "required": true
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "MARQUEE - LOGOS",
       "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
       "color": "#4656ae",
       "icon": "block-1-2block",

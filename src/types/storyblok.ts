@@ -87,6 +87,7 @@ export interface BlogCategoryStoryblok {
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
   metaTitle: string;
@@ -242,6 +243,7 @@ export interface CardBentoStoryblok {
     | HighlightWordsStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
     | NavbarColumnStoryblok
     | NavbarDropdownStoryblok
     | NavbarLinkStoryblok
@@ -320,6 +322,9 @@ export interface CodeBlockStoryblok {
 }
 
 export interface CompanyStoryblok {
+  name: string;
+  logoFull: AssetStoryblok;
+  logoWhite: AssetStoryblok;
   component: "company";
   _uid: string;
   [k: string]: any;
@@ -482,6 +487,15 @@ export interface LatestArticlesStoryblok {
   [k: string]: any;
 }
 
+export interface MarqueeLogosStoryblok {
+  backgroundColor: number | string;
+  logoColors: "" | "original" | "white" | "dark";
+  companies: (ISbStoryData<CompanyStoryblok> | ISbStoryData<CustomerStoryblok> | string)[];
+  component: "marqueeLogos";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface NavbarColumnStoryblok {
   title?: string;
   links: NavbarLinkStoryblok[];
@@ -537,6 +551,7 @@ export interface PageStoryblok {
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
   metaDescription: string;
@@ -556,6 +571,7 @@ export interface SectionStoryblok {
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
   backgroundColor: number | string;
@@ -576,6 +592,7 @@ export interface SectionHorizontalStoryblok {
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
   rightItems?: (
@@ -585,6 +602,7 @@ export interface SectionHorizontalStoryblok {
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
   revertSide?: boolean;
@@ -595,6 +613,7 @@ export interface SectionHorizontalStoryblok {
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
   sizeLeftColumn: "" | "half" | "third";
@@ -618,6 +637,7 @@ export interface SectionVerticalStoryblok {
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
   component: "sectionVertical";
@@ -677,6 +697,7 @@ export interface TechnologyStoryblok {
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
   component: "technology";
