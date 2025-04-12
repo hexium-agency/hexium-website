@@ -72,6 +72,7 @@ export default defineConfig({
         'grid': 'components/storyblok/ui/grid',
         'image': 'components/storyblok/ui/image',
         'latest-articles': 'components/storyblok/ui/latest-articles',
+        'marquee-logos': 'components/storyblok/ui/marquee-logos',
         'spacer': 'components/storyblok/ui/spacer',
         'text': 'components/storyblok/ui/text',
         'navbar-dropdown': 'components/ui/navbar-dropdown',

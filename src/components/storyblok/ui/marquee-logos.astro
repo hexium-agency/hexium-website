@@ -1,0 +1,196 @@
+---
+import { cn } from '@/lib/utils';
+import type { CompanyStoryblok, CustomerStoryblok, MarqueeLogosStoryblok } from '@/types/storyblok';
+import { parseStoryblokImage } from '@/utils/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+import { storyblokEditable } from '@storyblok/astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  style?: Record<string, string>;
+  className?: string;
+  autoFill?: boolean;
+  play?: boolean;
+  pauseOnHover?: boolean;
+  pauseOnClick?: boolean;
+  gradient?: boolean;
+  gradientColor?: string;
+  gradientWidth?: number | string;
+}
+
+interface AstroProps {
+  blok: MarqueeLogosStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const companies = blok.companies as
+  | ISbStoryData<CompanyStoryblok>[]
+  | ISbStoryData<CustomerStoryblok>[];
+
+const {
+  style = {},
+  className = '',
+  autoFill = false,
+  play = true,
+  pauseOnHover = false,
+  pauseOnClick = false,
+  gradient = true,
+  gradientColor = '#F6F6F7',
+  gradientWidth = 200,
+} = {} as Props;
+
+console.log(companies);
+---
+
+<div
+  {...storyblokEditable(blok)}
+  class={cn('rfm-marquee-container overflow-x-hidden flex flex-row relative', className)}
+  style={`
+    --pause-on-hover: ${!play || pauseOnHover ? 'paused' : 'running'};
+    --pause-on-click: ${!play || (pauseOnHover && !pauseOnClick) || pauseOnClick ? 'paused' : 'running'};
+    --width: 100%;
+    --transform: none;
+    ${Object.entries(style)
+      .map(([key, value]) => `${key}: ${value};`)
+      .join(' ')}
+  `}
+>
+  {
+    gradient && (
+      <div
+        class="rfm-overlay absolute h-full w-full before:pointer-events-none before:absolute before:top-0 before:right-0 before:z-[2] before:rotate-180 before:touch-none after:pointer-events-none after:absolute after:top-0 after:left-0 after:z-[2] after:touch-none"
+        style={`
+        --gradient-color: ${gradientColor};
+        --gradient-width: ${typeof gradientWidth === 'number' ? `${gradientWidth}px` : gradientWidth};
+      `}
+      />
+    )
+  }
+  <div
+    class="rfm-marquee z-[1] flex flex-row items-center"
+    style={`
+      --play: ${play ? 'running' : 'paused'};
+      --direction: normal;
+      --delay: 0s;
+      --iteration-count: infinite;
+      --min-width: ${autoFill ? 'auto' : '100%'};
+    `}
+  >
+    <div class="rfm-initial-child-container flex flex-row items-center gap-8">
+      {
+        companies.map((company) => (
+          <Image
+            sizes="10vw"
+            {...parseStoryblokImage(company.content.logoFull)}
+            class="h-8 w-auto object-contain"
+          />
+        ))
+      }
+    </div>
+  </div>
+  <div
+    aria-hidden="true"
+    class="rfm-marquee flex items-center gap-x-8"
+    style={`
+      --play: ${play ? 'running' : 'paused'};
+      --direction: normal;
+      --delay: 0s;
+      --iteration-count: infinite;
+      --min-width: ${autoFill ? 'auto' : '100%'};
+    `}
+  >
+    {
+      companies.map((company) => (
+        <Image
+          sizes="10vw"
+          {...parseStoryblokImage(company.content.logoFull)}
+          class="h-8 w-auto object-contain"
+        />
+      ))
+    }
+  </div>
+</div>
+
+<script define:vars={{ autoFill }}>
+  document.addEventListener('astro:page-load', () => {
+    const container = document.querySelector('.rfm-marquee-container');
+    const marquee = container?.querySelector('.rfm-marquee');
+    const initialChildContainer = container?.querySelector('.rfm-initial-child-container');
+
+    if (!container || !marquee || !initialChildContainer) {
+      console.error('Marquee elements not found');
+    } else {
+      let multiplier = 1;
+
+      const calculateWidth = () => {
+        const containerRect = container.getBoundingClientRect();
+        const marqueeRect = marquee.getBoundingClientRect();
+        let containerWidth = containerRect.width;
+        let marqueeWidth = marqueeRect.width;
+
+        if (autoFill && containerWidth && marqueeWidth) {
+          multiplier = marqueeWidth < containerWidth ? Math.ceil(containerWidth / marqueeWidth) : 1;
+        } else {
+          multiplier = 1;
+        }
+
+        const marquees = container.querySelectorAll('.rfm-marquee');
+        marquees.forEach((m) => {
+          const duration = autoFill
+            ? (marqueeWidth * multiplier) / 50
+            : marqueeWidth < containerWidth
+              ? containerWidth / 50
+              : marqueeWidth / 50;
+          m.style.setProperty('--duration', `${duration}s`);
+        });
+      };
+
+      calculateWidth();
+
+      const resizeObserver = new ResizeObserver(calculateWidth);
+      resizeObserver.observe(container);
+      resizeObserver.observe(marquee);
+    }
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    resizeObserver.disconnect();
+  });
+</script>
+
+<style>
+  .rfm-marquee-container {
+    width: var(--width);
+    transform: var(--transform);
+  }
+
+  .rfm-marquee-container:hover div {
+    animation-play-state: var(--pause-on-hover);
+  }
+
+  .rfm-marquee-container:active div {
+    animation-play-state: var(--pause-on-click);
+  }
+
+  .rfm-overlay::before,
+  .rfm-overlay::after {
+    background: linear-gradient(to right, var(--gradient-color), rgb(255, 255, 255, 0));
+    content: '';
+    height: 100%;
+    width: var(--gradient-width);
+  }
+
+  .rfm-marquee {
+    flex: 0 0 auto;
+    min-width: var(--min-width);
+    animation: scroll var(--duration) linear var(--delay) var(--iteration-count);
+    animation-play-state: var(--play);
+    animation-delay: var(--delay);
+    animation-direction: var(--direction);
+  }
+
+  .rfm-marquee > *:last-child {
+    margin-right: 1.5rem;
+  }
+</style>
