@@ -43,7 +43,7 @@ const { blok } = Astro.props as AstroProps;
         {blok.title}
       </h3>
       {
-        blok.text && (
+        blok.text?.content?.[0]?.content && (
           <Richtext
             text={blok.text}
             class={cn(
