@@ -83,6 +83,7 @@ export interface BlogCategoryStoryblok {
     | WorkHomeStoryblok
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -225,6 +226,7 @@ export interface CardBentoStoryblok {
     | CodeBlockStoryblok
     | CompanyStoryblok
     | ContactHomeStoryblok
+    | ContactWidgetStoryblok
     | CustomerStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
@@ -325,6 +327,12 @@ export interface CompanyStoryblok {
 
 export interface ContactHomeStoryblok {
   component: "contactHome";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface ContactWidgetStoryblok {
+  component: "contactWidget";
   _uid: string;
   [k: string]: any;
 }
@@ -525,6 +533,7 @@ export interface PageStoryblok {
     | WorkHomeStoryblok
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -543,6 +552,7 @@ export interface SectionStoryblok {
   blocks?: (
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -562,6 +572,7 @@ export interface SectionHorizontalStoryblok {
   leftItems?: (
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -570,6 +581,7 @@ export interface SectionHorizontalStoryblok {
   rightItems?: (
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -579,6 +591,7 @@ export interface SectionHorizontalStoryblok {
   bottomItems?: (
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -601,6 +614,7 @@ export interface SectionVerticalStoryblok {
   blocks?: (
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -635,6 +649,7 @@ export interface TeamStoryblok {
 }
 
 export interface TechnologyStoryblok {
+  generatePage?: boolean;
   logoOutline: AssetStoryblok;
   logoFullDark: AssetStoryblok;
   logoFullLight: AssetStoryblok;
@@ -658,6 +673,7 @@ export interface TechnologyStoryblok {
     | WorkHomeStoryblok
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
     | GridStoryblok
     | ImageStoryblok
     | LatestArticlesStoryblok
@@ -700,14 +716,14 @@ export interface TextStoryblok {
 }
 
 export interface WorkStoryblok {
-  project: string;
-  cover: AssetStoryblok;
-  completionYear: string;
-  content: RichtextStoryblok;
   customer: (ISbStoryData<CustomerStoryblok> | string)[];
   category: (ISbStoryData<WorkCategoryStoryblok> | string)[];
   services: (string)[];
   technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
+  project: string;
+  cover: AssetStoryblok;
+  completionYear: string;
+  content?: RichtextStoryblok;
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;

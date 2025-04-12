@@ -67,6 +67,7 @@ export default defineConfig({
         'card-icon-title-text-normal': 'components/storyblok/ui/card-icon-title-text-normal',
         'card-image-title-text': 'components/storyblok/ui/card-image-title-text',
         'code-block': 'components/storyblok/ui/code-block',
+        'contact-widget': 'components/storyblok/ui/contact-widget',
         'featured-technologies': 'components/storyblok/ui/featured-technologies',
         'grid': 'components/storyblok/ui/grid',
         'image': 'components/storyblok/ui/image',

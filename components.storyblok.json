@@ -1227,6 +1227,37 @@
       "component_group_name": "SECTION"
     },
     {
+      "name": "contactWidget",
+      "display_name": "CONTACT - WIDGET",
+      "description": "",
+      "created_at": "2025-04-12T11:48:16.895Z",
+      "updated_at": "2025-04-12T11:48:34.780Z",
+      "id": 7211230,
+      "schema": {},
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CONTACT - WIDGET",
+      "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
+      "color": "#4656ae",
+      "icon": "block-1-2block",
+      "internal_tags_list": [
+        {
+          "id": 53107,
+          "name": "ui"
+        }
+      ],
+      "internal_tag_ids": [
+        "53107"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "UI"
+    },
+    {
       "name": "customer",
       "display_name": "CLIENT",
       "description": "",
@@ -3287,12 +3318,21 @@
       "display_name": "TECHNOLOGY",
       "description": null,
       "created_at": "2024-12-08T16:04:33.858Z",
-      "updated_at": "2025-04-02T09:08:57.141Z",
+      "updated_at": "2025-04-12T08:49:30.886Z",
       "id": 6663004,
       "schema": {
+        "generatePage": {
+          "type": "boolean",
+          "pos": 0,
+          "display_name": "GÉNÉRER UNE PAGE ?",
+          "tooltip": false,
+          "default_value": true,
+          "description": "Cette option existe pour permettre de lister des technologies sans générer de page associée.",
+          "id": "8OhK0SVoRs6p52x-olPmog"
+        },
         "logoOutline": {
           "type": "asset",
-          "pos": 0,
+          "pos": 1,
           "id": "Nngn-pmqThaaIsc3TIkn1w",
           "display_name": "LOGO - OUTLINE",
           "required": true,
@@ -3303,7 +3343,7 @@
         },
         "logoFullDark": {
           "type": "asset",
-          "pos": 1,
+          "pos": 2,
           "id": "387qfYMySOKjpHx_YqE5Vg",
           "display_name": "LOGO - FULL - FOND SOMBRE",
           "required": true,
@@ -3314,7 +3354,7 @@
         },
         "logoFullLight": {
           "type": "asset",
-          "pos": 2,
+          "pos": 3,
           "filetypes": [
             "images"
           ],
@@ -3325,7 +3365,7 @@
         },
         "colorLight": {
           "type": "custom",
-          "pos": 3,
+          "pos": 4,
           "field_type": "native-color-picker",
           "options": [],
           "id": "YJ3SJWnFSoWW9vGdX2FxXQ",
@@ -3334,7 +3374,7 @@
         },
         "colorDark": {
           "type": "custom",
-          "pos": 4,
+          "pos": 5,
           "required": true,
           "display_name": "COULEUR - FOND SOMBRE",
           "field_type": "native-color-picker",
@@ -3351,16 +3391,17 @@
             "colorLight",
             "colorDark",
             "logoFullDark",
-            "logoFullLight"
+            "logoFullLight",
+            "generatePage"
           ],
-          "pos": 5,
+          "pos": 6,
           "type": "tab",
           "name": "tab-0b0bffd8-c9e1-4bbb-a886-813caa0a2db4",
           "id": "Cwv_2MnhS7uohoE8qgottA"
         },
         "metaTitle": {
           "type": "text",
-          "pos": 6,
+          "pos": 7,
           "display_name": "META - TITRE",
           "required": true,
           "max_length": 60,
@@ -3375,14 +3416,14 @@
             "metaTitle",
             "ogDescription"
           ],
-          "pos": 7,
+          "pos": 8,
           "type": "tab",
           "name": "tab-e51a51e8-b02d-4127-8f59-1686a65aca4f",
           "id": "5RpR6LAtQSePWRaGplrKTw"
         },
         "metaDescription": {
           "type": "textarea",
-          "pos": 8,
+          "pos": 9,
           "display_name": "META - DESCRIPTION",
           "required": true,
           "max_length": 160,
@@ -3390,7 +3431,7 @@
         },
         "ogBadge": {
           "type": "text",
-          "pos": 9,
+          "pos": 10,
           "display_name": "OG - BADGE",
           "required": true,
           "max_length": 30,
@@ -3398,7 +3439,7 @@
         },
         "ogTitle": {
           "type": "text",
-          "pos": 10,
+          "pos": 11,
           "display_name": "OG - TITRE",
           "required": true,
           "max_length": 80,
@@ -3406,14 +3447,14 @@
         },
         "ogDescription": {
           "type": "textarea",
-          "pos": 11,
+          "pos": 12,
           "id": "yeShJ4YoTHiRtXopFq-M9A",
           "display_name": "OG - DESCRIPTION",
           "max_length": 150
         },
         "body": {
           "type": "bloks",
-          "pos": 12,
+          "pos": 13,
           "display_name": "BODY",
           "id": "nuDZe6ppTcWW7EleZcqzvA",
           "required": true,
@@ -3656,19 +3697,81 @@
       "display_name": "WORK",
       "description": null,
       "created_at": "2024-12-09T09:31:18.424Z",
-      "updated_at": "2025-04-12T08:45:55.168Z",
+      "updated_at": "2025-04-12T11:15:36.278Z",
       "id": 6665046,
       "schema": {
+        "customer": {
+          "type": "options",
+          "pos": 1,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "CLIENT",
+          "required": true,
+          "filter_content_type": [
+            "customer"
+          ],
+          "min_options": "1",
+          "max_options": "1",
+          "id": "iXu9NgFgSmS-OaMu3FqHvg"
+        },
+        "category": {
+          "type": "options",
+          "pos": 2,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "CATÉGORIE",
+          "required": true,
+          "filter_content_type": [
+            "workCategory"
+          ],
+          "min_options": "1",
+          "id": "olQ7SDW7TcmpDRzlNXWh5w",
+          "max_options": "1"
+        },
+        "services": {
+          "type": "options",
+          "pos": 3,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "SERVICES",
+          "filter_content_type": [],
+          "folder_slug": "audit/,application-mobile/,conseil/,design/,developpement-web,intelligence-artificielle/,site-internet/",
+          "min_options": "1",
+          "max_options": "",
+          "id": "0BkgaRDNSR2OlDxCx1bwjQ",
+          "required": true
+        },
+        "technologies": {
+          "type": "options",
+          "pos": 4,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "TECHNOLOGIES",
+          "required": true,
+          "filter_content_type": [
+            "technology"
+          ],
+          "min_options": "1",
+          "id": "lsk-LUntQ3umbvE4HCu1-Q"
+        },
         "project": {
           "type": "text",
-          "pos": 0,
+          "pos": 5,
           "required": true,
           "display_name": "PROJET",
           "id": "GCMOwOMzTRG7h5W4xehr3A"
         },
         "cover": {
           "type": "asset",
-          "pos": 1,
+          "pos": 6,
           "display_name": "COUVERTURE",
           "required": true,
           "filetypes": [
@@ -3679,7 +3782,7 @@
         },
         "completionYear": {
           "type": "text",
-          "pos": 2,
+          "pos": 7,
           "display_name": "ANNÉE DE RÉALISATION",
           "required": true,
           "regex": "^202[0-9]$",
@@ -3687,9 +3790,9 @@
         },
         "content": {
           "type": "richtext",
-          "pos": 3,
+          "pos": 8,
           "id": "rYHJRm6eSeuEmE7o7-g-yg",
-          "required": true,
+          "required": false,
           "display_name": "CONTENU",
           "customize_toolbar": true,
           "toolbar": [
@@ -3717,69 +3820,8 @@
             "superscript",
             "underline",
             "undo"
-          ]
-        },
-        "customer": {
-          "type": "options",
-          "pos": 4,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "link",
-          "allow_advanced_search": true,
-          "display_name": "CLIENT",
-          "required": true,
-          "filter_content_type": [
-            "customer"
           ],
-          "min_options": "1",
-          "max_options": "1",
-          "id": "iXu9NgFgSmS-OaMu3FqHvg"
-        },
-        "category": {
-          "type": "options",
-          "pos": 5,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "link",
-          "allow_advanced_search": true,
-          "display_name": "CATÉGORIE",
-          "required": true,
-          "filter_content_type": [
-            "workCategory"
-          ],
-          "min_options": "1",
-          "id": "olQ7SDW7TcmpDRzlNXWh5w",
-          "max_options": "1"
-        },
-        "services": {
-          "type": "options",
-          "pos": 6,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "link",
-          "allow_advanced_search": true,
-          "display_name": "SERVICES",
-          "filter_content_type": [],
-          "folder_slug": "audit/,application-mobile/,conseil/,design/,developpement-web,intelligence-artificielle/,site-internet/",
-          "min_options": "1",
-          "max_options": "",
-          "id": "0BkgaRDNSR2OlDxCx1bwjQ",
-          "required": true
-        },
-        "technologies": {
-          "type": "options",
-          "pos": 7,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "link",
-          "allow_advanced_search": true,
-          "display_name": "TECHNOLOGIES",
-          "required": true,
-          "filter_content_type": [
-            "technology"
-          ],
-          "min_options": "1",
-          "id": "lsk-LUntQ3umbvE4HCu1-Q"
+          "description": "Sans contenu, la réalisation sera visible mais pas cliquable et donc pas consultable."
         },
         "tab-3df233bc-78cd-46b3-8d49-c5f30ba5a39d": {
           "display_name": "Config",
@@ -3789,7 +3831,7 @@
             "category",
             "customer"
           ],
-          "pos": 8,
+          "pos": 9,
           "type": "tab",
           "name": "tab-3df233bc-78cd-46b3-8d49-c5f30ba5a39d",
           "id": "PfIzvHjNRrONScXzC6WjnQ"
@@ -3803,14 +3845,14 @@
             "metaTitle",
             "ogDescription"
           ],
-          "pos": 9,
+          "pos": 10,
           "type": "tab",
           "id": "8LbkgkwMTNSkpxYrwjIj6A",
           "name": "tab-f0b6e482-4c0c-4cd4-a4a7-162bc23223e8"
         },
         "metaTitle": {
           "type": "text",
-          "pos": 10,
+          "pos": 11,
           "display_name": "META - TITRE",
           "required": true,
           "max_length": 60,
@@ -3818,7 +3860,7 @@
         },
         "metaDescription": {
           "type": "textarea",
-          "pos": 11,
+          "pos": 12,
           "display_name": "META - DESCRIPTION",
           "required": true,
           "max_length": 160,
@@ -3826,7 +3868,7 @@
         },
         "ogBadge": {
           "type": "text",
-          "pos": 12,
+          "pos": 13,
           "display_name": "OG - BADGE",
           "required": true,
           "max_length": 30,
@@ -3834,7 +3876,7 @@
         },
         "ogTitle": {
           "type": "text",
-          "pos": 13,
+          "pos": 14,
           "display_name": "OG - TITRE",
           "required": true,
           "max_length": 80,
@@ -3842,7 +3884,7 @@
         },
         "ogDescription": {
           "type": "textarea",
-          "pos": 14,
+          "pos": 15,
           "display_name": "OG - DESCRIPTION",
           "max_length": 150,
           "id": "hoPIX0VIScmYiC63DOma9A"
