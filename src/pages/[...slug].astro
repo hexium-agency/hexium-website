@@ -107,9 +107,11 @@ export async function getStaticPaths() {
   const works = await workService.getAllWorks();
 
   for (const work of works) {
-    paths.push({
-      params: { slug: work.full_slug },
-    });
+    if (work.content.content.content?.[0]?.content) {
+      paths.push({
+        params: { slug: work.full_slug },
+      });
+    }
   }
 
   return paths;

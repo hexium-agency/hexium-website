@@ -80,9 +80,15 @@ export async function GET() {
   });
 
   const works = await storyblokService.getAllStories('work').then((works) => {
-    return works.map((work) => {
-      return createSitemapEntry(work);
-    });
+    return works
+      .map((work) => {
+        // @ts-ignore
+        if (!!work.content.content.content?.[0]?.content) {
+          return createSitemapEntry(work);
+        }
+        return null;
+      })
+      .filter((work) => work !== null);
   });
 
   const workCategories = await storyblokService
