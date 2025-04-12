@@ -1,0 +1,21 @@
+---
+import CalIframe from '@/components/cal-iframe.astro';
+import ContactForm from '@/components/contact-form.astro';
+import Tabs from '@/components/tabs.astro';
+---
+
+<Tabs
+  tabs={[
+    { id: 'cal', label: 'Réserver un appel', buttonClassName: 'rounded-tl-lg' },
+    { id: 'contact', label: 'Nous contacter', buttonClassName: 'rounded-tr-lg' },
+  ]}
+  buttonClassName="border-b border-gray-100 border-b-4 w-full data-active:bg-white data-inactive:bg-gray-100 data-active:border-gray-100 data-inactive:border-gray-100 data-inactive:hover:border-gray-100 data-inactive:hover:text-gray-700 data-inactive:text-gray-400 uppercase font-bold"
+  tabContentClassName="mt-0 p-4 rounded-b-lg"
+>
+  <div data-tab-content="contact">
+    <ContactForm light />
+  </div>
+  <div data-tab-content="cal" class="overflow-hidden">
+    <CalIframe />
+  </div>
+</Tabs>
