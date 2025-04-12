@@ -61,6 +61,7 @@ export interface ArticleStoryblok {
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
+  ogDescription?: string;
   component: "article";
   _uid: string;
   [k: string]: any;
@@ -78,10 +79,12 @@ export interface BlogCategoryStoryblok {
     | SectionStoryblok
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
+    | TechnologyHomeStoryblok
     | WorkHomeStoryblok
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | GridStoryblok
+    | ImageStoryblok
     | LatestArticlesStoryblok
     | SpacerStoryblok
   )[];
@@ -89,6 +92,7 @@ export interface BlogCategoryStoryblok {
   metaDescription: string;
   ogBadge: string;
   OgTitle: string;
+  ogDescription?: string;
   component: "blogCategory";
   _uid: string;
   [k: string]: any;
@@ -247,6 +251,8 @@ export interface CardBentoStoryblok {
     | SpacerStoryblok
     | TeamStoryblok
     | TechnologyStoryblok
+    | TechnologyCategoryStoryblok
+    | TechnologyHomeStoryblok
     | TestimonialStoryblok
     | TextStoryblok
     | WorkStoryblok
@@ -341,6 +347,7 @@ export interface DefinitionStoryblok {
   ogTitle: string;
   author: (ISbStoryData<TeamStoryblok> | string)[];
   content: RichtextStoryblok;
+  ogDescription?: string;
   component: "definition";
   _uid: string;
   [k: string]: any;
@@ -514,16 +521,19 @@ export interface PageStoryblok {
     | SectionStoryblok
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
+    | TechnologyHomeStoryblok
     | WorkHomeStoryblok
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | GridStoryblok
+    | ImageStoryblok
     | LatestArticlesStoryblok
     | SpacerStoryblok
   )[];
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
+  ogDescription?: string;
   component: "page";
   _uid: string;
   [k: string]: any;
@@ -534,6 +544,7 @@ export interface SectionStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | GridStoryblok
+    | ImageStoryblok
     | LatestArticlesStoryblok
     | SpacerStoryblok
   )[];
@@ -552,6 +563,7 @@ export interface SectionHorizontalStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | GridStoryblok
+    | ImageStoryblok
     | LatestArticlesStoryblok
     | SpacerStoryblok
   )[];
@@ -559,6 +571,7 @@ export interface SectionHorizontalStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | GridStoryblok
+    | ImageStoryblok
     | LatestArticlesStoryblok
     | SpacerStoryblok
   )[];
@@ -567,6 +580,7 @@ export interface SectionHorizontalStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | GridStoryblok
+    | ImageStoryblok
     | LatestArticlesStoryblok
     | SpacerStoryblok
   )[];
@@ -588,6 +602,7 @@ export interface SectionVerticalStoryblok {
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | GridStoryblok
+    | ImageStoryblok
     | LatestArticlesStoryblok
     | SpacerStoryblok
   )[];
@@ -639,14 +654,28 @@ export interface TechnologyStoryblok {
     | SectionStoryblok
     | SectionHorizontalStoryblok
     | SectionVerticalStoryblok
+    | TechnologyHomeStoryblok
     | WorkHomeStoryblok
     | AccordionGroupStoryblok
     | ButtonGroupStoryblok
     | GridStoryblok
+    | ImageStoryblok
     | LatestArticlesStoryblok
     | SpacerStoryblok
   )[];
   component: "technology";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface TechnologyCategoryStoryblok {
+  component: "technologyCategory";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface TechnologyHomeStoryblok {
+  component: "technologyHome";
   _uid: string;
   [k: string]: any;
 }
@@ -683,6 +712,7 @@ export interface WorkStoryblok {
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
+  ogDescription?: string;
   component: "work";
   _uid: string;
   [k: string]: any;
@@ -694,6 +724,7 @@ export interface WorkCategoryStoryblok {
   metaDescription: string;
   ogBadge: string;
   OgTitle: string;
+  ogDescription?: string;
   component: "workCategory";
   _uid: string;
   [k: string]: any;
