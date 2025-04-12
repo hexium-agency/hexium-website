@@ -107,7 +107,7 @@ export async function getStaticPaths() {
   const works = await workService.getAllWorks();
 
   for (const work of works) {
-    if (work.content.content.content?.[0]?.content) {
+    if (work.content.content?.content?.[0]?.content) {
       paths.push({
         params: { slug: work.full_slug },
       });
@@ -152,6 +152,7 @@ const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
     'article.category',
     'definition.author',
     'featuredTechnologies.technologies',
+    'marqueeLogos.companies',
     'work.category',
     'work.customer',
     'work.services',
