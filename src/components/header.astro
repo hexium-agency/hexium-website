@@ -13,7 +13,10 @@ interface AstroProps {
 <>
   <div class="bg-gray-950 py-2">
     <div class="container text-center">
-      <a href="/contact" class="text-sm text-white transition hover:underline hover:opacity-80">
+      <a
+        href="/contact"
+        class="text-xs text-white transition hover:underline hover:opacity-80 lg:text-sm"
+      >
         Profitez de 20% de réduction sur tous nos développements grâce à notre agrément Crédit Impôt
         Innovation !
       </a>
@@ -40,7 +43,7 @@ interface AstroProps {
             class="h-3 w-auto object-contain opacity-80"
           />
         </a>
-        <nav class="ml-3">
+        <nav class="ml-3 hidden lg:block">
           <a href="/" class="px-3 py-1.5 text-sm font-medium">Agence</a>
           <a href="/" class="px-3 py-1.5 text-sm font-medium">Services</a>
           <a href="/" class="px-3 py-1.5 text-sm font-medium">Technologies</a>
@@ -53,11 +56,23 @@ interface AstroProps {
           data-cal-link="anthony-hexium/etude-de-projet"
           data-cal-namespace="etude-de-projet"
           data-cal-config='{"layout":"month_view"}'
-          class="group before:transtion-opacity relative isolate inline-flex cursor-pointer items-center justify-center rounded-md bg-gray-900 px-3 py-1 text-left text-sm font-medium text-white shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] ring-1 ring-gray-900 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay hover:before:opacity-100"
+          class="group before:transtion-opacity relative isolate hidden cursor-pointer items-center justify-center rounded-md bg-gray-900 px-3 py-1 text-left text-sm font-medium text-white shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] ring-1 ring-gray-900 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay hover:before:opacity-100 lg:inline-flex"
         >
           Prendre rendez-vous
         </button>
         <Button color="blueFull" isLink link="/contact" isArrowShowed={false}>Contact</Button>
+        <button class="ml-1 p-1.5 lg:hidden">
+          <svg
+            class="h-auto w-6 text-gray-700"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+          >
+            <path
+              d="M15.84 8c0 0.3608125 -0.29251875 0.65331875 -0.65333125 0.65333125H0.81333125c-0.50293125 0.000025 -0.8172625 -0.54440625 -0.56581875 -0.979975 0.11670625 -0.20215625 0.3324 -0.3266875 0.56581875 -0.3266875h14.3733375c0.3608125 0.0000125 0.65333125 0.29251875 0.65333125 0.65333125ZM0.81333125 3.42666875h14.3733375c0.50293125 -0.000025 0.817275 -0.54448125 0.5657875 -0.980025 -0.1167125 -0.20213125 -0.3323875 -0.32664375 -0.5657875 -0.32664375H0.81333125c-0.50293125 0 -0.81726875 0.54444375 -0.5658 0.98 0.11670625 0.20214375 0.3323875 0.32666875 0.5658 0.32666875Zm14.3733375 9.1466625H0.81333125c-0.50293125 0 -0.81726875 0.54444375 -0.5658 0.98 0.11670625 0.20214375 0.3323875 0.32666875 0.5658 0.32666875h14.3733375c0.50293125 -0.000025 0.817275 -0.54448125 0.5657875 -0.980025 -0.1167125 -0.202125 -0.3323875 -0.32664375 -0.5657875 -0.32664375Z"
+              stroke-width="0.0625"></path>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
