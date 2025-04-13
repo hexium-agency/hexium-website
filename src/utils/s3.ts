@@ -4,7 +4,7 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 const AWS_REGION = import.meta.env.AWS_REGION;
 const AWS_ACCESS_KEY_ID = import.meta.env.AWS_ACCESS_KEY_ID;
 const AWS_SECRET_ACCESS_KEY = import.meta.env.AWS_SECRET_ACCESS_KEY;
-const S3_BUCKET_NAME = import.meta.env.S3_BUCKET_NAME;
+const S3_BUCKET_NAME = import.meta.env.AWS_S3_BUCKET_NAME;
 
 const s3Client = new S3Client({
   region: AWS_REGION,
