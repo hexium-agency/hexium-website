@@ -18,13 +18,12 @@ export async function getStaticPaths() {
   let paths = [];
   const storyblokApi = useStoryblokApi();
 
-  const stories = await storyblokApi.getAll('cdn/links', {
-    version: import.meta.env.STORYBLOK_ENV,
-  });
+  const stories = await storyblokApi.getAll('cdn/links', {});
 
   // Exclude all stories that are used for data and not supposed to be published
   const filteredStories = stories.filter(
     (story) =>
+      (import.meta.env.STORYBLOK_ENV === 'draft' || story.published) &&
       !story.slug.startsWith('global') &&
       !story.slug.startsWith('blog/') &&
       !story.slug.startsWith('clients/') &&
