@@ -6,16 +6,16 @@ interface Props {
   name: string;
   required?: boolean;
   label: string;
-  labelHidden?: boolean;
+  labelInline?: boolean;
 }
 
-const { id, name, required = false, label, labelHidden = false } = Astro.props;
+const { id, name, required = false, label, labelInline = false } = Astro.props;
 ---
 
 <div>
   <label
     id={`${id}-label`}
-    class={cn('block text-sm/6 font-medium text-gray-950', labelHidden && 'sr-only')}
+    class={cn('block text-sm/6 font-medium text-gray-950', labelInline && 'sr-only')}
   >
     {label}
   </label>
@@ -27,6 +27,8 @@ const { id, name, required = false, label, labelHidden = false } = Astro.props;
       aria-expanded="false"
       aria-labelledby={`${id}-label`}
       data-select-button
+      data-label-inline={labelInline}
+      data-label={label}
     >
       <span class="col-start-1 row-start-1 truncate pr-6" data-select-value></span>
       <svg
@@ -67,12 +69,16 @@ const { id, name, required = false, label, labelHidden = false } = Astro.props;
     private isOpen = false;
     private optionItems: NodeListOf<HTMLLIElement> | null = null;
     private activeIndex = -1;
+    private labelInline: boolean;
+    private label: string;
 
     constructor(container: HTMLElement) {
       this.button = container.querySelector('[data-select-button]')!;
       this.options = container.querySelector('[data-select-options]')!;
       this.select = container.querySelector('[data-select-input]')!;
       this.valueSpan = container.querySelector('[data-select-value]')!;
+      this.labelInline = this.button?.getAttribute('data-label-inline') === 'true';
+      this.label = this.button?.getAttribute('data-label') || '';
 
       this.init();
     }
@@ -206,6 +212,12 @@ const { id, name, required = false, label, labelHidden = false } = Astro.props;
 
     private updateDisplayValue() {
       const selectedOption = this.select.options[this.select.selectedIndex];
+
+      if (this.labelInline) {
+        this.valueSpan.textContent = this.label;
+        return;
+      }
+
       if (selectedOption) {
         this.valueSpan.textContent = selectedOption.textContent;
       }
