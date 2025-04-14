@@ -1,16 +1,24 @@
 ---
+import { cn } from '@/lib/utils';
+
 interface Props {
   id: string;
   name: string;
   required?: boolean;
   label: string;
+  labelHidden?: boolean;
 }
 
-const { id, name, required = false, label } = Astro.props;
+const { id, name, required = false, label, labelHidden = false } = Astro.props;
 ---
 
 <div>
-  <label id={`${id}-label`} class="block text-sm/6 font-medium text-gray-950">{label}</label>
+  <label
+    id={`${id}-label`}
+    class={cn('block text-sm/6 font-medium text-gray-950', labelHidden && 'sr-only')}
+  >
+    {label}
+  </label>
   <div class="relative mt-1">
     <button
       type="button"
