@@ -1,7 +1,7 @@
 ---
 import { cn } from '@/lib/utils';
 import type { CompanyStoryblok, CustomerStoryblok, MarqueeLogosStoryblok } from '@/types/storyblok';
-import { parseStoryblokImage } from '@/utils/storyblok';
+import { parseStoryblokBackgroundColorToTailwind, parseStoryblokImage } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
 import { Image } from 'astro:assets';
@@ -15,7 +15,6 @@ interface Props {
   pauseOnClick?: boolean;
   gradient?: boolean;
   gradientColor?: string;
-  gradientWidth?: number | string;
 }
 
 interface AstroProps {
@@ -33,11 +32,10 @@ const {
   className = '',
   autoFill = false,
   play = true,
-  pauseOnHover = false,
-  pauseOnClick = false,
+  pauseOnHover = blok?.className?.includes('pause-on-hover'),
+  pauseOnClick = blok?.className?.includes('pause-on-click'),
   gradient = true,
-  gradientColor = '#F6F6F7',
-  gradientWidth = 200,
+  gradientColor = parseStoryblokBackgroundColorToTailwind(blok.backgroundColor),
 } = {} as Props;
 
 console.log(companies);
@@ -59,16 +57,15 @@ console.log(companies);
   {
     gradient && (
       <div
-        class="rfm-overlay absolute h-full w-full before:pointer-events-none before:absolute before:top-0 before:right-0 before:z-[2] before:rotate-180 before:touch-none after:pointer-events-none after:absolute after:top-0 after:left-0 after:z-[2] after:touch-none"
+        class="rfm-overlay @ absolute h-full w-full before:pointer-events-none before:absolute before:top-0 before:right-0 before:z-[2] before:w-[20%] before:rotate-180 before:touch-none after:pointer-events-none after:absolute after:top-0 after:left-0 after:z-[2] after:w-[20%] after:touch-none"
         style={`
         --gradient-color: ${gradientColor};
-        --gradient-width: ${typeof gradientWidth === 'number' ? `${gradientWidth}px` : gradientWidth};
       `}
       />
     )
   }
   <div
-    class="rfm-marquee z-[1] flex flex-row items-center"
+    class="rfm-marquee z-[1] flex flex-row"
     style={`
       --play: ${play ? 'running' : 'paused'};
       --direction: normal;
@@ -77,21 +74,23 @@ console.log(companies);
       --min-width: ${autoFill ? 'auto' : '100%'};
     `}
   >
-    <div class="rfm-initial-child-container flex flex-row items-center gap-8">
+    <div class="rfm-initial-child-container flex flex-row">
       {
         companies.map((company) => (
-          <Image
-            sizes="10vw"
-            {...parseStoryblokImage(company.content.logoFull)}
-            class="h-8 w-auto object-contain"
-          />
+          <div class="mx-6 w-[110px]">
+            <Image
+              sizes="10vw"
+              {...parseStoryblokImage(company.content.logoFull)}
+              class="h-8 object-contain"
+            />
+          </div>
         ))
       }
     </div>
   </div>
   <div
     aria-hidden="true"
-    class="rfm-marquee flex items-center gap-x-8"
+    class="rfm-marquee flex items-center"
     style={`
       --play: ${play ? 'running' : 'paused'};
       --direction: normal;
@@ -102,11 +101,13 @@ console.log(companies);
   >
     {
       companies.map((company) => (
-        <Image
-          sizes="10vw"
-          {...parseStoryblokImage(company.content.logoFull)}
-          class="h-8 w-auto object-contain"
-        />
+        <div class="mx-6 w-[110px]">
+          <Image
+            sizes="10vw"
+            {...parseStoryblokImage(company.content.logoFull)}
+            class="h-8 object-contain"
+          />
+        </div>
       ))
     }
   </div>
@@ -178,7 +179,6 @@ console.log(companies);
     background: linear-gradient(to right, var(--gradient-color), rgb(255, 255, 255, 0));
     content: '';
     height: 100%;
-    width: var(--gradient-width);
   }
 
   .rfm-marquee {
@@ -188,9 +188,5 @@ console.log(companies);
     animation-play-state: var(--play);
     animation-delay: var(--delay);
     animation-direction: var(--direction);
-  }
-
-  .rfm-marquee > *:last-child {
-    margin-right: 1.5rem;
   }
 </style>
