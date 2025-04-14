@@ -72,6 +72,19 @@ export function parseStoryblokBackgroundColor(backgroundColor: number | string) 
   }
 }
 
+export function parseStoryblokBackgroundColorToTailwind(backgroundColor: number | string) {
+  switch (backgroundColor) {
+    case 'white':
+      return 'var(--color-gray-50)';
+    case 'gray':
+      return 'var(--color-gray-100)';
+    case 'black':
+      return 'var(--color-gray-950)';
+    default:
+      return 'var(--color-gray-50)';
+  }
+}
+
 export function parseStoryblokImage(image: AssetStoryblok) {
   const dimensions = image.filename?.match(/\/(\d+)x(\d+)\//);
 
