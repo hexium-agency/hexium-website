@@ -1,0 +1,20 @@
+---
+import ButtonBase from '@/components/button.astro';
+import type { ButtonMeetingStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: ButtonMeetingStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<ButtonBase
+  {...storyblokEditable(blok)}
+  isArrowShowed={blok.isArrowShowed}
+  color={blok.style}
+  isMeeting={true}
+>
+  {blok.title}
+</ButtonBase>

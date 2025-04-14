@@ -7,9 +7,17 @@ interface AstroProps {
   isArrowShowed?: boolean;
   link?: string;
   id?: string;
+  isMeeting?: boolean;
 }
 
-const { color = 'blackFull', isLink = true, link, isArrowShowed = true, id } = Astro.props as AstroProps;
+const {
+  color = 'blackFull',
+  isLink = true,
+  link,
+  isArrowShowed = true,
+  id,
+  isMeeting = false,
+} = Astro.props as AstroProps;
 
 const styles = {
   blackFull: 'bg-gray-900 text-white ring-gray-900 ring-1',
@@ -31,6 +39,13 @@ const Tag = isLink ? 'a' : 'button';
   )}
   id={id}
   {...isLink ? { href: link } : { type: 'submit' }}
+  {...isMeeting
+    ? {
+        'data-cal-link': 'anthony-hexium/etude-de-projet',
+        'data-cal-namespace': 'etude-de-projet',
+        'data-cal-config': '{"layout":"month_view"}',
+      }
+    : {}}
 >
   <slot />
   {

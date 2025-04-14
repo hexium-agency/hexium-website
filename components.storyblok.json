@@ -120,11 +120,42 @@
       "component_group_name": "UI"
     },
     {
+      "name": "agencyNote",
+      "display_name": null,
+      "description": "NOTE AGENCE",
+      "created_at": "2025-04-13T15:49:53.901Z",
+      "updated_at": "2025-04-13T15:50:01.503Z",
+      "id": 7212273,
+      "schema": {},
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "agencyNote",
+      "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
+      "color": "#4656ae",
+      "icon": "block-1-2block",
+      "internal_tags_list": [
+        {
+          "id": 53107,
+          "name": "ui"
+        }
+      ],
+      "internal_tag_ids": [
+        "53107"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "UI"
+    },
+    {
       "name": "article",
       "display_name": "ARTICLE",
       "description": null,
       "created_at": "2024-12-08T16:03:31.058Z",
-      "updated_at": "2025-04-12T08:44:15.546Z",
+      "updated_at": "2025-04-14T10:02:51.260Z",
       "id": 6663003,
       "schema": {
         "author": {
@@ -175,7 +206,7 @@
           "pos": 3,
           "display_name": "DESCRIPTION",
           "required": true,
-          "max_length": 115,
+          "max_length": 300,
           "id": "bYT24lvvSuiZIotsFyVrmA"
         },
         "content": {
@@ -530,7 +561,7 @@
       "display_name": "BOUTON - GROUPE",
       "description": null,
       "created_at": "2024-12-05T14:22:29.833Z",
-      "updated_at": "2024-12-09T09:49:15.473Z",
+      "updated_at": "2025-04-14T11:22:41.340Z",
       "id": 6650664,
       "schema": {
         "items": {
@@ -542,8 +573,10 @@
           "restrict_type": "",
           "restrict_components": true,
           "component_whitelist": [
-            "button"
-          ]
+            "button",
+            "buttonMeeting"
+          ],
+          "id": "G-09qeECQ5e3PtBEMhnjtQ"
         }
       },
       "image": null,
@@ -568,6 +601,93 @@
       ],
       "content_type_asset_preview": null,
       "component_group_name": "UI"
+    },
+    {
+      "name": "buttonMeeting",
+      "display_name": "BOUTON - MEETING",
+      "description": null,
+      "created_at": "2025-04-14T11:21:54.305Z",
+      "updated_at": "2025-04-14T11:22:28.473Z",
+      "id": 7215379,
+      "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0,
+          "id": "p_t0LKs3T1yHmBntLTnS-A",
+          "display_name": "TITRE",
+          "required": true
+        },
+        "style": {
+          "type": "option",
+          "pos": 2,
+          "use_uuid": true,
+          "display_name": "STYLE",
+          "required": true,
+          "options": [
+            {
+              "_uid": "155bcd2c-395f-4cc6-afcc-428a50b0164d",
+              "name": "BLACK (FULL)",
+              "value": "blackFull"
+            },
+            {
+              "_uid": "5160e09e-1d8d-48a2-9de1-ae390e6456c7",
+              "value": "blackLink",
+              "name": "BLACK (LINK)"
+            },
+            {
+              "_uid": "91548f12-37af-42bb-84c3-3329627af777",
+              "value": "blueFull",
+              "name": "BLUE (FULL)"
+            },
+            {
+              "_uid": "e3284f26-7297-4356-a53f-6ba2fb993ea6",
+              "value": "grayFull",
+              "name": "GRAY (FULL)"
+            },
+            {
+              "_uid": "fd2cbd62-a4e9-4ddb-9c9d-560646daac3f",
+              "value": "whiteFull",
+              "name": "WHITE (FULL)"
+            },
+            {
+              "_uid": "b647d044-e062-448b-8bb5-cfe4e39895db",
+              "value": "whiteLink",
+              "name": "WHITE (LINK)"
+            }
+          ],
+          "default_value": "blackFull",
+          "id": "8nPth1-JRZmbIQ0JdDCT9Q"
+        },
+        "isArrowShowed": {
+          "type": "boolean",
+          "pos": 3,
+          "display_name": "AFFICHER FLÈCHE",
+          "default_value": true,
+          "id": "Sri4E78HSwCVqqATJ__Ipg"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "BOUTON - MEETING",
+      "component_group_uuid": "1434373d-383c-4e2f-96ee-ed921c348597",
+      "color": "#424d6d",
+      "icon": "block-tag",
+      "internal_tags_list": [
+        {
+          "id": 53106,
+          "name": "orphan"
+        }
+      ],
+      "internal_tag_ids": [
+        "53106"
+      ],
+      "content_type_asset_preview": null,
+      "component_group_name": "ORPHAN"
     },
     {
       "name": "callToAction",
@@ -2823,7 +2943,7 @@
       "display_name": "PAGE",
       "description": null,
       "created_at": "2024-12-05T14:17:41.561Z",
-      "updated_at": "2025-04-12T08:45:16.515Z",
+      "updated_at": "2025-04-14T05:07:25.000Z",
       "id": 6650626,
       "schema": {
         "metaTitle": {
@@ -2842,8 +2962,7 @@
           "component_whitelist": [],
           "component_group_whitelist": [
             "93a7a4d7-21bc-4948-85aa-4e23e114a336",
-            "106bc6ec-816a-497e-bac8-2a812c419ee0",
-            "83d83b65-3eb1-45c3-8681-76b4dd75c360"
+            "106bc6ec-816a-497e-bac8-2a812c419ee0"
           ],
           "display_name": "BODY",
           "minimum": 1,

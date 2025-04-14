@@ -26,6 +26,12 @@ export interface AccordionGroupStoryblok {
   [k: string]: any;
 }
 
+export interface AgencyNoteStoryblok {
+  component: "agencyNote";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface AssetStoryblok {
   alt: string | null;
   copyright?: string | null;
@@ -82,6 +88,7 @@ export interface BlogCategoryStoryblok {
     | TechnologyHomeStoryblok
     | WorkHomeStoryblok
     | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
     | FeaturedWorksStoryblok
@@ -192,8 +199,17 @@ export interface ButtonStoryblok {
 }
 
 export interface ButtonGroupStoryblok {
-  items: ButtonStoryblok[];
+  items: (ButtonStoryblok | ButtonMeetingStoryblok)[];
   component: "buttonGroup";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface ButtonMeetingStoryblok {
+  title: string;
+  style: "" | "blackFull" | "blackLink" | "blueFull" | "grayFull" | "whiteFull" | "whiteLink";
+  isArrowShowed?: boolean;
+  component: "buttonMeeting";
   _uid: string;
   [k: string]: any;
 }
@@ -214,11 +230,13 @@ export interface CardBentoStoryblok {
   illustration?: (
     | AccordionStoryblok
     | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
     | ArticleStoryblok
     | BlogCategoryStoryblok
     | BlogHomeStoryblok
     | ButtonStoryblok
     | ButtonGroupStoryblok
+    | ButtonMeetingStoryblok
     | CallToActionStoryblok
     | CardBentoStoryblok
     | CardIconTitleTextFullStoryblok
@@ -554,15 +572,6 @@ export interface PageStoryblok {
     | SectionVerticalStoryblok
     | TechnologyHomeStoryblok
     | WorkHomeStoryblok
-    | AccordionGroupStoryblok
-    | ButtonGroupStoryblok
-    | ContactWidgetStoryblok
-    | FeaturedWorksStoryblok
-    | GridStoryblok
-    | ImageStoryblok
-    | LatestArticlesStoryblok
-    | MarqueeLogosStoryblok
-    | SpacerStoryblok
   )[];
   metaDescription: string;
   ogBadge: string;
@@ -576,6 +585,7 @@ export interface PageStoryblok {
 export interface SectionStoryblok {
   blocks?: (
     | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
     | FeaturedWorksStoryblok
@@ -598,6 +608,7 @@ export interface SectionHorizontalStoryblok {
   text?: RichtextStoryblok;
   leftItems?: (
     | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
     | FeaturedWorksStoryblok
@@ -609,6 +620,7 @@ export interface SectionHorizontalStoryblok {
   )[];
   rightItems?: (
     | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
     | FeaturedWorksStoryblok
@@ -621,6 +633,7 @@ export interface SectionHorizontalStoryblok {
   revertSide?: boolean;
   bottomItems?: (
     | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
     | FeaturedWorksStoryblok
@@ -646,6 +659,7 @@ export interface SectionVerticalStoryblok {
   text?: RichtextStoryblok;
   blocks?: (
     | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
     | FeaturedWorksStoryblok
@@ -707,6 +721,7 @@ export interface TechnologyStoryblok {
     | TechnologyHomeStoryblok
     | WorkHomeStoryblok
     | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
     | FeaturedWorksStoryblok
