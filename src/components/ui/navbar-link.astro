@@ -10,7 +10,7 @@ const { blok } = Astro.props as AstroProps;
 ---
 
 <div {...storyblokEditable(blok)} class="px-4 lg:p-0">
-  <a href={blok.link.cached_url} class="text-blue-600 flex items-center gap-2"
+  <a href={blok.link.cached_url} class="text-blue-600 flex items-center px-3 text-sm font-medium"
     >{blok.title}
 
     <svg

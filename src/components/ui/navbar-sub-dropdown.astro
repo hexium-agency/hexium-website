@@ -11,7 +11,7 @@ const { blok } = Astro.props as AstroProps;
 ---
 
 <div {...storyblokEditable(blok)} class="navbar-sub-dropdown p-4 bg-gray-50 rounded-md lg:p-0 lg:bg-transparent lg:rounded-none">
-  <div class="navbar-sub-dropdown-title p-4 lg:p-0">{blok.title}</div>
+  <div class="navbar-sub-dropdown-title px-3 py-1.5 text-sm font-medium">{blok.title}</div>
 
   <div class="navbar-sub-dropdown-items lg:hidden hidden flex-col" data-subdropdown-mobile={blok.title}>
     {blok.items.map((item) => <StoryblokComponent blok={item} class="hidden" />)}
