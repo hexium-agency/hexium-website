@@ -14,11 +14,11 @@ const shouldFlexHorizontally = blok.items.every((item) => item.component === 'na
 const subDropdownItems = blok.items.filter((item) => item.component === 'navbarSubDropdown');
 ---
 
-<div {...storyblokEditable(blok)} class="group/dropdown">
+<div {...storyblokEditable(blok)} class="group/dropdown lg:relative">
   <h2 class="dropdown-title p-4 font-bold lg:p-0">{blok.title}</h2>
 
   <div
-    class="dropdown-container lg:group/dropdown:hover:opacity-100 lg:group/dropdown:hover:visible invisible absolute top-0 left-0 z-50 flex h-screen w-full flex-col gap-4 bg-white opacity-0 transition-all duration-200 lg:top-full lg:mt-2 lg:h-auto lg:w-auto lg:flex-row lg:rounded-md lg:shadow-lg"
+    class="dropdown-container invisible absolute top-0 left-0 z-50 flex h-screen w-full flex-col gap-4 bg-white opacity-0 transition-all duration-200 lg:top-full lg:mt-2 lg:h-auto lg:w-auto lg:flex-row lg:rounded-md lg:shadow-lg lg:group-hover/dropdown:opacity-100 lg:group-hover/dropdown:visible"
   >
     <div
       class={`lg:p-8 flex flex-col gap-6 ${shouldFlexHorizontally ? 'lg:flex-row' : 'lg:flex-col'}`}
