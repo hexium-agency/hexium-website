@@ -14,7 +14,7 @@ const { id, name, required = false, label } = Astro.props;
   <div class="relative mt-1">
     <button
       type="button"
-      class="input-field grid w-full cursor-pointer grid-cols-1 rounded-md border-[0.5px] border-gray-300 bg-white py-[3px] pr-2 pl-3 text-left text-sm text-gray-900 shadow hover:bg-white/50"
+      class="input-field grid min-h-[30px] w-full cursor-pointer grid-cols-1 rounded-md border-[0.5px] border-gray-300 bg-white py-[3px] pr-2 pl-3 text-left text-sm text-gray-900 shadow hover:bg-white/50"
       aria-haspopup="listbox"
       aria-expanded="false"
       aria-labelledby={`${id}-label`}
@@ -339,8 +339,9 @@ const { id, name, required = false, label } = Astro.props;
       });
     }
   }
-
-  document.querySelectorAll('[data-select-button]').forEach((select) => {
-    new CustomSelect(select.closest('div')!);
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('[data-select-button]').forEach((select) => {
+      new CustomSelect(select.closest('div')!);
+    });
   });
 </script>
