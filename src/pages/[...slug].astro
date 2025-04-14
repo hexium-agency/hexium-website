@@ -125,7 +125,7 @@ const isPaginatedBlog = /^blog\/page\/\d+$/.test(slug);
 const isPaginatedBlogCategory = /^blog\/([^\/]+)\/page\/\d+$/.test(slug);
 const isPaginatedWork = /^realisations\/page\/\d+$/.test(slug);
 const isPaginatedWorkCategory = /^realisations\/([^\/]+)\/page\/\d+$/.test(slug);
-const isArticle = /^blog\/[^\/]+\/(?!page\/)[^\/]+$/.test(slug);
+const isArticle = /^blog\/(?!page\/)[^\/]+\/[^\/]+$/.test(slug);
 
 let storyPath;
 
