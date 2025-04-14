@@ -9,23 +9,6 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 ---
 
-<div {...storyblokEditable(blok)} class="px-4 lg:p-0">
-  <a href={blok.link.cached_url} class="text-blue-600 flex items-center px-3 text-sm font-medium"
-    >{blok.title}
-
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6 lg:hidden"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      {/* Right arrow */}
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-    </svg>
-  </a>
+<div {...storyblokEditable(blok)}>
+  <a href={blok.link.cached_url} class="flex items-center rounded-lg text-sm navbar-link">{blok.title} </a>
 </div>

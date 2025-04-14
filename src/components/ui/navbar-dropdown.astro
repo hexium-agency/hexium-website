@@ -15,37 +15,51 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
 ---
 
 <div {...storyblokEditable(blok)} class="group/dropdown lg:relative">
-  <h2 class="dropdown-title text-sm font-medium px-3 py-1.5">{blok.title}</h2>
+  <h2 class="dropdown-title flex items-center justify-between px-3 text-sm font-medium lg:py-1.5">
+    <span>{blok.title}</span>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width={1.5}
+      stroke="currentColor"
+      class="size-4 lg:hidden"
+    >
+      <path stroke-linecap="round" stroke-line-join="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+    </svg>
+  </h2>
 
   <div
-    class="dropdown-container invisible absolute top-0 left-0 z-50 flex h-screen w-full flex-col gap-4 bg-white opacity-0 transition-all duration-200 lg:top-full lg:mt-2 lg:h-auto lg:w-auto lg:flex-row lg:rounded-md lg:shadow-lg lg:group-hover/dropdown:opacity-100 lg:group-hover/dropdown:visible"
+    class="dropdown-container bg-gray-25 invisible absolute top-0 left-full z-50 flex h-screen w-full flex-col gap-4 opacity-0 transition-all duration-500 lg:left-0 lg:top-[calc(100%+.5rem)] lg:mt-2 lg:h-auto lg:w-auto lg:flex-row lg:rounded-md lg:shadow-lg lg:group-hover/dropdown:visible lg:group-hover/dropdown:opacity-100"
   >
     <div
-      class={`lg:p-4 flex flex-col gap-4 ${shouldFlexHorizontally ? 'lg:flex-row' : 'lg:flex-col'}`}
+      class={`lg:p-4 flex flex-col gap-4 [&_a]:font-semibold ${shouldFlexHorizontally ? 'lg:flex-row' : 'lg:flex-col'}`}
     >
-      <div class="back-button flex items-center gap-2 border border-gray-200 p-4 lg:hidden">
+      <div class="back-button flex items-center gap-2 lg:hidden">
         {/* TODO: Add left arrow */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
           fill="none"
           viewBox="0 0 24 24"
+          stroke-width="1.5"
           stroke="currentColor"
+          class="size-4"
         >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
         </svg>
-        Back
+
+        Retour
       </div>
       {blok.items.map((link) => <StoryblokComponent blok={link} />)}
     </div>
 
     {
       subDropdownItems.map((item) => (
-        <div class="hidden lg:hidden gap-6 p-4" data-subdropdown={item.title}>
+        <div class="hidden flex-col gap-6 p-4 lg:hidden" data-subdropdown={item.title}>
           {item.items.map((link) => (
             <StoryblokComponent blok={link} />
           ))}
@@ -60,8 +74,8 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
   const dropdownContainers = document.querySelectorAll('.dropdown-container');
   const backButtons = document.querySelectorAll('.back-button');
 
-  const visibleClasses = ['opacity-100', 'visible'];
-  const invisibleClasses = ['opacity-0', 'invisible'];
+  const visibleClasses = ['opacity-100', 'visible', 'left-0'];
+  const invisibleClasses = ['opacity-0', 'invisible', 'left-full'];
 
   // Function to close all dropdowns
   const closeAllDropdowns = () => {

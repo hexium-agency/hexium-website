@@ -71,12 +71,12 @@ const { navbar } = Astro.props as AstroProps;
           />
         </a>
         <nav
-          class="lg:ml-3 w-full group/navbar absolute top-0 left-0 hidden h-screen flex-col items-center justify-center gap-4 overflow-visible bg-white lg:static lg:flex lg:h-auto lg:flex-row lg:bg-transparent lg:p-4"
+          class="lg:ml-3 navbar [&>*>_.navbar-link]:font-medium [&>*>_.navbar-link]:px-3 [&>*>_.navbar-link]:py-1.5 [&>*]:p-4 [&>*]:lg:p-0 [&>*]:font-semibold [&>*]:hover:lg:bg-gray-100 [&>*]:hover:bg-white [&>*]:hover:cursor-pointer [&>*]:rounded-lg [&>*_a]:hover:bg-white w-full group/navbar absolute top-0 left-0 hidden h-screen flex-col items-center justify-center gap-4 overflow-visible lg:static lg:flex lg:h-auto lg:flex-row lg:bg-transparent lg:p-4 bg-gray-50 px-4"
           id="menu"
         >
           {/* close button */}
 
-          <button class="absolute top-0 right-0 lg:hidden" data-target="#menu">
+          <button class="lg:hidden" data-target="#menu">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
