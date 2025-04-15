@@ -1,11 +1,10 @@
 ---
 import { cn } from '@/lib/utils';
-import type { CompanyStoryblok, CustomerStoryblok, MarqueeLogosStoryblok } from '@/types/storyblok';
+import companyService from '@/services/company';
+import type { MarqueeLogosStoryblok } from '@/types/storyblok';
 import { parseStoryblokBackgroundColorToTailwind, parseStoryblokImage } from '@/utils/storyblok';
-import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
 import { Image } from 'astro:assets';
-
 interface Props {
   style?: Record<string, string>;
   className?: string;
@@ -23,11 +22,9 @@ interface AstroProps {
 
 const { blok } = Astro.props as AstroProps;
 
-console.log(blok.logoColors);
+const companiesUuids = blok.companies as string[];
 
-const companies = blok.companies as
-  | ISbStoryData<CompanyStoryblok>[]
-  | ISbStoryData<CustomerStoryblok>[];
+const companies = await companyService.getCompaniesByUuids(companiesUuids);
 
 const {
   style = {},
@@ -41,10 +38,17 @@ const {
 } = {} as Props;
 ---
 
-<div
-  {...storyblokEditable(blok)}
-  class={cn('rfm-marquee-container overflow-x-hidden flex flex-row relative', className)}
-  style={`
+<div {...storyblokEditable(blok)}>
+  {
+    blok.title && (
+      <div class="text-2xs mb-5 text-center font-mono font-bold text-white/50 uppercase">
+        {blok.title}
+      </div>
+    )
+  }
+  <div
+    class={cn('rfm-marquee-container overflow-x-hidden flex flex-row relative', className)}
+    style={`
     --pause-on-hover: ${!play || pauseOnHover ? 'paused' : 'running'};
     --pause-on-click: ${!play || (pauseOnHover && !pauseOnClick) || pauseOnClick ? 'paused' : 'running'};
     --width: 100%;
@@ -53,63 +57,64 @@ const {
       .map(([key, value]) => `${key}: ${value};`)
       .join(' ')}
   `}
->
-  {
-    gradient && (
-      <div
-        class="rfm-overlay @ absolute h-full w-full before:pointer-events-none before:absolute before:top-0 before:right-0 before:z-[2] before:w-[20%] before:rotate-180 before:touch-none after:pointer-events-none after:absolute after:top-0 after:left-0 after:z-[2] after:w-[20%] after:touch-none"
-        style={`
+  >
+    {
+      gradient && (
+        <div
+          class="rfm-overlay @ absolute h-full w-full before:pointer-events-none before:absolute before:top-0 before:right-0 before:z-[2] before:w-[20%] before:rotate-180 before:touch-none after:pointer-events-none after:absolute after:top-0 after:left-0 after:z-[2] after:w-[20%] after:touch-none"
+          style={`
         --gradient-color: ${gradientColor};
       `}
-      />
-    )
-  }
-  <div
-    class="rfm-marquee z-[1] flex flex-row"
-    style={`
+        />
+      )
+    }
+    <div
+      class="rfm-marquee z-[1] flex flex-row"
+      style={`
       --play: ${play ? 'running' : 'paused'};
       --direction: normal;
       --delay: 0s;
       --iteration-count: infinite;
       --min-width: ${autoFill ? 'auto' : '100%'};
     `}
-  >
-    <div class="rfm-initial-child-container flex flex-row">
+    >
+      <div class="rfm-initial-child-container flex flex-row">
+        {
+          companies.map((company) => (
+            <div class="mx-6 w-[110px]">
+              <Image
+                sizes="10vw"
+                {...parseStoryblokImage(company.content[blok.logoColors])}
+                class="h-8 object-contain opacity-50"
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="rfm-marquee flex items-center"
+      style={`
+      --play: ${play ? 'running' : 'paused'};
+      --direction: normal;
+      --delay: 0s;
+      --iteration-count: infinite;
+      --min-width: ${autoFill ? 'auto' : '100%'};
+    `}
+    >
       {
         companies.map((company) => (
           <div class="mx-6 w-[110px]">
             <Image
               sizes="10vw"
               {...parseStoryblokImage(company.content[blok.logoColors])}
-              class="h-8 object-contain"
+              class="h-8 object-contain opacity-50"
             />
           </div>
         ))
       }
     </div>
-  </div>
-  <div
-    aria-hidden="true"
-    class="rfm-marquee flex items-center"
-    style={`
-      --play: ${play ? 'running' : 'paused'};
-      --direction: normal;
-      --delay: 0s;
-      --iteration-count: infinite;
-      --min-width: ${autoFill ? 'auto' : '100%'};
-    `}
-  >
-    {
-      companies.map((company) => (
-        <div class="mx-6 w-[110px]">
-          <Image
-            sizes="10vw"
-            {...parseStoryblokImage(company.content[blok.logoColors])}
-            class="h-8 object-contain"
-          />
-        </div>
-      ))
-    }
   </div>
 </div>
 
