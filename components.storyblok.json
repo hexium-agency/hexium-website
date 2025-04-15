@@ -694,7 +694,7 @@
       "display_name": "CALL TO ACTION",
       "description": null,
       "created_at": "2024-12-05T14:20:35.927Z",
-      "updated_at": "2025-03-22T15:09:51.842Z",
+      "updated_at": "2025-04-14T11:27:25.958Z",
       "id": 6650651,
       "schema": {
         "badge": {
@@ -729,7 +729,8 @@
           "restrict_type": "",
           "restrict_components": true,
           "component_whitelist": [
-            "button"
+            "button",
+            "buttonMeeting"
           ],
           "display_name": "BOUTONS",
           "id": "LBY_GgFETNWUZegNnZR43Q",
@@ -1289,7 +1290,7 @@
       "display_name": "ENTREPRISE",
       "description": "",
       "created_at": "2025-04-04T15:30:32.608Z",
-      "updated_at": "2025-04-12T12:07:10.863Z",
+      "updated_at": "2025-04-15T07:25:44.841Z",
       "id": 7171162,
       "schema": {
         "name": {
@@ -1309,7 +1310,7 @@
           ],
           "asset_folder_id": 792934,
           "id": "LE4maAr7RKa4MKBnc0Di2w",
-          "description": "LOGO - FULL et LOGO - BLANC doivent être similaires en dimensions"
+          "description": ""
         },
         "logoWhite": {
           "type": "asset",
@@ -1321,7 +1322,19 @@
             "images"
           ],
           "asset_folder_id": 792934,
-          "description": "LOGO - BLANC et LOGO - FULL doivent être similaires en dimensions"
+          "description": ""
+        },
+        "logoBlack": {
+          "type": "asset",
+          "pos": 3,
+          "required": true,
+          "description": "",
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 792934,
+          "id": "4IWWnXdSR7OLiiz1jBYySg",
+          "display_name": "LOGO - NOIR"
         }
       },
       "image": null,
@@ -2359,7 +2372,7 @@
       "display_name": "HERO - HORIZONTAL",
       "description": "",
       "created_at": "2025-03-05T14:32:38.496Z",
-      "updated_at": "2025-03-22T11:39:21.908Z",
+      "updated_at": "2025-04-15T12:10:19.301Z",
       "id": 7046807,
       "schema": {
         "badge": {
@@ -2377,6 +2390,15 @@
           "pos": 0,
           "type": "tab",
           "id": "pvTXp6gmT821Xv0OHHcBmA"
+        },
+        "tab-e3cf1710-00d1-4ca7-b614-7f190353463a": {
+          "display_name": "Bas",
+          "keys": [
+            "bottomItems"
+          ],
+          "pos": 0,
+          "type": "tab",
+          "id": "488XEADRTKe2FH8ZA1NGOg"
         },
         "title": {
           "type": "text",
@@ -2415,6 +2437,13 @@
           "component_whitelist": [
             "highlightWords"
           ]
+        },
+        "bottomItems": {
+          "type": "bloks",
+          "pos": 7,
+          "id": "fU3bgQ41QXa4-GJ83jLmIA",
+          "display_name": "ITEMS - BAS",
+          "required": false
         }
       },
       "image": null,

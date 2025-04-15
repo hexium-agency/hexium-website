@@ -218,7 +218,7 @@ export interface CallToActionStoryblok {
   badge: string;
   title: string;
   content: string;
-  buttons: ButtonStoryblok[];
+  buttons: (ButtonStoryblok | ButtonMeetingStoryblok)[];
   component: "callToAction";
   _uid: string;
   [k: string]: any;
@@ -345,6 +345,7 @@ export interface CompanyStoryblok {
   name: string;
   logoFull: AssetStoryblok;
   logoWhite: AssetStoryblok;
+  logoBlack: AssetStoryblok;
   component: "company";
   _uid: string;
   [k: string]: any;
@@ -479,6 +480,62 @@ export interface HeroHorizontalStoryblok {
   text: string;
   buttons?: ButtonStoryblok[];
   effects?: HighlightWordsStoryblok[];
+  bottomItems?: (
+    | AccordionStoryblok
+    | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | BlogHomeStoryblok
+    | ButtonStoryblok
+    | ButtonGroupStoryblok
+    | ButtonMeetingStoryblok
+    | CallToActionStoryblok
+    | CardBentoStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
+    | CardImageTitleTextStoryblok
+    | CodeBlockStoryblok
+    | CompanyStoryblok
+    | ContactHomeStoryblok
+    | ContactWidgetStoryblok
+    | CustomerStoryblok
+    | DefinitionStoryblok
+    | DefinitionHomeStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedWorksStoryblok
+    | FooterAgencyStoryblok
+    | FooterLinkStoryblok
+    | FooterLinkGroupStoryblok
+    | GlobalStoryblok
+    | GridStoryblok
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | HighlightWordsStoryblok
+    | ImageStoryblok
+    | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
+    | NavbarColumnStoryblok
+    | NavbarDropdownStoryblok
+    | NavbarLinkStoryblok
+    | NavbarSubDropdownStoryblok
+    | PageStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | SpacerStoryblok
+    | TeamStoryblok
+    | TechnologyStoryblok
+    | TechnologyCategoryStoryblok
+    | TechnologyHomeStoryblok
+    | TestimonialStoryblok
+    | TextStoryblok
+    | WorkStoryblok
+    | WorkCategoryStoryblok
+    | WorkHomeStoryblok
+  )[];
   component: "heroHorizontal";
   _uid: string;
   [k: string]: any;
