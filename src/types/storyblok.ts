@@ -478,7 +478,7 @@ export interface HeroHorizontalStoryblok {
   badge?: string;
   title: string;
   text: string;
-  buttons?: ButtonStoryblok[];
+  buttons?: (ButtonStoryblok | ButtonMeetingStoryblok)[];
   effects?: HighlightWordsStoryblok[];
   bottomItems?: (SpacerStoryblok | MarqueeLogosStoryblok)[];
   component: "heroHorizontal";
