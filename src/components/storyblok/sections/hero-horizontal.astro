@@ -10,8 +10,6 @@ interface AstroProps {
 
 const { blok } = Astro.props as AstroProps;
 
-console.log(blok.bottomItems);
-
 const Title = blok.badge ? 'h2' : 'h1';
 
 function transformTitle(title: string, color: string) {
@@ -61,7 +59,7 @@ const transformedTitle = highlightWordsEffect
       <HeroDotsLogoJavascript />
     </div>
   </div>
-  <div>
+  <div class="container">
     {blok.bottomItems?.map((item) => <StoryblokComponent blok={item} />)}
   </div>
 </section>
