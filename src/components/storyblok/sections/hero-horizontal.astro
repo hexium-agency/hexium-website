@@ -1,14 +1,16 @@
 ---
 import HeroDotsLogoJavascript from '@/components/effects/dots-logo/hero-dots-logo-javascript.astro';
-import type { HeroVerticalStoryblok } from '@/types/storyblok';
+import type { HeroHorizontalStoryblok } from '@/types/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 
 interface AstroProps {
-  blok: HeroVerticalStoryblok;
+  blok: HeroHorizontalStoryblok;
 }
 
 const { blok } = Astro.props as AstroProps;
+
+console.log(blok.bottomItems);
 
 const Title = blok.badge ? 'h2' : 'h1';
 
@@ -58,5 +60,8 @@ const transformedTitle = highlightWordsEffect
     <div>
       <HeroDotsLogoJavascript />
     </div>
+  </div>
+  <div>
+    {blok.bottomItems?.map((item) => <StoryblokComponent blok={item} />)}
   </div>
 </section>
