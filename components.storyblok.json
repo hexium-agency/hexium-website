@@ -2372,7 +2372,7 @@
       "display_name": "HERO - HORIZONTAL",
       "description": "",
       "created_at": "2025-03-05T14:32:38.496Z",
-      "updated_at": "2025-04-15T12:10:19.301Z",
+      "updated_at": "2025-04-15T12:12:55.086Z",
       "id": 7046807,
       "schema": {
         "badge": {
@@ -2443,7 +2443,13 @@
           "pos": 7,
           "id": "fU3bgQ41QXa4-GJ83jLmIA",
           "display_name": "ITEMS - BAS",
-          "required": false
+          "required": false,
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "spacer",
+            "marqueeLogos"
+          ]
         }
       },
       "image": null,
