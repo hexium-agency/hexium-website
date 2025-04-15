@@ -517,8 +517,9 @@ export interface LatestArticlesStoryblok {
 }
 
 export interface MarqueeLogosStoryblok {
+  title?: string;
   backgroundColor: number | string;
-  logoColors: "" | "original" | "white" | "dark";
+  logoColors: "" | "logoFull" | "logoWhite" | "logoBlack";
   companies: (ISbStoryData<CompanyStoryblok> | ISbStoryData<CustomerStoryblok> | string)[];
   component: "marqueeLogos";
   _uid: string;

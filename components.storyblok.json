@@ -2674,12 +2674,18 @@
       "display_name": "MARQUEE - LOGOS",
       "description": "",
       "created_at": "2025-04-12T12:00:05.550Z",
-      "updated_at": "2025-04-12T13:11:49.207Z",
+      "updated_at": "2025-04-15T12:45:29.472Z",
       "id": 7211231,
       "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0,
+          "display_name": "TITRE",
+          "id": "1tnHHGGpRDaZfuSlI5iP4g"
+        },
         "backgroundColor": {
           "type": "option",
-          "pos": 0,
+          "pos": 1,
           "use_uuid": true,
           "display_name": "COULEUR DE FOND",
           "required": true,
@@ -2689,7 +2695,7 @@
         },
         "logoColors": {
           "type": "option",
-          "pos": 1,
+          "pos": 2,
           "use_uuid": true,
           "display_name": "COULEUR DES LOGOS",
           "required": true,
@@ -2697,25 +2703,25 @@
             {
               "_uid": "5e1966a3-43ee-4b66-a739-fa502e1bb14c",
               "name": "ORIGINAL",
-              "value": "original"
+              "value": "logoFull"
             },
             {
               "_uid": "b4c9f186-5a96-42c2-adb1-8fc0aefa2bc0",
-              "value": "white",
+              "value": "logoWhite",
               "name": "BLANC"
             },
             {
               "_uid": "c6a01ae9-b239-4db5-9362-e172d9280910",
-              "value": "dark",
+              "value": "logoBlack",
               "name": "NOIR"
             }
           ],
-          "default_value": "white",
+          "default_value": "logoFull",
           "id": "lbRXNswzQNefqEQhkrQpsw"
         },
         "companies": {
           "type": "options",
-          "pos": 2,
+          "pos": 3,
           "is_reference_type": true,
           "source": "internal_stories",
           "entry_appearance": "link",
