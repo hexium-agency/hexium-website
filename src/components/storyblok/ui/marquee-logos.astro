@@ -23,6 +23,8 @@ interface AstroProps {
 
 const { blok } = Astro.props as AstroProps;
 
+console.log(blok.logoColors);
+
 const companies = blok.companies as
   | ISbStoryData<CompanyStoryblok>[]
   | ISbStoryData<CustomerStoryblok>[];
@@ -78,7 +80,7 @@ const {
           <div class="mx-6 w-[110px]">
             <Image
               sizes="10vw"
-              {...parseStoryblokImage(company.content.logoFull)}
+              {...parseStoryblokImage(company.content[blok.logoColors])}
               class="h-8 object-contain"
             />
           </div>
@@ -102,7 +104,7 @@ const {
         <div class="mx-6 w-[110px]">
           <Image
             sizes="10vw"
-            {...parseStoryblokImage(company.content.logoFull)}
+            {...parseStoryblokImage(company.content[blok.logoColors])}
             class="h-8 object-contain"
           />
         </div>
