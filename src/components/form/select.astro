@@ -1,24 +1,34 @@
 ---
+import { cn } from '@/lib/utils';
+
 interface Props {
   id: string;
   name: string;
   required?: boolean;
   label: string;
+  labelInline?: boolean;
 }
 
-const { id, name, required = false, label } = Astro.props;
+const { id, name, required = false, label, labelInline = false } = Astro.props;
 ---
 
 <div>
-  <label id={`${id}-label`} class="block text-sm/6 font-medium text-gray-950">{label}</label>
+  <label
+    id={`${id}-label`}
+    class={cn('block text-sm/6 font-medium text-gray-950', labelInline && 'sr-only')}
+  >
+    {label}
+  </label>
   <div class="relative mt-1">
     <button
       type="button"
-      class="input-field grid w-full cursor-pointer grid-cols-1 rounded-md border-[0.5px] border-gray-300 bg-white py-[3px] pr-2 pl-3 text-left text-sm text-gray-900 shadow hover:bg-white/50"
+      class="input-field grid min-h-[30px] w-full cursor-pointer grid-cols-1 rounded-md border-[0.5px] border-gray-300 bg-white py-[3px] pr-2 pl-3 text-left text-sm text-gray-900 shadow hover:bg-white/50"
       aria-haspopup="listbox"
       aria-expanded="false"
       aria-labelledby={`${id}-label`}
       data-select-button
+      data-label-inline={labelInline}
+      data-label={label}
     >
       <span class="col-start-1 row-start-1 truncate pr-6" data-select-value></span>
       <svg
@@ -59,12 +69,16 @@ const { id, name, required = false, label } = Astro.props;
     private isOpen = false;
     private optionItems: NodeListOf<HTMLLIElement> | null = null;
     private activeIndex = -1;
+    private labelInline: boolean;
+    private label: string;
 
     constructor(container: HTMLElement) {
       this.button = container.querySelector('[data-select-button]')!;
       this.options = container.querySelector('[data-select-options]')!;
       this.select = container.querySelector('[data-select-input]')!;
       this.valueSpan = container.querySelector('[data-select-value]')!;
+      this.labelInline = this.button?.getAttribute('data-label-inline') === 'true';
+      this.label = this.button?.getAttribute('data-label') || '';
 
       this.init();
     }
@@ -198,6 +212,12 @@ const { id, name, required = false, label } = Astro.props;
 
     private updateDisplayValue() {
       const selectedOption = this.select.options[this.select.selectedIndex];
+
+      if (this.labelInline) {
+        this.valueSpan.textContent = this.label;
+        return;
+      }
+
       if (selectedOption) {
         this.valueSpan.textContent = selectedOption.textContent;
       }
@@ -339,8 +359,9 @@ const { id, name, required = false, label } = Astro.props;
       });
     }
   }
-
-  document.querySelectorAll('[data-select-button]').forEach((select) => {
-    new CustomSelect(select.closest('div')!);
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('[data-select-button]').forEach((select) => {
+      new CustomSelect(select.closest('div')!);
+    });
   });
 </script>

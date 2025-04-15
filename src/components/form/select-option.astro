@@ -1,10 +1,13 @@
 ---
+import { cn } from '@/lib/utils';
+
 interface Props {
   value: string;
   selected?: boolean;
+  className?: string;
 }
 
-const { value, selected = false } = Astro.props;
+const { value, selected = false, className } = Astro.props;
 ---
 
 <li
@@ -14,7 +17,13 @@ const { value, selected = false } = Astro.props;
   aria-selected={selected}
   tabindex="-1"
 >
-  <span class:list={['block truncate pr-9 pl-6 py-1 rounded-md', selected ? 'font-semibold' : 'font-normal']}>
+  <span
+    class={cn(
+      'block truncate rounded-md py-1 pr-9 pl-2',
+      selected ? 'font-semibold' : 'font-normal',
+      className
+    )}
+  >
     <slot />
   </span>
 
