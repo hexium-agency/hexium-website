@@ -10,10 +10,32 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 ---
 
-<div {...storyblokEditable(blok)} class="navbar-sub-dropdown p-4 bg-gray-50 hover:bg-white rounded-lg lg:p-0 lg:bg-transparent">
-  <div class="navbar-sub-dropdown-title px-3 py-1.5 text-sm font-medium">{blok.title}</div>
+<div
+  {...storyblokEditable(blok)}
+  class="navbar-sub-dropdown rounded-lg bg-gray-100 p-4 hover:bg-white lg:bg-transparent lg:p-0"
+>
+  <div
+    class="navbar-sub-dropdown-title flex items-center justify-between text-sm font-medium lg:px-3 lg:py-1.5"
+  >
+    <span class="transition-all duration-300 ease-in-out">{blok.title}</span>
+    <svg
+      data-slot="icon"
+      fill="none"
+      stroke-width="1.5"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      class="navbar-sub-dropdown-chevron pointer-events-none size-5 transition-all duration-300 ease-in-out lg:hidden"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+    </svg>
+  </div>
 
-  <div class="navbar-sub-dropdown-items lg:hidden hidden flex-col" data-subdropdown-mobile={blok.title}>
+  <div
+    class="navbar-sub-dropdown-items hidden flex-col lg:hidden"
+    data-subdropdown-mobile={blok.title}
+  >
     {blok.items.map((item) => <StoryblokComponent blok={item} class="hidden" />)}
   </div>
 </div>
@@ -23,6 +45,8 @@ const { blok } = Astro.props as AstroProps;
   document.addEventListener('DOMContentLoaded', () => {
     const firstDropdown = document.querySelector('[data-subdropdown]');
     const firstDropdownMobile = document.querySelector('[data-subdropdown-mobile]');
+    const firstChevron = document.querySelector('.navbar-sub-dropdown-chevron');
+    const firstTitleSpan = document.querySelector('.navbar-sub-dropdown-title span');
 
     if (firstDropdown) {
       firstDropdown.classList.remove('lg:hidden');
@@ -33,26 +57,47 @@ const { blok } = Astro.props as AstroProps;
       firstDropdownMobile.classList.remove('hidden');
       firstDropdownMobile.classList.add('flex');
     }
+
+    if (firstChevron) {
+      firstChevron.classList.add('rotate-180');
+    }
+
+    if (firstTitleSpan) {
+      firstTitleSpan.classList.add('text-blue-600', 'font-bold');
+    }
   });
 
-  document.querySelectorAll('.navbar-sub-dropdown-title').forEach(title => {
-    const titleText = title.textContent;
+  document.querySelectorAll('.navbar-sub-dropdown-title').forEach((title) => {
+    const titleText = title?.querySelector('span')?.textContent || '';
 
     title.addEventListener('click', () => {
-      // First, hide all dropdown items
-      document.querySelectorAll(`[data-subdropdown]`).forEach(items => {
+      // First, hide all dropdown items and reset chevrons
+      document.querySelectorAll(`[data-subdropdown]`).forEach((items) => {
         items.classList.add('lg:hidden');
         items.classList.remove('lg:flex');
       });
 
-      document.querySelectorAll('[data-subdropdown-mobile]').forEach(items => {
+      document.querySelectorAll('[data-subdropdown-mobile]').forEach((items) => {
         items.classList.add('hidden');
         items.classList.remove('flex');
       });
 
-      // Then show only the clicked dropdown's items
+      // Reset all chevrons and titles
+      document.querySelectorAll('.navbar-sub-dropdown-chevron').forEach((chevron) => {
+        chevron.classList.remove('rotate-180', 'text-blue-600');
+      });
+
+      document.querySelectorAll('.navbar-sub-dropdown-title span').forEach((span) => {
+        span.classList.remove('text-blue-600', 'font-bold');
+      });
+
+      // Then show only the clicked dropdown's items and update its chevron
       const dropdownItems = document.querySelector(`[data-subdropdown="${titleText}"]`);
-      const dropdownItemsMobile = document.querySelector(`[data-subdropdown-mobile="${titleText}"]`);
+      const dropdownItemsMobile = document.querySelector(
+        `[data-subdropdown-mobile="${titleText}"]`
+      );
+      const chevron = title.querySelector('.navbar-sub-dropdown-chevron');
+      const titleSpan = title.querySelector('span');
 
       if (dropdownItems) {
         dropdownItems.classList.remove('lg:hidden');
@@ -62,6 +107,15 @@ const { blok } = Astro.props as AstroProps;
       if (dropdownItemsMobile) {
         dropdownItemsMobile.classList.remove('hidden');
         dropdownItemsMobile.classList.add('flex');
+      }
+
+      if (chevron) {
+        chevron.classList.toggle('rotate-180');
+      }
+
+      if (titleSpan) {
+        titleSpan.classList.toggle('text-blue-600');
+        titleSpan.classList.toggle('font-bold');
       }
     });
   });

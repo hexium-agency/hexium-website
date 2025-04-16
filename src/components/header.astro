@@ -26,7 +26,7 @@ const { navbar } = Astro.props as AstroProps;
     </div>
   </div>
   <header class="sticky top-0 z-50 flex h-[60px] items-center border-b border-gray-100 bg-gray-50">
-    <div class="container flex items-center justify-between flex-row-reverse">
+    <div class="!static container flex flex-row-reverse items-center justify-between">
       <div class="flex items-center gap-2">
         <button
           data-cal-link="anthony-hexium/etude-de-projet"
@@ -71,26 +71,57 @@ const { navbar } = Astro.props as AstroProps;
           />
         </a>
         <nav
-          class="lg:ml-3 navbar [&>*>_.navbar-link]:font-medium [&>*>_.navbar-link]:px-3 [&>*>_.navbar-link]:py-1.5 [&>*]:p-4 [&>*]:lg:p-0 [&>*]:font-semibold [&>*]:hover:lg:bg-gray-100 [&>*]:hover:bg-white [&>*]:hover:cursor-pointer [&>*]:rounded-lg [&>*_a]:hover:bg-white w-full group/navbar absolute top-0 left-0 hidden h-screen flex-col items-center justify-center gap-4 overflow-visible lg:static lg:flex lg:h-auto lg:flex-row lg:bg-transparent lg:p-4 bg-gray-50 px-4"
+          class="navbar group/navbar absolute top-0 left-0 hidden h-screen w-full flex-col items-center justify-center gap-4 overflow-visible bg-gray-50 pt-[68px] lg:static lg:ml-3 lg:flex lg:h-auto lg:flex-row lg:bg-transparent lg:p-4 [&>*]:rounded-lg [&>*]:font-semibold [&>*]:hover:cursor-pointer [&>*]:hover:bg-white [&>*]:lg:p-0 [&>*]:hover:lg:bg-gray-100 [&>*_a]:hover:bg-white [&>*>_.navbar-link]:px-3 [&>*>_.navbar-link]:py-1.5 [&>*>_.navbar-link]:font-medium"
           id="menu"
         >
           {/* close button */}
+          <div
+            class="!absolute top-0 right-0 left-0 z-[9999] container flex h-[60px] items-center justify-between !rounded-none border-b border-gray-200 bg-gray-50 lg:hidden"
+          >
+            <div class="-ml-2 p-1.5">
+              <div
+                class="back-button invisible cursor-pointer rounded-full border border-gray-200 p-1.5"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+                </svg>
+                <span class="sr-only">Retour</span>
+              </div>
+            </div>
 
-          <button class="lg:hidden" data-target="#menu">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
+            <div class="dropdown-title"></div>
+
+            <div class="-mr-2 p-1.5">
+              <button
+                class="cursor-pointer rounded-full border border-gray-200 p-1.5"
+                data-target="#menu"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="size-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
 
           {navbar.map((item) => <StoryblokComponent blok={item} />)}
         </nav>
