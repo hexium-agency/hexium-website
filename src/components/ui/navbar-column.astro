@@ -10,8 +10,8 @@ const { blok } = Astro.props as AstroProps;
 ---
 
 <div {...storyblokEditable(blok)}>
-  <h2 class="py-1.5 text-xs font-light text-gray-600 uppercase lg:px-3">{blok.title}</h2>
-  <div class="flex flex-col gap-2">
+  <h2 class="px-3 py-1.5 text-xs font-light text-gray-600 uppercase">{blok.title}</h2>
+  <div class="flex flex-col lg:gap-2">
     {blok.links.map((link) => <StoryblokComponent blok={link} />)}
   </div>
 </div>
