@@ -96,6 +96,7 @@ export default defineConfig({
     '/services/creation-site-internet': '/site-internet',
     '/services/developpement-mobile': '/developpement-mobile',
     '/services/developpement-web': '/developpement-web',
+    '/technologies/adonijs': '/',
     '/technologies/nestjs': '/technologies/nest-js',
     '/technologies/nextjs': '/technologies/next-js',
     '/technologies/nodejs': '/technologies/node-js',
