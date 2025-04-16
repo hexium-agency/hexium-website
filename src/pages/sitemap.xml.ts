@@ -2,10 +2,13 @@ import { type ISbStoryData } from '@storyblok/astro';
 import storyblokService from '@/services/storyblok';
 import blogService from '@/services/blog';
 import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
+
 interface SitemapEntry {
   loc: string;
   lastmod: string;
 }
+
+export const prerender = true;
 
 function createSitemapEntry(story: ISbStoryData<unknown>): SitemapEntry {
   return {
