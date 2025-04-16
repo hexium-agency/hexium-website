@@ -12,12 +12,12 @@ const { blok } = Astro.props as AstroProps;
 
 <div
   {...storyblokEditable(blok)}
-  class="navbar-sub-dropdown mx-3 rounded-lg bg-gray-100 hover:bg-white lg:mx-0 lg:bg-transparent lg:p-4"
+  class="navbar-sub-dropdown mx-3 rounded-lg bg-gray-100 hover:bg-white lg:mx-0 lg:bg-transparent lg:p-0"
 >
   <div
     class="navbar-sub-dropdown-title flex items-center justify-between px-3 py-1.5 text-sm font-medium"
   >
-    <span class="transition-all duration-300 ease-in-out">{blok.title}</span>
+    <span class="transition-all duration-300 ease-in-out lg:transition-none">{blok.title}</span>
     <svg
       data-slot="icon"
       fill="none"
@@ -29,6 +29,17 @@ const { blok } = Astro.props as AstroProps;
       class="navbar-sub-dropdown-chevron pointer-events-none size-5 transition-all duration-300 ease-in-out lg:hidden"
     >
       <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+    </svg>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width={1.5}
+      stroke="currentColor"
+      class="pointer-events-none ml-4 hidden size-4 lg:block"
+    >
+      <path stroke-linecap="round" stroke-line-join="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
     </svg>
   </div>
 
