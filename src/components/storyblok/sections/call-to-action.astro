@@ -3,6 +3,8 @@ import type { CallToActionStoryblok } from '@/types/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 
+import { OmbreSatin1 } from '@ombre-ui/svelte';
+
 interface AstroProps {
   blok: CallToActionStoryblok;
 }
@@ -13,6 +15,15 @@ const { blok } = Astro.props as AstroProps;
 <section {...storyblokEditable(blok)} class="relative py-10 md:py-20">
   <div class="container">
     <div class="relative overflow-hidden rounded-3xl bg-gray-950 px-6 py-24 shadow-2xl md:px-10">
+      <OmbreSatin1
+        client:load
+        class="absolute inset-0"
+        speed={0.5}
+        brightness={1.5}
+        contrast={1}
+        colorA={'#131316'}
+        colorB={'#131316'}
+      />
       <div class="relative z-10 mx-auto max-w-lg text-white">
         <h2 class="text-center font-mono text-xs leading-none font-medium text-gray-200 uppercase">
           {blok.badge}
