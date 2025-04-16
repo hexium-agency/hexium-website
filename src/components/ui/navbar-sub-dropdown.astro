@@ -12,10 +12,10 @@ const { blok } = Astro.props as AstroProps;
 
 <div
   {...storyblokEditable(blok)}
-  class="navbar-sub-dropdown mx-3 rounded-lg bg-gray-100 hover:bg-white lg:mx-0 lg:bg-transparent lg:p-0"
+  class="navbar-sub-dropdown mx-3 rounded-lg bg-transparent lg:mx-0 lg:p-0 lg:hover:bg-white"
 >
   <div
-    class="navbar-sub-dropdown-title flex items-center justify-between px-3 py-1.5 text-sm font-medium"
+    class="navbar-sub-dropdown-title flex min-w-[150px] items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium"
   >
     <span class="transition-all duration-300 ease-in-out lg:transition-none">{blok.title}</span>
     <svg
@@ -44,7 +44,7 @@ const { blok } = Astro.props as AstroProps;
   </div>
 
   <div
-    class="navbar-sub-dropdown-items hidden flex-col lg:hidden"
+    class="navbar-sub-dropdown-items hidden flex-col overflow-hidden transition-all duration-300 ease-in-out lg:hidden"
     data-subdropdown-mobile={blok.title}
   >
     {blok.items.map((item) => <StoryblokComponent blok={item} class="hidden" />)}
@@ -52,10 +52,10 @@ const { blok } = Astro.props as AstroProps;
 </div>
 
 <script>
-  // Show the first dropdown by default when the DOM is loaded
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
+    // Show the first dropdown by default when the DOM is loaded
     const firstDropdown = document.querySelector('[data-subdropdown]');
-    const firstDropdownMobile = document.querySelector('[data-subdropdown-mobile]');
+    const firstDropdownMobile = document.querySelector<HTMLElement>('[data-subdropdown-mobile]');
     const firstChevron = document.querySelector('.navbar-sub-dropdown-chevron');
     const firstTitleSpan = document.querySelector('.navbar-sub-dropdown-title span');
 
@@ -73,61 +73,70 @@ const { blok } = Astro.props as AstroProps;
       firstChevron.classList.add('rotate-180');
     }
 
-    if (firstTitleSpan) {
-      firstTitleSpan.classList.add('text-blue-600', 'font-bold');
+    const firstTitle = document.querySelector('.navbar-sub-dropdown-title');
+    if (firstTitle) {
+      firstTitle.classList.add('bg-white');
     }
-  });
 
-  document.querySelectorAll('.navbar-sub-dropdown-title').forEach((title) => {
-    const titleText = title?.querySelector('span')?.textContent || '';
+    document.querySelectorAll('.navbar-sub-dropdown-title').forEach((title) => {
+      const titleText = title?.querySelector('span')?.textContent || '';
 
-    title.addEventListener('click', () => {
-      // First, hide all dropdown items and reset chevrons
-      document.querySelectorAll(`[data-subdropdown]`).forEach((items) => {
-        items.classList.add('lg:hidden');
-        items.classList.remove('lg:flex');
+      title.addEventListener('click', () => {
+        // First, hide all dropdown items and reset chevrons
+        document.querySelectorAll(`[data-subdropdown]`).forEach((items) => {
+          items.classList.add('lg:hidden');
+          items.classList.remove('lg:flex');
+        });
+
+        document.querySelectorAll<HTMLElement>('[data-subdropdown-mobile]').forEach((items) => {
+          items.classList.add('hidden');
+          items.classList.remove('flex');
+          items.style.height = '0';
+        });
+
+        // Reset all chevrons and titles
+        document.querySelectorAll('.navbar-sub-dropdown-chevron').forEach((chevron) => {
+          chevron.classList.remove(
+            'rotate-180',
+            'text-blue-600',
+            'transition-all',
+            'duration-300',
+            'ease-in-out'
+          );
+        });
+
+        // Then show only the clicked dropdown's items and update its chevron
+        const dropdownItems = document.querySelector(`[data-subdropdown="${titleText}"]`);
+        const dropdownItemsMobile = document.querySelector<HTMLElement>(
+          `[data-subdropdown-mobile="${titleText}"]`
+        );
+        const chevron = title.querySelector('.navbar-sub-dropdown-chevron');
+
+        if (dropdownItems) {
+          dropdownItems.classList.remove('lg:hidden');
+          dropdownItems.classList.add('lg:flex');
+        }
+
+        if (dropdownItemsMobile) {
+          dropdownItemsMobile.classList.remove('hidden');
+          dropdownItemsMobile.classList.add('flex');
+          // Trigger height animation
+          requestAnimationFrame(() => {
+            dropdownItemsMobile.style.height = dropdownItemsMobile.scrollHeight + 'px';
+          });
+        }
+
+        if (chevron) {
+          chevron.classList.add('transition-all', 'duration-300', 'ease-in-out');
+          chevron.classList.toggle('rotate-180');
+        }
+
+        // Add bg-white to the clicked title
+        document.querySelectorAll('.navbar-sub-dropdown-title').forEach((t) => {
+          t.classList.remove('bg-white');
+        });
+        title.classList.add('bg-white');
       });
-
-      document.querySelectorAll('[data-subdropdown-mobile]').forEach((items) => {
-        items.classList.add('hidden');
-        items.classList.remove('flex');
-      });
-
-      // Reset all chevrons and titles
-      document.querySelectorAll('.navbar-sub-dropdown-chevron').forEach((chevron) => {
-        chevron.classList.remove('rotate-180', 'text-blue-600');
-      });
-
-      document.querySelectorAll('.navbar-sub-dropdown-title span').forEach((span) => {
-        span.classList.remove('text-blue-600', 'font-bold');
-      });
-
-      // Then show only the clicked dropdown's items and update its chevron
-      const dropdownItems = document.querySelector(`[data-subdropdown="${titleText}"]`);
-      const dropdownItemsMobile = document.querySelector(
-        `[data-subdropdown-mobile="${titleText}"]`
-      );
-      const chevron = title.querySelector('.navbar-sub-dropdown-chevron');
-      const titleSpan = title.querySelector('span');
-
-      if (dropdownItems) {
-        dropdownItems.classList.remove('lg:hidden');
-        dropdownItems.classList.add('lg:flex');
-      }
-
-      if (dropdownItemsMobile) {
-        dropdownItemsMobile.classList.remove('hidden');
-        dropdownItemsMobile.classList.add('flex');
-      }
-
-      if (chevron) {
-        chevron.classList.toggle('rotate-180');
-      }
-
-      if (titleSpan) {
-        titleSpan.classList.toggle('text-blue-600');
-        titleSpan.classList.toggle('font-bold');
-      }
     });
   });
 </script>

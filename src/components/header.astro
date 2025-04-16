@@ -71,16 +71,36 @@ const { navbar } = Astro.props as AstroProps;
           />
         </a>
         <nav
-          class="navbar group/navbar absolute top-0 left-0 hidden h-screen w-full flex-col items-center justify-center gap-4 overflow-x-hidden bg-gray-50 pt-[68px] lg:static lg:ml-3 lg:flex lg:h-auto lg:flex-row lg:overflow-visible lg:bg-transparent lg:p-4 [&>*]:rounded-lg [&>*]:font-semibold [&>*]:hover:cursor-pointer [&>*]:hover:bg-white [&>*]:lg:p-0 [&>*]:hover:lg:bg-gray-100 [&>*_a]:hover:bg-white [&>*>_.navbar-link]:px-3 [&>*>_.navbar-link]:py-1.5 [&>*>_.navbar-link]:font-medium"
+          class="navbar group/navbar absolute top-0 left-0 hidden h-screen w-full flex-col items-center justify-center gap-4 overflow-x-hidden bg-gray-50 pt-[68px] lg:static lg:ml-3 lg:flex lg:h-auto lg:flex-row lg:overflow-visible lg:bg-transparent lg:p-4 [&>*]:rounded-lg [&>*]:font-semibold [&>*]:hover:cursor-pointer [&>*]:hover:bg-white [&>*]:lg:p-0 [&>*]:hover:lg:bg-gray-100 [&>*_a]:hover:bg-white [&>*>_.navbar-link]:py-1.5 [&>*>_.navbar-link]:font-medium [&>*>_.navbar-link]:lg:px-3"
           id="menu"
         >
           {/* close button */}
           <div
             class="!absolute top-0 right-0 left-0 z-[9999] container flex h-[60px] items-center justify-between !rounded-none border-b border-gray-200 bg-gray-50 lg:hidden"
           >
-            <div class="-ml-2 p-1.5">
+            <div>
+              <div class="navbar-mobile-logo hidden">
+                <a class="group flex items-center gap-2" href="/">
+                  <Image
+                    priority={true}
+                    loading="eager"
+                    src={Logo}
+                    alt="Logo de Hexium"
+                    sizes="10vw"
+                    class="h-8 w-auto object-contain transition group-hover:opacity-90"
+                  />
+                  <Image
+                    priority={true}
+                    loading="eager"
+                    src={LogoText}
+                    alt="Logo de Hexium"
+                    sizes="10vw"
+                    class="h-3 w-auto object-contain opacity-80"
+                  />
+                </a>
+              </div>
               <div
-                class="back-button invisible cursor-pointer rounded-full border border-gray-200 p-1.5"
+                class="back-button hidden cursor-pointer rounded-full border border-gray-200 p-1.5"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -131,49 +151,51 @@ const { navbar } = Astro.props as AstroProps;
 </>
 
 <script type="text/javascript">
-  const menuButtons = document.querySelectorAll('[data-target="#menu"]');
-  const menu = document.querySelector('#menu');
+  document.addEventListener('astro:page-load', () => {
+    const menuButtons = document.querySelectorAll('[data-target="#menu"]');
+    const menu = document.querySelector('#menu');
 
-  menuButtons?.forEach((button) => {
-    button.addEventListener('click', () => {
-      console.log('clicked');
-      menu?.classList.toggle('hidden');
+    menuButtons?.forEach((button) => {
+      button.addEventListener('click', () => {
+        console.log('clicked');
+        menu?.classList.toggle('hidden');
+      });
     });
-  });
 
-  (function (C, A, L) {
-    let p = function (a, ar) {
-      a.q.push(ar);
-    };
-    let d = C.document;
-    C.Cal =
-      C.Cal ||
-      function () {
-        let cal = C.Cal;
-        let ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement('script')).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          const api = function () {
-            p(api, arguments);
-          };
-          const namespace = ar[1];
-          api.q = api.q || [];
-          if (typeof namespace === 'string') {
-            cal.ns[namespace] = cal.ns[namespace] || api;
-            p(cal.ns[namespace], ar);
-            p(cal, ['initNamespace', namespace]);
-          } else p(cal, ar);
-          return;
-        }
-        p(cal, ar);
+    (function (C, A, L) {
+      let p = function (a, ar) {
+        a.q.push(ar);
       };
-  })(window, 'https://app.cal.com/embed/embed.js', 'init');
-  Cal('init', 'etude-de-projet', { origin: 'https://cal.com' });
+      let d = C.document;
+      C.Cal =
+        C.Cal ||
+        function () {
+          let cal = C.Cal;
+          let ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement('script')).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api = function () {
+              p(api, arguments);
+            };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === 'string') {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ['initNamespace', namespace]);
+            } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+    Cal('init', 'etude-de-projet', { origin: 'https://cal.com' });
 
-  Cal.ns['etude-de-projet']('ui', { hideEventTypeDetails: true, layout: 'month_view' });
+    Cal.ns['etude-de-projet']('ui', { hideEventTypeDetails: true, layout: 'month_view' });
+  });
 </script>
