@@ -1,9 +1,6 @@
 import { type ISbStoryData } from '@storyblok/astro';
-import storyblokService from '@/services/storyblok';
-import blogService from '@/services/blog';
+import storyblokSSRService from '@/services/storyblok-ssr';
 import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
-// @ts-ignore
-import { storyblokApiInstance } from 'virtual:storyblok-init';
 
 interface SitemapEntry {
   loc: string;
@@ -22,7 +19,7 @@ function createSitemapEntry(story: ISbStoryData<unknown>): SitemapEntry {
 export async function GET() {
   const entries: SitemapEntry[] = [];
 
-  const articles = await storyblokService.getAllStories('article').then((articles) => {
+  const articles = await storyblokSSRService.getAllStories('article').then((articles) => {
     return articles.map((article) => {
       return createSitemapEntry({
         ...article,
@@ -31,7 +28,7 @@ export async function GET() {
     });
   });
 
-  const blogCategories = await storyblokService
+  const blogCategories = await storyblokSSRService
     .getAllStories('blogCategory')
     .then((blogCategories) => {
       return blogCategories.map((blogCategory) => {
@@ -39,21 +36,21 @@ export async function GET() {
       });
     });
 
-  const getTotalBlogHomePages = await blogService.getTotal();
+  const getTotalBlogHomePages = await storyblokSSRService.getTotalBlogPages();
 
   for (let i = 2; i <= getTotalBlogHomePages; i++) {
-    const latestArticles = await blogService.getLatest();
+    const latestArticles = await storyblokSSRService.getLatestArticles();
     entries.push({
       loc: `${import.meta.env.WEBSITE_URL}/blog/page/${i}`,
       lastmod: latestArticles[0].published_at || latestArticles[0].created_at,
     });
   }
 
-  const getAllBlogCategories = await blogService.getCategories();
+  const getAllBlogCategories = await storyblokSSRService.getBlogCategories();
 
   for (const blogCategory of getAllBlogCategories) {
-    const categoryTotalPages = await blogService.getTotal(blogCategory.uuid);
-    const latestArticles = await blogService.getLatest(blogCategory.uuid);
+    const categoryTotalPages = await storyblokSSRService.getTotalBlogPages(blogCategory.uuid);
+    const latestArticles = await storyblokSSRService.getLatestArticles(blogCategory.uuid);
 
     for (let i = 2; i <= categoryTotalPages; i++) {
       entries.push({
@@ -63,13 +60,13 @@ export async function GET() {
     }
   }
 
-  const definitions = await storyblokService.getAllStories('definition').then((definitions) => {
+  const definitions = await storyblokSSRService.getAllStories('definition').then((definitions) => {
     return definitions.map((definition) => {
       return createSitemapEntry(definition);
     });
   });
 
-  const pages = await storyblokService.getAllStories('page').then((pages) => {
+  const pages = await storyblokSSRService.getAllStories('page').then((pages) => {
     return pages.map((page) => {
       if (page.full_slug === 'home') {
         page.full_slug = '';
@@ -78,13 +75,15 @@ export async function GET() {
     });
   });
 
-  const technologies = await storyblokService.getAllStories('technology').then((technologies) => {
-    return technologies.map((technology) => {
-      return createSitemapEntry(technology);
+  const technologies = await storyblokSSRService
+    .getAllStories('technology')
+    .then((technologies) => {
+      return technologies.map((technology) => {
+        return createSitemapEntry(technology);
+      });
     });
-  });
 
-  const works = await storyblokService.getAllStories('work').then((works) => {
+  const works = await storyblokSSRService.getAllStories('work').then((works) => {
     return works
       .map((work) => {
         // @ts-ignore
@@ -96,7 +95,7 @@ export async function GET() {
       .filter((work) => work !== null);
   });
 
-  const workCategories = await storyblokService
+  const workCategories = await storyblokSSRService
     .getAllStories('workCategory')
     .then((workCategories) => {
       return workCategories.map((workCategory) => {

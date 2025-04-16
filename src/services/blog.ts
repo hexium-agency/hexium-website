@@ -2,7 +2,7 @@ import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok'
 import { useStoryblokApi, type ISbStoriesParams } from '@storyblok/astro';
 import { type ISbStoryData, type ISbStories } from '@storyblok/astro';
 
-const ARTICLES_PER_PAGE = 12;
+export const ARTICLES_PER_PAGE = 12;
 
 async function getAllArticles() {
   const storyblokApi = useStoryblokApi();
