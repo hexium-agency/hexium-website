@@ -1,6 +1,7 @@
 ---
 import type { NavbarLinkStoryblok } from '@/types/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
+import { Image } from 'astro:assets';
 
 interface AstroProps {
   blok: NavbarLinkStoryblok;
@@ -9,4 +10,23 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 ---
 
-<div {...storyblokEditable(blok)}>NAVBAR LINK</div>
+<div {...storyblokEditable(blok)}>
+  <a
+    href={blok.link.cached_url}
+    class="navbar-link flex items-center rounded-lg px-6 py-1.5 text-sm"
+  >
+    {
+      blok.icon && blok.icon.filename && (
+        <Image
+          src={blok.icon.filename}
+          alt={blok.title}
+          class="mr-3 h-4 w-auto object-contain"
+          sizes="10vw"
+          width={20}
+          height={20}
+        />
+      )
+    }
+    {blok.title}
+  </a>
+</div>

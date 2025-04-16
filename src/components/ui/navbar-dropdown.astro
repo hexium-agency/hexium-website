@@ -8,9 +8,145 @@ interface AstroProps {
 }
 
 const { blok } = Astro.props as AstroProps;
+
+const shouldFlexHorizontally = blok.items.every((item) => item.component === 'navbarColumn');
+
+const subDropdownItems = blok.items.filter((item) => item.component === 'navbarSubDropdown');
 ---
 
-<div {...storyblokEditable(blok)}>
-  NAVBAR DROPDOWN
-  {blok.items.map((link) => <StoryblokComponent blok={link} />)}
+<div {...storyblokEditable(blok)} class="group/dropdown lg:relative">
+  <h2
+    class="dropdown-title flex items-center justify-between px-6 py-1.5 text-sm font-medium lg:px-3"
+  >
+    <span class="pointer-events-none">{blok.title}</span>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width={1.5}
+      stroke="currentColor"
+      class="pointer-events-none size-4 lg:hidden"
+    >
+      <path stroke-linecap="round" stroke-line-join="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+    </svg>
+  </h2>
+
+  <div
+    class="dropdown-container bg-gray-25 invisible absolute top-0 left-full z-50 flex h-screen w-full flex-col gap-4 opacity-0 transition-all duration-500 lg:top-[calc(100%+.5rem)] lg:left-0 lg:mt-2 lg:h-auto lg:w-max lg:min-w-[250px] lg:flex-row lg:rounded-md lg:shadow-lg lg:group-hover/dropdown:visible lg:group-hover/dropdown:opacity-100"
+  >
+    <div
+      class={`[&>*_a]:lg:py-2 lg:p-4 pt-[68px] w-full lg:pt-4 flex flex-col gap-4 lg:gap-1 [&_a]:font-semibold ${shouldFlexHorizontally ? 'lg:flex-row' : 'lg:flex-col'}`}
+    >
+      {blok.items.map((link) => <StoryblokComponent blok={link} />)}
+    </div>
+
+    {
+      subDropdownItems.map((item) => (
+        <div class="hidden gap-2 p-4 lg:px-0 lg:py-4" data-subdropdown={item.title}>
+          {item.items.map((link) => (
+            <StoryblokComponent blok={link} />
+          ))}
+        </div>
+      ))
+    }
+  </div>
 </div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const dropdownItems = document.querySelectorAll('.dropdown-title');
+    const dropdownContainers = document.querySelectorAll('.dropdown-container');
+    const backButtons = document.querySelectorAll('.back-button');
+    const dropdownTitle = document.querySelector('.dropdown-title') as HTMLElement;
+    const mobileLogo = document.querySelector('.navbar-mobile-logo') as HTMLElement;
+
+    const visibleClasses = ['opacity-100', 'visible', 'left-0'];
+    const invisibleClasses = ['opacity-0', 'invisible', 'left-full'];
+
+    // Function to close all dropdowns
+    const closeAllDropdowns = () => {
+      dropdownContainers.forEach((container) => {
+        container.classList.remove(...visibleClasses);
+        container.classList.add(...invisibleClasses);
+      });
+
+      backButtons.forEach((button) => {
+        button.classList.add('hidden');
+      });
+
+      dropdownTitle.textContent = '';
+
+      if (mobileLogo) {
+        mobileLogo.classList.remove('hidden');
+      }
+    };
+
+    backButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        closeAllDropdowns();
+      });
+    });
+
+    dropdownItems.forEach((item) => {
+      const container = item.nextElementSibling as HTMLElement;
+
+      item.addEventListener('mouseenter', () => {
+        if (window.innerWidth >= 1024) {
+          closeAllDropdowns();
+        }
+      });
+
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        if (window.innerWidth >= 1024) {
+          return;
+        }
+
+        // Toggle current dropdown
+        if (!container) {
+          return;
+        }
+
+        closeAllDropdowns();
+
+        if (dropdownTitle) {
+          dropdownTitle.textContent =
+            (e.target as HTMLElement).querySelector('span')?.textContent ?? '';
+        }
+
+        backButtons.forEach((button) => {
+          button.classList.remove('hidden');
+        });
+
+        const isHidden = container.classList.contains('opacity-0');
+
+        if (isHidden) {
+          container.classList.add(...visibleClasses);
+          container.classList.remove(...invisibleClasses);
+
+          // Hide mobile logo when opening a subdropdown
+          if (mobileLogo) {
+            mobileLogo.classList.add('hidden');
+          }
+
+          return;
+        }
+
+        container.classList.remove(...visibleClasses);
+        container.classList.add(...invisibleClasses);
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (
+        !(e.target as Element).closest('.dropdown-container') &&
+        !(e.target as Element).closest('.dropdown-title')
+      ) {
+        closeAllDropdowns();
+      }
+    });
+  });
+</script>

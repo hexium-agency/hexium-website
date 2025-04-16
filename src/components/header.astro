@@ -3,11 +3,14 @@ import Button from '@/components/button.astro';
 import Logo from '@/images/logo-navbar.png';
 import LogoText from '@/images/logo-text-black.png';
 import type { GlobalStoryblok } from '@/types/storyblok';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 import { Image } from 'astro:assets';
 
 interface AstroProps {
   navbar: GlobalStoryblok['navbar'];
 }
+
+const { navbar } = Astro.props as AstroProps;
 ---
 
 <>
@@ -23,7 +26,31 @@ interface AstroProps {
     </div>
   </div>
   <header class="sticky top-0 z-50 flex h-[60px] items-center border-b border-gray-100 bg-gray-50">
-    <div class="container flex items-center justify-between">
+    <div class="!static container flex flex-row-reverse items-center justify-between">
+      <div class="flex items-center gap-2">
+        <button
+          data-cal-link="anthony-hexium/etude-de-projet"
+          data-cal-namespace="etude-de-projet"
+          data-cal-config='{"layout":"month_view"}'
+          class="group before:transtion-opacity relative isolate hidden cursor-pointer items-center justify-center rounded-md bg-gray-900 px-3 py-1 text-left text-sm font-medium text-white shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] ring-1 ring-gray-900 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay hover:before:opacity-100 lg:inline-flex"
+        >
+          Planifier un appel
+        </button>
+        <Button color="blueFull" isLink link="/contact" isArrowShowed={false}>Contact</Button>
+        <button class="ml-1 p-1.5 lg:hidden" data-target="#menu">
+          <svg
+            class="h-auto w-6 text-gray-700"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+          >
+            <path
+              d="M15.84 8c0 0.3608125 -0.29251875 0.65331875 -0.65333125 0.65333125H0.81333125c-0.50293125 0.000025 -0.8172625 -0.54440625 -0.56581875 -0.979975 0.11670625 -0.20215625 0.3324 -0.3266875 0.56581875 -0.3266875h14.3733375c0.3608125 0.0000125 0.65333125 0.29251875 0.65333125 0.65333125ZM0.81333125 3.42666875h14.3733375c0.50293125 -0.000025 0.817275 -0.54448125 0.5657875 -0.980025 -0.1167125 -0.20213125 -0.3323875 -0.32664375 -0.5657875 -0.32664375H0.81333125c-0.50293125 0 -0.81726875 0.54444375 -0.5658 0.98 0.11670625 0.20214375 0.3323875 0.32666875 0.5658 0.32666875Zm14.3733375 9.1466625H0.81333125c-0.50293125 0 -0.81726875 0.54444375 -0.5658 0.98 0.11670625 0.20214375 0.3323875 0.32666875 0.5658 0.32666875h14.3733375c0.50293125 -0.000025 0.817275 -0.54448125 0.5657875 -0.980025 -0.1167125 -0.202125 -0.3323875 -0.32664375 -0.5657875 -0.32664375Z"
+              stroke-width="0.0625"></path>
+          </svg>
+        </button>
+      </div>
+
       <div class="flex items-center justify-between">
         <a class="group flex items-center gap-2" href="/">
           <Image
@@ -43,75 +70,131 @@ interface AstroProps {
             class="h-3 w-auto object-contain opacity-80"
           />
         </a>
-        <nav class="ml-3 hidden lg:block">
-          <a href="/" class="px-3 py-1.5 text-sm font-medium">Agence</a>
-          <a href="/" class="px-3 py-1.5 text-sm font-medium">Services</a>
-          <a href="/" class="px-3 py-1.5 text-sm font-medium">Technologies</a>
-          <a href="/" class="px-3 py-1.5 text-sm font-medium">Réalisations</a>
-          <a href="/" class="px-3 py-1.5 text-sm font-medium">Blog</a>
-        </nav>
-      </div>
-      <div class="flex items-center gap-2">
-        <button
-          data-cal-link="anthony-hexium/etude-de-projet"
-          data-cal-namespace="etude-de-projet"
-          data-cal-config='{"layout":"month_view"}'
-          class="group before:transtion-opacity relative isolate hidden cursor-pointer items-center justify-center rounded-md bg-gray-900 px-3 py-1 text-left text-sm font-medium text-white shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] ring-1 ring-gray-900 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay hover:before:opacity-100 lg:inline-flex"
+        <nav
+          class="navbar group/navbar absolute top-0 left-0 hidden h-screen w-full flex-col items-center justify-center gap-4 overflow-x-hidden bg-gray-50 pt-[68px] lg:static lg:ml-3 lg:flex lg:h-auto lg:flex-row lg:overflow-visible lg:bg-transparent lg:p-4 [&>*]:rounded-lg [&>*]:font-semibold [&>*]:hover:cursor-pointer [&>*]:hover:bg-white [&>*]:lg:p-0 [&>*]:hover:lg:bg-gray-100 [&>*_a]:hover:bg-white [&>*>_.navbar-link]:py-1.5 [&>*>_.navbar-link]:font-medium [&>*>_.navbar-link]:lg:px-3"
+          id="menu"
         >
-          Planifier un appel
-        </button>
-        <Button color="blueFull" isLink link="/contact" isArrowShowed={false}>Contact</Button>
-        <button class="ml-1 p-1.5 lg:hidden">
-          <svg
-            class="h-auto w-6 text-gray-700"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
+          {/* close button */}
+          <div
+            class="!absolute top-0 right-0 left-0 z-[9999] container flex h-[60px] items-center justify-between !rounded-none border-b border-gray-200 bg-gray-50 lg:hidden"
           >
-            <path
-              d="M15.84 8c0 0.3608125 -0.29251875 0.65331875 -0.65333125 0.65333125H0.81333125c-0.50293125 0.000025 -0.8172625 -0.54440625 -0.56581875 -0.979975 0.11670625 -0.20215625 0.3324 -0.3266875 0.56581875 -0.3266875h14.3733375c0.3608125 0.0000125 0.65333125 0.29251875 0.65333125 0.65333125ZM0.81333125 3.42666875h14.3733375c0.50293125 -0.000025 0.817275 -0.54448125 0.5657875 -0.980025 -0.1167125 -0.20213125 -0.3323875 -0.32664375 -0.5657875 -0.32664375H0.81333125c-0.50293125 0 -0.81726875 0.54444375 -0.5658 0.98 0.11670625 0.20214375 0.3323875 0.32666875 0.5658 0.32666875Zm14.3733375 9.1466625H0.81333125c-0.50293125 0 -0.81726875 0.54444375 -0.5658 0.98 0.11670625 0.20214375 0.3323875 0.32666875 0.5658 0.32666875h14.3733375c0.50293125 -0.000025 0.817275 -0.54448125 0.5657875 -0.980025 -0.1167125 -0.202125 -0.3323875 -0.32664375 -0.5657875 -0.32664375Z"
-              stroke-width="0.0625"></path>
-          </svg>
-        </button>
+            <div>
+              <div class="navbar-mobile-logo hidden">
+                <a class="group flex items-center gap-2" href="/">
+                  <Image
+                    priority={true}
+                    loading="eager"
+                    src={Logo}
+                    alt="Logo de Hexium"
+                    sizes="10vw"
+                    class="h-8 w-auto object-contain transition group-hover:opacity-90"
+                  />
+                  <Image
+                    priority={true}
+                    loading="eager"
+                    src={LogoText}
+                    alt="Logo de Hexium"
+                    sizes="10vw"
+                    class="h-3 w-auto object-contain opacity-80"
+                  />
+                </a>
+              </div>
+              <div
+                class="back-button hidden cursor-pointer rounded-full border border-gray-200 p-1.5"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+                </svg>
+                <span class="sr-only">Retour</span>
+              </div>
+            </div>
+
+            <div class="dropdown-title"></div>
+
+            <div class="-mr-2 p-1.5">
+              <button
+                class="cursor-pointer rounded-full border border-gray-200 p-1.5"
+                data-target="#menu"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="size-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {navbar.map((item) => <StoryblokComponent blok={item} />)}
+        </nav>
       </div>
     </div>
   </header>
 </>
 
 <script type="text/javascript">
-  (function (C, A, L) {
-    let p = function (a, ar) {
-      a.q.push(ar);
-    };
-    let d = C.document;
-    C.Cal =
-      C.Cal ||
-      function () {
-        let cal = C.Cal;
-        let ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement('script')).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          const api = function () {
-            p(api, arguments);
-          };
-          const namespace = ar[1];
-          api.q = api.q || [];
-          if (typeof namespace === 'string') {
-            cal.ns[namespace] = cal.ns[namespace] || api;
-            p(cal.ns[namespace], ar);
-            p(cal, ['initNamespace', namespace]);
-          } else p(cal, ar);
-          return;
-        }
-        p(cal, ar);
-      };
-  })(window, 'https://app.cal.com/embed/embed.js', 'init');
-  Cal('init', 'etude-de-projet', { origin: 'https://cal.com' });
+  document.addEventListener('astro:page-load', () => {
+    const menuButtons = document.querySelectorAll('[data-target="#menu"]');
+    const menu = document.querySelector('#menu');
 
-  Cal.ns['etude-de-projet']('ui', { hideEventTypeDetails: true, layout: 'month_view' });
+    menuButtons?.forEach((button) => {
+      button.addEventListener('click', () => {
+        menu?.classList.toggle('hidden');
+      });
+    });
+
+    (function (C, A, L) {
+      let p = function (a, ar) {
+        a.q.push(ar);
+      };
+      let d = C.document;
+      C.Cal =
+        C.Cal ||
+        function () {
+          let cal = C.Cal;
+          let ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement('script')).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api = function () {
+              p(api, arguments);
+            };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === 'string') {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ['initNamespace', namespace]);
+            } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+    Cal('init', 'etude-de-projet', { origin: 'https://cal.com' });
+
+    Cal.ns['etude-de-projet']('ui', { hideEventTypeDetails: true, layout: 'month_view' });
+  });
 </script>
