@@ -2,6 +2,8 @@ import { type ISbStoryData } from '@storyblok/astro';
 import storyblokService from '@/services/storyblok';
 import blogService from '@/services/blog';
 import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
+// @ts-ignore
+import { storyblokApiInstance } from 'virtual:storyblok-init';
 
 interface SitemapEntry {
   loc: string;
