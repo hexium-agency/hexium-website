@@ -1,4 +1,5 @@
 ---
+import { cn } from '@/lib/utils';
 import type { NavbarLinkStoryblok } from '@/types/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 import { Image } from 'astro:assets';
@@ -13,18 +14,23 @@ const { blok } = Astro.props as AstroProps;
 <div {...storyblokEditable(blok)}>
   <a
     href={blok.link.cached_url}
-    class="navbar-link flex items-center rounded-lg px-6 py-1.5 text-sm"
+    class={cn(
+      'navbar-link flex items-center rounded-lg px-6 py-1.5 text-sm',
+      blok?.icon?.filename ? 'lg:px-1' : 'lg:px-2'
+    )}
   >
     {
-      blok.icon && blok.icon.filename && (
-        <Image
-          src={blok.icon.filename}
-          alt={blok.title}
-          class="mr-3 h-4 w-auto object-contain"
-          sizes="10vw"
-          width={20}
-          height={20}
-        />
+      blok?.icon?.filename && (
+        <div class="mr-3 flex w-[25px] items-center justify-center">
+          <Image
+            src={blok.icon.filename}
+            alt={blok.title}
+            class="h-4 w-auto object-contain"
+            sizes="10vw"
+            width={20}
+            height={20}
+          />
+        </div>
       )
     }
     {blok.title}
