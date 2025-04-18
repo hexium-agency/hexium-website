@@ -91,6 +91,8 @@ export interface BlogCategoryStoryblok {
     | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -251,6 +253,7 @@ export interface CardBentoStoryblok {
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
     | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
     | FeaturedWorksStoryblok
     | FooterAgencyStoryblok
     | FooterLinkStoryblok
@@ -369,6 +372,7 @@ export interface CustomerStoryblok {
   description: string;
   logoFull: AssetStoryblok;
   logoWhite: AssetStoryblok;
+  logoBlack: AssetStoryblok;
   component: "customer";
   _uid: string;
   [k: string]: any;
@@ -396,6 +400,13 @@ export interface DefinitionHomeStoryblok {
 export interface FeaturedTechnologiesStoryblok {
   technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
   component: "featuredTechnologies";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface FeaturedTestimonialsStoryblok {
+  testimonials: (ISbStoryData<TestimonialStoryblok> | string)[];
+  component: "featuredTestimonials";
   _uid: string;
   [k: string]: any;
 }
@@ -449,7 +460,13 @@ export interface GridStoryblok {
   colsMd?: number | string;
   colsLg?: number | string;
   colsXl?: number | string;
-  items: any[];
+  items: (
+    | CardBentoStoryblok
+    | CardIconTitleTextFullStoryblok
+    | CardIconTitleTextLightStoryblok
+    | CardIconTitleTextNormalStoryblok
+    | CardImageTitleTextStoryblok
+  )[];
   spaceX: number | string;
   spaceXSm?: number | string;
   spaceXMd?: number | string;
@@ -546,6 +563,7 @@ export interface NavbarDropdownStoryblok {
 export interface NavbarLinkStoryblok {
   icon?: AssetStoryblok;
   title: string;
+  text?: string;
   link: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
   component: "navbarLink";
   _uid: string;
@@ -591,6 +609,8 @@ export interface SectionStoryblok {
     | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -614,6 +634,8 @@ export interface SectionHorizontalStoryblok {
     | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -626,6 +648,8 @@ export interface SectionHorizontalStoryblok {
     | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -639,6 +663,8 @@ export interface SectionHorizontalStoryblok {
     | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -665,6 +691,8 @@ export interface SectionVerticalStoryblok {
     | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -701,7 +729,6 @@ export interface TeamStoryblok {
 }
 
 export interface TechnologyStoryblok {
-  generatePage?: boolean;
   logoOutline: AssetStoryblok;
   logoFullDark: AssetStoryblok;
   logoFullLight: AssetStoryblok;
@@ -727,6 +754,8 @@ export interface TechnologyStoryblok {
     | AgencyNoteStoryblok
     | ButtonGroupStoryblok
     | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -752,8 +781,7 @@ export interface TechnologyHomeStoryblok {
 }
 
 export interface TestimonialStoryblok {
-  companyName: string;
-  companyLogo: AssetStoryblok;
+  customer: ISbStoryData<CustomerStoryblok> | string;
   firstname: string;
   lastname: string;
   position: string;
