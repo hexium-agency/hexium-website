@@ -67,6 +67,7 @@ export default defineConfig({
         'code-block': 'components/storyblok/ui/code-block',
         'contact-widget': 'components/storyblok/ui/contact-widget',
         'featured-technologies': 'components/storyblok/ui/featured-technologies',
+        'featured-testimonials': 'components/storyblok/ui/featured-testimonials',
         'featured-works': 'components/storyblok/ui/featured-works',
         'grid': 'components/storyblok/ui/grid',
         'image': 'components/storyblok/ui/image',
