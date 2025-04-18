@@ -4002,7 +4002,7 @@
       "display_name": "TESTIMONIAL",
       "description": null,
       "created_at": "2024-12-08T16:08:31.782Z",
-      "updated_at": "2025-04-16T15:25:29.608Z",
+      "updated_at": "2025-04-18T08:11:59.458Z",
       "id": 6663006,
       "schema": {
         "customer": {
@@ -4017,30 +4017,40 @@
           ],
           "id": "HiE1Bn7oTdeG-9f1k7Li7Q"
         },
+        "image": {
+          "type": "asset",
+          "pos": 1,
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 681166,
+          "id": "jzgrRZuWRjyeI5GmTMWSCw"
+        },
         "firstname": {
           "type": "text",
-          "pos": 1,
+          "pos": 2,
           "display_name": "PRÉNOM",
           "required": true,
           "id": "O_Bqez27RQml6xdcV0d_qg"
         },
         "lastname": {
           "type": "text",
-          "pos": 2,
+          "pos": 3,
           "display_name": "NOM",
           "required": true,
           "id": "HVRgQyk4Rgaia0zOh23owQ"
         },
         "position": {
           "type": "text",
-          "pos": 3,
+          "pos": 4,
           "display_name": "POSTE",
           "required": true,
           "id": "ek7wP-agQoey1IhQlxmsYw"
         },
         "content": {
           "type": "textarea",
-          "pos": 4,
+          "pos": 5,
           "display_name": "CONTENU",
           "required": true,
           "id": "osiFDaHqTgWNctwgaougZw"

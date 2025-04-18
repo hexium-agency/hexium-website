@@ -782,6 +782,7 @@ export interface TechnologyHomeStoryblok {
 
 export interface TestimonialStoryblok {
   customer: ISbStoryData<CustomerStoryblok> | string;
+  image: AssetStoryblok;
   firstname: string;
   lastname: string;
   position: string;
