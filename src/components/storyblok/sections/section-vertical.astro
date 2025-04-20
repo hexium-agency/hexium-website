@@ -24,13 +24,13 @@ const { blok } = Astro.props as AstroProps;
   <div class="container py-20 sm:py-32">
     <h2
       class:list={cn(
-        'text-2xs mb-6 font-mono leading-none font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200',
+        'text-2xs font-mono leading-none font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200',
         blok.style === 'centered' ? 'text-center' : 'text-left'
       )}
     >
       {blok.badge}
     </h2>
-    <div class:list={cn(blok.style === 'shared' && 'mt-6 lg:grid lg:grid-cols-2 lg:gap-x-12')}>
+    <div class:list={cn('mt-4', blok.style === 'shared' && 'lg:grid lg:grid-cols-2 lg:gap-x-12')}>
       <h3
         class:list={cn(
           'text-3xl font-semibold tracking-tight text-balance text-gray-950 dark:text-white',
@@ -47,7 +47,7 @@ const { blok } = Astro.props as AstroProps;
           <Richtext
             text={blok.text}
             class={cn(
-              'mt-3 space-y-4 text-base/5 text-gray-600 dark:text-gray-400',
+              'mt-4 space-y-4 text-base/5 text-gray-600 dark:text-gray-400',
               blok.style === 'centered' ? 'text-center' : 'text-left',
               blok.style === 'centered' && parseStoryblokMaxWidth(blok.textMaxWidth) + ' mx-auto',
               blok.style === 'justified' && 'max-w-xl text-pretty',
