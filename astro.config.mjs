@@ -56,6 +56,7 @@ export default defineConfig({
         // UI
         'accordion-group': 'components/storyblok/ui/accordion-group',
         'accordion': 'components/storyblok/ui/accordion',
+        'agency-note': 'components/storyblok/ui/agency-note',
         'button': 'components/storyblok/ui/button',
         'button-meeting': 'components/storyblok/ui/button-meeting',
         'button-group': 'components/storyblok/ui/button-group',
