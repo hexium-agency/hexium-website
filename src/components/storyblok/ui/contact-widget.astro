@@ -1,67 +1,55 @@
 ---
-import CalIframe from '@/components/cal-iframe.astro';
 import ContactForm from '@/components/contact-form.astro';
-import Tabs from '@/components/tabs.astro';
+import DotLineHorizontal from '@/components/effects/dot-line-horizontal.astro';
+import DotLineVerticalLeft from '@/components/effects/dot-line-vertical-left.astro';
+import DotLineVerticalRight from '@/components/effects/dot-line-vertical-right.astro';
+import storyblokService from '@/services/storyblok';
+import type { AssetStoryblok, TeamStoryblok } from '@/types/storyblok';
+import { parseStoryblokImage } from '@/utils/storyblok';
+import { Image } from 'astro:assets';
+
+const userStory = await storyblokService.getStory<TeamStoryblok>('team/anthony');
+
+const user = userStory.story.content;
 ---
 
-<div class="mx-auto max-w-xl">
-  <Tabs
-    tabs={[
-      { id: 'cal', label: 'Réserver un appel', buttonClassName: 'rounded-tl-lg' },
-      { id: 'contact', label: 'Nous contacter', buttonClassName: 'rounded-tr-lg' },
-    ]}
-    buttonClassName="border-b border-gray-100 border-b-4 w-full data-active:bg-white data-inactive:bg-gray-100 data-active:border-gray-100 data-inactive:border-gray-100 data-inactive:hover:border-gray-100 data-inactive:hover:text-gray-700 data-inactive:text-gray-400 uppercase font-bold"
-    tabContentClassName="mt-0 p-4 rounded-b-lg"
+<div
+  class="relative isolate mx-auto w-full max-w-lg rounded-xl bg-white shadow-[0_10px_32px_rgba(34,42,53,0.15),0_1px_1px_rgba(0,0,0,0.05),0_4px_6px_rgba(34,42,53,0.08),0_24px_68px_rgba(47,48,55,0.1)] ring-1 ring-gray-950/5"
+>
+  <div
+    class="absolute -inset-x-20 bottom-[calc(-93/16*1rem)] -z-10 h-[calc(440/16*1rem)] bg-gradient-to-t from-gray-50 from-55% to-95%"
   >
-    <div data-tab-content="contact">
-      <ContactForm light />
+  </div>
+  <DotLineHorizontal />
+  <DotLineVerticalLeft />
+  <DotLineVerticalRight />
+  <div class="relative flex items-center gap-4 rounded-t-xl bg-gray-950 px-6 py-8">
+    <div class="shrink-0">
+      <Image
+        sizes="15vw"
+        {...parseStoryblokImage(user.picture as AssetStoryblok)}
+        class="size-24 rounded-full bg-white/10 object-cover object-center md:size-28"
+      />
     </div>
-    <div data-tab-content="cal" class="overflow-hidden">
-      <CalIframe />
+    <div>
+      <div class="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-2">
+        <div class="text-base font-medium tracking-tight text-white">
+          {user.firstname}
+          {user.lastname}
+        </div>
+        <div class="text-sm text-gray-300">Directeur Technique</div>
+      </div>
+      <button
+        data-cal-link="anthony-hexium/etude-de-projet"
+        data-cal-namespace="etude-de-projet"
+        data-cal-config='{"layout":"month_view"}'
+        class="group before:transtion-opacity relative isolate mt-2 inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-md bg-blue-600 px-3 py-1 text-left text-sm font-medium text-white shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] ring-1 ring-blue-600 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay hover:before:opacity-100"
+      >
+        Planifier un appel
+      </button>
     </div>
-  </Tabs>
+  </div>
+  <div class="px-6 pt-6 pb-5">
+    <ContactForm light />
+  </div>
 </div>
-
-<script type="text/javascript">
-  (function (C, A, L) {
-    let p = function (a, ar) {
-      a.q.push(ar);
-    };
-    let d = C.document;
-    C.Cal =
-      C.Cal ||
-      function () {
-        let cal = C.Cal;
-        let ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement('script')).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          const api = function () {
-            p(api, arguments);
-          };
-          const namespace = ar[1];
-          api.q = api.q || [];
-          if (typeof namespace === 'string') {
-            cal.ns[namespace] = cal.ns[namespace] || api;
-            p(cal.ns[namespace], ar);
-            p(cal, ['initNamespace', namespace]);
-          } else p(cal, ar);
-          return;
-        }
-        p(cal, ar);
-      };
-  })(window, 'https://app.cal.com/embed/embed.js', 'init');
-  Cal('init', 'etude-de-projet', { origin: 'https://cal.com' });
-
-  // Important: Please add the following attributes to the element that should trigger the calendar to open upon clicking.
-  // `data-cal-link="anthony-hexium/etude-de-projet"`
-  // data-cal-namespace="etude-de-projet"
-  // `data-cal-config='{"layout":"month_view"}'`
-
-  Cal.ns['etude-de-projet']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
-</script>
-<!-- Cal element-click embed code ends -->
