@@ -125,20 +125,16 @@ const {
 
 <script define:vars={{ autoFill }}>
   document.addEventListener('astro:page-load', () => {
-    // Find all marquee containers on the page
-    const containers = document.querySelectorAll('.rfm-marquee-container');
+    const container = document.querySelector('.rfm-marquee-container');
+    const marquee = container?.querySelector('.rfm-marquee');
+    const initialChildContainer = container?.querySelector('.rfm-initial-child-container');
 
-    containers.forEach((container) => {
-      const marquee = container.querySelector('.rfm-marquee');
-      const initialChildContainer = container.querySelector('.rfm-initial-child-container');
-
-      if (!marquee || !initialChildContainer) {
-        console.error('Marquee elements not found');
-        return;
-      }
-
+    if (!container || !marquee || !initialChildContainer) {
+      console.error('Marquee elements not found');
+    } else {
       let multiplier = 1;
-      const resizeObserver = new ResizeObserver(() => {
+
+      const calculateWidth = () => {
         const containerRect = container.getBoundingClientRect();
         const marqueeRect = marquee.getBoundingClientRect();
         let containerWidth = containerRect.width;
@@ -159,41 +155,18 @@ const {
               : marqueeWidth / 50;
           m.style.setProperty('--duration', `${duration}s`);
         });
-      });
+      };
 
-      // Initial calculation
-      const containerRect = container.getBoundingClientRect();
-      const marqueeRect = marquee.getBoundingClientRect();
-      let containerWidth = containerRect.width;
-      let marqueeWidth = marqueeRect.width;
+      calculateWidth();
 
-      if (autoFill && containerWidth && marqueeWidth) {
-        multiplier = marqueeWidth < containerWidth ? Math.ceil(containerWidth / marqueeWidth) : 1;
-      }
-
-      const marquees = container.querySelectorAll('.rfm-marquee');
-      marquees.forEach((m) => {
-        const duration = autoFill
-          ? (marqueeWidth * multiplier) / 50
-          : marqueeWidth < containerWidth
-            ? containerWidth / 50
-            : marqueeWidth / 50;
-        m.style.setProperty('--duration', `${duration}s`);
-      });
-
-      // Observe both container and marquee
+      const resizeObserver = new ResizeObserver(calculateWidth);
       resizeObserver.observe(container);
       resizeObserver.observe(marquee);
+    }
+  });
 
-      // Cleanup on page unload
-      document.addEventListener(
-        'astro:page-load',
-        () => {
-          resizeObserver.disconnect();
-        },
-        { once: true }
-      );
-    });
+  document.addEventListener('astro:page-load', () => {
+    resizeObserver.disconnect();
   });
 </script>
 
