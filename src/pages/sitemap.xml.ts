@@ -87,7 +87,7 @@ export async function GET() {
     return works
       .map((work) => {
         // @ts-ignore
-        if (!!work.content.content.content?.[0]?.content) {
+        if (!!work.content.isPublished) {
           return createSitemapEntry(work);
         }
         return null;

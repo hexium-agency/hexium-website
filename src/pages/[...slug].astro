@@ -106,7 +106,7 @@ export async function getStaticPaths() {
   const works = await workService.getAllWorks();
 
   for (const work of works) {
-    if (work.content.content?.content?.[0]?.content) {
+    if (!!work.content.isPublished) {
       paths.push({
         params: { slug: work.full_slug },
       });

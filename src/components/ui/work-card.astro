@@ -10,7 +10,7 @@ interface AstroProps {
 
 const { work } = Astro.props as AstroProps;
 
-const hasContent = !!work.content.content?.content?.[0]?.content;
+const hasContent = !!work.content.isPublished;
 const LinkWrapper = hasContent ? 'a' : 'div';
 ---
 
