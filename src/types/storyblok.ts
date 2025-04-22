@@ -73,6 +73,14 @@ export interface ArticleStoryblok {
   [k: string]: any;
 }
 
+export interface BadgeTitleStoryblok {
+  badge?: string;
+  title: string;
+  component: "badgeTitle";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface BlogCategoryStoryblok {
   body: (
     | HeroHomeStoryblok
@@ -234,6 +242,7 @@ export interface CardBentoStoryblok {
     | AccordionGroupStoryblok
     | AgencyNoteStoryblok
     | ArticleStoryblok
+    | BadgeTitleStoryblok
     | BlogCategoryStoryblok
     | BlogHomeStoryblok
     | ButtonStoryblok
@@ -249,6 +258,7 @@ export interface CardBentoStoryblok {
     | CompanyStoryblok
     | ContactHomeStoryblok
     | ContactWidgetStoryblok
+    | ContentCallToActionStoryblok
     | CustomerStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
@@ -355,6 +365,20 @@ export interface CompanyStoryblok {
 }
 
 export interface ContactHomeStoryblok {
+  blocks?: (
+    | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
+    | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
+    | FeaturedWorksStoryblok
+    | GridStoryblok
+    | ImageStoryblok
+    | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
+    | SpacerStoryblok
+  )[];
   component: "contactHome";
   _uid: string;
   [k: string]: any;
@@ -362,6 +386,16 @@ export interface ContactHomeStoryblok {
 
 export interface ContactWidgetStoryblok {
   component: "contactWidget";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface ContentCallToActionStoryblok {
+  badge: string;
+  title: string;
+  content: string;
+  buttons: (ButtonStoryblok | ButtonMeetingStoryblok)[];
+  component: "contentCallToAction";
   _uid: string;
   [k: string]: any;
 }
@@ -497,7 +531,7 @@ export interface HeroHorizontalStoryblok {
   text: string;
   buttons?: (ButtonStoryblok | ButtonMeetingStoryblok)[];
   effects?: HighlightWordsStoryblok[];
-  bottomItems?: (SpacerStoryblok | MarqueeLogosStoryblok)[];
+  bottomItems?: (SpacerStoryblok | MarqueeLogosStoryblok | AgencyNoteStoryblok)[];
   component: "heroHorizontal";
   _uid: string;
   [k: string]: any;
@@ -800,14 +834,15 @@ export interface TextStoryblok {
 }
 
 export interface WorkStoryblok {
-  customer: (ISbStoryData<CustomerStoryblok> | string)[];
-  category: (ISbStoryData<WorkCategoryStoryblok> | string)[];
-  services: (string)[];
-  technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
+  isPublished?: boolean;
   project: string;
   cover: AssetStoryblok;
   completionYear: string;
   content?: RichtextStoryblok;
+  customer: (ISbStoryData<CustomerStoryblok> | string)[];
+  category: (ISbStoryData<WorkCategoryStoryblok> | string)[];
+  services: (string)[];
+  technologies: (ISbStoryData<TechnologyStoryblok> | string)[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;

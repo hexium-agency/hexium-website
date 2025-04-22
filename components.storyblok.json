@@ -123,10 +123,10 @@
     },
     {
       "name": "agencyNote",
-      "display_name": null,
-      "description": "NOTE AGENCE",
+      "display_name": "NOTE AGENCE",
+      "description": "",
       "created_at": "2025-04-13T15:49:53.901Z",
-      "updated_at": "2025-04-13T15:50:01.503Z",
+      "updated_at": "2025-04-19T15:58:50.892Z",
       "id": 7212273,
       "schema": {},
       "image": null,
@@ -136,7 +136,7 @@
       "is_nestable": true,
       "all_presets": [],
       "preset_id": null,
-      "real_name": "agencyNote",
+      "real_name": "NOTE AGENCE",
       "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
       "color": "#4656ae",
       "icon": "block-1-2block",
@@ -335,6 +335,53 @@
       "content_type_asset_preview": null,
       "metadata": {},
       "component_group_name": "DATA"
+    },
+    {
+      "name": "badgeTitle",
+      "display_name": "CONTENU - TITRE",
+      "description": "",
+      "created_at": "2025-04-20T09:57:56.239Z",
+      "updated_at": "2025-04-20T16:31:04.716Z",
+      "id": 7242650,
+      "schema": {
+        "badge": {
+          "type": "text",
+          "pos": 0,
+          "display_name": "BADGE",
+          "id": "H9hgX0ctTNm0RxJX6KEmhg"
+        },
+        "title": {
+          "type": "text",
+          "pos": 1,
+          "id": "XROS67VOTv-spZTDIdmcQA",
+          "display_name": "TITRE",
+          "required": true,
+          "description": "H2"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CONTENU - TITRE",
+      "component_group_uuid": "8a3f7e21-9c0c-455d-87f2-fbf86086f1f7",
+      "color": "#913f0f",
+      "icon": "block-text-img-r",
+      "internal_tags_list": [
+        {
+          "id": 61951,
+          "name": "content"
+        }
+      ],
+      "internal_tag_ids": [
+        "61951"
+      ],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "CONTENT"
     },
     {
       "name": "blogCategory",
@@ -1014,7 +1061,7 @@
       "display_name": "CARD (ICÔNE - TITRE - TEXTE) - LIGHT",
       "description": "",
       "created_at": "2025-03-13T12:27:03.267Z",
-      "updated_at": "2025-04-02T08:46:42.011Z",
+      "updated_at": "2025-04-18T09:14:23.097Z",
       "id": 7081067,
       "schema": {
         "icon": {
@@ -1067,7 +1114,7 @@
         }
       },
       "image": null,
-      "preview_field": null,
+      "preview_field": "title",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
@@ -1242,10 +1289,10 @@
     },
     {
       "name": "codeBlock",
-      "display_name": "CODE BLOCK",
+      "display_name": "CONTENU - CODE BLOCK",
       "description": null,
       "created_at": "2025-01-20T16:51:17.837Z",
-      "updated_at": "2025-04-02T12:14:00.678Z",
+      "updated_at": "2025-04-20T16:30:57.844Z",
       "id": 6822059,
       "schema": {
         "code": {
@@ -1284,7 +1331,7 @@
       "is_nestable": true,
       "all_presets": [],
       "preset_id": null,
-      "real_name": "CODE BLOCK",
+      "real_name": "CONTENU - CODE BLOCK",
       "component_group_uuid": "8a3f7e21-9c0c-455d-87f2-fbf86086f1f7",
       "color": "#913f0f",
       "icon": "block-text-img-r",
@@ -1382,9 +1429,22 @@
       "display_name": "CONTACT - HOME",
       "description": "",
       "created_at": "2025-04-06T09:04:22.756Z",
-      "updated_at": "2025-04-06T09:06:01.443Z",
+      "updated_at": "2025-04-20T14:15:22.030Z",
       "id": 7173604,
-      "schema": {},
+      "schema": {
+        "blocks": {
+          "type": "bloks",
+          "pos": 0,
+          "id": "nQukxx9mThaUDCH3Ml842Q",
+          "display_name": "BLOCKS",
+          "restrict_type": "groups",
+          "restrict_components": true,
+          "component_whitelist": [],
+          "component_group_whitelist": [
+            "83d83b65-3eb1-45c3-8681-76b4dd75c360"
+          ]
+        }
+      },
       "image": null,
       "preview_field": null,
       "is_root": false,
@@ -1440,6 +1500,79 @@
       "content_type_asset_preview": null,
       "metadata": {},
       "component_group_name": "UI"
+    },
+    {
+      "name": "contentCallToAction",
+      "display_name": "CONTENT - CALL TO ACTION",
+      "description": null,
+      "created_at": "2025-04-20T16:34:07.605Z",
+      "updated_at": "2025-04-20T16:34:34.960Z",
+      "id": 7243357,
+      "schema": {
+        "badge": {
+          "type": "text",
+          "pos": 0,
+          "tooltip": false,
+          "description": "H2",
+          "display_name": "BADGE",
+          "required": true,
+          "id": "CfrnAoXoTayckT2i5HBOww"
+        },
+        "title": {
+          "type": "text",
+          "pos": 1,
+          "display_name": "TITRE",
+          "tooltip": false,
+          "description": "H3",
+          "required": true,
+          "id": "_L5aqZ9DQBGGLoGRTCWrzA"
+        },
+        "content": {
+          "type": "textarea",
+          "pos": 2,
+          "display_name": "TEXTE",
+          "required": true,
+          "id": "gXUA6WxYQeOc2AWYp2Vo4w"
+        },
+        "buttons": {
+          "type": "bloks",
+          "pos": 3,
+          "maximum": 2,
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "button",
+            "buttonMeeting"
+          ],
+          "display_name": "BOUTONS",
+          "id": "LBY_GgFETNWUZegNnZR43Q",
+          "minimum": 1,
+          "required": true
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CONTENT - CALL TO ACTION",
+      "component_group_uuid": "8a3f7e21-9c0c-455d-87f2-fbf86086f1f7",
+      "color": "#913f0f",
+      "icon": "block-text-img-r",
+      "internal_tags_list": [
+        {
+          "id": 61951,
+          "name": "content"
+        }
+      ],
+      "internal_tag_ids": [
+        "61951"
+      ],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "CONTENT"
     },
     {
       "name": "customer",
@@ -2138,7 +2271,7 @@
       "display_name": "GRILLE",
       "description": null,
       "created_at": "2024-12-13T14:47:37.052Z",
-      "updated_at": "2025-04-16T14:16:26.444Z",
+      "updated_at": "2025-04-18T09:13:44.162Z",
       "id": 6687188,
       "schema": {
         "tab-fe6a1b9e-7164-4e3a-b621-5bef269e4cf6": {
@@ -2468,7 +2601,7 @@
       "display_name": "HERO - HORIZONTAL",
       "description": "",
       "created_at": "2025-03-05T14:32:38.496Z",
-      "updated_at": "2025-04-15T13:08:58.426Z",
+      "updated_at": "2025-04-19T15:58:37.641Z",
       "id": 7046807,
       "schema": {
         "badge": {
@@ -2545,7 +2678,8 @@
           "restrict_components": true,
           "component_whitelist": [
             "spacer",
-            "marqueeLogos"
+            "marqueeLogos",
+            "agencyNote"
           ]
         }
       },
@@ -3268,7 +3402,7 @@
       "display_name": "SECTION - HORIZONTAL",
       "description": null,
       "created_at": "2024-12-13T16:45:09.023Z",
-      "updated_at": "2025-04-02T09:15:38.383Z",
+      "updated_at": "2025-04-18T09:04:20.427Z",
       "id": 6688516,
       "schema": {
         "backgroundColor": {
@@ -3418,7 +3552,7 @@
         }
       },
       "image": null,
-      "preview_field": null,
+      "preview_field": "badge",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
@@ -4002,7 +4136,7 @@
       "display_name": "TESTIMONIAL",
       "description": null,
       "created_at": "2024-12-08T16:08:31.782Z",
-      "updated_at": "2025-04-18T08:11:59.458Z",
+      "updated_at": "2025-04-18T08:20:39.102Z",
       "id": 6663006,
       "schema": {
         "customer": {
@@ -4015,7 +4149,8 @@
           "filter_content_type": [
             "customer"
           ],
-          "id": "HiE1Bn7oTdeG-9f1k7Li7Q"
+          "id": "HiE1Bn7oTdeG-9f1k7Li7Q",
+          "display_name": "CLIENT"
         },
         "image": {
           "type": "asset",
@@ -4025,7 +4160,8 @@
             "images"
           ],
           "asset_folder_id": 681166,
-          "id": "jzgrRZuWRjyeI5GmTMWSCw"
+          "id": "jzgrRZuWRjyeI5GmTMWSCw",
+          "display_name": "IMAGE DE FOND"
         },
         "firstname": {
           "type": "text",
@@ -4147,81 +4283,26 @@
       "display_name": "WORK",
       "description": null,
       "created_at": "2024-12-09T09:31:18.424Z",
-      "updated_at": "2025-04-12T11:15:36.278Z",
+      "updated_at": "2025-04-20T16:30:04.650Z",
       "id": 6665046,
       "schema": {
-        "customer": {
-          "type": "options",
-          "pos": 1,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "link",
-          "allow_advanced_search": true,
-          "display_name": "CLIENT",
-          "required": true,
-          "filter_content_type": [
-            "customer"
-          ],
-          "min_options": "1",
-          "max_options": "1",
-          "id": "iXu9NgFgSmS-OaMu3FqHvg"
-        },
-        "category": {
-          "type": "options",
-          "pos": 2,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "link",
-          "allow_advanced_search": true,
-          "display_name": "CATÉGORIE",
-          "required": true,
-          "filter_content_type": [
-            "workCategory"
-          ],
-          "min_options": "1",
-          "id": "olQ7SDW7TcmpDRzlNXWh5w",
-          "max_options": "1"
-        },
-        "services": {
-          "type": "options",
-          "pos": 3,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "link",
-          "allow_advanced_search": true,
-          "display_name": "SERVICES",
-          "filter_content_type": [],
-          "folder_slug": "audit/,application-mobile/,conseil/,design/,developpement-web,intelligence-artificielle/,site-internet/",
-          "min_options": "1",
-          "max_options": "",
-          "id": "0BkgaRDNSR2OlDxCx1bwjQ",
-          "required": true
-        },
-        "technologies": {
-          "type": "options",
-          "pos": 4,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "link",
-          "allow_advanced_search": true,
-          "display_name": "TECHNOLOGIES",
-          "required": true,
-          "filter_content_type": [
-            "technology"
-          ],
-          "min_options": "1",
-          "id": "lsk-LUntQ3umbvE4HCu1-Q"
+        "isPublished": {
+          "type": "boolean",
+          "pos": 0,
+          "display_name": "PUBLIÉ LA PAGE ?",
+          "description": "Si cette case n'est pas cochée, la réalisation sera visible mais pas accessible.",
+          "id": "9F6g-KIIRt6Q_PrBcEuZ0Q"
         },
         "project": {
           "type": "text",
-          "pos": 5,
+          "pos": 1,
           "required": true,
           "display_name": "PROJET",
           "id": "GCMOwOMzTRG7h5W4xehr3A"
         },
         "cover": {
           "type": "asset",
-          "pos": 6,
+          "pos": 2,
           "display_name": "COUVERTURE",
           "required": true,
           "filetypes": [
@@ -4232,7 +4313,7 @@
         },
         "completionYear": {
           "type": "text",
-          "pos": 7,
+          "pos": 3,
           "display_name": "ANNÉE DE RÉALISATION",
           "required": true,
           "regex": "^202[0-9]$",
@@ -4240,7 +4321,7 @@
         },
         "content": {
           "type": "richtext",
-          "pos": 8,
+          "pos": 4,
           "id": "rYHJRm6eSeuEmE7o7-g-yg",
           "required": false,
           "display_name": "CONTENU",
@@ -4271,7 +4352,75 @@
             "underline",
             "undo"
           ],
-          "description": "Sans contenu, la réalisation sera visible mais pas cliquable et donc pas consultable."
+          "description": "",
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "badgeTitle",
+            "featuredTechnologies"
+          ]
+        },
+        "customer": {
+          "type": "options",
+          "pos": 5,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "CLIENT",
+          "required": true,
+          "filter_content_type": [
+            "customer"
+          ],
+          "min_options": "1",
+          "max_options": "1",
+          "id": "iXu9NgFgSmS-OaMu3FqHvg"
+        },
+        "category": {
+          "type": "options",
+          "pos": 6,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "CATÉGORIE",
+          "required": true,
+          "filter_content_type": [
+            "workCategory"
+          ],
+          "min_options": "1",
+          "id": "olQ7SDW7TcmpDRzlNXWh5w",
+          "max_options": "1"
+        },
+        "services": {
+          "type": "options",
+          "pos": 7,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "SERVICES",
+          "filter_content_type": [],
+          "folder_slug": "audit/,application-mobile/,conseil/,design/,developpement-web,intelligence-artificielle/,site-internet/",
+          "min_options": "1",
+          "max_options": "",
+          "id": "0BkgaRDNSR2OlDxCx1bwjQ",
+          "required": true
+        },
+        "technologies": {
+          "type": "options",
+          "pos": 8,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "TECHNOLOGIES",
+          "required": true,
+          "filter_content_type": [
+            "technology"
+          ],
+          "min_options": "1",
+          "id": "lsk-LUntQ3umbvE4HCu1-Q"
         },
         "tab-3df233bc-78cd-46b3-8d49-c5f30ba5a39d": {
           "display_name": "Config",
