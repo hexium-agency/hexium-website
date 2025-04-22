@@ -1,0 +1,25 @@
+---
+import type { BadgeTitleStoryblok } from '@/types/storyblok';
+import slugify from 'slugify';
+
+interface AstroProps {
+  blok: BadgeTitleStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const slugifiedText = slugify(blok.badge || blok.title, {
+  lower: true,
+});
+---
+
+<div data-badge={!!blok.badge} id={slugifiedText}>
+  {
+    blok.badge && (
+      <div class="mb-4 font-mono text-xs/6 font-medium tracking-wider text-balance text-blue-600 uppercase">
+        {blok.badge}
+      </div>
+    )
+  }
+  <h2 class="!mt-0">{blok.title}</h2>
+</div>

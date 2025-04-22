@@ -83,6 +83,9 @@ export default defineConfig({
         'footerAgency': 'components/ui/footer-agency',
         'footerLink': 'components/ui/footer-link',
         'footerLinkGroup': 'components/ui/footer-link-group',
+        // content
+        'badge-title': 'components/storyblok/content/badge-title',
+        'content-call-to-action': 'components/storyblok/content/content-call-to-action',
       },
       apiOptions: {
         region: 'eu',
