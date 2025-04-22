@@ -6,6 +6,20 @@ import {
 import type { ISbStoryData } from '@storyblok/astro';
 import slugify from 'slugify';
 
+export function extractBadgeTitleFromRichText(richText: RichtextStoryblok) {
+  if (!richText.content) return [];
+
+  return richText.content
+    .filter((item) => item.type === 'blok' && item.attrs?.body?.[0]?.component === 'badgeTitle')
+    .map((heading) => ({
+      level: 2,
+      text: heading.attrs?.body?.[0]?.badge || heading.attrs?.content?.[0]?.title || '',
+      id: slugify(heading.attrs?.body?.[0]?.badge || heading.attrs?.content?.[0]?.title || '', {
+        lower: true,
+      }),
+    }));
+}
+
 export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
   if (!richText.content) return [];
 
