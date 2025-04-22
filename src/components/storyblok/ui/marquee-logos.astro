@@ -124,49 +124,58 @@ const {
 </div>
 
 <script define:vars={{ autoFill }}>
-  document.addEventListener('astro:page-load', () => {
-    const container = document.querySelector('.rfm-marquee-container');
-    const marquee = container?.querySelector('.rfm-marquee');
-    const initialChildContainer = container?.querySelector('.rfm-initial-child-container');
-
-    if (!container || !marquee || !initialChildContainer) {
-      console.error('Marquee elements not found');
-    } else {
-      let multiplier = 1;
-
-      const calculateWidth = () => {
-        const containerRect = container.getBoundingClientRect();
-        const marqueeRect = marquee.getBoundingClientRect();
-        let containerWidth = containerRect.width;
-        let marqueeWidth = marqueeRect.width;
-
-        if (autoFill && containerWidth && marqueeWidth) {
-          multiplier = marqueeWidth < containerWidth ? Math.ceil(containerWidth / marqueeWidth) : 1;
-        } else {
-          multiplier = 1;
-        }
-
-        const marquees = container.querySelectorAll('.rfm-marquee');
-        marquees.forEach((m) => {
-          const duration = autoFill
-            ? (marqueeWidth * multiplier) / 50
-            : marqueeWidth < containerWidth
-              ? containerWidth / 50
-              : marqueeWidth / 50;
-          m.style.setProperty('--duration', `${duration}s`);
-        });
-      };
-
-      calculateWidth();
-
-      const resizeObserver = new ResizeObserver(calculateWidth);
-      resizeObserver.observe(container);
-      resizeObserver.observe(marquee);
-    }
-  });
+  let observers = [];
 
   document.addEventListener('astro:page-load', () => {
-    resizeObserver.disconnect();
+    // Clean up existing observers
+    observers.forEach((observer) => observer.disconnect());
+    observers = [];
+
+    const containers = document.querySelectorAll('.rfm-marquee-container');
+
+    containers.forEach((container) => {
+      const marquee = container?.querySelector('.rfm-marquee');
+      const initialChildContainer = container?.querySelector('.rfm-initial-child-container');
+
+      if (!container || !marquee || !initialChildContainer) {
+        console.error('Marquee elements not found');
+      } else {
+        let multiplier = 1;
+
+        const calculateWidth = () => {
+          const containerRect = container.getBoundingClientRect();
+          const marqueeRect = marquee.getBoundingClientRect();
+          let containerWidth = containerRect.width;
+          let marqueeWidth = marqueeRect.width;
+
+          if (autoFill && containerWidth && marqueeWidth) {
+            multiplier =
+              marqueeWidth < containerWidth ? Math.ceil(containerWidth / marqueeWidth) : 1;
+          } else {
+            multiplier = 1;
+          }
+
+          const marquees = container.querySelectorAll('.rfm-marquee');
+          marquees.forEach((m) => {
+            const duration = autoFill
+              ? (marqueeWidth * multiplier) / 50
+              : marqueeWidth < containerWidth
+                ? containerWidth / 50
+                : marqueeWidth / 50;
+            m.style.setProperty('--duration', `${duration}s`);
+          });
+        };
+
+        calculateWidth();
+
+        const resizeObserver = new ResizeObserver(calculateWidth);
+        resizeObserver.observe(container);
+        resizeObserver.observe(marquee);
+
+        // Store the observer for cleanup
+        observers.push(resizeObserver);
+      }
+    });
   });
 </script>
 
