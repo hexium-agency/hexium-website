@@ -1,5 +1,13 @@
 ---
 import ContactForm from '@/components/contact-form.astro';
+import type { ContactHomeStoryblok } from '@/types/storyblok';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: ContactHomeStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
 ---
 
 <div class="container flex flex-col lg:flex-row">
@@ -17,7 +25,7 @@ import ContactForm from '@/components/contact-form.astro';
         Notre agence est à votre écoute pour répondre à vos questions et vous accompagner dans vos
         projets.
       </p>
-      <ul class="mt-10 text-base font-medium text-gray-700">
+      <ul class="mt-10 hidden text-base font-medium text-gray-700 md:block">
         <li class="flex items-center gap-2">
           <svg
             class="size-5 text-green-500"
@@ -64,6 +72,7 @@ import ContactForm from '@/components/contact-form.astro';
           <span>Proposition technique adaptée à vos besoins</span>
         </li>
       </ul>
+      {blok.blocks?.map((item) => <StoryblokComponent blok={item} />)}
     </div>
   </div>
 
