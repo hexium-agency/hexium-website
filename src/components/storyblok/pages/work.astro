@@ -8,7 +8,7 @@ import type {
   TechnologyStoryblok,
   WorkStoryblok,
 } from '@/types/storyblok';
-import { extractHeadingsFromRichText, parseStoryblokImage } from '@/utils/storyblok';
+import { extractBadgeTitleFromRichText, parseStoryblokImage } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { storyblokEditable } from '@storyblok/astro';
 import { Image } from 'astro:assets';
@@ -23,7 +23,7 @@ const { blok, story } = Astro.props as AstroProps;
 const technologies = story.content.technologies as ISbStoryData<TechnologyStoryblok>[];
 const services = story.content.services as unknown as ISbStoryData<PageStoryblok>[];
 
-const headings = extractHeadingsFromRichText(blok.content as RichtextStoryblok);
+const headings = extractBadgeTitleFromRichText(blok.content as RichtextStoryblok);
 ---
 
 <div>
