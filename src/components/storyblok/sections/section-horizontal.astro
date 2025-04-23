@@ -25,7 +25,7 @@ const { blok } = Astro.props as AstroProps;
         blok.sizeLeftColumn === 'third' && 'lg:grid-cols-3'
       )}
     >
-      <div class={cn(blok.revertSide && 'lg:order-2')}>
+      <div class={cn('overflow-hidden', blok.revertSide && 'lg:order-2')}>
         <h2
           class="text-2xs font-mono leading-none font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200"
         >
