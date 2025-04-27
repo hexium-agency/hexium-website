@@ -1,6 +1,7 @@
 ---
 import ContactForm from '@/components/contact-form.astro';
 import type { ContactHomeStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 
 interface AstroProps {
@@ -10,7 +11,7 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 ---
 
-<div class="container flex flex-col lg:flex-row">
+<section {...storyblokEditable(blok)} class="container flex flex-col lg:flex-row">
   <div class="lg:w-1/2">
     <div class="flex flex-col justify-start pb-8 lg:p-16 lg:pl-0">
       <h1
@@ -81,4 +82,4 @@ const { blok } = Astro.props as AstroProps;
       <ContactForm />
     </div>
   </div>
-</div>
+</section>
