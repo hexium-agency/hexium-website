@@ -542,6 +542,7 @@ export interface HeroVerticalStoryblok {
   title: string;
   text?: string;
   buttons?: ButtonStoryblok[];
+  background: "" | "white" | "gray" | "black";
   component: "heroVertical";
   _uid: string;
   [k: string]: any;

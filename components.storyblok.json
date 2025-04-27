@@ -2712,7 +2712,7 @@
       "display_name": "HERO - VERTICAL",
       "description": "",
       "created_at": "2025-03-05T14:31:23.679Z",
-      "updated_at": "2025-03-29T15:35:11.158Z",
+      "updated_at": "2025-04-25T13:28:43.583Z",
       "id": 7046805,
       "schema": {
         "badge": {
@@ -2722,6 +2722,15 @@
           "display_name": "BADGE",
           "description": "H1",
           "id": "L9OiWXkXSXW-n5EW76mnOA"
+        },
+        "tab-c3e0a00d-8e8d-45fc-9efc-829e25231da3": {
+          "display_name": "Config",
+          "keys": [
+            "background"
+          ],
+          "pos": 0,
+          "type": "tab",
+          "id": "w-CgDY6NRfye_IKeJSMdow"
         },
         "title": {
           "type": "text",
@@ -2749,6 +2758,32 @@
             "button"
           ],
           "id": "Stp_DszhTnG70QL1bJjnsg"
+        },
+        "background": {
+          "type": "option",
+          "pos": 5,
+          "use_uuid": true,
+          "display_name": "BACKGROUND",
+          "required": true,
+          "options": [
+            {
+              "_uid": "9a4f1fda-2b02-49d0-81ad-960a855335da",
+              "value": "white",
+              "name": "BLANC"
+            },
+            {
+              "_uid": "2848bee5-622c-4e23-b8b0-4881b612c8c3",
+              "name": "GRIS",
+              "value": "gray"
+            },
+            {
+              "_uid": "c28db444-a644-4af6-b99b-638907b34b58",
+              "value": "black",
+              "name": "NOIR"
+            }
+          ],
+          "id": "pNNly8bYSA-WZ4KtBDumWQ",
+          "default_value": "white"
         }
       },
       "image": null,
@@ -4283,7 +4318,7 @@
       "display_name": "WORK",
       "description": null,
       "created_at": "2024-12-09T09:31:18.424Z",
-      "updated_at": "2025-04-20T16:30:04.650Z",
+      "updated_at": "2025-04-20T16:35:37.686Z",
       "id": 6665046,
       "schema": {
         "isPublished": {
@@ -4357,7 +4392,9 @@
           "restrict_components": true,
           "component_whitelist": [
             "badgeTitle",
-            "featuredTechnologies"
+            "featuredTechnologies",
+            "featuredTestimonials",
+            "contentCallToAction"
           ]
         },
         "customer": {
