@@ -86,6 +86,7 @@ export default defineConfig({
         // content
         'badge-title': 'components/storyblok/content/badge-title',
         'content-call-to-action': 'components/storyblok/content/content-call-to-action',
+        'content-featured-testimonials': 'components/storyblok/content/content-featured-testimonials',
       },
       apiOptions: {
         region: 'eu',
@@ -112,10 +113,11 @@ export default defineConfig({
     '/blog/stripe-presentation-de-la-solution-de-paiement' : '/blog/developpement-web/stripe-presentation-de-la-solution-de-paiement',
     '/creation-site-internet': '/site-internet',
     '/e-commerce': '/',
+    '/realisations/garycorp': '/realisations',
     '/services/creation-site-internet': '/site-internet',
-    '/services/developpement-mobile': '/developpement-mobile',
+    '/services/developpement-mobile': '/application-mobile',
     '/services/developpement-web': '/developpement-web',
-    '/technologies/adonijs': '/',
+    '/technologies/adonijs': '/technologies',
     '/technologies/nestjs': '/technologies/nest-js',
     '/technologies/nextjs': '/technologies/next-js',
     '/technologies/nodejs': '/technologies/node-js',

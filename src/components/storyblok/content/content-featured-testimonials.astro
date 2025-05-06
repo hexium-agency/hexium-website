@@ -1,0 +1,131 @@
+---
+import { cn } from '@/lib/utils';
+import testimonialService from '@/services/testimonial';
+import type { CustomerStoryblok, FeaturedTestimonialsStoryblok } from '@/types/storyblok';
+import { parseStoryblokImage } from '@/utils/storyblok';
+import { storyblokEditable, type ISbStoryData } from '@storyblok/astro';
+import { Image } from 'astro:assets';
+interface AstroProps {
+  blok: FeaturedTestimonialsStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const testimonials = await testimonialService.getTestimonialsByUuids(blok.testimonials as string[]);
+---
+
+<div
+  {...storyblokEditable(blok)}
+  class="not-prose mx-auto my-7 max-w-4xl rounded-2xl shadow-[0_2px_10px] shadow-gray-900/20"
+>
+  <div
+    class={cn(
+      'tab-content relative h-[350px] rounded-t-2xl',
+      testimonials.length > 1 && 'bg-gray-200'
+    )}
+  >
+    {
+      testimonials.map((testimonial, index) => (
+        <div
+          class={`justif-end flex h-full rounded-2xl bg-black p-4 ${index === 0 ? 'block' : 'hidden'}`}
+          id={`content-${testimonial.uuid}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${testimonial.uuid}`}
+        >
+          <Image
+            class="absolute top-0 left-0 h-full w-full rounded-2xl object-cover object-center opacity-40"
+            {...parseStoryblokImage(testimonial.content.image)}
+            sizes="80vw"
+          />
+          <div class="absolute top-0 left-0 z-10 h-full w-full rounded-b-2xl bg-[linear-gradient(180deg,rgba(20,22,30,0)_50%,#08080a_100%)] opacity-100" />
+          <Image
+            class="absolute top-4 left-4 max-h-[5em] w-full max-w-[9em] object-contain object-left-top"
+            {...parseStoryblokImage(
+              (testimonial.content.customer as ISbStoryData<CustomerStoryblok>).content.logoWhite
+            )}
+            sizes="15vw"
+          />
+
+          <figure class="z-10 self-end">
+            <blockquote>
+              <p class="text-xl text-pretty text-gray-50 italic">{testimonial.content.content}</p>
+            </blockquote>
+            <figcaption class="mt-4 text-sm">
+              <p class="text-gray-100">
+                {testimonial.content.firstname} {testimonial.content.lastname}
+              </p>
+              <p class="-mt-1 text-gray-300">{testimonial.content.position}</p>
+            </figcaption>
+          </figure>
+        </div>
+      ))
+    }
+  </div>
+  {
+    testimonials.length > 1 && (
+      <div class="rounded-b-lg bg-gray-200 p-3">
+        <ul class={cn('flex h-full flex-col gap-2 rounded-md lg:flex-row')} role="tablist">
+          {testimonials.map((testimonial, index) => (
+            <li role="presentation" class="w-full lg:max-w-[220px]">
+              <button
+                class={cn(
+                  'flex h-[56px] w-full flex-shrink-0 cursor-pointer items-center justify-center rounded-md px-4 outline-black transition-colors hover:bg-white',
+                  {
+                    'active bg-white': index === 0,
+                    'hover:bg-white': index !== 0,
+                  }
+                )}
+                id={`tab-${testimonial.uuid}`}
+                data-tabs-target={`#content-${testimonial.uuid}`}
+                type="button"
+                role="tab"
+                aria-controls={`content-${testimonial.uuid}`}
+                aria-selected={index === 0}
+              >
+                <Image
+                  {...parseStoryblokImage(
+                    (testimonial.content.customer as ISbStoryData<CustomerStoryblok>).content
+                      .logoBlack
+                  )}
+                  sizes="15vw"
+                  class="h-10 object-contain"
+                />
+                {/* @ts-ignore */}
+                <span class="sr-only">{testimonial.content.customer.content.name}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const tabs = document.querySelectorAll<HTMLElement>('[role="tab"]');
+
+    if (tabs.length > 1) {
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const targetId = tab.getAttribute('data-tabs-target');
+          if (!targetId) return;
+
+          const targetContent = document.querySelector<HTMLElement>(targetId);
+          if (!targetContent) return;
+
+          document.querySelectorAll<HTMLElement>('[role="tabpanel"]').forEach((panel) => {
+            panel.classList.add('hidden');
+          });
+
+          targetContent.classList.remove('hidden');
+
+          tabs.forEach((t) => {
+            t.classList.remove('bg-white');
+          });
+          tab.classList.add('bg-white');
+        });
+      });
+    }
+  });
+</script>
