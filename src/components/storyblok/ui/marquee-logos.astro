@@ -5,6 +5,7 @@ import type { MarqueeLogosStoryblok } from '@/types/storyblok';
 import { parseStoryblokBackgroundColorToTailwind, parseStoryblokImage } from '@/utils/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 import { Image } from 'astro:assets';
+
 interface Props {
   style?: Record<string, string>;
   className?: string;
@@ -24,7 +25,12 @@ const { blok } = Astro.props as AstroProps;
 
 const companiesUuids = blok.companies as string[];
 
-const companies = await companyService.getCompaniesByUuids(companiesUuids);
+let companies = await companyService.getCompaniesByUuids(companiesUuids);
+
+const companiesMap = new Map(companies.map((c) => [c.uuid, c]));
+companies = companiesUuids
+  .map((uuid) => companiesMap.get(uuid))
+  .filter((c): c is (typeof companies)[0] => Boolean(c));
 
 const {
   style = {},

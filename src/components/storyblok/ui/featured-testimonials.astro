@@ -1,22 +1,33 @@
 ---
 import { cn } from '@/lib/utils';
 import testimonialService from '@/services/testimonial';
-import type { CustomerStoryblok, FeaturedTestimonialsStoryblok } from '@/types/storyblok';
+import type {
+  CustomerStoryblok,
+  FeaturedTestimonialsStoryblok,
+  TestimonialStoryblok,
+} from '@/types/storyblok';
 import { parseStoryblokImage } from '@/utils/storyblok';
 import { storyblokEditable, type ISbStoryData } from '@storyblok/astro';
 import { Image } from 'astro:assets';
+
 interface AstroProps {
   blok: FeaturedTestimonialsStoryblok;
 }
 
 const { blok } = Astro.props as AstroProps;
 
-const testimonials = await testimonialService.getTestimonialsByUuids(blok.testimonials as string[]);
+let testimonials = await testimonialService.getTestimonialsByUuids(blok.testimonials as string[]);
+
+const testimonialUuids = blok.testimonials as string[];
+const testimonialsMap = new Map(testimonials.map((t) => [t.uuid, t]));
+testimonials = testimonialUuids
+  .map((uuid) => testimonialsMap.get(uuid))
+  .filter((t): t is ISbStoryData<TestimonialStoryblok> => Boolean(t));
 ---
 
 <div
   {...storyblokEditable(blok)}
-  class="not-prose mx-auto max-w-4xl rounded-2xl shadow-[0_2px_10px] shadow-gray-900/20"
+  class="not-prose mx-auto rounded-2xl shadow-[0_2px_10px] shadow-gray-900/20"
 >
   <div
     class={cn(
@@ -48,7 +59,9 @@ const testimonials = await testimonialService.getTestimonialsByUuids(blok.testim
 
           <figure class="z-10 self-end">
             <blockquote>
-              <p class="text-xl text-gray-50 italic lg:max-w-3/4">{testimonial.content.content}</p>
+              <p class="text-xl text-pretty text-gray-50 italic md:text-2xl lg:max-w-3/4">
+                {testimonial.content.content}
+              </p>
             </blockquote>
             <figcaption class="mt-4 text-sm">
               <p class="text-gray-100">
@@ -66,10 +79,10 @@ const testimonials = await testimonialService.getTestimonialsByUuids(blok.testim
       <div class="rounded-b-lg bg-gray-200 p-3">
         <ul class={cn('flex h-full flex-col gap-2 rounded-md lg:flex-row')} role="tablist">
           {testimonials.map((testimonial, index) => (
-            <li role="presentation" class="w-full lg:max-w-[220px]">
+            <li role="presentation" class="w-full lg:max-w-[175px]">
               <button
                 class={cn(
-                  'flex h-[56px] w-full flex-shrink-0 cursor-pointer items-center justify-center rounded-md px-4 outline-black transition-colors hover:bg-white',
+                  'flex h-[56px] w-full flex-shrink-0 cursor-pointer items-center justify-center rounded-md px-6 outline-black transition-colors hover:bg-white',
                   {
                     'active bg-white': index === 0,
                     'hover:bg-white': index !== 0,
@@ -88,7 +101,7 @@ const testimonials = await testimonialService.getTestimonialsByUuids(blok.testim
                       .logoBlack
                   )}
                   sizes="15vw"
-                  class="h-10 object-contain"
+                  class="pointer-events-none h-8 w-auto object-contain"
                 />
                 {/* @ts-ignore */}
                 <span class="sr-only">{testimonial.content.customer.content.name}</span>
