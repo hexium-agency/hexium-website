@@ -1,5 +1,6 @@
 ---
-import HeroDotsLogoJavascript from '@/components/effects/dots-logo/hero-dots-logo-javascript.astro';
+import HeroDotsLogoJavascript from '@/components/effects/dots-logo/hero-dots-logo-astro.astro';
+import { cn } from '@/lib/utils';
 import type { HeroHorizontalStoryblok } from '@/types/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
@@ -32,23 +33,30 @@ const transformedTitle = highlightWordsEffect
   : blok.title;
 ---
 
-<section {...storyblokEditable(blok)} class="bg-gray-950">
+<section
+  {...storyblokEditable(blok)}
+  class={cn(
+    blok.background === 'white' && 'bg-gray-50',
+    blok.background === 'gray' && 'bg-gray-100',
+    blok.background === 'black' && 'bg-gray-950 dark'
+  )}
+>
   <div
-    class="relative container flex flex-col justify-between py-16 sm:pt-24 sm:pb-32 lg:flex-row lg:gap-x-10"
+    class="relative container flex flex-col justify-between py-16 sm:py-24 lg:flex-row lg:gap-x-10"
   >
     <div class="w-full max-w-2xl">
       {
         blok.badge && (
-          <h1 class="mb-4 font-mono text-xs/6 font-medium tracking-wider text-balance text-gray-200 uppercase">
+          <h1 class="mb-4 font-mono text-xs/6 font-medium tracking-wider text-balance text-blue-600 uppercase dark:text-gray-200">
             {blok.badge}
           </h1>
         )
       }
       <Title
-        class="mx-auto text-4xl font-semibold tracking-tighter text-balance text-white sm:text-5xl lg:text-6xl"
+        class="mx-auto text-4xl font-semibold tracking-tighter text-balance text-gray-950 sm:text-5xl lg:text-6xl dark:text-white"
         set:html={transformedTitle}
       />
-      <div class="mt-6 max-w-lg text-[1rem]/6 text-pretty text-gray-400">
+      <div class="mt-6 max-w-lg text-[1rem]/6 text-pretty text-gray-600 dark:text-gray-400">
         {blok.text}
       </div>
       <div class="mt-8 flex items-center gap-x-6">
