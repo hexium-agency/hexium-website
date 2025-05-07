@@ -16,9 +16,10 @@ import type {
 } from '@/types/storyblok';
 import '@fontsource-variable/inter/opsz.css';
 import '@fontsource-variable/jetbrains-mono';
+
+import storyblokService from '@/services/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { ClientRouter } from 'astro:transitions';
-import storyblokService from '@/services/storyblok';
 
 interface AstroProps {
   story: ISbStoryData<

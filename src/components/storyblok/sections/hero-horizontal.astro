@@ -44,7 +44,7 @@ const transformedTitle = highlightWordsEffect
   <div
     class="relative container flex flex-col justify-between py-16 sm:py-24 lg:flex-row lg:gap-x-10"
   >
-    <div class="w-full max-w-2xl">
+    <div class="w-full max-w-3xl">
       {
         blok.badge && (
           <h1 class="mb-4 font-mono text-xs/6 font-medium tracking-wider text-balance text-blue-600 uppercase dark:text-gray-200">
@@ -53,7 +53,7 @@ const transformedTitle = highlightWordsEffect
         )
       }
       <Title
-        class="mx-auto text-4xl font-semibold tracking-tighter text-balance text-gray-950 sm:text-5xl lg:text-6xl dark:text-white"
+        class="font-heading mx-auto text-4xl font-semibold tracking-tighter text-balance text-gray-950 sm:text-5xl lg:text-6xl dark:text-white"
         set:html={transformedTitle}
       />
       <div class="mt-6 max-w-lg text-[1rem]/6 text-pretty text-gray-600 dark:text-gray-400">
