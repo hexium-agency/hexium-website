@@ -27,12 +27,12 @@ const { blok } = Astro.props as AstroProps;
     >
       <div class={cn('overflow-hidden', blok.revertSide && 'lg:order-2')}>
         <h2
-          class="text-2xs/[1.5] font-mono leading-none font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200"
+          class="text-2xs/[1.5] font-mono font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200"
         >
           {blok.badge}
         </h2>
         <h3
-          class="font-heading mt-4 text-3xl font-semibold tracking-tight text-balance text-gray-950 dark:text-white"
+          class="font-heading mt-4 text-3xl font-medium tracking-tight text-balance text-gray-950 dark:text-white"
         >
           {blok.title}
         </h3>
