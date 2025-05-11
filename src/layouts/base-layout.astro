@@ -4,6 +4,7 @@ import Header from '@/components/header.astro';
 import ArticleSchema from '@/components/seo/article-schema.astro';
 import HomeSchema from '@/components/seo/home-schema.astro';
 import PageSeo from '@/components/seo/page-seo.astro';
+import storyblokService from '@/services/storyblok';
 import '@/styles/global.css';
 import type {
   ArticleStoryblok,
@@ -16,9 +17,8 @@ import type {
 } from '@/types/storyblok';
 import '@fontsource-variable/inter/opsz.css';
 import '@fontsource-variable/jetbrains-mono';
-
-import storyblokService from '@/services/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
+
 import { ClientRouter } from 'astro:transitions';
 
 interface AstroProps {
@@ -86,5 +86,13 @@ const pathname = Astro.url.pathname;
       <slot />
     </main>
     <Footer />
+    <script>
+      import Lenis from 'lenis';
+
+      new Lenis({
+        autoRaf: true,
+        lerp: 0.15,
+      });
+    </script>
   </body>
 </html>
