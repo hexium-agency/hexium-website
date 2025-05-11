@@ -259,6 +259,7 @@ export interface CardBentoStoryblok {
     | ContactHomeStoryblok
     | ContactWidgetStoryblok
     | ContentCallToActionStoryblok
+    | ContentFeaturedTestimonialsStoryblok
     | CustomerStoryblok
     | DefinitionStoryblok
     | DefinitionHomeStoryblok
@@ -400,6 +401,13 @@ export interface ContentCallToActionStoryblok {
   [k: string]: any;
 }
 
+export interface ContentFeaturedTestimonialsStoryblok {
+  testimonials: (ISbStoryData<TestimonialStoryblok> | string)[];
+  component: "contentFeaturedTestimonials";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface CustomerStoryblok {
   name: string;
   customerSince: string;
@@ -526,11 +534,12 @@ export interface HeroHomeStoryblok {
 }
 
 export interface HeroHorizontalStoryblok {
+  backgroundColor: "" | "white" | "gray" | "black";
+  effects?: HighlightWordsStoryblok[];
   badge?: string;
   title: string;
   text: string;
   buttons?: (ButtonStoryblok | ButtonMeetingStoryblok)[];
-  effects?: HighlightWordsStoryblok[];
   bottomItems?: (SpacerStoryblok | MarqueeLogosStoryblok | AgencyNoteStoryblok)[];
   component: "heroHorizontal";
   _uid: string;
@@ -660,7 +669,7 @@ export interface SectionStoryblok {
 }
 
 export interface SectionHorizontalStoryblok {
-  backgroundColor: number | string;
+  sectionId?: string;
   badge: string;
   title: string;
   text?: RichtextStoryblok;
@@ -678,6 +687,7 @@ export interface SectionHorizontalStoryblok {
     | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
+  backgroundColor: number | string;
   rightItems?: (
     | AccordionGroupStoryblok
     | AgencyNoteStoryblok
@@ -714,6 +724,7 @@ export interface SectionHorizontalStoryblok {
 }
 
 export interface SectionVerticalStoryblok {
+  sectionId?: string;
   backgroundColor: number | string;
   titleMaxWidth: number | string;
   textMaxWidth: number | string;
@@ -816,7 +827,7 @@ export interface TechnologyHomeStoryblok {
 }
 
 export interface TestimonialStoryblok {
-  customer: ISbStoryData<CustomerStoryblok> | string;
+  customer: ISbStoryData<CustomerStoryblok> | ISbStoryData<CompanyStoryblok> | string;
   image: AssetStoryblok;
   firstname: string;
   lastname: string;

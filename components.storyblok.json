@@ -1061,7 +1061,7 @@
       "display_name": "CARD (ICÔNE - TITRE - TEXTE) - LIGHT",
       "description": "",
       "created_at": "2025-03-13T12:27:03.267Z",
-      "updated_at": "2025-04-18T09:14:23.097Z",
+      "updated_at": "2025-05-08T14:43:44.481Z",
       "id": 7081067,
       "schema": {
         "icon": {
@@ -1110,7 +1110,8 @@
           "type": "boolean",
           "pos": 4,
           "display_name": "TITRE + TEXTE SUR LA MÊME LIGNE ?",
-          "id": "uf8iPa_sQj6qexwadlU6ow"
+          "id": "uf8iPa_sQj6qexwadlU6ow",
+          "inline_label": false
         }
       },
       "image": null,
@@ -1558,6 +1559,55 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "CONTENT - CALL TO ACTION",
+      "component_group_uuid": "8a3f7e21-9c0c-455d-87f2-fbf86086f1f7",
+      "color": "#913f0f",
+      "icon": "block-text-img-r",
+      "internal_tags_list": [
+        {
+          "id": 61951,
+          "name": "content"
+        }
+      ],
+      "internal_tag_ids": [
+        "61951"
+      ],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "CONTENT"
+    },
+    {
+      "name": "contentFeaturedTestimonials",
+      "display_name": "TESTIMONIALS - MIS EN AVANT",
+      "description": "",
+      "created_at": "2025-04-30T14:48:47.544Z",
+      "updated_at": "2025-04-30T14:49:35.078Z",
+      "id": 7286958,
+      "schema": {
+        "testimonials": {
+          "type": "options",
+          "pos": 0,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "link",
+          "allow_advanced_search": true,
+          "display_name": "TESTIMONIALS",
+          "required": true,
+          "filter_content_type": [
+            "testimonial"
+          ],
+          "min_options": "1",
+          "max_options": "6",
+          "id": "Il4HpU7YRjeK9sTr5Q08_A"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "TESTIMONIALS - MIS EN AVANT",
       "component_group_uuid": "8a3f7e21-9c0c-455d-87f2-fbf86086f1f7",
       "color": "#913f0f",
       "icon": "block-text-img-r",
@@ -2601,22 +2651,60 @@
       "display_name": "HERO - HORIZONTAL",
       "description": "",
       "created_at": "2025-03-05T14:32:38.496Z",
-      "updated_at": "2025-04-19T15:58:37.641Z",
+      "updated_at": "2025-05-05T15:02:28.666Z",
       "id": 7046807,
       "schema": {
+        "backgroundColor": {
+          "type": "option",
+          "pos": 0,
+          "use_uuid": true,
+          "display_name": "COULEUR DE FOND",
+          "required": true,
+          "options": [
+            {
+              "_uid": "f4cca170-944a-40db-a89d-b7387783778b",
+              "name": "BLANC",
+              "value": "white"
+            },
+            {
+              "_uid": "08998f00-fd09-479d-b1b9-5d0a057bbdae",
+              "value": "gray",
+              "name": "GRIS"
+            },
+            {
+              "_uid": "5c7707ae-6316-4ef7-9778-a1d37bbaf680",
+              "value": "black",
+              "name": "NOIR"
+            }
+          ],
+          "default_value": "white",
+          "id": "HXVsrbOuRHyxLXfCslagPw"
+        },
+        "effects": {
+          "type": "bloks",
+          "pos": 1,
+          "display_name": "EFFETS",
+          "id": "PdMEBd9UQHSWrIIV79ZkHQ",
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "highlightWords"
+          ]
+        },
         "badge": {
           "type": "text",
-          "pos": 0,
+          "pos": 2,
           "id": "8THkDTduSJijYVYLgbywxw",
           "display_name": "BADGE",
           "description": "H1"
         },
         "tab-a6f4d7a7-a826-4fcd-b55e-fd0e1c770198": {
-          "display_name": "Effects",
+          "display_name": "Config",
           "keys": [
-            "effects"
+            "effects",
+            "backgroundColor"
           ],
-          "pos": 0,
+          "pos": 3,
           "type": "tab",
           "id": "pvTXp6gmT821Xv0OHHcBmA"
         },
@@ -2625,13 +2713,13 @@
           "keys": [
             "bottomItems"
           ],
-          "pos": 0,
+          "pos": 4,
           "type": "tab",
           "id": "488XEADRTKe2FH8ZA1NGOg"
         },
         "title": {
           "type": "text",
-          "pos": 1,
+          "pos": 5,
           "id": "f16bc9GhSWCpdgv1LQZoEQ",
           "display_name": "TITRE",
           "description": "H1 si pas de badge renseigné - H2 si badge renseigné",
@@ -2639,14 +2727,14 @@
         },
         "text": {
           "type": "textarea",
-          "pos": 2,
+          "pos": 6,
           "id": "VdC__hG9ShacjwHcntIeBA",
           "display_name": "TEXTE",
           "required": true
         },
         "buttons": {
           "type": "bloks",
-          "pos": 3,
+          "pos": 7,
           "display_name": "BOUTONS",
           "maximum": 2,
           "restrict_type": "",
@@ -2657,20 +2745,9 @@
           ],
           "id": "SPb3AtMDSCOy57MHYZV62g"
         },
-        "effects": {
-          "type": "bloks",
-          "pos": 5,
-          "display_name": "EFFETS",
-          "id": "PdMEBd9UQHSWrIIV79ZkHQ",
-          "restrict_type": "",
-          "restrict_components": true,
-          "component_whitelist": [
-            "highlightWords"
-          ]
-        },
         "bottomItems": {
           "type": "bloks",
-          "pos": 7,
+          "pos": 8,
           "id": "fU3bgQ41QXa4-GJ83jLmIA",
           "display_name": "ITEMS - BAS",
           "required": false,
@@ -2684,7 +2761,7 @@
         }
       },
       "image": null,
-      "preview_field": null,
+      "preview_field": "badge",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
@@ -2712,7 +2789,7 @@
       "display_name": "HERO - VERTICAL",
       "description": "",
       "created_at": "2025-03-05T14:31:23.679Z",
-      "updated_at": "2025-04-25T13:28:43.583Z",
+      "updated_at": "2025-04-25T14:00:20.961Z",
       "id": 7046805,
       "schema": {
         "badge": {
@@ -2763,7 +2840,7 @@
           "type": "option",
           "pos": 5,
           "use_uuid": true,
-          "display_name": "BACKGROUND",
+          "display_name": "COULEUR DE FOND",
           "required": true,
           "options": [
             {
@@ -3437,19 +3514,15 @@
       "display_name": "SECTION - HORIZONTAL",
       "description": null,
       "created_at": "2024-12-13T16:45:09.023Z",
-      "updated_at": "2025-04-18T09:04:20.427Z",
+      "updated_at": "2025-05-10T09:29:17.262Z",
       "id": 6688516,
       "schema": {
-        "backgroundColor": {
-          "type": "option",
+        "sectionId": {
+          "type": "text",
           "pos": 0,
-          "use_uuid": true,
-          "display_name": "COULEUR DE FOND",
-          "required": true,
-          "source": "internal",
-          "datasource_slug": "background-colors",
-          "default_value": "white",
-          "id": "PM7nDY5VS3659Glp3ZIBZw"
+          "display_name": "SECTION ID",
+          "description": "Utiliser pour créer un lien vers la section avec un #",
+          "id": "0-fw89nhQi2RKwUMbQTJXA"
         },
         "badge": {
           "type": "text",
@@ -3501,12 +3574,23 @@
             "83d83b65-3eb1-45c3-8681-76b4dd75c360"
           ]
         },
+        "backgroundColor": {
+          "type": "option",
+          "pos": 5,
+          "use_uuid": true,
+          "display_name": "COULEUR DE FOND",
+          "required": true,
+          "source": "internal",
+          "datasource_slug": "background-colors",
+          "default_value": "white",
+          "id": "PM7nDY5VS3659Glp3ZIBZw"
+        },
         "tab-ccecb74a-510a-4c4a-bacd-31be2551282a": {
           "display_name": "Droite",
           "keys": [
             "rightItems"
           ],
-          "pos": 5,
+          "pos": 6,
           "type": "tab",
           "id": "zOy3SlEKTEq6zTG-JVEoKg"
         },
@@ -3515,7 +3599,7 @@
           "keys": [
             "bottomItems"
           ],
-          "pos": 6,
+          "pos": 7,
           "type": "tab",
           "name": "tab-8b241c29-6304-426b-981d-2580107bafe1",
           "id": "iyQcKWMEQmuYHSWAEHuv4Q"
@@ -3525,9 +3609,10 @@
           "keys": [
             "backgroundColor",
             "revertSide",
-            "sizeLeftColumn"
+            "sizeLeftColumn",
+            "sectionId"
           ],
-          "pos": 7,
+          "pos": 8,
           "type": "tab",
           "id": "RCDWy93GS2OYN8fA3yz7Fg",
           "name": "tab-4420d6cb-ddc6-4b63-9837-c7c0df2cfb16"
@@ -3554,7 +3639,7 @@
         },
         "bottomItems": {
           "type": "bloks",
-          "pos": 10,
+          "pos": 11,
           "id": "islL21ASQcOl1sbcrci7og",
           "display_name": "ITEMS - BAS",
           "restrict_type": "groups",
@@ -3566,7 +3651,7 @@
         },
         "sizeLeftColumn": {
           "type": "option",
-          "pos": 11,
+          "pos": 12,
           "use_uuid": true,
           "display_name": "TAILLE COLONNE PRINCIPALE",
           "required": true,
@@ -3615,12 +3700,19 @@
       "display_name": "SECTION - VERTICAL",
       "description": null,
       "created_at": "2024-12-13T07:33:53.480Z",
-      "updated_at": "2025-04-02T09:15:55.011Z",
+      "updated_at": "2025-05-10T09:28:42.681Z",
       "id": 6684165,
       "schema": {
+        "sectionId": {
+          "type": "text",
+          "pos": 0,
+          "display_name": "SECTION ID",
+          "description": "Utiliser pour créer un lien vers la section avec un #",
+          "id": "Fd10osAmSNuZCbxqrPO-_w"
+        },
         "backgroundColor": {
           "type": "option",
-          "pos": 0,
+          "pos": 1,
           "use_uuid": true,
           "display_name": "COULEUR DE FOND",
           "required": true,
@@ -3631,7 +3723,7 @@
         },
         "titleMaxWidth": {
           "type": "option",
-          "pos": 1,
+          "pos": 2,
           "use_uuid": true,
           "source": "internal",
           "datasource_slug": "max-width",
@@ -3643,7 +3735,7 @@
         },
         "textMaxWidth": {
           "type": "option",
-          "pos": 2,
+          "pos": 3,
           "use_uuid": true,
           "required": true,
           "display_name": "TEXTE - LARGEUR MAX",
@@ -3723,16 +3815,17 @@
             "backgroundColor",
             "titleMaxWidth",
             "textMaxWidth",
-            "style"
+            "style",
+            "sectionId"
           ],
-          "pos": 9,
+          "pos": 8,
           "type": "tab",
           "id": "Dr0gAflITDWXswsXkB3V2w",
           "name": "tab-0ebd2001-f948-4c35-97b3-0b17901dd5db"
         },
         "blocks": {
           "type": "bloks",
-          "pos": 11,
+          "pos": 9,
           "display_name": "BLOCKS",
           "id": "JNRKC9DUQX6hOr1dE6VF3Q",
           "restrict_type": "groups",
@@ -4171,7 +4264,7 @@
       "display_name": "TESTIMONIAL",
       "description": null,
       "created_at": "2024-12-08T16:08:31.782Z",
-      "updated_at": "2025-04-18T08:20:39.102Z",
+      "updated_at": "2025-05-03T08:29:10.659Z",
       "id": 6663006,
       "schema": {
         "customer": {
@@ -4182,7 +4275,8 @@
           "source": "internal_stories",
           "entry_appearance": "link",
           "filter_content_type": [
-            "customer"
+            "customer",
+            "company"
           ],
           "id": "HiE1Bn7oTdeG-9f1k7Li7Q",
           "display_name": "CLIENT"
@@ -4318,7 +4412,7 @@
       "display_name": "WORK",
       "description": null,
       "created_at": "2024-12-09T09:31:18.424Z",
-      "updated_at": "2025-04-20T16:35:37.686Z",
+      "updated_at": "2025-04-30T15:40:29.611Z",
       "id": 6665046,
       "schema": {
         "isPublished": {
@@ -4392,9 +4486,8 @@
           "restrict_components": true,
           "component_whitelist": [
             "badgeTitle",
-            "featuredTechnologies",
-            "featuredTestimonials",
-            "contentCallToAction"
+            "contentCallToAction",
+            "contentFeaturedTestimonials"
           ]
         },
         "customer": {
