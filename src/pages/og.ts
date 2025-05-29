@@ -15,7 +15,7 @@ export async function GET({ url }: { url: string }) {
 
   const fontInter = await readFile(join(process.cwd(), 'src/fonts/Inter-SemiBold.ttf'));
 
-  const backgroundImage = 'http://localhost:4321/images/og-background.png';
+  const backgroundImage = import.meta.env.WEBSITE_URL + '/images/og-background.png';
 
   const html = createElement(
     'div',
