@@ -1,5 +1,7 @@
 ---
-import AppEstimate from '@/components/storyblok/ui/app-estimate.tsx';
+import AppEstimate from '@/components/ui/app-estimate';
+import BaseLayout from '@/layouts/base-layout.astro';
 ---
-
-<AppEstimate name="Charlélie" />
+<BaseLayout story={{ slug: 'lol', content: { component: null } }}>
+  <AppEstimate client:load />
+</BaseLayout>
