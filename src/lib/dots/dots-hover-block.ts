@@ -1,7 +1,7 @@
 import { Dots } from './dots';
 
 export class DotsHoverBlock {
-  private linkElement: HTMLAnchorElement;
+  private element: HTMLElement;
   private dotsContainer: HTMLDivElement | null = null;
   private dots: Dots | null = null;
 
@@ -9,15 +9,15 @@ export class DotsHoverBlock {
     element: HTMLElement,
     private colors: number[][]
   ) {
-    this.linkElement = element as HTMLAnchorElement;
+    this.element = element;
     this.addEventListeners();
   }
 
   private addEventListeners(): void {
-    this.linkElement.addEventListener('mouseenter', this.onHover.bind(this));
-    this.linkElement.addEventListener('focus', this.onHover.bind(this));
-    this.linkElement.addEventListener('mouseleave', this.onUnhover.bind(this));
-    this.linkElement.addEventListener('blur', this.onUnhover.bind(this));
+    this.element.addEventListener('mouseenter', this.onHover.bind(this));
+    this.element.addEventListener('focus', this.onHover.bind(this));
+    this.element.addEventListener('mouseleave', this.onUnhover.bind(this));
+    this.element.addEventListener('blur', this.onUnhover.bind(this));
   }
 
   private onHover(): void {
@@ -35,7 +35,7 @@ export class DotsHoverBlock {
       this.dotsContainer = document.createElement('div');
       this.dotsContainer.className = 'absolute inset-0.5';
       this.dotsContainer.style.opacity = '0';
-      this.linkElement.prepend(this.dotsContainer);
+      this.element.prepend(this.dotsContainer);
 
       this.dots = new Dots(this.dotsContainer, {
         colors: this.colors,
