@@ -170,7 +170,10 @@ const { light = false } = Astro.props;
 
   if (subjectSelect) {
     subjectSelect.addEventListener('change', toggleSpecificFields);
-    toggleSpecificFields();
+
+    subjectSelect.addEventListener('select-initialized', () => {
+      toggleSpecificFields();
+    });
   }
 
   function showAlert(type: 'success' | 'danger') {
