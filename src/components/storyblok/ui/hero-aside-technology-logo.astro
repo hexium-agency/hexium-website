@@ -1,11 +1,14 @@
 ---
+import { cn } from '@/lib/utils';
 import type { HeroAsideTechnologyLogoStoryblok } from '@/types/storyblok';
 
 interface AstroProps {
   blok: HeroAsideTechnologyLogoStoryblok;
+  sizeClasses?: string;
 }
 
-const { blok } = Astro.props as AstroProps;
+const { blok, sizeClasses = 'size-[300px] sm:size-[400px] lg:size-[500px]' } =
+  Astro.props as AstroProps;
 
 const logos = {
   astro: () => import('@/components/effects/dots-logo/hero-dots-logo-astro.astro'),
@@ -36,7 +39,10 @@ if (blok.technology && logos[blok.technology as keyof typeof logos]) {
 ---
 
 <div
-  class="relative flex min-h-[350px] flex-shrink-0 items-center justify-center lg:min-h-[500px] lg:min-w-[500px]"
+  class={cn(
+    'absolute top-30 left-1/2 -z-10 flex opacity-80 -translate-x-1/2 flex-shrink-0 items-center justify-center lg:relative lg:inset-auto lg:z-auto lg:opacity-100',
+    sizeClasses
+  )}
 >
-  {LogoComponent && <LogoComponent />}
+  {LogoComponent && <LogoComponent sizeClasses={sizeClasses} />}
 </div>
