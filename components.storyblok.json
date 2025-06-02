@@ -2633,7 +2633,7 @@
       "display_name": null,
       "description": "",
       "created_at": "2025-06-02T13:27:07.895Z",
-      "updated_at": "2025-06-02T13:31:59.878Z",
+      "updated_at": "2025-06-02T15:46:41.028Z",
       "id": 7408323,
       "schema": {
         "technology": {
@@ -2667,6 +2667,11 @@
               "_uid": "46e3cb58-a85b-4d22-9e04-0223fac019f9",
               "value": "javascript",
               "name": "javascript"
+            },
+            {
+              "_uid": "6841e520-b4b9-4e5a-a15e-11255e21ea2c",
+              "value": "laravel",
+              "name": "laravel"
             },
             {
               "_uid": "96289b4c-f570-41eb-b75a-a4cf437121cc",

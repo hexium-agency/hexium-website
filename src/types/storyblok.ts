@@ -476,6 +476,7 @@ export interface HeroAsideTechnologyLogoStoryblok {
     | "drupal"
     | "graphql"
     | "javascript"
+    | "laravel"
     | "nest"
     | "next"
     | "node"

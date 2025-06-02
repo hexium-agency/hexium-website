@@ -5,18 +5,13 @@ const color = hexRgb('#41B883', { format: 'array' });
 const color2 = hexRgb('#36495E', { format: 'array' });
 ---
 
-<div class="absolute top-[120px] right-[275px] size-[500px]">
+<div class="relative size-[500px]">
   <div
     class="absolute size-[500px]"
     style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221160%22%20height%3D%221000%22%20viewBox%3D%220%200%201160%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M927.536%200H1159.42L579.71%201000L0%200H443.478L579.71%20231.884L713.044%200H927.536Z%22%20fill%3D%22%2341B883%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
   >
     <div class="absolute inset-0">
-      <div
-        id="vue-dots-container"
-        class="relative h-[500px] w-[500px] bg-gray-950"
-        data-color={color}
-      >
-      </div>
+      <div id="vue-dots-container" class="relative h-[500px] w-[500px]" data-color={color}></div>
     </div>
   </div>
   <div
@@ -24,11 +19,7 @@ const color2 = hexRgb('#36495E', { format: 'array' });
     style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221160%22%20height%3D%221000%22%20viewBox%3D%220%200%201160%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M228.984%200L579.709%20602.898L927.535%200H713.042L579.709%20231.884L443.477%200H228.984Z%22%20fill%3D%22%2335495E%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
   >
     <div class="absolute inset-0">
-      <div
-        id="vue-inner-dots-container"
-        class="relative h-[500px] w-[500px] bg-gray-950"
-        data-color={color2}
-      >
+      <div id="vue-inner-dots-container" class="relative h-[500px] w-[500px]" data-color={color2}>
       </div>
     </div>
   </div>

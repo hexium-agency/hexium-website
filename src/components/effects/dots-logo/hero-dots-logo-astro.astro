@@ -1,7 +1,7 @@
 ---
 import hexRgb from 'hex-rgb';
 
-const colorTop = hexRgb('#FFF', { format: 'array' });
+const colorTop = hexRgb('#000', { format: 'array' });
 const colorBottom = hexRgb('#E53BA4', { format: 'array' });
 ---
 
@@ -11,11 +11,7 @@ const colorBottom = hexRgb('#E53BA4', { format: 'array' });
     style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22793%22%20height%3D%221000%22%20viewBox%3D%220%200%20793%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%20650.343C0%20650.343%20133.775%20585.175%20267.924%20585.175L369.067%20272.153C372.854%20257.016%20383.91%20246.728%20396.392%20246.728C408.874%20246.728%20419.931%20257.016%20423.717%20272.153L524.862%20585.175C683.74%20585.175%20792.784%20650.343%20792.784%20650.343C792.784%20650.343%20565.557%2031.3302%20565.113%2030.0882C558.591%2011.7869%20547.581%200%20532.738%200H260.07C245.227%200%20234.661%2011.7869%20227.696%2030.0882C227.204%2031.3068%200%20650.343%200%20650.343Z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
   >
     <div class="absolute inset-0">
-      <div
-        id="astro-top-dots-container"
-        class="relative h-[500px] w-[500px] bg-gray-950"
-        data-color={colorTop}
-      >
+      <div id="astro-top-dots-container" class="relative h-[500px] w-[500px]" data-color={colorTop}>
       </div>
     </div>
   </div>
@@ -26,7 +22,7 @@ const colorBottom = hexRgb('#E53BA4', { format: 'array' });
     <div class="absolute inset-0">
       <div
         id="astro-bottom-dots-container"
-        class="relative h-[500px] w-[500px] bg-gray-950"
+        class="relative h-[500px] w-[500px]"
         data-color={colorBottom}
       >
       </div>

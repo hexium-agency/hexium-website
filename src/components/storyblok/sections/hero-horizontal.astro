@@ -1,5 +1,4 @@
 ---
-import HeroDotsLogoReact from '@/components/effects/dots-logo/hero-dots-logo-react.astro';
 import Richtext from '@/components/richtext.astro';
 import { cn } from '@/lib/utils';
 import type { HeroHorizontalStoryblok } from '@/types/storyblok';
@@ -32,6 +31,10 @@ const highlightWordsEffect = blok.effects?.find(
 const transformedTitle = highlightWordsEffect
   ? transformTitle(blok.title, highlightWordsEffect.color.color)
   : blok.title;
+
+const technologyLogo = blok.aside?.find(
+  (item: any) => item.component === 'heroAsideTechnologyLogo'
+);
 ---
 
 <section
@@ -93,9 +96,7 @@ const transformedTitle = highlightWordsEffect
         {blok.buttons?.map((button) => <StoryblokComponent blok={button} />)}
       </div>
     </div>
-    <div>
-      <HeroDotsLogoReact />
-    </div>
+    {blok.aside?.map((item) => <StoryblokComponent blok={item} />)}
   </div>
   <div class="container">
     {blok.bottomItems?.map((item) => <StoryblokComponent blok={item} />)}
