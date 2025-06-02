@@ -12,7 +12,7 @@ interface AstroProps {
 
 const { blok } = Astro.props as AstroProps;
 
-const technologies = blok.technologies as ISbStoryData<TechnologyStoryblok>[];
+const technologies = (blok.technologies || []) as ISbStoryData<TechnologyStoryblok>[];
 
 const technologiesColors = technologies.map((technology) =>
   hexRgb(technology.content.colorDark.color, { format: 'array' })

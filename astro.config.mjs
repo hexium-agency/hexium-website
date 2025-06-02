@@ -72,6 +72,7 @@ export default defineConfig({
         'featured-works': 'components/storyblok/ui/featured-works',
         'grid': 'components/storyblok/ui/grid',
         'hero-aside-technology-logo': 'components/storyblok/ui/hero-aside-technology-logo',
+        'technology-category': 'components/storyblok/ui/hero-aside-technology-logo',
         'image': 'components/storyblok/ui/image',
         'latest-articles': 'components/storyblok/ui/latest-articles',
         'marquee-logos': 'components/storyblok/ui/marquee-logos',

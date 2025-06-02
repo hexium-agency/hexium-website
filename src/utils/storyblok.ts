@@ -7,7 +7,7 @@ import type { ISbStoryData } from '@storyblok/astro';
 import slugify from 'slugify';
 
 export function extractBadgeTitleFromRichText(richText: RichtextStoryblok) {
-  if (!richText.content) return [];
+  if (!richText || !richText.content) return [];
 
   return richText.content
     .filter((item) => item.type === 'blok' && item.attrs?.body?.[0]?.component === 'badgeTitle')
@@ -21,7 +21,7 @@ export function extractBadgeTitleFromRichText(richText: RichtextStoryblok) {
 }
 
 export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
-  if (!richText.content) return [];
+  if (!richText || !richText.content) return [];
 
   return richText.content
     .filter((item) => item.type === 'heading')
@@ -35,7 +35,7 @@ export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
 }
 
 export function getReadingTime(richText: RichtextStoryblok) {
-  if (!richText.content) return 0;
+  if (!richText || !richText.content) return 0;
 
   const WORDS_PER_MINUTE = 200;
 
@@ -56,7 +56,7 @@ export function getReadingTime(richText: RichtextStoryblok) {
 }
 
 export function getWordsCount(richText: RichtextStoryblok) {
-  if (!richText.content) return 0;
+  if (!richText || !richText.content) return 0;
 
   let totalWords = 0;
 

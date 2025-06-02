@@ -20,7 +20,8 @@ const wordCount = getWordsCount(story.content.content);
 const isArticle = story.content.component === 'article';
 const articleCategories = story.content.categories?.map((category: any) => category.name);
 
-const author = (story.content.author as ISbStoryData<TeamStoryblok>[])[0];
+const authorArray = story.content.author as ISbStoryData<TeamStoryblok>[];
+const author = authorArray && authorArray.length > 0 ? authorArray[0] : null;
 
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
@@ -51,15 +52,17 @@ const jsonLd = JSON.stringify({
       height: 600,
     },
   },
-  author: {
-    '@type': 'Person',
-    identifier: author.uuid,
-    name: author.content.firstname + ' ' + author.content.lastname,
-    jobTitle: author.content.position,
-    ...(author.content.linkedin && {
-      url: author.content.linkedin,
-    }),
-  },
+  ...(author && {
+    author: {
+      '@type': 'Person',
+      identifier: author.uuid,
+      name: author.content.firstname + ' ' + author.content.lastname,
+      jobTitle: author.content.position,
+      ...(author.content.linkedin && {
+        url: author.content.linkedin,
+      }),
+    },
+  }),
   isAccessibleForFree: true,
   inLanguage: 'fr',
 });

@@ -21,8 +21,8 @@ interface AstroProps {
 
 const { blok, story } = Astro.props as AstroProps;
 
-const technologies = story.content.technologies as ISbStoryData<TechnologyStoryblok>[];
-const services = story.content.services as unknown as ISbStoryData<PageStoryblok>[];
+const technologies = (story.content.technologies || []) as ISbStoryData<TechnologyStoryblok>[];
+const services = (story.content.services || []) as unknown as ISbStoryData<PageStoryblok>[];
 
 const headings = extractBadgeTitleFromRichText(blok.content as RichtextStoryblok);
 ---

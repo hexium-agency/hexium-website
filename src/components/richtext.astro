@@ -19,7 +19,7 @@ const { class: className, text } = Astro.props;
 
 <RichTextRenderer
   class:list={className}
-  content={text as RichTextType}
+  content={{ content: [], ...text } as RichTextType}
   schema={{
     nodes: {
       heading: (heading) => ({

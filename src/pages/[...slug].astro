@@ -28,9 +28,15 @@ export async function getStaticPaths() {
       !/^realisations\/.+/.test(story.slug) &&
       !story.slug.startsWith('global') &&
       !story.slug.startsWith('clients/') &&
+      story.slug !== 'clients' &&
       !story.slug.startsWith('entreprises/') &&
+      story.slug !== 'entreprises' &&
       !story.slug.startsWith('team/') &&
-      !story.slug.startsWith('testimonials/')
+      story.slug !== 'team' &&
+      !story.slug.startsWith('testimonials/') &&
+      story.slug !== 'testimonials' &&
+      !story.slug.startsWith('technologies-listing/') &&
+      story.slug !== 'technologies-listing'
   );
 
   paths = filteredStories.map((story) => {
