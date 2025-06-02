@@ -1,8 +1,9 @@
 ---
 import { cn } from '@/lib/utils';
 import type { CardBentoStoryblok } from '@/types/storyblok';
-import { parseStoryblokLink } from '@/utils/storyblok';
+import { parseStoryblokImage, parseStoryblokLink } from '@/utils/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
+import { Image } from 'astro:assets';
 
 interface AstroProps {
   blok: CardBentoStoryblok;
@@ -102,7 +103,7 @@ const TitleWrapper = !!parseStoryblokLink(blok.link) ? 'a' : 'span';
   >
     <div class="isolate flex h-full items-center justify-center">
       <div class="relative">
-        <div class="flex gap-3"></div>
+        <Image class="" {...parseStoryblokImage(blok.illustration)} sizes="50vw" />
       </div>
     </div>
   </div>
