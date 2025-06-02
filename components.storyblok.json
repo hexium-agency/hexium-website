@@ -823,12 +823,22 @@
       "display_name": "CARD - BENTO",
       "description": "",
       "created_at": "2025-03-19T09:43:43.122Z",
-      "updated_at": "2025-04-02T08:46:04.836Z",
+      "updated_at": "2025-06-01T08:11:02.932Z",
       "id": 7103983,
       "schema": {
+        "illustration": {
+          "type": "asset",
+          "pos": 0,
+          "required": true,
+          "display_name": "ILLUSTRATION",
+          "filetypes": [
+            "images"
+          ],
+          "id": "8yu9aZUaS5WAzWIbS4lxSQ"
+        },
         "title": {
           "type": "text",
-          "pos": 0,
+          "pos": 1,
           "id": "hApBtwmWRCiO3WNl8pHQmQ",
           "required": true,
           "display_name": "TITRE",
@@ -836,16 +846,10 @@
         },
         "text": {
           "type": "textarea",
-          "pos": 1,
+          "pos": 2,
           "id": "0-mX5spiTCSv_fSnQF4jXA",
           "required": true,
           "display_name": "TEXTE"
-        },
-        "illustration": {
-          "type": "bloks",
-          "pos": 2,
-          "id": "Q8Ba3m4_S4KO8e9VgVXAHA",
-          "display_name": "ILLUSTRATION"
         },
         "isTextOnTop": {
           "type": "boolean",
@@ -873,6 +877,11 @@
               "_uid": "2181a07e-efbf-4bac-9485-6db516304ad5",
               "value": "2",
               "name": "2"
+            },
+            {
+              "_uid": "2e54b110-329f-43de-81df-be830acce9d1",
+              "value": "3",
+              "name": "3"
             }
           ],
           "default_value": "",
@@ -936,6 +945,11 @@
               "_uid": "bef551f7-84c1-47b8-9a94-fc6e9f8d87e2",
               "value": "2",
               "name": "2"
+            },
+            {
+              "_uid": "a0bffb8f-3326-4a1e-91e0-55ef1f210844",
+              "value": "3",
+              "name": "3"
             }
           ],
           "default_value": "",
@@ -2615,6 +2629,127 @@
       "component_group_name": "UI"
     },
     {
+      "name": "heroAsideTechnologyLogo",
+      "display_name": null,
+      "description": "",
+      "created_at": "2025-06-02T13:27:07.895Z",
+      "updated_at": "2025-06-02T13:31:59.878Z",
+      "id": 7408323,
+      "schema": {
+        "technology": {
+          "type": "option",
+          "pos": 0,
+          "use_uuid": true,
+          "display_name": "TECHNOLOGIE",
+          "required": true,
+          "options": [
+            {
+              "_uid": "9cd6b79d-f225-44ec-af93-61ad3762ac63",
+              "name": "astro",
+              "value": "astro"
+            },
+            {
+              "_uid": "b928b536-c011-4e6f-ac1e-8f901a7a9205",
+              "value": "contentful",
+              "name": "contentful"
+            },
+            {
+              "_uid": "d963acd4-0059-485a-96d4-3688d5c254e9",
+              "value": "drupal",
+              "name": "drupal"
+            },
+            {
+              "_uid": "e4baa059-2792-4690-8cd9-7f0567333fd1",
+              "value": "graphql",
+              "name": "graphql"
+            },
+            {
+              "_uid": "46e3cb58-a85b-4d22-9e04-0223fac019f9",
+              "value": "javascript",
+              "name": "javascript"
+            },
+            {
+              "_uid": "96289b4c-f570-41eb-b75a-a4cf437121cc",
+              "value": "nest",
+              "name": "nest"
+            },
+            {
+              "_uid": "6e3338b2-e6b8-48b7-a70a-6e76001e5221",
+              "value": "next",
+              "name": "next"
+            },
+            {
+              "_uid": "3529ccb6-4032-4127-9d6c-4efb4ea42c7f",
+              "value": "node",
+              "name": "node"
+            },
+            {
+              "_uid": "b7ce3ad0-6a76-4da3-aebb-d0c0cd088938",
+              "value": "nuxt",
+              "name": "nuxt"
+            },
+            {
+              "_uid": "b5912752-69df-466b-81fb-6fbed2915897",
+              "value": "php",
+              "name": "php"
+            },
+            {
+              "_uid": "c8631f4b-6e9b-45f3-bf4d-c7e2c2c018d8",
+              "value": "react",
+              "name": "react"
+            },
+            {
+              "_uid": "222a9632-4bb6-40c5-bd12-8b7836db4acf",
+              "value": "sanity",
+              "name": "sanity"
+            },
+            {
+              "_uid": "d032a3db-f10f-47e1-8d4f-66ae424e57c4",
+              "value": "storyblok",
+              "name": "storyblok"
+            },
+            {
+              "_uid": "1842024e-ca52-4c0b-a093-b19ad2c3fdb6",
+              "value": "strapi",
+              "name": "strapi"
+            },
+            {
+              "_uid": "38369f69-c6e8-449b-be98-f14eda6f5ac1",
+              "value": "symfony",
+              "name": "symfony"
+            },
+            {
+              "_uid": "58ac68e1-6c7c-4eb6-b316-c501de8d4a19",
+              "value": "typescript",
+              "name": "typescript"
+            },
+            {
+              "_uid": "67baf5d7-6ebd-49ce-857b-ad82c25f4388",
+              "value": "vue",
+              "name": "vue"
+            }
+          ],
+          "id": "LzBm-MIKQ02Z4k_jevdK7A"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "heroAsideTechnologyLogo",
+      "component_group_uuid": "8ea8c301-26ba-48f2-b648-0c3ae4e0ecb5",
+      "color": null,
+      "icon": null,
+      "internal_tags_list": [],
+      "internal_tag_ids": [],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "HERO SIDE"
+    },
+    {
       "name": "heroHome",
       "display_name": "HERO - HOME",
       "description": "",
@@ -2651,7 +2786,7 @@
       "display_name": "HERO - HORIZONTAL",
       "description": "",
       "created_at": "2025-03-05T14:32:38.496Z",
-      "updated_at": "2025-05-05T15:02:28.666Z",
+      "updated_at": "2025-06-02T13:31:59.962Z",
       "id": 7046807,
       "schema": {
         "backgroundColor": {
@@ -2726,11 +2861,12 @@
           "required": true
         },
         "text": {
-          "type": "textarea",
+          "type": "richtext",
           "pos": 6,
           "id": "VdC__hG9ShacjwHcntIeBA",
           "display_name": "TEXTE",
-          "required": true
+          "required": true,
+          "customize_toolbar": true
         },
         "buttons": {
           "type": "bloks",
@@ -2758,6 +2894,17 @@
             "marqueeLogos",
             "agencyNote"
           ]
+        },
+        "aside": {
+          "type": "bloks",
+          "pos": 9,
+          "display_name": "ASIDE",
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "heroAsideTechnologyLogo"
+          ],
+          "id": "ChWxQiV7S2Suh_VlIyT8UA"
         }
       },
       "image": null,
@@ -4806,6 +4953,13 @@
       "uuid": "93a7a4d7-21bc-4948-85aa-4e23e114a336",
       "parent_id": null,
       "parent_uuid": null
+    },
+    {
+      "name": "HERO SIDE",
+      "id": 560106,
+      "uuid": "8ea8c301-26ba-48f2-b648-0c3ae4e0ecb5",
+      "parent_id": 515569,
+      "parent_uuid": "93a7a4d7-21bc-4948-85aa-4e23e114a336"
     },
     {
       "name": "NAVBAR & FOOTER",

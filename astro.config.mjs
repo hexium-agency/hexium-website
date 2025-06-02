@@ -71,6 +71,7 @@ export default defineConfig({
         'featured-testimonials': 'components/storyblok/ui/featured-testimonials',
         'featured-works': 'components/storyblok/ui/featured-works',
         'grid': 'components/storyblok/ui/grid',
+        'hero-aside-technology-light': 'components/storyblok/ui/hero-aside-technology-logo',
         'image': 'components/storyblok/ui/image',
         'latest-articles': 'components/storyblok/ui/latest-articles',
         'marquee-logos': 'components/storyblok/ui/marquee-logos',

@@ -235,74 +235,15 @@ export interface CallToActionStoryblok {
 }
 
 export interface CardBentoStoryblok {
+  illustration: AssetStoryblok;
   title: string;
   text: string;
-  illustration?: (
-    | AccordionStoryblok
-    | AccordionGroupStoryblok
-    | AgencyNoteStoryblok
-    | ArticleStoryblok
-    | BadgeTitleStoryblok
-    | BlogCategoryStoryblok
-    | BlogHomeStoryblok
-    | ButtonStoryblok
-    | ButtonGroupStoryblok
-    | ButtonMeetingStoryblok
-    | CallToActionStoryblok
-    | CardBentoStoryblok
-    | CardIconTitleTextFullStoryblok
-    | CardIconTitleTextLightStoryblok
-    | CardIconTitleTextNormalStoryblok
-    | CardImageTitleTextStoryblok
-    | CodeBlockStoryblok
-    | CompanyStoryblok
-    | ContactHomeStoryblok
-    | ContactWidgetStoryblok
-    | ContentCallToActionStoryblok
-    | ContentFeaturedTestimonialsStoryblok
-    | CustomerStoryblok
-    | DefinitionStoryblok
-    | DefinitionHomeStoryblok
-    | FeaturedTechnologiesStoryblok
-    | FeaturedTestimonialsStoryblok
-    | FeaturedWorksStoryblok
-    | FooterAgencyStoryblok
-    | FooterLinkStoryblok
-    | FooterLinkGroupStoryblok
-    | GlobalStoryblok
-    | GridStoryblok
-    | HeroHomeStoryblok
-    | HeroHorizontalStoryblok
-    | HeroVerticalStoryblok
-    | HighlightWordsStoryblok
-    | ImageStoryblok
-    | LatestArticlesStoryblok
-    | MarqueeLogosStoryblok
-    | NavbarColumnStoryblok
-    | NavbarDropdownStoryblok
-    | NavbarLinkStoryblok
-    | NavbarSubDropdownStoryblok
-    | PageStoryblok
-    | SectionStoryblok
-    | SectionHorizontalStoryblok
-    | SectionVerticalStoryblok
-    | SpacerStoryblok
-    | TeamStoryblok
-    | TechnologyStoryblok
-    | TechnologyCategoryStoryblok
-    | TechnologyHomeStoryblok
-    | TestimonialStoryblok
-    | TextStoryblok
-    | WorkStoryblok
-    | WorkCategoryStoryblok
-    | WorkHomeStoryblok
-  )[];
   isTextOnTop?: boolean;
   link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
-  colSpanMd?: "" | "1" | "2";
+  colSpanMd?: "" | "1" | "2" | "3";
   rowSpanMd?: "" | "1" | "2";
   rowSpanLg?: "" | "1" | "2";
-  colSpanLg?: "" | "1" | "2";
+  colSpanLg?: "" | "1" | "2" | "3";
   component: "cardBento";
   _uid: string;
   [k: string]: any;
@@ -527,6 +468,31 @@ export interface GridStoryblok {
   [k: string]: any;
 }
 
+export interface HeroAsideTechnologyLogoStoryblok {
+  technology:
+    | ""
+    | "astro"
+    | "contentful"
+    | "drupal"
+    | "graphql"
+    | "javascript"
+    | "nest"
+    | "next"
+    | "node"
+    | "nuxt"
+    | "php"
+    | "react"
+    | "sanity"
+    | "storyblok"
+    | "strapi"
+    | "symfony"
+    | "typescript"
+    | "vue";
+  component: "heroAsideTechnologyLogo";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface HeroHomeStoryblok {
   component: "heroHome";
   _uid: string;
@@ -538,9 +504,10 @@ export interface HeroHorizontalStoryblok {
   effects?: HighlightWordsStoryblok[];
   badge?: string;
   title: string;
-  text: string;
+  text: RichtextStoryblok;
   buttons?: (ButtonStoryblok | ButtonMeetingStoryblok)[];
   bottomItems?: (SpacerStoryblok | MarqueeLogosStoryblok | AgencyNoteStoryblok)[];
+  aside?: HeroAsideTechnologyLogoStoryblok[];
   component: "heroHorizontal";
   _uid: string;
   [k: string]: any;
