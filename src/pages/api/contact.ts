@@ -72,7 +72,7 @@ export const POST: APIRoute = async ({ request }) => {
     const emailConfig = emails[subject];
 
     await sendEmail({
-      to: [{ email: 'corentin@hexium.io', name: `${firstname} ${lastname}` }],
+      to: [{ email: emailConfig.to }],
       templateId: emailConfig.templateId,
       params: {
         name: `${firstname} ${lastname}`,
@@ -84,7 +84,7 @@ export const POST: APIRoute = async ({ request }) => {
         files: fileUrls.map((url) => `${url}`).join('\n'),
       },
       subject: emailConfig.subject,
-      replyTo: { email: 'corentin@hexium.io', name: `${firstname} ${lastname}` },
+      replyTo: { email: emailConfig.to },
     });
 
     return jsonResponse(true, 'Votre message a été envoyé avec succès.');
