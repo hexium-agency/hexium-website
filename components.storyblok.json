@@ -2633,7 +2633,7 @@
       "display_name": null,
       "description": "",
       "created_at": "2025-06-02T13:27:07.895Z",
-      "updated_at": "2025-06-02T15:46:41.028Z",
+      "updated_at": "2025-06-03T07:55:14.824Z",
       "id": 7408323,
       "schema": {
         "technology": {
@@ -2662,6 +2662,11 @@
               "_uid": "e4baa059-2792-4690-8cd9-7f0567333fd1",
               "value": "graphql",
               "name": "graphql"
+            },
+            {
+              "_uid": "36b9aadc-58f0-4ffd-b55c-9f272a06b4c9",
+              "value": "jamstack",
+              "name": "jamstack"
             },
             {
               "_uid": "46e3cb58-a85b-4d22-9e04-0223fac019f9",
@@ -2717,6 +2722,11 @@
               "_uid": "1842024e-ca52-4c0b-a093-b19ad2c3fdb6",
               "value": "strapi",
               "name": "strapi"
+            },
+            {
+              "_uid": "747f6166-68f8-4360-8b82-ddaae01aeadc",
+              "value": "sylius",
+              "name": "sylius"
             },
             {
               "_uid": "38369f69-c6e8-449b-be98-f14eda6f5ac1",

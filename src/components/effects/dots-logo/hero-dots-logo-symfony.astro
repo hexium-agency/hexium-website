@@ -8,8 +8,8 @@ interface AstroProps {
 
 const { sizeClasses = 'size-[500px]' } = Astro.props as AstroProps;
 
-const color = hexRgb('#EEE', { format: 'array' });
-const color2 = hexRgb('#000', { format: 'array' });
+const backgroundColor = hexRgb('#000', { format: 'array' });
+const textColor = hexRgb('#FFF', { format: 'array' });
 ---
 
 <div class={cn('relative', sizeClasses)}>
@@ -18,7 +18,12 @@ const color2 = hexRgb('#000', { format: 'array' });
     style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221000%22%20height%3D%221000%22%20viewBox%3D%220%200%201000%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M500%201000C776.142%201000%201000%20776.142%201000%20500C1000%20223.858%20776.142%200%20500%200C223.858%200%200%20223.858%200%20500C0%20776.142%20223.858%201000%20500%201000Z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
   >
     <div class="absolute inset-0">
-      <div id="symfony-dots-container" class={cn('relative', sizeClasses)} data-color={color}></div>
+      <div
+        id="symfony-dots-container"
+        class={cn('relative', sizeClasses)}
+        data-color={backgroundColor}
+      >
+      </div>
     </div>
   </div>
   <div
@@ -29,7 +34,7 @@ const color2 = hexRgb('#000', { format: 'array' });
       <div
         id="symfony-inner-dots-container"
         class={cn('relative', sizeClasses)}
-        data-color={color2}
+        data-color={textColor}
       >
       </div>
     </div>
@@ -40,14 +45,16 @@ const color2 = hexRgb('#000', { format: 'array' });
   import { DotsBlock } from '@/lib/dots/dots-block';
 
   document.addEventListener('astro:page-load', () => {
-    const color = document.querySelector('#symfony-dots-container')?.getAttribute('data-color');
-    const colorArray = color?.split(',').map(Number);
+    const backgroundColor = document
+      .querySelector('#symfony-dots-container')
+      ?.getAttribute('data-color');
+    const colorArray = backgroundColor?.split(',').map(Number);
     new DotsBlock(document.querySelector('#symfony-dots-container') as HTMLElement, [colorArray!]);
 
-    const color2 = document
+    const textColor = document
       .querySelector('#symfony-inner-dots-container')
       ?.getAttribute('data-color');
-    const colorArray2 = color2?.split(',').map(Number);
+    const colorArray2 = textColor?.split(',').map(Number);
     new DotsBlock(document.querySelector('#symfony-inner-dots-container') as HTMLElement, [
       colorArray2!,
     ]);

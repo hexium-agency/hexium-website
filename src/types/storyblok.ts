@@ -475,6 +475,7 @@ export interface HeroAsideTechnologyLogoStoryblok {
     | "contentful"
     | "drupal"
     | "graphql"
+    | "jamstack"
     | "javascript"
     | "laravel"
     | "nest"
@@ -486,6 +487,7 @@ export interface HeroAsideTechnologyLogoStoryblok {
     | "sanity"
     | "storyblok"
     | "strapi"
+    | "sylius"
     | "symfony"
     | "typescript"
     | "vue";
