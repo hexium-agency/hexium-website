@@ -18,7 +18,9 @@ export async function getStaticPaths() {
   let paths = [];
   const storyblokApi = useStoryblokApi();
 
-  const stories = await storyblokApi.getAll('cdn/links', {});
+  const stories = await storyblokApi.getAll('cdn/links', {
+    version: import.meta.env.STORYBLOK_ENV,
+  });
 
   // Exclude all stories that are used for data and not supposed to be published
   const filteredStories = stories.filter(
