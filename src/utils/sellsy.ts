@@ -1,9 +1,9 @@
 const SELLSY_API_URL = 'https://api.sellsy.com/v2/';
 const SELLSY_CLIENT_ID = import.meta.env.SELLSY_CLIENT_ID;
 const SELLSY_CLIENT_SECRET = import.meta.env.SELLSY_CLIENT_SECRET;
-const SELLSY_SOURCE_ID = import.meta.env.SELLSY_SOURCE_ID;
-const SELLSY_PIPELINE_ID = import.meta.env.SELLSY_PIPELINE_ID;
-const SELLSY_STEP_ID = import.meta.env.SELLSY_STEP_ID;
+const SELLSY_SOURCE_ID = Number(import.meta.env.SELLSY_SOURCE_ID);
+const SELLSY_PIPELINE_ID = Number(import.meta.env.SELLSY_PIPELINE_ID);
+const SELLSY_STEP_ID = Number(import.meta.env.SELLSY_STEP_ID);
 
 interface TokenData {
   access_token: string;
@@ -23,7 +23,6 @@ let tokenData: TokenData | null = null;
  * @param data.firstname - First name of the contact
  * @param data.lastname - Last name of the contact
  * @param data.email - Email address of the contact
- * @param data.phone - Phone number of the contact (optional)
  * @param data.company - Company name (optional, if provided creates a company prospect)
  * @param data.message - Message or note to attach to the prospect
  * @throws {Error} If the API credentials are invalid or if the API request fails
@@ -33,7 +32,6 @@ export async function createProspect(data: {
   firstname: string;
   lastname: string;
   email: string;
-  phone?: string;
   company?: string;
   message: string;
 }): Promise<void> {
@@ -46,14 +44,12 @@ export async function createProspect(data: {
       first_name: data.firstname,
       last_name: data.lastname,
       email: data.email,
-      phone_number: data.phone || '',
     };
 
     if (data.company) {
       await createCompanyProspect(contactData, {
         name: data.company,
         email: data.email,
-        phone_number: data.phone || '',
         note: data.message,
       });
     } else {
@@ -76,12 +72,10 @@ async function createCompanyProspect(
     first_name: string;
     last_name: string;
     email: string;
-    phone_number: string;
   },
   companyData: {
     name: string;
     email: string;
-    phone_number: string;
     note: string;
   }
 ): Promise<void> {
@@ -112,7 +106,6 @@ async function createIndividualProspect(
     first_name: string;
     last_name: string;
     email: string;
-    phone_number: string;
   },
   note: string
 ): Promise<void> {

@@ -44,7 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
     const firstname = formData.get('firstname') as string;
     const lastname = formData.get('lastname') as string;
     const email = formData.get('email') as string;
-    const phone = (formData.get('phone') as string) || ''; // TODO: handle regex
+    const phone = (formData.get('phone') as string) || '';
     const company = (formData.get('company') as string) || '';
     const message = formData.get('message') as string;
     const privacy = formData.get('privacy') as string;
@@ -64,7 +64,6 @@ export const POST: APIRoute = async ({ request }) => {
         firstname,
         lastname,
         email,
-        phone,
         company,
         message,
       });
