@@ -56,7 +56,7 @@ export const POST: APIRoute = async ({ request }) => {
     const files = formData.getAll('files') as File[];
 
     const fileUrls = await uploadMultipleFilesToS3(
-      files.filter((file) => file.name !== 'undefined')
+      files.filter((file) => file.name !== 'undefined' && file.name !== '')
     );
 
     if (subject === 'project') {
