@@ -44,7 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
     const firstname = formData.get('firstname') as string;
     const lastname = formData.get('lastname') as string;
     const email = formData.get('email') as string;
-    const phone = (formData.get('phone') as string) || ''; // TODO: handle regex
+    const phone = (formData.get('phone') as string) || '';
     const company = (formData.get('company') as string) || '';
     const message = formData.get('message') as string;
     const privacy = formData.get('privacy') as string;
@@ -56,7 +56,7 @@ export const POST: APIRoute = async ({ request }) => {
     const files = formData.getAll('files') as File[];
 
     const fileUrls = await uploadMultipleFilesToS3(
-      files.filter((file) => file.name !== 'undefined')
+      files.filter((file) => file.name !== 'undefined' && file.name !== '')
     );
 
     if (subject === 'project') {
@@ -64,7 +64,6 @@ export const POST: APIRoute = async ({ request }) => {
         firstname,
         lastname,
         email,
-        phone,
         company,
         message,
       });
@@ -73,7 +72,7 @@ export const POST: APIRoute = async ({ request }) => {
     const emailConfig = emails[subject];
 
     await sendEmail({
-      to: [{ email: 'corentin@hexium.io', name: `${firstname} ${lastname}` }],
+      to: [{ email: emailConfig.to }],
       templateId: emailConfig.templateId,
       params: {
         name: `${firstname} ${lastname}`,
@@ -85,7 +84,7 @@ export const POST: APIRoute = async ({ request }) => {
         files: fileUrls.map((url) => `${url}`).join('\n'),
       },
       subject: emailConfig.subject,
-      replyTo: { email: 'corentin@hexium.io', name: `${firstname} ${lastname}` },
+      replyTo: { email: emailConfig.to },
     });
 
     return jsonResponse(true, 'Votre message a été envoyé avec succès.');
