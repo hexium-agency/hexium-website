@@ -745,6 +745,8 @@ export interface TeamStoryblok {
 }
 
 export interface TechnologyStoryblok {
+  categories: (ISbStoryData<TechnologyCategoryStoryblok> | string)[];
+  description: string;
   logoOutline: AssetStoryblok;
   logoFullDark: AssetStoryblok;
   logoFullLight: AssetStoryblok;
@@ -785,6 +787,37 @@ export interface TechnologyStoryblok {
 }
 
 export interface TechnologyCategoryStoryblok {
+  body: (
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | BlogHomeStoryblok
+    | CallToActionStoryblok
+    | ContactHomeStoryblok
+    | DefinitionHomeStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | TechnologyHomeStoryblok
+    | WorkHomeStoryblok
+    | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
+    | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
+    | FeaturedWorksStoryblok
+    | GridStoryblok
+    | ImageStoryblok
+    | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
+    | SpacerStoryblok
+  )[];
+  metaTitle: string;
+  metaDescription: string;
+  ogBadge: string;
+  OgTitle: string;
+  ogDescription?: string;
   component: "technologyCategory";
   _uid: string;
   [k: string]: any;
@@ -792,6 +825,17 @@ export interface TechnologyCategoryStoryblok {
 
 export interface TechnologyHomeStoryblok {
   component: "technologyHome";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface TechnologyPlaceholderStoryblok {
+  categories: (ISbStoryData<TechnologyCategoryStoryblok> | string)[];
+  description: string;
+  logoOutline: AssetStoryblok;
+  logoFullDark: AssetStoryblok;
+  logoFullLight: AssetStoryblok;
+  component: "technologyPlaceholder";
   _uid: string;
   [k: string]: any;
 }
