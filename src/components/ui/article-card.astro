@@ -27,7 +27,7 @@ const createdAt = article?.created_at! || article?.published_at!;
   </div>
   <div class="mt-6 flex flex-col lg:px-4">
     <h3
-      class="font-heading mt-3 text-xl font-bold tracking-[-0.015em] text-pretty text-gray-950 transition-all group-hover:opacity-80"
+      class="font-heading mt-3 text-xl font-semibold tracking-[-0.015em] text-pretty text-gray-950 transition-all group-hover:opacity-80"
     >
       <a
         href={`/blog/${(article.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).slug}/${article.slug}`}
