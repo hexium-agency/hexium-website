@@ -1,0 +1,174 @@
+---
+import BaseLayout from '@/layouts/base-layout.astro';
+import blogService from '@/services/blog';
+import workService from '@/services/work';
+import type { BlogCategoryStoryblok } from '@/types/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+import { useStoryblokApi } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  slug: string;
+}
+
+export const prerender = true;
+
+// Get all the available paths
+export async function getStaticPaths() {
+  let paths = [];
+  const storyblokApi = useStoryblokApi();
+
+  const stories = await storyblokApi.getAll('cdn/links', {
+    version: import.meta.env.STORYBLOK_ENV,
+  });
+
+  // Exclude all stories that are used for data and not supposed to be published
+  const filteredStories = stories.filter(
+    (story) =>
+      (import.meta.env.STORYBLOK_ENV === 'draft' || story.published) &&
+      !/^blog\/.+/.test(story.slug) &&
+      !/^realisations\/.+/.test(story.slug) &&
+      !story.slug.startsWith('global') &&
+      !story.slug.startsWith('clients/') &&
+      story.slug !== 'clients' &&
+      !story.slug.startsWith('entreprises/') &&
+      story.slug !== 'entreprises' &&
+      !story.slug.startsWith('team/') &&
+      story.slug !== 'team' &&
+      !story.slug.startsWith('testimonials/') &&
+      story.slug !== 'testimonials' &&
+      !story.slug.startsWith('technologies-listing/') &&
+      story.slug !== 'technologies-listing'
+  );
+
+  paths = filteredStories.map((story) => {
+    return {
+      params: { slug: story.slug === 'home' ? '/' : story.slug },
+    };
+  });
+
+  // Handle pagination for blog home page
+  const blogHomeTotalPages = await blogService.getTotal();
+
+  for (let i = 2; i <= blogHomeTotalPages; i++) {
+    paths.push({
+      params: { slug: `blog/page/${i}` },
+    });
+  }
+
+  // Handle articles in blog category
+  const articles = await blogService.getAllArticles();
+
+  for (const article of articles) {
+    paths.push({
+      params: {
+        slug: `blog/${(article.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).slug}/${article.slug}`,
+      },
+    });
+  }
+
+  // Handle pagination for blog category home page
+  const blogCategories = await blogService.getCategories();
+
+  for (const blogCategory of blogCategories) {
+    const categoryTotalPages = await blogService.getTotal(blogCategory.uuid);
+
+    paths.push({
+      params: { slug: `${blogCategory.full_slug}` },
+    });
+
+    for (let i = 2; i <= categoryTotalPages; i++) {
+      paths.push({
+        params: { slug: `${blogCategory.full_slug}/page/${i}` },
+      });
+    }
+  }
+
+  // Handle pagination for work home page
+  const workHomeTotalPages = await workService.getTotal();
+
+  for (let i = 2; i <= workHomeTotalPages; i++) {
+    paths.push({
+      params: { slug: `realisations/page/${i}` },
+    });
+  }
+
+  // Handle pagination for work category home page
+  const workCategories = await workService.getCategories();
+
+  for (const workCategory of workCategories) {
+    const categoryTotalPages = await workService.getTotal(workCategory.uuid);
+
+    paths.push({
+      params: { slug: `${workCategory.full_slug}` },
+    });
+
+    for (let i = 2; i <= categoryTotalPages; i++) {
+      paths.push({
+        params: { slug: `${workCategory.full_slug}/page/${i}` },
+      });
+    }
+  }
+
+  // Handle work page
+  const works = await workService.getAllWorks();
+
+  for (const work of works) {
+    if (!!work.content.isPublished) {
+      paths.push({
+        params: { slug: work.full_slug },
+      });
+    }
+  }
+
+  return paths;
+}
+
+// Get the story for the given path
+const { slug } = Astro.params as AstroProps;
+
+const storyblokApi = useStoryblokApi();
+
+const isPaginatedBlog = /^blog\/page\/\d+$/.test(slug);
+const isPaginatedBlogCategory = /^blog\/([^\/]+)\/page\/\d+$/.test(slug);
+const isPaginatedWork = /^realisations\/page\/\d+$/.test(slug);
+const isPaginatedWorkCategory = /^realisations\/([^\/]+)\/page\/\d+$/.test(slug);
+const isArticle = /^blog\/(?!page\/)[^\/]+\/[^\/]+$/.test(slug);
+
+let storyPath;
+
+if (!slug) {
+  storyPath = 'home';
+} else if (isArticle) {
+  storyPath = `blog/${slug.split('/').pop()}`;
+} else if (isPaginatedBlog) {
+  storyPath = 'blog';
+} else if (isPaginatedBlogCategory) {
+  storyPath = `blog/${slug.split('/')[1]}`;
+} else if (isPaginatedWork) {
+  storyPath = 'realisations';
+} else if (isPaginatedWorkCategory) {
+  storyPath = `realisations/${slug.split('/')[1]}`;
+} else {
+  storyPath = slug;
+}
+
+const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
+  resolve_relations: [
+    'article.author',
+    'article.category',
+    'definition.author',
+    'featuredTechnologies.technologies',
+    'featuredWorks.works',
+    'work.category',
+    'work.customer',
+    'work.services',
+    'work.technologies',
+  ],
+  version: import.meta.env.STORYBLOK_ENV,
+});
+---
+
+<BaseLayout story={data.story}>
+  <StoryblokComponent blok={data.story.content} story={data.story} />
+</BaseLayout>

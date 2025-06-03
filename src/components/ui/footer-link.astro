@@ -1,0 +1,19 @@
+---
+import type { FooterLinkStoryblok } from '@/types/storyblok';
+import { parseStoryblokLink } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: FooterLinkStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<a
+  {...storyblokEditable(blok)}
+  href={parseStoryblokLink(blok.link)}
+  class="font-medium text-gray-400 transition-colors hover:text-white"
+>
+  {blok.title}
+</a>

@@ -1,0 +1,22 @@
+---
+import ButtonBase from '@/components/button.astro';
+import type { ButtonStoryblok } from '@/types/storyblok';
+import { parseStoryblokLink } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: ButtonStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<ButtonBase
+  {...storyblokEditable(blok)}
+  isLink={true}
+  isArrowShowed={blok.isArrowShowed}
+  color={blok.style}
+  link={parseStoryblokLink(blok.link)}
+>
+  {blok.title}
+</ButtonBase>

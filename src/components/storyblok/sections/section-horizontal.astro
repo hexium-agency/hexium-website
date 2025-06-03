@@ -1,0 +1,77 @@
+---
+import Richtext from '@/components/richtext.astro';
+import { cn } from '@/lib/utils';
+import type { SectionHorizontalStoryblok } from '@/types/storyblok';
+import { parseStoryblokBackgroundColor } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: SectionHorizontalStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<section
+  {...storyblokEditable(blok)}
+  class:list={parseStoryblokBackgroundColor(blok.backgroundColor)}
+>
+  <div class="container py-20 sm:py-32">
+    <div
+      class={cn(
+        'grid gap-12 lg:gap-y-0',
+        blok.sizeLeftColumn === 'half' && 'lg:grid-cols-2',
+        blok.sizeLeftColumn === 'third' && 'lg:grid-cols-3'
+      )}
+    >
+      <div class={cn('overflow-hidden', blok.revertSide && 'lg:order-2')}>
+        <h2
+          {...blok.sectionId && { id: blok.sectionId }}
+          class="text-2xs/[1.5] font-mono font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200"
+        >
+          {blok.badge}
+        </h2>
+        <h3
+          class="font-heading mt-4 text-3xl font-medium tracking-tight text-balance text-gray-950 dark:text-white"
+        >
+          {blok.title}
+        </h3>
+        {
+          blok.text?.content?.[0]?.content && (
+            <Richtext
+              text={blok.text}
+              class="mt-4 space-y-4 text-base/5 text-pretty text-gray-600 dark:text-gray-400"
+            />
+          )
+        }
+        {
+          blok.leftItems && (
+            <div class="mt-4">
+              {blok.leftItems.map((blok) => (
+                <StoryblokComponent blok={blok} />
+              ))}
+            </div>
+          )
+        }
+      </div>
+      <div
+        class={cn(
+          'flex items-center justify-center',
+          blok.sizeLeftColumn === 'third' && 'lg:col-span-2'
+        )}
+      >
+        {blok.rightItems && blok.rightItems.map((blok) => <StoryblokComponent blok={blok} />)}
+      </div>
+    </div>
+    {
+      blok.bottomItems && (
+        <div>
+          {blok.bottomItems.map((blok) => (
+            <StoryblokComponent blok={blok} />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>

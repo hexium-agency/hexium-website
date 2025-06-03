@@ -1,0 +1,15 @@
+---
+import type { ButtonGroupStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: ButtonGroupStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div {...storyblokEditable(blok)} class="flex justify-center gap-4">
+  {blok.items?.map((item) => <StoryblokComponent blok={item} />)}
+</div>

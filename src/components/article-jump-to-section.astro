@@ -1,0 +1,55 @@
+---
+import SelectOption from '@/components/form/select-option.astro';
+import Select from '@/components/form/select.astro';
+
+interface Props {
+  headings: {
+    level: number;
+    text: string;
+    id: string;
+  }[];
+}
+
+const { headings } = Astro.props;
+
+const LevelsPaddings: Record<number, string> = {
+  2: 'pl-2',
+  3: 'pl-4',
+  4: 'pl-6',
+  5: 'pl-8',
+  6: 'pl-10',
+};
+---
+
+<div class="mt-3 xl:hidden">
+  <Select
+    id="article-navigation"
+    name="article-navigation"
+    label="Aller à la section..."
+    labelInline
+  >
+    {
+      headings.map((heading) => (
+        <SelectOption value={heading.id} className={LevelsPaddings[heading.level]}>
+          {heading.text}
+        </SelectOption>
+      ))
+    }
+  </Select>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const select = document.getElementById('article-navigation') as HTMLSelectElement;
+    if (!select) return;
+
+    select.addEventListener('change', () => {
+      const selectedHeading = document.getElementById(select.value);
+      if (selectedHeading) {
+        selectedHeading.scrollIntoView({ behavior: 'smooth' });
+        select.value = '';
+        select.dispatchEvent(new Event('change'));
+      }
+    });
+  });
+</script>

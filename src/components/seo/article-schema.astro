@@ -1,0 +1,71 @@
+---
+import type { ArticleStoryblok, DefinitionStoryblok, TeamStoryblok } from '@/types/storyblok';
+import { getReadingTime, getWordsCount } from '@/utils/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+
+interface AstroProps {
+  story: ISbStoryData<ArticleStoryblok | DefinitionStoryblok>;
+}
+
+const { story } = Astro.props as AstroProps;
+const pathname = Astro.url.pathname;
+
+const { created_at, first_published_at, published_at, updated_at } = story;
+
+const datePublished = first_published_at || published_at || created_at;
+const dateModified = published_at || first_published_at || updated_at;
+const readingTime = getReadingTime(story.content.content);
+const wordCount = getWordsCount(story.content.content);
+
+const isArticle = story.content.component === 'article';
+const articleCategories = story.content.categories?.map((category: any) => category.name);
+
+const authorArray = story.content.author as ISbStoryData<TeamStoryblok>[];
+const author = authorArray && authorArray.length > 0 ? authorArray[0] : null;
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: story.name,
+  url: import.meta.env.WEBSITE_URL + pathname,
+  description: story.content.description,
+  ...(isArticle && {
+    articleSection: articleCategories,
+    image: [story.content.cover.filename],
+  }),
+  wordCount: wordCount,
+  timeRequired: `PT${readingTime}M`,
+  datePublished: datePublished,
+  dateModified: dateModified,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': import.meta.env.WEBSITE_URL + pathname,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Hexium - Agence & Studio de Développement',
+    url: import.meta.env.WEBSITE_URL,
+    logo: {
+      '@type': 'ImageObject',
+      url: import.meta.env.WEBSITE_URL + '/images/logo-square-schema-organization.png',
+      width: 600,
+      height: 600,
+    },
+  },
+  ...(author && {
+    author: {
+      '@type': 'Person',
+      identifier: author.uuid,
+      name: author.content.firstname + ' ' + author.content.lastname,
+      jobTitle: author.content.position,
+      ...(author.content.linkedin && {
+        url: author.content.linkedin,
+      }),
+    },
+  }),
+  isAccessibleForFree: true,
+  inLanguage: 'fr',
+});
+---
+
+<script type="application/ld+json" set:html={jsonLd} />

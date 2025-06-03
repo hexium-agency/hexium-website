@@ -1,0 +1,15 @@
+---
+import type { PageStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: PageStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div {...storyblokEditable(blok)} class="relative">
+  {(blok.body || []).map((item) => <StoryblokComponent blok={item} />)}
+</div>

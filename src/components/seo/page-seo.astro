@@ -1,0 +1,82 @@
+---
+import type {
+  ArticleStoryblok,
+  BlogCategoryStoryblok,
+  DefinitionStoryblok,
+  PageStoryblok,
+  TechnologyStoryblok,
+  WorkStoryblok,
+} from '@/types/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+
+interface AstroProps {
+  story: ISbStoryData<
+    | ArticleStoryblok
+    | BlogCategoryStoryblok
+    | DefinitionStoryblok
+    | PageStoryblok
+    | TechnologyStoryblok
+    | WorkStoryblok
+  >;
+}
+
+const { story } = Astro.props as AstroProps;
+
+const { created_at, first_published_at, published_at, updated_at } = story;
+const { metaTitle, metaDescription, ogBadge, ogTitle, component } = story.content;
+
+const isArticleStyleContent = component === 'article' || component === 'definition';
+---
+
+<Fragment>
+  <title>{metaTitle}</title>
+  <meta name="description" content={metaDescription} />
+  <meta property="og:description" content={metaDescription} />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Hexium" />
+  <meta property="og:title" content={metaTitle} />
+  <meta property="og:url" content={import.meta.env.WEBSITE_URL} />
+  <meta
+    property="og:image"
+    content={import.meta.env.WEBSITE_URL +
+      '/og?badge=' +
+      encodeURIComponent(ogBadge) +
+      '&title=' +
+      encodeURIComponent(ogTitle)}
+  />
+  <meta property="og:image:alt" content={ogTitle} />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:description" content={metaDescription} />
+  <meta
+    name="twitter:image"
+    content={import.meta.env.WEBSITE_URL +
+      '/og?badge=' +
+      encodeURIComponent(ogBadge) +
+      '&title=' +
+      encodeURIComponent(ogTitle)}
+  />
+  <meta name="twitter:image:alt" content={ogTitle} />
+  <meta name="twitter:image:height" content="630" />
+  <meta name="twitter:image:width" content="1200" />
+  <meta name="twitter:image:type" content="image/png" />
+  <meta name="twitter:site" content="@agence_hexium" />
+  <meta name="twitter:title" content={metaTitle} />
+  {
+    isArticleStyleContent && (
+      <>
+        <meta
+          property="article:published_time"
+          content={first_published_at || published_at || created_at}
+        />
+        <meta
+          property="article:modified_time"
+          content={published_at || first_published_at || updated_at}
+        />
+      </>
+    )
+  }
+</Fragment>

@@ -1,0 +1,50 @@
+---
+import { cn } from '@/lib/utils';
+import type { HeroAsideTechnologyLogoStoryblok } from '@/types/storyblok';
+
+interface AstroProps {
+  blok: HeroAsideTechnologyLogoStoryblok;
+  sizeClasses?: string;
+}
+
+const { blok, sizeClasses = 'size-[300px] sm:size-[400px] lg:size-[500px]' } =
+  Astro.props as AstroProps;
+
+const logos = {
+  astro: () => import('@/components/effects/dots-logo/hero-dots-logo-astro.astro'),
+  contentful: () => import('@/components/effects/dots-logo/hero-dots-logo-contentful.astro'),
+  drupal: () => import('@/components/effects/dots-logo/hero-dots-logo-drupal.astro'),
+  graphql: () => import('@/components/effects/dots-logo/hero-dots-logo-graphql.astro'),
+  jamstack: () => import('@/components/effects/dots-logo/hero-dots-logo-jamstack.astro'),
+  javascript: () => import('@/components/effects/dots-logo/hero-dots-logo-javascript.astro'),
+  laravel: () => import('@/components/effects/dots-logo/hero-dots-logo-laravel.astro'),
+  nest: () => import('@/components/effects/dots-logo/hero-dots-logo-nest.astro'),
+  next: () => import('@/components/effects/dots-logo/hero-dots-logo-next.astro'),
+  node: () => import('@/components/effects/dots-logo/hero-dots-logo-node.astro'),
+  react: () => import('@/components/effects/dots-logo/hero-dots-logo-react.astro'),
+  nuxt: () => import('@/components/effects/dots-logo/hero-dots-logo-nuxt.astro'),
+  php: () => import('@/components/effects/dots-logo/hero-dots-logo-php.astro'),
+  sanity: () => import('@/components/effects/dots-logo/hero-dots-logo-sanity.astro'),
+  storyblok: () => import('@/components/effects/dots-logo/hero-dots-logo-storyblok.astro'),
+  strapi: () => import('@/components/effects/dots-logo/hero-dots-logo-strapi.astro'),
+  sylius: () => import('@/components/effects/dots-logo/hero-dots-logo-sylius.astro'),
+  symfony: () => import('@/components/effects/dots-logo/hero-dots-logo-symfony.astro'),
+  typescript: () => import('@/components/effects/dots-logo/hero-dots-logo-typescript.astro'),
+  vue: () => import('@/components/effects/dots-logo/hero-dots-logo-vue.astro'),
+};
+
+let LogoComponent: any = null;
+if (blok.technology && logos[blok.technology as keyof typeof logos]) {
+  const logoImport = await logos[blok.technology as keyof typeof logos]();
+  LogoComponent = logoImport.default;
+}
+---
+
+<div
+  class={cn(
+    'absolute top-30 left-1/2 -z-10 flex opacity-80 -translate-x-1/2 flex-shrink-0 items-center justify-center lg:relative lg:inset-auto lg:z-auto lg:opacity-100 lg:top-0 lg:left-0 lg:translate-x-0',
+    sizeClasses
+  )}
+>
+  {LogoComponent && <LogoComponent sizeClasses={sizeClasses} />}
+</div>

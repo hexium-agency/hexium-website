@@ -1,0 +1,32 @@
+---
+import type { FooterLinkGroupStoryblok } from '@/types/storyblok';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: FooterLinkGroupStoryblok;
+  length: number;
+}
+
+const { blok, length } = Astro.props as AstroProps;
+
+type FooterGroupLength = 4 | 5 | 6;
+
+const cardWidthStyle: Record<FooterGroupLength, string> = {
+  4: 'w-[calc(50%-0.4rem)] md:w-[calc(25%-0.4rem)]',
+  5: 'w-[calc(50%-0.4rem)] md:w-[calc(33.33%-0.4rem)] lg:w-[calc(20%-0.4rem)]',
+  6: 'w-[calc(50%-0.4rem)] md:w-[calc(25%-0.4rem)] xl:w-[calc(16.64%-0.4rem)]',
+} as const;
+---
+
+<div class:list={cardWidthStyle[length as FooterGroupLength] || cardWidthStyle[4]}>
+  <div class="font-mono font-bold text-white uppercase">{blok.title}</div>
+  <ul class="mt-3 space-y-1">
+    {
+      blok.items.map((item) => (
+        <li>
+          <StoryblokComponent blok={item} />
+        </li>
+      ))
+    }
+  </ul>
+</div>

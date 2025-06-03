@@ -1,0 +1,80 @@
+---
+import SvgDistant from '@/components/svg-distant.astro';
+import type { CardIconTitleTextFullStoryblok } from '@/types/storyblok';
+import { parseStoryblokLink } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: CardIconTitleTextFullStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const TitleWrapper = !!parseStoryblokLink(blok.link) ? 'a' : 'span';
+---
+
+<li
+  {...storyblokEditable(blok)}
+  class="group relative list-none rounded-lg p-6 shadow-[0_1px_5px_-4px_rgba(19,19,22,0.7),0_4px_8px_rgba(32,42,54,0.05)] ring-1 ring-gray-900/7.5 transition-shadow hover:shadow-[0_1px_7px_-4px_rgba(19,19,22,0.8),0_4px_11px_rgba(32,42,54,0.05)] hover:ring-gray-900/12.5 dark:bg-gray-900"
+>
+  <div
+    class="pointer-events-none absolute inset-1.5 rounded-sm border border-gray-50 opacity-0 transition-opacity group-hover:opacity-100 dark:border-white/5"
+  >
+  </div>
+  <div
+    aria-hidden="true"
+    class="mb-4 text-gray-400 transition group-hover:text-gray-950 dark:text-gray-500 dark:group-hover:text-gray-300 [&>svg]:h-8 [&>svg]:w-auto"
+  >
+    <SvgDistant url={blok.icon} />
+  </div>
+  <div>
+    <h4 class="mb-2 text-[0.875rem]/5 font-medium text-gray-950 dark:text-white">
+      <TitleWrapper
+        class="inline-flex items-center justify-center"
+        {...!!parseStoryblokLink(blok.link) ? { href: parseStoryblokLink(blok.link) } : {}}
+      >
+        {blok.title}
+        {
+          !!parseStoryblokLink(blok.link) && (
+            <>
+              <svg
+                viewBox="0 0 10 10"
+                aria-hidden="true"
+                class="before:transtion-opacity ml-2 h-2.5 w-2.5 flex-none opacity-60 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-6 group-hover:opacity-0 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+              >
+                <path
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                />
+              </svg>
+              <svg
+                viewBox="0 0 10 10"
+                aria-hidden="true"
+                class="before:transtion-opacity -ml-2.5 h-2.5 w-2.5 flex-none -translate-x-2 opacity-0 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-0 group-hover:opacity-100 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+              >
+                <path
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                />
+              </svg>
+            </>
+          )
+        }
+        <span class="absolute inset-0"></span>
+      </TitleWrapper>
+    </h4>
+    <div class="text-[0.875rem]/5 text-gray-600 dark:text-gray-400">
+      <p>
+        {blok.text}
+      </p>
+    </div>
+  </div>
+</li>

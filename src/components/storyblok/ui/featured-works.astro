@@ -1,0 +1,27 @@
+---
+import WorkCard from '@/components/ui/work-card.astro';
+import workService from '@/services/work';
+import type { FeaturedWorksStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: FeaturedWorksStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const works = blok.works?.length ? blok.works : await workService.getLatest();
+---
+
+<div
+  {...storyblokEditable(blok)}
+  class="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3"
+>
+  {
+    works?.map((work, index) => (
+      <div class:list={[index == 3 && 'xl:hidden']}>
+        <WorkCard work={work} />
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,20 @@
+---
+interface Props {
+  type?: 'text' | 'email' | 'tel';
+  id: string;
+  name: string;
+  required?: boolean;
+  autocomplete?: string;
+}
+
+const { type = 'text', id, name, required = false, autocomplete = 'off' } = Astro.props;
+---
+
+<input
+  autocomplete={autocomplete}
+  type={type}
+  id={id}
+  name={name}
+  required={required}
+  class="input-field h-8 w-full rounded-md border-[0.5px] border-gray-300 bg-white px-3 text-sm shadow outline-none hover:bg-white/50"
+/>

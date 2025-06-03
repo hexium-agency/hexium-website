@@ -1,0 +1,25 @@
+---
+import type { FooterAgencyStoryblok } from '@/types/storyblok';
+
+import MapPin from '@/icons/map-pin.svg';
+
+interface AstroProps {
+  blok: FooterAgencyStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div class="flex items-center gap-x-4">
+  <div class="relative flex size-8 items-center justify-center self-start rounded-full">
+    <div class="absolute size-4 rounded-full bg-white blur-sm"></div>
+    <div class="absolute size-8 rounded-full bg-gray-950"></div>
+    <div class="absolute size-8 rounded-full border border-white/5 bg-white/10"></div>
+    <MapPin class="relative size-5 text-white" />
+  </div>
+  <div>
+    <div class="font-mono text-lg font-medium text-white uppercase">{blok.city}</div>
+    <div class="text-gray-400">{blok.adressOne}</div>
+    {blok.adresseTwo && <div class="text-gray-400">{blok.adresseTwo}</div>}
+  </div>
+</div>

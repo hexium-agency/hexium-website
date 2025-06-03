@@ -1,0 +1,43 @@
+---
+import { cn } from '@/lib/utils';
+
+interface Props {
+  value: string;
+  selected?: boolean;
+  className?: string;
+}
+
+const { value, selected = false, className } = Astro.props;
+---
+
+<li
+  class="group relative cursor-pointer px-2 text-gray-950 select-none focus:outline-none"
+  role="option"
+  data-value={value}
+  aria-selected={selected}
+  tabindex="-1"
+>
+  <span
+    class={cn(
+      'block truncate rounded-md py-1 pr-9 pl-2',
+      selected ? 'font-semibold' : 'font-normal',
+      className
+    )}
+  >
+    <slot />
+  </span>
+
+  {
+    selected && (
+      <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-900 group-hover:bg-gray-50 group-hover:text-white group-focus:bg-gray-50 group-focus:text-white">
+        <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </span>
+    )
+  }
+</li>

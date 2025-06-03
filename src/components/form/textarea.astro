@@ -1,0 +1,18 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  required?: boolean;
+  rows?: number;
+}
+
+const { id, name, required = false, rows = 4 } = Astro.props;
+---
+
+<textarea
+  id={id}
+  name={name}
+  rows={rows}
+  required={required}
+  class="input-field w-full rounded-md border-[0.5px] border-gray-300 bg-white px-3 py-2 text-sm shadow outline-none hover:bg-white/50"
+></textarea>

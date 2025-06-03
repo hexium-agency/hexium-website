@@ -1,0 +1,66 @@
+---
+import { cn } from '@/lib/utils';
+import hexRgb from 'hex-rgb';
+
+interface AstroProps {
+  sizeClasses?: string;
+}
+
+const { sizeClasses = 'size-[500px]' } = Astro.props as AstroProps;
+
+const color1 = hexRgb('#2EB99B', { format: 'array' });
+const color2 = hexRgb('#179E82', { format: 'array' });
+---
+
+<div class={cn('relative', sizeClasses)}>
+  <div
+    class={cn('absolute', sizeClasses)}
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221001%22%20height%3D%221169%22%20viewBox%3D%220%200%201001%201169%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M163.198%20685.393L396.344%201151.69L828.928%201154.49L932.861%201005.62L163.198%20685.393Z%22%20fill%3D%22%232EB99B%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div id="sylius-dots-container-1" class={cn('relative', sizeClasses)} data-color={color1}>
+      </div>
+    </div>
+  </div>
+  <div
+    class={cn('absolute', sizeClasses)}
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221001%22%20height%3D%221169%22%20viewBox%3D%220%200%201001%201169%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0.276367%20735.955L314.883%201168.54H828.928L932.861%201008.43L0.276367%20735.955ZM376.681%20210.674L531.175%20328.652L668.816%2064.6069L621.063%2033.708L376.681%20210.674Z%22%20fill%3D%22%23179E82%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div id="sylius-dots-container-2" class={cn('relative', sizeClasses)} data-color={color2}>
+      </div>
+    </div>
+  </div>
+  <div
+    class={cn('absolute', sizeClasses)}
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%221001%22%20height%3D%221169%22%20viewBox%3D%220%200%201001%201169%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M828.928%201168.54L376.681%20210.674L474.996%20140.449L1000.28%20904.494L828.928%201168.54ZM578.928%2064.6067L873.872%20303.371L666.007%200L578.928%2064.6067Z%22%20fill%3D%22%232EB99B%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div id="sylius-dots-container-3" class={cn('relative', sizeClasses)} data-color={color1}>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { DotsBlock } from '@/lib/dots/dots-block';
+  document.addEventListener('astro:page-load', () => {
+    const color1 = document.querySelector('#sylius-dots-container-1')?.getAttribute('data-color');
+    const colorArray1 = color1?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#sylius-dots-container-1') as HTMLElement, [
+      colorArray1!,
+    ]);
+
+    const color2 = document.querySelector('#sylius-dots-container-2')?.getAttribute('data-color');
+    const colorArray2 = color2?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#sylius-dots-container-2') as HTMLElement, [
+      colorArray2!,
+    ]);
+
+    const color3 = document.querySelector('#sylius-dots-container-3')?.getAttribute('data-color');
+    const colorArray3 = color3?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#sylius-dots-container-3') as HTMLElement, [
+      colorArray3!,
+    ]);
+  });
+</script>

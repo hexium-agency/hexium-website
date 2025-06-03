@@ -1,0 +1,59 @@
+---
+import { cn } from '@/lib/utils';
+import hexRgb from 'hex-rgb';
+
+interface AstroProps {
+  sizeClasses?: string;
+}
+
+const { sizeClasses = 'size-[500px]' } = Astro.props as AstroProps;
+
+const colorTop = hexRgb('#000', { format: 'array' });
+const colorBottom = hexRgb('#E53BA4', { format: 'array' });
+---
+
+<div class={cn('relative', sizeClasses)}>
+  <div
+    class={cn('absolute', sizeClasses)}
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22793%22%20height%3D%221000%22%20viewBox%3D%220%200%20793%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%20650.343C0%20650.343%20133.775%20585.175%20267.924%20585.175L369.067%20272.153C372.854%20257.016%20383.91%20246.728%20396.392%20246.728C408.874%20246.728%20419.931%20257.016%20423.717%20272.153L524.862%20585.175C683.74%20585.175%20792.784%20650.343%20792.784%20650.343C792.784%20650.343%20565.557%2031.3302%20565.113%2030.0882C558.591%2011.7869%20547.581%200%20532.738%200H260.07C245.227%200%20234.661%2011.7869%20227.696%2030.0882C227.204%2031.3068%200%20650.343%200%20650.343Z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div id="astro-top-dots-container" class={cn('relative', sizeClasses)} data-color={colorTop}>
+      </div>
+    </div>
+  </div>
+  <div
+    class={cn('absolute', sizeClasses)}
+    style="mask: url(data:image/svg+xml,%3Csvg%20width%3D%22793%22%20height%3D%221000%22%20viewBox%3D%220%200%20793%201000%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M257.832%20851.745C212.655%20810.448%20199.468%20723.679%20218.289%20660.816C250.925%20700.45%20296.144%20713.005%20342.983%20720.092C415.291%20731.029%20486.304%20726.938%20553.476%20693.888C561.16%20690.104%20568.261%20685.073%20576.657%20679.977C582.96%20698.263%20584.6%20716.723%20582.399%20735.512C577.046%20781.27%20554.274%20816.617%20518.055%20843.411C503.572%20854.129%20488.247%20863.709%20473.289%20873.814C427.335%20904.874%20414.902%20941.291%20432.17%20994.263C432.58%20995.563%20432.947%20996.852%20433.875%201000C410.413%20989.497%20393.274%20974.207%20380.216%20954.105C366.424%20932.892%20359.862%20909.423%20359.516%20884.029C359.344%20871.671%20359.344%20859.203%20357.682%20847.019C353.624%20817.317%20339.68%20804.017%20313.412%20803.252C286.453%20802.465%20265.127%20819.132%20259.472%20845.379C259.041%20847.391%20258.414%20849.382%20257.788%20851.722L257.832%20851.745Z%22%20fill%3D%22%23E53BA4%22%2F%3E%3C%2Fsvg%3E) 0 0 / 100% 100%"
+  >
+    <div class="absolute inset-0">
+      <div
+        id="astro-bottom-dots-container"
+        class={cn('relative', sizeClasses)}
+        data-color={colorBottom}
+      >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { DotsBlock } from '@/lib/dots/dots-block';
+  document.addEventListener('astro:page-load', () => {
+    const topColor = document
+      .querySelector('#astro-top-dots-container')
+      ?.getAttribute('data-color');
+    const topColorRgb = topColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#astro-top-dots-container') as HTMLElement, [
+      topColorRgb!,
+    ]);
+
+    const bottomColor = document
+      .querySelector('#astro-bottom-dots-container')
+      ?.getAttribute('data-color');
+    const bottomColorRgb = bottomColor?.split(',').map(Number);
+    new DotsBlock(document.querySelector('#astro-bottom-dots-container') as HTMLElement, [
+      bottomColorRgb!,
+    ]);
+  });
+</script>

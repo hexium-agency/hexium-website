@@ -1,0 +1,113 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin '@tailwindcss/typography';
+@plugin 'tailwindcss-animate';
+@config '../../tailwind.config.js';
+
+@theme {
+  --font-heading:
+    'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-heading--font-variation-settings: 'opsz' 32;
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+  --font-sans:
+    'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans--font-variation-settings: 'opsz' 14;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1.25rem;
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.25rem;
+
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.5rem;
+
+  --text-base: 0.9375rem;
+  --text-base--line-height: 1.75rem;
+
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.75rem;
+
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 2rem;
+
+  --text-3xl: 2rem;
+  --text-3xl--line-height: 2.5rem;
+
+  --text-4xl: 2.5rem;
+  --text-4xl--line-height: 3rem;
+
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 3.5rem;
+
+  --text-6xl: 4rem;
+  --text-6xl--line-height: 4.5rem;
+
+  --color-gray-25: oklch(98.54% 0.0013 286.38);
+  --color-gray-50: oklch(97.64% 0.0013 286.38);
+  --color-gray-100: oklch(94.97% 0.0027 286.35);
+  --color-gray-200: oklch(88.68% 0.0068 286.26);
+  --color-gray-300: oklch(78.49% 0.0141 281.5);
+  --color-gray-400: oklch(66.99% 0.0191 282.36);
+  --color-gray-500: oklch(56.97% 0.0246 279.94);
+  --color-gray-600: oklch(49% 0.0239 282.46);
+  --color-gray-700: oklch(38.57% 0.0169 281.04);
+  --color-gray-800: oklch(31.1% 0.0125 279.19);
+  --color-gray-900: oklch(24.99% 0.0094 285.7);
+  --color-gray-950: oklch(18.81% 0.006 285.81);
+}
+
+@layer base {
+  [id] {
+    scroll-margin-top: 80px;
+  }
+}
+
+@layer utilities {
+  .animate-paused {
+    animation-play-state: paused;
+  }
+
+  .container {
+    @apply relative mx-auto w-full px-6 sm:max-w-[40rem] md:max-w-[48rem] md:px-8 lg:max-w-[64rem] xl:max-w-[80rem];
+  }
+
+  .input-field {
+    transition-property: color, background-color, border-color, box-shadow, opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+  }
+
+  .input-field:focus {
+    box-shadow:
+      0px 0px 0px 1px #3b82f6,
+      0px 0px 0px 4px rgba(59, 130, 246, 0.2);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+}

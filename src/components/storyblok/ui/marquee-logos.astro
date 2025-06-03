@@ -1,0 +1,225 @@
+---
+import { cn } from '@/lib/utils';
+import companyService from '@/services/company';
+import type { MarqueeLogosStoryblok } from '@/types/storyblok';
+import { parseStoryblokBackgroundColorToTailwind, parseStoryblokImage } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  style?: Record<string, string>;
+  className?: string;
+  autoFill?: boolean;
+  play?: boolean;
+  pauseOnHover?: boolean;
+  pauseOnClick?: boolean;
+  gradient?: boolean;
+  gradientColor?: string;
+}
+
+interface AstroProps {
+  blok: MarqueeLogosStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const companiesUuids = blok.companies as string[];
+
+let companies = await companyService.getCompaniesByUuids(companiesUuids);
+
+const companiesMap = new Map(companies.map((c) => [c.uuid, c]));
+companies = companiesUuids
+  .map((uuid) => companiesMap.get(uuid))
+  .filter((c): c is (typeof companies)[0] => Boolean(c));
+
+const {
+  style = {},
+  className = '',
+  autoFill = false,
+  play = true,
+  pauseOnHover = false,
+  pauseOnClick = blok?.className?.includes('pause-on-click'),
+  gradient = true,
+  gradientColor = parseStoryblokBackgroundColorToTailwind(blok.backgroundColor),
+} = {} as Props;
+---
+
+<div {...storyblokEditable(blok)}>
+  {
+    blok.title && (
+      <div
+        class={cn(
+          'text-2xs mb-5 text-center font-mono font-bold uppercase',
+          blok.backgroundColor === 'black' ? 'text-white/50' : 'text-gray-600'
+        )}
+      >
+        {blok.title}
+      </div>
+    )
+  }
+  <div
+    class={cn('rfm-marquee-container overflow-x-hidden flex flex-row relative', className)}
+    style={`
+    --pause-on-hover: ${!play || pauseOnHover ? 'paused' : 'running'};
+    --pause-on-click: ${!play || (pauseOnHover && !pauseOnClick) || pauseOnClick ? 'paused' : 'running'};
+    --width: 100%;
+    --transform: none;
+    ${Object.entries(style)
+      .map(([key, value]) => `${key}: ${value};`)
+      .join(' ')}
+  `}
+  >
+    {
+      gradient && (
+        <div
+          class="rfm-overlay @ absolute h-full w-full before:pointer-events-none before:absolute before:top-0 before:right-0 before:z-[2] before:w-[20%] before:rotate-180 before:touch-none after:pointer-events-none after:absolute after:top-0 after:left-0 after:z-[2] after:w-[20%] after:touch-none"
+          style={`
+        --gradient-color: ${gradientColor};
+      `}
+        />
+      )
+    }
+    <div
+      class="rfm-marquee z-[1] flex flex-row"
+      style={`
+      --play: ${play ? 'running' : 'paused'};
+      --direction: normal;
+      --delay: 0s;
+      --iteration-count: infinite;
+      --min-width: ${autoFill ? 'auto' : '100%'};
+    `}
+    >
+      <div class="rfm-initial-child-container flex flex-row">
+        {
+          companies.map((company) => (
+            <div class="mx-6 w-[110px]">
+              <Image
+                sizes="10vw"
+                {...parseStoryblokImage(company.content[blok.logoColors])}
+                class="pointer-events-none h-8 object-contain opacity-50 select-none"
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="rfm-marquee flex items-center"
+      style={`
+      --play: ${play ? 'running' : 'paused'};
+      --direction: normal;
+      --delay: 0s;
+      --iteration-count: infinite;
+      --min-width: ${autoFill ? 'auto' : '100%'};
+    `}
+    >
+      {
+        companies.map((company) => (
+          <div class="mx-6 w-[110px]">
+            <Image
+              sizes="10vw"
+              {...parseStoryblokImage(company.content[blok.logoColors])}
+              class="pointer-events-none h-8 object-contain opacity-50 select-none"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ autoFill }}>
+  let observers = [];
+
+  document.addEventListener('astro:page-load', () => {
+    // Clean up existing observers
+    observers.forEach((observer) => observer.disconnect());
+    observers = [];
+
+    const containers = document.querySelectorAll('.rfm-marquee-container');
+
+    containers.forEach((container) => {
+      const marquee = container?.querySelector('.rfm-marquee');
+      const initialChildContainer = container?.querySelector('.rfm-initial-child-container');
+
+      if (!container || !marquee || !initialChildContainer) {
+        console.error('Marquee elements not found');
+      } else {
+        let multiplier = 1;
+
+        const calculateWidth = () => {
+          const containerRect = container.getBoundingClientRect();
+          const marqueeRect = marquee.getBoundingClientRect();
+          let containerWidth = containerRect.width;
+          let marqueeWidth = marqueeRect.width;
+
+          if (autoFill && containerWidth && marqueeWidth) {
+            multiplier =
+              marqueeWidth < containerWidth ? Math.ceil(containerWidth / marqueeWidth) : 1;
+          } else {
+            multiplier = 1;
+          }
+
+          const marquees = container.querySelectorAll('.rfm-marquee');
+          marquees.forEach((m) => {
+            const duration = autoFill
+              ? (marqueeWidth * multiplier) / 50
+              : marqueeWidth < containerWidth
+                ? containerWidth / 50
+                : marqueeWidth / 50;
+            m.style.setProperty('--duration', `${duration}s`);
+          });
+        };
+
+        calculateWidth();
+
+        const resizeObserver = new ResizeObserver(calculateWidth);
+        resizeObserver.observe(container);
+        resizeObserver.observe(marquee);
+
+        // Store the observer for cleanup
+        observers.push(resizeObserver);
+      }
+    });
+  });
+</script>
+
+<style>
+  .rfm-marquee-container {
+    width: var(--width);
+    transform: var(--transform);
+  }
+
+  .rfm-marquee-container:hover div {
+    animation-play-state: var(--pause-on-hover);
+  }
+
+  .rfm-marquee-container:active div {
+    animation-play-state: var(--pause-on-click);
+  }
+
+  .rfm-overlay::before,
+  .rfm-overlay::after {
+    background: linear-gradient(to right, var(--gradient-color), rgb(255, 255, 255, 0));
+    content: '';
+    height: 100%;
+    width: 20%;
+  }
+
+  .rfm-overlay::before {
+    right: -4px;
+  }
+
+  .rfm-overlay::after {
+    left: -4px;
+  }
+
+  .rfm-marquee {
+    flex: 0 0 auto;
+    animation: scroll var(--duration) linear var(--delay) var(--iteration-count);
+    animation-play-state: var(--play);
+    animation-delay: var(--delay);
+    animation-direction: var(--direction);
+  }
+</style>

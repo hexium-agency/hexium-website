@@ -1,0 +1,87 @@
+---
+import ContactForm from '@/components/contact-form.astro';
+import type { ContactHomeStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: ContactHomeStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<section {...storyblokEditable(blok)} class="container flex flex-col lg:flex-row">
+  <div class="lg:w-1/2">
+    <div class="flex flex-col justify-start pb-8 lg:p-16 lg:pl-0">
+      <h1
+        class="mb-4 font-mono text-xs/6 font-medium tracking-wider text-balance text-blue-600 uppercase"
+      >
+        Contact
+      </h1>
+      <h2
+        class="font-heading text-4xl font-medium tracking-tighter text-balance text-gray-950 sm:text-5xl lg:text-6xl"
+      >
+        Nous contacter
+      </h2>
+      <p class="mt-6 max-w-lg text-lg font-medium tracking-tight text-pretty text-gray-600">
+        Notre agence est à votre écoute pour répondre à vos questions et vous accompagner dans vos
+        projets.
+      </p>
+      <ul class="mt-10 hidden text-base font-medium text-gray-700 md:block">
+        <li class="flex items-center gap-2">
+          <svg
+            class="size-5 text-blue-500"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+            data-slot="icon"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span>Réponse sous 24 heures</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <svg
+            class="size-5 text-blue-500"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+            data-slot="icon"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span>Étude gratuite et personnalisée de votre projet</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <svg
+            class="size-5 text-blue-500"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+            data-slot="icon"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span>Proposition technique adaptée à vos besoins</span>
+        </li>
+      </ul>
+      {blok.blocks?.map((item) => <StoryblokComponent blok={item} />)}
+    </div>
+  </div>
+
+  <div class="bg-gray-100 lg:w-1/2">
+    <div class="mx-auto max-w-2xl p-8 lg:p-16">
+      <ContactForm />
+    </div>
+  </div>
+</section>

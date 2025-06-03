@@ -1,0 +1,104 @@
+---
+import Richtext from '@/components/richtext.astro';
+import { cn } from '@/lib/utils';
+import type { HeroHorizontalStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: HeroHorizontalStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const Title = blok.badge ? 'h2' : 'h1';
+
+function transformTitle(title: string, color: string) {
+  return title.replace(/#([^#]+)#/g, (_, words) => {
+    return words
+      .split(' ')
+      .map((word: string) => {
+        return `<span class="relative isolate inline-block font-semibold before:absolute before:inset-0 before:-z-10 before:blur-[5px] before:content-[var(--word)]" style="--word: attr(data-word); color: ${color}" data-word="${word}">${word}</span>`;
+      })
+      .join(' ');
+  });
+}
+
+const highlightWordsEffect = blok.effects?.find(
+  (effect: any) => effect.component === 'highlightWords'
+);
+
+const transformedTitle = highlightWordsEffect
+  ? transformTitle(blok.title, highlightWordsEffect.color.color)
+  : blok.title;
+
+const technologyLogo = blok.aside?.find(
+  (item: any) => item.component === 'heroAsideTechnologyLogo'
+);
+---
+
+<section
+  {...storyblokEditable(blok)}
+  class={cn(
+    blok.background === 'white' && 'bg-gray-50',
+    blok.background === 'gray' && 'bg-gray-100',
+    blok.background === 'black' && 'bg-gray-950 dark',
+    'relative'
+  )}
+>
+  <div class="absolute inset-0 backdrop-blur-xl backdrop-saturate-200"></div>
+
+  <div
+    class="absolute inset-0 flex flex-row divide-zinc-50/20 [&_span]:h-full [&_span]:w-[10%] [&_span]:bg-gradient-to-r [&_span]:from-gray-50/20 [&_span]:from-50% [&_span]:to-gray-200/20 [&>span:first-child]:rounded-l-lg [&>span:last-child]:rounded-r-lg"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="absolute inset-0 bg-[url('../images/noise.png')] opacity-5"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 to-80%"></div>
+  <div
+    class="relative isolate z-10 container flex flex-col justify-between py-16 sm:py-24 lg:flex-row lg:gap-x-10"
+  >
+    <div class="w-full max-w-3xl flex-shrink-0">
+      {
+        blok.badge && (
+          <h1 class="mb-4 font-mono text-xs/6 font-medium tracking-wider text-balance text-blue-600 uppercase dark:text-gray-200">
+            {blok.badge}
+          </h1>
+        )
+      }
+      <Title
+        class="font-heading mx-auto text-4xl font-medium tracking-tighter text-pretty text-gray-950 sm:text-5xl lg:text-6xl dark:text-white"
+        set:html={transformedTitle}
+      />
+      <Richtext
+        text={blok.text}
+        class="dark:text-gray-40 mt-6 max-w-xl space-y-4 text-lg tracking-tight text-pretty text-gray-600"
+      />
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:justify-start">
+        {blok.buttons?.map((button) => <StoryblokComponent blok={button} />)}
+      </div>
+    </div>
+    {blok.aside?.map((item) => <StoryblokComponent blok={item} />)}
+  </div>
+  <div class="container">
+    {blok.bottomItems?.map((item) => <StoryblokComponent blok={item} />)}
+  </div>
+</section>

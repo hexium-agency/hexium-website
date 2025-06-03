@@ -1,0 +1,258 @@
+---
+import Alert from '@/components/alert.astro';
+import Button from '@/components/button.astro';
+import Checkbox from '@/components/form/checkbox.astro';
+import FileUpload from '@/components/form/file-upload.astro';
+import Input from '@/components/form/input.astro';
+import Label from '@/components/form/label.astro';
+import SelectOption from '@/components/form/select-option.astro';
+import Select from '@/components/form/select.astro';
+import Textarea from '@/components/form/textarea.astro';
+
+const { light = false } = Astro.props;
+---
+
+<form id="contactForm" action="/api/contact" method="POST" enctype="multipart/form-data">
+  <div id="formAlertContainer" class="mb-4 hidden"></div>
+
+  <fieldset id="formFields" class="space-y-3">
+    {
+      !light && (
+        <div>
+          <Select id="subject" name="subject" required label="Sujet">
+            <SelectOption value="project">Projet</SelectOption>
+            <SelectOption value="job">Emploi</SelectOption>
+            <SelectOption value="collaboration">Collaboration</SelectOption>
+            <SelectOption value="other">Autre</SelectOption>
+          </Select>
+        </div>
+      )
+    }
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div>
+        <Label for="lastname">Nom</Label>
+        <Input autocomplete="family-name" id="lastname" name="lastname" required />
+      </div>
+      <div>
+        <Label for="firstname">Prénom</Label>
+        <Input autocomplete="given-name" id="firstname" name="firstname" required />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div>
+        <Label for="email">Email</Label>
+        <Input autocomplete="email" type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <Label for="phone" optional>Téléphone</Label>
+        <Input autocomplete="tel" type="tel" id="phone" name="phone" />
+      </div>
+    </div>
+
+    {
+      !light && (
+        <div id="companyField">
+          <Label for="company" optional>
+            Entreprise
+          </Label>
+          <Input autocomplete="organization" id="company" name="company" />
+        </div>
+      )
+    }
+
+    <div>
+      <Label for="message">Message</Label>
+      <Textarea id="message" name="message" required />
+    </div>
+
+    {
+      !light && (
+        <div>
+          <Label for="files" optional>
+            Documents
+          </Label>
+          <FileUpload id="files" name="files" />
+        </div>
+      )
+    }
+
+    {
+      !light && (
+        <div class="mt-4" id="privacyField">
+          <Checkbox
+            id="privacy"
+            name="privacy"
+            label="Je souhaite recevoir un accord de confidentialité"
+          />
+        </div>
+      )
+    }
+  </fieldset>
+
+  <div class="mt-4 flex items-center justify-between">
+    <Button id="submitButton" isArrowShowed={false} isLink={false}>Envoyer</Button>
+
+    <div id="formSpinner" class="hidden">
+      <svg
+        class="h-5 w-5 animate-spin text-gray-500"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+</form>
+
+<template id="successAlertTemplate">
+  <Alert type="success" title="Succès" message="Votre message a été envoyé avec succès." />
+</template>
+
+<template id="dangerAlertTemplate">
+  <Alert
+    type="danger"
+    title="Erreur"
+    message="Une erreur est survenue lors de l'envoi du message."
+  />
+</template>
+
+<script>
+  const subjectSelect = document.getElementById('subject') as HTMLSelectElement | null;
+  const companyField = document.getElementById('companyField') as HTMLDivElement | null;
+  const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
+  const privacyField = document.getElementById('privacyField') as HTMLDivElement | null;
+  const formAlertContainer = document.getElementById('formAlertContainer') as HTMLDivElement | null;
+  const submitButton = document.getElementById('submitButton') as HTMLButtonElement | null;
+  const formSpinner = document.getElementById('formSpinner') as HTMLDivElement | null;
+  const successAlertTemplate = document.getElementById(
+    'successAlertTemplate'
+  ) as HTMLTemplateElement | null;
+  const dangerAlertTemplate = document.getElementById(
+    'dangerAlertTemplate'
+  ) as HTMLTemplateElement | null;
+  const fileInput = document.getElementById('files') as HTMLInputElement | null;
+  const fileList = document.getElementById('fileList') as HTMLDivElement | null;
+  const formFields = document.getElementById('formFields') as HTMLFieldSetElement | null;
+
+  function toggleCompanyField() {
+    if (!subjectSelect || !companyField) return;
+
+    if (['project', 'collaboration', 'other'].includes(subjectSelect.value)) {
+      companyField.style.display = 'block';
+    } else {
+      companyField.style.display = 'none';
+    }
+  }
+
+  function togglePrivacyField() {
+    if (!privacyField) return;
+
+    if (subjectSelect?.value === 'project') {
+      privacyField.style.display = 'block';
+    } else {
+      privacyField.style.display = 'none';
+    }
+  }
+
+  function toggleSpecificFields() {
+    toggleCompanyField();
+    togglePrivacyField();
+  }
+
+  if (subjectSelect) {
+    subjectSelect.addEventListener('change', toggleSpecificFields);
+
+    subjectSelect.addEventListener('select-initialized', () => {
+      toggleSpecificFields();
+    });
+  }
+
+  function showAlert(type: 'success' | 'danger') {
+    if (!formAlertContainer) return;
+
+    formAlertContainer.innerHTML = '';
+
+    const template = type === 'success' ? successAlertTemplate : dangerAlertTemplate;
+    if (!template) return;
+
+    const alertElement = template.content.cloneNode(true) as DocumentFragment;
+
+    formAlertContainer.appendChild(alertElement);
+    formAlertContainer.classList.remove('hidden');
+  }
+
+  function resetSelectComponent() {
+    if (!subjectSelect) return;
+
+    subjectSelect.selectedIndex = 0;
+
+    const selectValueSpan = document.querySelector('[data-select-value]') as HTMLSpanElement | null;
+    if (selectValueSpan && subjectSelect.options.length > 0) {
+      selectValueSpan.textContent = subjectSelect.options[0].textContent;
+    }
+
+    subjectSelect.dispatchEvent(new Event('change'));
+  }
+
+  function resetFileUploadComponent() {
+    if (!fileList) return;
+
+    fileList.innerHTML = '';
+
+    if (fileInput) {
+      const emptyDataTransfer = new DataTransfer();
+      fileInput.files = emptyDataTransfer.files;
+    }
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!formAlertContainer || !submitButton || !formSpinner || !formFields) return;
+      const formData = new FormData(contactForm);
+      formFields.disabled = true;
+      formFields.classList.add('opacity-60');
+      submitButton.disabled = true;
+      formSpinner.classList.remove('hidden');
+      formAlertContainer.classList.add('hidden');
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showAlert('success');
+          contactForm.reset();
+          resetSelectComponent();
+          resetFileUploadComponent();
+        } else {
+          showAlert('danger');
+        }
+      } catch (error) {
+        showAlert('danger');
+      } finally {
+        formFields.disabled = false;
+        formFields.classList.remove('opacity-60');
+
+        submitButton.disabled = false;
+        formSpinner.classList.add('hidden');
+
+        formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+</script>

@@ -1,0 +1,137 @@
+---
+import ArticleJumpToSection from '@/components/article-jump-to-section.astro';
+import RichText from '@/components/richtext.astro';
+import TableOfContents from '@/components/table-of-contents.astro';
+import type {
+  CustomerStoryblok,
+  PageStoryblok,
+  RichtextStoryblok,
+  TechnologyStoryblok,
+  WorkStoryblok,
+} from '@/types/storyblok';
+import { extractBadgeTitleFromRichText, parseStoryblokImage } from '@/utils/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+import { storyblokEditable } from '@storyblok/astro';
+import { Image } from 'astro:assets';
+
+interface AstroProps {
+  blok: WorkStoryblok;
+  story: ISbStoryData<WorkStoryblok>;
+}
+
+const { blok, story } = Astro.props as AstroProps;
+
+const technologies = (story.content.technologies || []) as ISbStoryData<TechnologyStoryblok>[];
+const services = (story.content.services || []) as unknown as ISbStoryData<PageStoryblok>[];
+
+const headings = extractBadgeTitleFromRichText(blok.content as RichtextStoryblok);
+---
+
+<div>
+  <div
+    class="relative w-full overflow-hidden bg-gray-950/5 py-16 shadow-[0_2px_10px] shadow-gray-900/20 sm:py-32"
+  >
+    <Image
+      sizes="100vw"
+      class="absolute inset-0 size-full object-cover object-center transition-all duration-300 group-hover:scale-105"
+      style="color: transparent;"
+      {...parseStoryblokImage(story.content.cover)}
+    />
+    <div class="absolute inset-0 bg-gray-950/60"></div>
+    <div class="container">
+      <h1
+        class="mx-auto mb-4 max-w-4xl text-center font-mono text-xs/6 font-medium tracking-wider text-balance text-gray-200 uppercase"
+      >
+        {story.name}
+      </h1>
+      <h2
+        class="mx-auto max-w-4xl text-center text-4xl font-semibold tracking-tighter text-balance text-white sm:text-5xl lg:text-6xl"
+      >
+        {story.content.project}
+      </h2>
+    </div>
+  </div>
+  <div {...storyblokEditable(blok)} class="container">
+    <div class="mx-auto max-w-3xl xl:max-w-7xl">
+      <div
+        class="mx-auto mt-6 mb-20 xl:mt-12 xl:grid xl:max-w-none xl:grid-cols-[1fr_41rem_1fr] xl:items-start xl:gap-x-10"
+      >
+        <aside class="sticky top-28 order-first hidden space-y-10 xl:block">
+          <div class="space-y-6 rounded-lg bg-gray-100 p-6">
+            <div class="flex justify-center">
+              <Image
+                sizes="(max-width: 767px) 50vw, 15vw"
+                {...parseStoryblokImage(
+                  (story.content.customer[0] as ISbStoryData<CustomerStoryblok>).content.logoFull
+                )}
+                class="h-16 w-auto"
+              />
+            </div>
+            <div>
+              <div class="font-heading font-mono text-xs font-semibold uppercase">
+                Année de Réalisation
+              </div>
+              <div class="text-sm">{story.content.completionYear}</div>
+            </div>
+            <div>
+              <div class="font-heading font-mono text-xs font-semibold uppercase">Technologies</div>
+              <ul class="mt-2 flex flex-col gap-1.5">
+                {
+                  technologies.map((technology) => (
+                    <li>
+                      <a
+                        class="flex items-center text-sm transition-all hover:opacity-80"
+                        href={`/${technology.full_slug}`}
+                      >
+                        <Image
+                          sizes="5vw"
+                          {...parseStoryblokImage(technology.content.logoFullLight)}
+                          class="mr-2 size-5 object-contain"
+                        />
+                        {technology.name}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+            <div>
+              <div class="font-heading font-mono text-xs font-semibold uppercase">Services</div>
+              <ul>
+                {
+                  services.map((service) => (
+                    <li>
+                      <a
+                        class="flex items-center text-sm transition-all hover:opacity-80"
+                        href={`/${service.full_slug}`}
+                      >
+                        {service.name}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </aside>
+        <aside class="sticky top-28 order-last hidden space-y-10 xl:block">
+          <TableOfContents headings={headings} />
+        </aside>
+        <div>
+          <div class="mb-6 xl:hidden">
+            <ArticleJumpToSection headings={headings} />
+          </div>
+
+          <div
+            class="prose prose-headings:font-heading prose-h2:mb-4 prose-h2:mt-16 prose-h3:mb-4 prose-h3:mt-12 prose-h4:mb-4 prose-h4:mt-8 prose-p:mb-7 prose-p:mt-0 prose-p:text-base prose-p:text-gray-700 prose-code:rounded-md prose-code:border prose-code:border-gray-200 prose-code:bg-white prose-code:px-1.5 prose-code:py-1 prose-code:font-medium prose-code:before:content-none prose-code:after:content-none prose-ol:my-7 prose-ul:my-7 prose-li:text-base prose-li:text-gray-700 max-w-none"
+          >
+            <RichText
+              text={blok.content as RichtextStoryblok}
+              class="[&' >.prose:first-child>:first-child]:!mt-0 [&>.prose:last-child>:last-child]:!mb-0 [&>:first-child]:!mt-0 [&>:last-child]:!mb-0"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

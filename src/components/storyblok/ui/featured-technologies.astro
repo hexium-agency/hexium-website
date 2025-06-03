@@ -1,0 +1,97 @@
+---
+import SvgDistant from '@/components/svg-distant.astro';
+import type { FeaturedTechnologiesStoryblok, TechnologyStoryblok } from '@/types/storyblok';
+import { parseStoryblokStoryToLink } from '@/utils/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+import { storyblokEditable } from '@storyblok/astro';
+import hexRgb from 'hex-rgb';
+
+interface AstroProps {
+  blok: FeaturedTechnologiesStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const technologies = (blok.technologies || []) as ISbStoryData<TechnologyStoryblok>[];
+
+const technologiesColors = technologies.map((technology) =>
+  hexRgb(technology.content.colorDark.color, { format: 'array' })
+);
+---
+
+<div
+  {...storyblokEditable(blok)}
+  class="featured-technologies relative mx-auto flex max-w-4xl flex-auto flex-wrap justify-center pt-px pl-px"
+>
+  {
+    technologies.map((technology, index) => (
+      <a
+        class="group relative -mt-px -ml-px flex w-1/2 flex-none items-center justify-center border border-gray-800 bg-gray-950 py-8 transition-[border-color,z-index] delay-150 hover:border-gray-700 hover:delay-0 hover:duration-300 focus:!z-[--focus-z] focus:transition-none sm:w-1/3"
+        style="--focus-z: 0; z-index: 0;"
+        href={parseStoryblokStoryToLink(technology)}
+        data-color={technologiesColors[index]}
+      >
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-950 to-[84%]" />
+        <div
+          class="absolute inset-0"
+          style="background: radial-gradient(42.89% 50% at 50% 50%, rgba(19, 19, 22, 0.8) 8.57%, rgba(19, 19, 22, 0) 100%);"
+        />
+        <div class="relative flex w-full flex-col items-center">
+          <div class="no-hover:translate-y-0 relative aspect-[104/42] w-[calc(104/16*1rem)] max-w-full transition-transform duration-300 group-hover:translate-y-0 group-focus:translate-y-0 md:translate-y-4">
+            <SvgDistant
+              url={technology.content.logoOutline}
+              class="absolute inset-0 h-full w-full text-transparent transition-opacity duration-500 group-hover:opacity-0 group-focus:opacity-0 md:text-white"
+            />
+            <SvgDistant
+              preserveDesc
+              preserveId
+              url={technology.content.logoFullLight}
+              class="absolute inset-0 h-full w-full transition-opacity duration-500 group-hover:opacity-100 group-focus:opacity-100 md:opacity-0 dark:hidden"
+            />
+            <SvgDistant
+              preserveDesc
+              preserveId
+              url={technology.content.logoFullDark}
+              class="absolute inset-0 hidden h-full w-full transition-opacity duration-500 group-hover:opacity-100 group-focus:opacity-100 md:opacity-0 dark:block"
+            />
+          </div>
+          <div class="no-hover:opacity-100 mt-2 text-sm font-medium text-white transition-opacity duration-300 group-hover:opacity-100 group-hover:delay-75 group-focus:opacity-100 group-focus:delay-75 md:opacity-0">
+            {technology.name}
+          </div>
+        </div>
+      </a>
+    ))
+  }
+</div>
+<script>
+  import { DotsHoverBlock } from '@/lib/dots/dots-hover-block';
+
+  document.addEventListener('astro:page-load', () => {
+    const containers = document.querySelectorAll('.featured-technologies');
+
+    containers.forEach((container) => {
+      const links = container.querySelectorAll('a');
+      let maxZ = links.length;
+
+      links.forEach((link) => {
+        const color = link.getAttribute('data-color') || '#FFFFFF';
+        const colorArray = color.split(',').map(Number);
+        new DotsHoverBlock(link, [colorArray]);
+
+        link.addEventListener('mouseenter', () => {
+          maxZ += 1;
+
+          links.forEach((l) => {
+            l.style.setProperty('--focus-z', maxZ.toString());
+          });
+
+          link.style.zIndex = (maxZ + 1).toString();
+        });
+
+        link.addEventListener('mouseleave', () => {
+          link.style.zIndex = '0';
+        });
+      });
+    });
+  });
+</script>
