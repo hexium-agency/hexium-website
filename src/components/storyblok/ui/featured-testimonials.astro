@@ -77,12 +77,12 @@ testimonials = testimonialUuids
   {
     testimonials.length > 1 && (
       <div class="rounded-b-lg bg-gray-200 p-3">
-        <ul class={cn('flex h-full flex-col gap-2 rounded-md lg:flex-row')} role="tablist">
+        <ul class={cn('h-full grid grid-cols-2 gap-2 rounded-md lg:flex lg:flex-row')} role="tablist">
           {testimonials.map((testimonial, index) => (
             <li role="presentation" class="w-full lg:max-w-[175px]">
               <button
                 class={cn(
-                  'flex h-[56px] w-full flex-shrink-0 cursor-pointer items-center justify-center rounded-md px-6 outline-black transition-colors hover:bg-white',
+                  'flex h-[40px] sm:h-[50px] lg:h-[56px] w-full flex-shrink-0 cursor-pointer items-center justify-center rounded-md px-6 outline-black transition-colors hover:bg-white',
                   {
                     'active bg-white': index === 0,
                     'hover:bg-white': index !== 0,
@@ -101,7 +101,7 @@ testimonials = testimonialUuids
                       .logoBlack
                   )}
                   sizes="15vw"
-                  class="pointer-events-none h-8 w-auto object-contain"
+                  class="pointer-events-none h-4 w-auto object-contain sm:h-5 lg:h-8"
                 />
                 {/* @ts-ignore */}
                 <span class="sr-only">{testimonial.content.customer.content.name}</span>
