@@ -74,6 +74,11 @@ const pathname = Astro.url.pathname;
           (window.plausible.q = window.plausible.q || []).push(arguments);
         };
     </script>
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        window.plausible('pageview');
+      });
+    </script>
   </head>
   <body class="flex min-h-screen flex-grow flex-col bg-gray-50 font-sans text-gray-950 antialiased">
     <Header navbar={global.story.content.navbar} />
