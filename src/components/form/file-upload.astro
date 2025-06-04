@@ -97,8 +97,20 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
         const deleteButton = fileItem.querySelector('.delete-file') as HTMLButtonElement;
         if (deleteButton) {
           deleteButton.addEventListener('click', () => {
+            // Get the file that's being deleted
+            const fileToDelete = selectedFiles[index];
+
             // Remove the file from the list
             selectedFiles.splice(index, 1);
+
+            // Dispatch custom event with the deleted file info
+            if (fileInput && fileToDelete) {
+              fileInput.dispatchEvent(
+                new CustomEvent('file-deleted', {
+                  detail: { file: fileToDelete },
+                })
+              );
+            }
 
             // Update the file list display
             updateFileList();
@@ -111,6 +123,11 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
         // Add the file item to the list
         fileList.appendChild(fileItem);
       });
+
+      // Dispatch event to notify parent that file list was updated
+      if (fileInput) {
+        fileInput.dispatchEvent(new CustomEvent('file-list-updated'));
+      }
     }
 
     // Update the file input with the selected files
@@ -143,6 +160,9 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
     // Handle file selection
     fileInput.addEventListener('change', () => {
       if (fileInput.files) {
+        // Store the files that were just added
+        const newlyAddedFiles: File[] = [];
+
         // Add the selected files to the list
         for (let i = 0; i < fileInput.files.length; i++) {
           const file = fileInput.files[i];
@@ -153,11 +173,21 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
             )
           ) {
             selectedFiles.push(file);
+            newlyAddedFiles.push(file);
           }
         }
 
         // Update the file list display
         updateFileList();
+
+        // Dispatch custom event with newly added files
+        if (newlyAddedFiles.length > 0) {
+          fileInput.dispatchEvent(
+            new CustomEvent('files-added', {
+              detail: { files: newlyAddedFiles },
+            })
+          );
+        }
       }
     });
 
@@ -204,6 +234,9 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
         (e) => {
           const dt = e.dataTransfer;
           if (dt?.files) {
+            // Store the files that were just added
+            const newlyAddedFiles: File[] = [];
+
             // Add the dropped files to the list
             for (let i = 0; i < dt.files.length; i++) {
               const file = dt.files[i];
@@ -215,6 +248,7 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
                 )
               ) {
                 selectedFiles.push(file);
+                newlyAddedFiles.push(file);
               }
             }
 
@@ -223,6 +257,15 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
 
             // Update the file input
             updateFileInput();
+
+            // Dispatch custom event with newly added files
+            if (newlyAddedFiles.length > 0) {
+              fileInput.dispatchEvent(
+                new CustomEvent('files-added', {
+                  detail: { files: newlyAddedFiles },
+                })
+              );
+            }
           }
         },
         false
