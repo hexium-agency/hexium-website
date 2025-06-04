@@ -10,22 +10,22 @@ const emails: Record<Subject, { to: string; subject: string; templateId: number 
   project: {
     to: 'anthony@hexium.io',
     subject: '[PROJET]',
-    templateId: 3,
+    templateId: 7,
   },
   job: {
     to: 'contact@hexium.io',
     subject: '[EMPLOI]',
-    templateId: 4,
+    templateId: 9,
   },
   collaboration: {
     to: 'contact@hexium.io',
     subject: '[COLLAB]',
-    templateId: 5,
+    templateId: 10,
   },
   other: {
     to: 'contact@hexium.io ',
     subject: '[AUTRE]',
-    templateId: 6,
+    templateId: 11,
   },
 };
 
@@ -81,7 +81,8 @@ export const POST: APIRoute = async ({ request }) => {
         phone,
         message,
         privacy: privacy === 'on' ? 'Accepté' : 'Refusé',
-        files: fileUrls.map((url) => `${url}`).join('\n'),
+        files:
+          fileUrls.length > 0 ? fileUrls.map((url) => `${encodeURIComponent(url)}`).join('\n') : '',
       },
       subject: emailConfig.subject,
       replyTo: { email },
