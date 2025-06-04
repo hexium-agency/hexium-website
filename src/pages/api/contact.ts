@@ -36,6 +36,13 @@ function jsonResponse(success: boolean, message: string) {
   });
 }
 
+function errorResponse() {
+  return jsonResponse(
+    false,
+    "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer plus tard."
+  );
+}
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
@@ -48,6 +55,22 @@ export const POST: APIRoute = async ({ request }) => {
     const company = (formData.get('company') as string) || '';
     const message = formData.get('message') as string;
     const privacy = formData.get('privacy') as string;
+    const websiteHoneypot = formData.get('website') as string;
+    const createdAt = formData.get('created_at') as string;
+
+    if (websiteHoneypot && websiteHoneypot.trim() !== '') {
+      return errorResponse();
+    }
+
+    if (createdAt) {
+      const createdAtTime = new Date(createdAt).getTime();
+      const currentTime = new Date().getTime();
+      const timeDifference = (currentTime - createdAtTime) / 1000; // in seconds
+
+      if (timeDifference < 8) {
+        return errorResponse();
+      }
+    }
 
     if (!subject || !firstname || !lastname || !email || !message) {
       throw new Error('Tous les champs obligatoires doivent être remplis.');
