@@ -53,7 +53,7 @@ async function uploadFileToS3(file: File): Promise<string> {
 
 /**
  * Generate a presigned URL for uploading a file to S3
- * @param fileName The name of the file
+ * @param fileName The name of the file (should include path and be unique)
  * @param fileType The MIME type of the file
  * @returns The presigned URL and the file URL
  */
@@ -65,7 +65,7 @@ export async function generatePresignedUrl(
     throw new Error('Missing required AWS environment variables.');
   }
 
-  const key = `${Date.now()}-${fileName}`;
+  const key = fileName;
 
   const params = {
     Bucket: S3_BUCKET_NAME,

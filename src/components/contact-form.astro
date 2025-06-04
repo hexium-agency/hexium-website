@@ -151,8 +151,10 @@ const { light = false } = Astro.props;
   const fileList = document.getElementById('fileList') as HTMLDivElement | null;
   const formFields = document.getElementById('formFields') as HTMLFieldSetElement | null;
   const createdAtInput = document.getElementById('created_at') as HTMLInputElement | null;
+  const fileUrlsInput = document.getElementById('fileUrls') as HTMLInputElement | null;
 
   let timestampSet = false;
+  let uploadedFileUrls: string[] = [];
 
   function setTimestamp() {
     if (!timestampSet && createdAtInput) {
@@ -234,10 +236,98 @@ const { light = false } = Astro.props;
     if (!fileList) return;
 
     fileList.innerHTML = '';
+    uploadedFileUrls = [];
 
     if (fileInput) {
+      // Trigger the custom reset event to clear selectedFiles array
+      fileInput.dispatchEvent(new CustomEvent('file-upload-reset'));
+
       const emptyDataTransfer = new DataTransfer();
       fileInput.files = emptyDataTransfer.files;
+    }
+
+    if (fileUrlsInput) {
+      fileUrlsInput.value = '';
+    }
+  }
+
+  // Function to upload a single file to S3
+  async function uploadFileToS3(file: File, index: number): Promise<string> {
+    const fileItems = fileList?.querySelectorAll('.upload-status');
+    const statusElement = fileItems?.[index] as HTMLSpanElement;
+
+    try {
+      // Show loader
+      if (statusElement) {
+        statusElement.innerHTML =
+          '<svg class="h-3 w-3 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+        statusElement.className = 'upload-status text-xs text-gray-500';
+      }
+
+      // Get presigned URL
+      const response = await fetch('/api/upload-url', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileType: file.type,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get upload URL');
+      }
+
+      const { data } = await response.json();
+      const { presignedUrl, fileUrl } = data;
+
+      // Upload file to S3
+      const uploadResponse = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type,
+        },
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error('Failed to upload file to S3');
+      }
+
+      // Update status to success
+      if (statusElement) {
+        statusElement.textContent = '✓';
+        statusElement.className = 'upload-status text-xs text-green-500';
+      }
+
+      return fileUrl;
+    } catch (error) {
+      console.error('Error uploading file:', error);
+
+      // Show danger alert on error
+      showAlert('danger');
+
+      throw error;
+    }
+  }
+
+  // Function to upload all selected files
+  async function uploadAllFiles(): Promise<string[]> {
+    if (!fileInput?.files || fileInput.files.length === 0) {
+      return [];
+    }
+
+    const files = Array.from(fileInput.files);
+    const uploadPromises = files.map((file, index) => uploadFileToS3(file, index));
+
+    try {
+      const fileUrls = await Promise.all(uploadPromises);
+      return fileUrls;
+    } catch (error) {
+      console.error('Error uploading files:', error);
+      throw new Error("Échec de l'upload de certains fichiers. Veuillez réessayer.");
     }
   }
 
@@ -246,6 +336,7 @@ const { light = false } = Astro.props;
       e.preventDefault();
 
       if (!formAlertContainer || !submitButton || !formSpinner || !formFields) return;
+
       const formData = new FormData(contactForm);
       formFields.disabled = true;
       formFields.classList.add('opacity-60');
@@ -254,6 +345,13 @@ const { light = false } = Astro.props;
       formAlertContainer.classList.add('hidden');
 
       try {
+        // Upload files to S3 first
+        const fileUrls = await uploadAllFiles();
+
+        formData.append('fileUrls', JSON.stringify(fileUrls));
+
+        formData.delete('files');
+
         const response = await fetch('/api/contact', {
           method: 'POST',
           body: formData,
@@ -270,6 +368,7 @@ const { light = false } = Astro.props;
           showAlert('danger');
         }
       } catch (error) {
+        console.error('Error submitting form:', error);
         showAlert('danger');
       } finally {
         formFields.disabled = false;

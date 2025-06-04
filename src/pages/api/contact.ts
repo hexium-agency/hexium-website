@@ -1,5 +1,4 @@
 import { sendEmail } from '@/utils/brevo';
-import { uploadMultipleFilesToS3 } from '@/utils/s3';
 import { createProspect } from '@/utils/sellsy';
 import type { APIRoute } from 'astro';
 
@@ -57,6 +56,7 @@ export const POST: APIRoute = async ({ request }) => {
     const privacy = formData.get('privacy') as string;
     const websiteHoneypot = formData.get('website') as string;
     const createdAt = formData.get('created_at') as string;
+    const fileUrls = formData.get('fileUrls') as string;
 
     if (websiteHoneypot && websiteHoneypot.trim() !== '') {
       return errorResponse();
@@ -76,11 +76,15 @@ export const POST: APIRoute = async ({ request }) => {
       throw new Error('Tous les champs obligatoires doivent être remplis.');
     }
 
-    const files = formData.getAll('files') as File[];
-
-    const fileUrls = await uploadMultipleFilesToS3(
-      files.filter((file) => file.name !== 'undefined' && file.name !== '')
-    );
+    // Parse file URLs from JSON string
+    let parsedFileUrls: string[] = [];
+    if (fileUrls) {
+      try {
+        parsedFileUrls = JSON.parse(fileUrls);
+      } catch (error) {
+        console.error('Error parsing file URLs:', error);
+      }
+    }
 
     if (subject === 'project') {
       await createProspect({
@@ -105,7 +109,9 @@ export const POST: APIRoute = async ({ request }) => {
         message,
         privacy: privacy === 'on' ? 'Accepté' : 'Refusé',
         files:
-          fileUrls.length > 0 ? fileUrls.map((url) => `${encodeURIComponent(url)}`).join('\n') : '',
+          parsedFileUrls.length > 0
+            ? parsedFileUrls.map((url) => `${encodeURIComponent(url)}`).join('\n')
+            : '',
       },
       subject: emailConfig.subject,
       replyTo: { email },
