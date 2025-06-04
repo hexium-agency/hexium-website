@@ -8,11 +8,11 @@ interface Props {
   multiple?: boolean;
 }
 
-const { 
-  id, 
-  name, 
+const {
+  id,
+  name,
   accept = "image/*,.pdf,.doc,.docx",
-  multiple = true 
+  multiple = true
 } = Astro.props;
 ---
 
@@ -32,7 +32,7 @@ const {
         d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
       />
     </svg>
-    <div class="mt-2 flex text-sm text-gray-600">
+    <div class="mt-2 flex text-sm text-gray-600 justify-center">
       <label
         for={id}
         class="relative cursor-pointer rounded-md font-medium text-gray-900 focus-within:outline-none focus-within:ring-1 focus-within:ring-gray-900 hover:text-gray-700 transition-colors duration-300"
@@ -47,7 +47,7 @@ const {
           class="sr-only"
         />
       </label>
-      <p class="pl-1">ou glisser-déposer</p>
+      <p class="pl-1 sm:block hidden">ou glisser-déposer</p>
     </div>
     <p class="mt-1 text-xs text-gray-500">images et documents acceptés</p>
     <FileList id="fileList" />
@@ -59,62 +59,62 @@ const {
   const fileInput = document.getElementById('files') as HTMLInputElement;
   const fileList = document.getElementById('fileList') as HTMLDivElement;
   const fileItemTemplate = document.getElementById('file-item-template') as HTMLTemplateElement;
-  
+
   // Handle file selection
   if (fileInput && fileList && fileItemTemplate) {
     // Store the selected files
     const selectedFiles: File[] = [];
-    
+
     // Update the file list display
     function updateFileList() {
       // Clear the file list
       fileList.innerHTML = '';
-      
+
       // Add each file to the list
       selectedFiles.forEach((file, index) => {
         // Clone the template
         const fileItem = fileItemTemplate.content.cloneNode(true) as DocumentFragment;
-        
+
         // Set the file name
         const fileNameElement = fileItem.querySelector('.file-name') as HTMLSpanElement;
         if (fileNameElement) {
           fileNameElement.textContent = file.name;
         }
-        
+
         // Add delete button event listener
         const deleteButton = fileItem.querySelector('.delete-file') as HTMLButtonElement;
         if (deleteButton) {
           deleteButton.addEventListener('click', () => {
             // Remove the file from the list
             selectedFiles.splice(index, 1);
-            
+
             // Update the file list display
             updateFileList();
-            
+
             // Update the file input
             updateFileInput();
           });
         }
-        
+
         // Add the file item to the list
         fileList.appendChild(fileItem);
       });
     }
-    
+
     // Update the file input with the selected files
     function updateFileInput() {
       // Create a new DataTransfer object
       const dataTransfer = new DataTransfer();
-      
+
       // Add each file to the DataTransfer object
       selectedFiles.forEach(file => {
         dataTransfer.items.add(file);
       });
-      
+
       // Set the file input files
       fileInput.files = dataTransfer.files;
     }
-    
+
     // Handle file selection
     fileInput.addEventListener('change', () => {
       if (fileInput.files) {
@@ -122,12 +122,12 @@ const {
         for (let i = 0; i < fileInput.files.length; i++) {
           selectedFiles.push(fileInput.files[i]);
         }
-        
+
         // Update the file list display
         updateFileList();
       }
     });
-    
+
     // Handle drag and drop
     const dropZone = fileInput.closest('div');
     if (dropZone) {
@@ -138,21 +138,21 @@ const {
           e.stopPropagation();
         }, false);
       });
-      
+
       // Highlight drop zone when item is dragged over it
       ['dragenter', 'dragover'].forEach(eventName => {
         dropZone.addEventListener(eventName, () => {
           dropZone.classList.add('border-gray-900');
         }, false);
       });
-      
+
       // Remove highlight when item is dragged out or dropped
       ['dragleave', 'drop'].forEach(eventName => {
         dropZone.addEventListener(eventName, () => {
           dropZone.classList.remove('border-gray-900');
         }, false);
       });
-      
+
       // Handle dropped files
       dropZone.addEventListener('drop', (e) => {
         const dt = e.dataTransfer;
@@ -161,14 +161,14 @@ const {
           for (let i = 0; i < dt.files.length; i++) {
             selectedFiles.push(dt.files[i]);
           }
-          
+
           // Update the file list display
           updateFileList();
-          
+
           // Update the file input
           updateFileInput();
         }
       }, false);
     }
   }
-</script> 
+</script>
