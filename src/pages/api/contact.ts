@@ -84,7 +84,7 @@ export const POST: APIRoute = async ({ request }) => {
         files: fileUrls.map((url) => `${url}`).join('\n'),
       },
       subject: emailConfig.subject,
-      replyTo: { email: emailConfig.to },
+      replyTo: { email },
     });
 
     return jsonResponse(true, 'Votre message a été envoyé avec succès.');
