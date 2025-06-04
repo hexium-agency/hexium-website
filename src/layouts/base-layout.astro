@@ -75,7 +75,7 @@ const pathname = Astro.url.pathname;
         };
     </script>
     <script>
-      document.addEventListener('astro:page-load', () => {
+      document.addEventListener('astro:after-swap', () => {
         window.plausible('pageview');
       });
     </script>
