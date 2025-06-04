@@ -31,6 +31,9 @@
   --text-base: 0.9375rem;
   --text-base--line-height: 1.75rem;
 
+  --text-input: 1rem;
+  --text-input--line-height: 1.5rem;
+
   --text-lg: 1.125rem;
   --text-lg--line-height: 1.75rem;
 
@@ -100,6 +103,24 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .spans-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  @media (min-width: 640px) {
+    .spans-grid { grid-template-columns: repeat(10, 1fr); }
+  }
+  @media (min-width: 768px) {
+    .spans-grid { grid-template-columns: repeat(11, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .spans-grid { grid-template-columns: repeat(15, 1fr); }
+  }
+  @media (min-width: 1280px) {
+    .spans-grid { grid-template-columns: repeat(19, 1fr); }
   }
 
   @keyframes scroll {

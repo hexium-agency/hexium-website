@@ -35,6 +35,8 @@ const transformedTitle = highlightWordsEffect
 const technologyLogo = blok.aside?.find(
   (item: any) => item.component === 'heroAsideTechnologyLogo'
 );
+
+const maxNumberOfSpans = 19;
 ---
 
 <section
@@ -49,27 +51,11 @@ const technologyLogo = blok.aside?.find(
   <div class="absolute inset-0 backdrop-blur-xl backdrop-saturate-200"></div>
 
   <div
-    class="absolute inset-0 flex flex-row divide-zinc-50/20 [&_span]:h-full [&_span]:w-[10%] [&_span]:bg-gradient-to-r [&_span]:from-gray-50/20 [&_span]:from-50% [&_span]:to-gray-200/20 [&>span:first-child]:rounded-l-lg [&>span:last-child]:rounded-r-lg"
+    class="spans-grid absolute inset-0 divide-zinc-50/20 [&_span]:h-full [&_span]:bg-gradient-to-r [&_span]:from-gray-50/20 [&_span]:from-50% [&_span]:to-gray-200/20 [&>span:first-child]:rounded-l-lg [&>span:last-child]:rounded-r-lg"
   >
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    {[...Array(maxNumberOfSpans)].map(() => (
+      <span />
+    ))}
   </div>
   <div class="absolute inset-0 bg-[url('../images/noise.png')] opacity-5"></div>
   <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 to-80%"></div>

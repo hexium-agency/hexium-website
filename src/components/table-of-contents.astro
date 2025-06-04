@@ -7,9 +7,11 @@ interface Heading {
 
 interface Props {
   headings: Heading[];
+  headingsSelector?: string;
+  offset?: number;
 }
 
-const { headings } = Astro.props;
+const { headings, headingsSelector = 'h2[id], h3[id], h4[id], h5[id], h6[id]', offset = -50 } = Astro.props;
 
 const LevelsPaddings: Record<number, string> = {
   2: 'pl-0',
@@ -41,15 +43,16 @@ const LevelsPaddings: Record<number, string> = {
   </nav>
 </div>
 
-<script>
+<script define:vars={{ headingsSelector, offset }}>
+  document.addEventListener('astro:page-load', () => {
   const headingLinks = document.querySelectorAll('[data-heading-link]');
   const headings = Array.from(
-    document.querySelectorAll('h2[id], h3[id], h4[id], h5[id], h6[id]')
-  ) as HTMLElement[];
+    document.querySelectorAll(headingsSelector)
+  );
 
-  function debounce(func: any, wait: any) {
-    let timeout: any;
-    return function executedFunction(...args: any[]) {
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
       const later = () => {
         clearTimeout(timeout);
         func(...args);
@@ -63,7 +66,6 @@ const LevelsPaddings: Record<number, string> = {
     if (headings.length === 0) return;
 
     const scrollPosition = window.scrollY;
-    const offset = 1; // Adjust this value to change when headings become active
 
     const distances = headings.map((heading) => ({
       id: heading.id,
@@ -88,7 +90,7 @@ const LevelsPaddings: Record<number, string> = {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetId = link.getAttribute('href')?.slice(1);
-      const targetElement = document.getElementById(targetId as string);
+      const targetElement = document.getElementById(targetId);
 
       if (targetElement) {
         headingLinks.forEach((l) => l.removeAttribute('data-active'));
@@ -98,7 +100,8 @@ const LevelsPaddings: Record<number, string> = {
         history.pushState(null, '', `#${targetId}`);
       }
     });
-  });
+    });
 
-  updateActiveHeading();
+    updateActiveHeading();
+  });
 </script>
