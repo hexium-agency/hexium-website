@@ -135,365 +135,371 @@ const { light = false } = Astro.props;
 </template>
 
 <script>
-  const subjectSelect = document.getElementById('subject') as HTMLSelectElement | null;
-  const companyField = document.getElementById('companyField') as HTMLDivElement | null;
-  const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
-  const privacyField = document.getElementById('privacyField') as HTMLDivElement | null;
-  const formAlertContainer = document.getElementById('formAlertContainer') as HTMLDivElement | null;
-  const submitButton = document.getElementById('submitButton') as HTMLButtonElement | null;
-  const formSpinner = document.getElementById('formSpinner') as HTMLDivElement | null;
-  const successAlertTemplate = document.getElementById(
-    'successAlertTemplate'
-  ) as HTMLTemplateElement | null;
-  const dangerAlertTemplate = document.getElementById(
-    'dangerAlertTemplate'
-  ) as HTMLTemplateElement | null;
-  const fileInput = document.getElementById('files') as HTMLInputElement | null;
-  const fileList = document.getElementById('fileList') as HTMLDivElement | null;
-  const formFields = document.getElementById('formFields') as HTMLFieldSetElement | null;
-  const createdAtInput = document.getElementById('created_at') as HTMLInputElement | null;
-  const fileUrlsInput = document.getElementById('fileUrls') as HTMLInputElement | null;
+  document.addEventListener('astro:page-load', () => {
+    const subjectSelect = document.getElementById('subject') as HTMLSelectElement | null;
+    const companyField = document.getElementById('companyField') as HTMLDivElement | null;
+    const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
+    const privacyField = document.getElementById('privacyField') as HTMLDivElement | null;
+    const formAlertContainer = document.getElementById(
+      'formAlertContainer'
+    ) as HTMLDivElement | null;
+    const submitButton = document.getElementById('submitButton') as HTMLButtonElement | null;
+    const formSpinner = document.getElementById('formSpinner') as HTMLDivElement | null;
+    const successAlertTemplate = document.getElementById(
+      'successAlertTemplate'
+    ) as HTMLTemplateElement | null;
+    const dangerAlertTemplate = document.getElementById(
+      'dangerAlertTemplate'
+    ) as HTMLTemplateElement | null;
+    const fileInput = document.getElementById('files') as HTMLInputElement | null;
+    const fileList = document.getElementById('fileList') as HTMLDivElement | null;
+    const formFields = document.getElementById('formFields') as HTMLFieldSetElement | null;
+    const createdAtInput = document.getElementById('created_at') as HTMLInputElement | null;
+    const fileUrlsInput = document.getElementById('fileUrls') as HTMLInputElement | null;
 
-  let timestampSet = false;
-  let uploadedFileUrls: string[] = [];
-  let fileToUrlMap = new Map<string, string>(); // Maps file identifier to URL
-  let fileUploadStatus = new Map<string, 'uploading' | 'success' | 'error'>(); // Track upload status
+    let timestampSet = false;
+    let uploadedFileUrls: string[] = [];
+    let fileToUrlMap = new Map<string, string>(); // Maps file identifier to URL
+    let fileUploadStatus = new Map<string, 'uploading' | 'success' | 'error'>(); // Track upload status
 
-  function setTimestamp() {
-    if (!timestampSet && createdAtInput) {
-      createdAtInput.value = new Date().toISOString();
-      timestampSet = true;
-    }
-  }
-
-  if (contactForm) {
-    const allInputs = contactForm.querySelectorAll('input, textarea, select');
-    allInputs.forEach((input) => {
-      input.addEventListener('focus', setTimestamp);
-      input.addEventListener('input', setTimestamp);
-      input.addEventListener('change', setTimestamp);
-    });
-  }
-
-  function toggleCompanyField() {
-    if (!subjectSelect || !companyField) return;
-
-    if (['project', 'collaboration', 'other'].includes(subjectSelect.value)) {
-      companyField.style.display = 'block';
-    } else {
-      companyField.style.display = 'none';
-    }
-  }
-
-  function togglePrivacyField() {
-    if (!privacyField) return;
-
-    if (subjectSelect?.value === 'project') {
-      privacyField.style.display = 'block';
-    } else {
-      privacyField.style.display = 'none';
-    }
-  }
-
-  function toggleSpecificFields() {
-    toggleCompanyField();
-    togglePrivacyField();
-  }
-
-  if (subjectSelect) {
-    subjectSelect.addEventListener('change', toggleSpecificFields);
-
-    subjectSelect.addEventListener('select-initialized', () => {
-      toggleSpecificFields();
-    });
-  }
-
-  function showAlert(type: 'success' | 'danger') {
-    if (!formAlertContainer) return;
-
-    formAlertContainer.innerHTML = '';
-
-    const template = type === 'success' ? successAlertTemplate : dangerAlertTemplate;
-    if (!template) return;
-
-    const alertElement = template.content.cloneNode(true) as DocumentFragment;
-
-    formAlertContainer.appendChild(alertElement);
-    formAlertContainer.classList.remove('hidden');
-  }
-
-  function resetSelectComponent() {
-    if (!subjectSelect) return;
-
-    subjectSelect.selectedIndex = 0;
-
-    const selectValueSpan = document.querySelector('[data-select-value]') as HTMLSpanElement | null;
-    if (selectValueSpan && subjectSelect.options.length > 0) {
-      selectValueSpan.textContent = subjectSelect.options[0].textContent;
+    function setTimestamp() {
+      if (!timestampSet && createdAtInput) {
+        createdAtInput.value = new Date().toISOString();
+        timestampSet = true;
+      }
     }
 
-    subjectSelect.dispatchEvent(new Event('change'));
-  }
-
-  function resetFileUploadComponent() {
-    if (!fileList) return;
-
-    fileList.innerHTML = '';
-    uploadedFileUrls = [];
-    fileToUrlMap.clear();
-    fileUploadStatus.clear();
-
-    if (fileInput) {
-      // Trigger the custom reset event to clear selectedFiles array
-      fileInput.dispatchEvent(new CustomEvent('file-upload-reset'));
-
-      const emptyDataTransfer = new DataTransfer();
-      fileInput.files = emptyDataTransfer.files;
+    if (contactForm) {
+      const allInputs = contactForm.querySelectorAll('input, textarea, select');
+      allInputs.forEach((input) => {
+        input.addEventListener('focus', setTimestamp);
+        input.addEventListener('input', setTimestamp);
+        input.addEventListener('change', setTimestamp);
+      });
     }
 
-    if (fileUrlsInput) {
-      fileUrlsInput.value = '';
+    function toggleCompanyField() {
+      if (!subjectSelect || !companyField) return;
+
+      if (['project', 'collaboration', 'other'].includes(subjectSelect.value)) {
+        companyField.style.display = 'block';
+      } else {
+        companyField.style.display = 'none';
+      }
     }
-  }
 
-  // Function to create a unique identifier for a file
-  function getFileIdentifier(file: File): string {
-    return `${file.name}-${file.size}-${file.lastModified}`;
-  }
+    function togglePrivacyField() {
+      if (!privacyField) return;
 
-  // Function to update the hidden fileUrls input
-  function updateFileUrlsInput() {
-    if (fileUrlsInput) {
-      fileUrlsInput.value = JSON.stringify(uploadedFileUrls);
+      if (subjectSelect?.value === 'project') {
+        privacyField.style.display = 'block';
+      } else {
+        privacyField.style.display = 'none';
+      }
     }
-  }
 
-  // Function to update upload status in the UI
-  function updateUploadStatusInUI() {
-    if (!fileList) return;
+    function toggleSpecificFields() {
+      toggleCompanyField();
+      togglePrivacyField();
+    }
 
-    const statusElements = fileList.querySelectorAll('.upload-status');
-    const fileNameElements = fileList.querySelectorAll('.file-name');
+    if (subjectSelect) {
+      subjectSelect.addEventListener('change', toggleSpecificFields);
 
-    fileNameElements.forEach((nameElement, index) => {
-      const fileName = nameElement.textContent;
-      if (!fileName) return;
+      subjectSelect.addEventListener('select-initialized', () => {
+        toggleSpecificFields();
+      });
+    }
 
-      // Find the file by name (we need a better way to match files)
-      const fileItems = fileList.querySelectorAll('.file-name');
-      for (let i = 0; i < fileItems.length; i++) {
-        if (fileItems[i].textContent === fileName && statusElements[i]) {
-          const statusElement = statusElements[i] as HTMLSpanElement;
+    function showAlert(type: 'success' | 'danger') {
+      if (!formAlertContainer) return;
 
-          // Find matching file status by checking all files with this name
-          let matchingStatus: 'uploading' | 'success' | 'error' | null = null;
+      formAlertContainer.innerHTML = '';
 
-          fileUploadStatus.forEach((status, fileId) => {
-            if (fileId.startsWith(fileName + '-')) {
-              matchingStatus = status;
+      const template = type === 'success' ? successAlertTemplate : dangerAlertTemplate;
+      if (!template) return;
+
+      const alertElement = template.content.cloneNode(true) as DocumentFragment;
+
+      formAlertContainer.appendChild(alertElement);
+      formAlertContainer.classList.remove('hidden');
+    }
+
+    function resetSelectComponent() {
+      if (!subjectSelect) return;
+
+      subjectSelect.selectedIndex = 0;
+
+      const selectValueSpan = document.querySelector(
+        '[data-select-value]'
+      ) as HTMLSpanElement | null;
+      if (selectValueSpan && subjectSelect.options.length > 0) {
+        selectValueSpan.textContent = subjectSelect.options[0].textContent;
+      }
+
+      subjectSelect.dispatchEvent(new Event('change'));
+    }
+
+    function resetFileUploadComponent() {
+      if (!fileList) return;
+
+      fileList.innerHTML = '';
+      uploadedFileUrls = [];
+      fileToUrlMap.clear();
+      fileUploadStatus.clear();
+
+      if (fileInput) {
+        // Trigger the custom reset event to clear selectedFiles array
+        fileInput.dispatchEvent(new CustomEvent('file-upload-reset'));
+
+        const emptyDataTransfer = new DataTransfer();
+        fileInput.files = emptyDataTransfer.files;
+      }
+
+      if (fileUrlsInput) {
+        fileUrlsInput.value = '';
+      }
+    }
+
+    // Function to create a unique identifier for a file
+    function getFileIdentifier(file: File): string {
+      return `${file.name}-${file.size}-${file.lastModified}`;
+    }
+
+    // Function to update the hidden fileUrls input
+    function updateFileUrlsInput() {
+      if (fileUrlsInput) {
+        fileUrlsInput.value = JSON.stringify(uploadedFileUrls);
+      }
+    }
+
+    // Function to update upload status in the UI
+    function updateUploadStatusInUI() {
+      if (!fileList) return;
+
+      const statusElements = fileList.querySelectorAll('.upload-status');
+      const fileNameElements = fileList.querySelectorAll('.file-name');
+
+      fileNameElements.forEach((nameElement, index) => {
+        const fileName = nameElement.textContent;
+        if (!fileName) return;
+
+        // Find the file by name (we need a better way to match files)
+        const fileItems = fileList.querySelectorAll('.file-name');
+        for (let i = 0; i < fileItems.length; i++) {
+          if (fileItems[i].textContent === fileName && statusElements[i]) {
+            const statusElement = statusElements[i] as HTMLSpanElement;
+
+            // Find matching file status by checking all files with this name
+            let matchingStatus: 'uploading' | 'success' | 'error' | null = null;
+
+            fileUploadStatus.forEach((status, fileId) => {
+              if (fileId.startsWith(fileName + '-')) {
+                matchingStatus = status;
+              }
+            });
+
+            if (matchingStatus === 'uploading') {
+              statusElement.innerHTML =
+                '<svg class="h-3 w-3 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+              statusElement.className = 'upload-status text-xs text-gray-500';
+            } else if (matchingStatus === 'success') {
+              statusElement.textContent = '✓';
+              statusElement.className = 'upload-status text-xs text-green-500';
+            } else if (matchingStatus === 'error') {
+              statusElement.textContent = '✗';
+              statusElement.className = 'upload-status text-xs text-red-500';
             }
-          });
-
-          if (matchingStatus === 'uploading') {
-            statusElement.innerHTML =
-              '<svg class="h-3 w-3 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
-            statusElement.className = 'upload-status text-xs text-gray-500';
-          } else if (matchingStatus === 'success') {
-            statusElement.textContent = '✓';
-            statusElement.className = 'upload-status text-xs text-green-500';
-          } else if (matchingStatus === 'error') {
-            statusElement.textContent = '✗';
-            statusElement.className = 'upload-status text-xs text-red-500';
+            break;
           }
-          break;
         }
-      }
-    });
-  }
-
-  // Function to upload a single file to S3
-  async function uploadFileToS3(file: File, index: number): Promise<string> {
-    const fileId = getFileIdentifier(file);
-
-    try {
-      // Set uploading status
-      fileUploadStatus.set(fileId, 'uploading');
-      updateUploadStatusInUI();
-
-      // Get presigned URL
-      const response = await fetch('/api/upload-url', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fileName: file.name,
-          fileType: file.type,
-        }),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to get upload URL');
-      }
-
-      const { data } = await response.json();
-      const { presignedUrl, fileUrl } = data;
-
-      // Upload file to S3
-      const uploadResponse = await fetch(presignedUrl, {
-        method: 'PUT',
-        body: file,
-        headers: {
-          'Content-Type': file.type,
-        },
-      });
-
-      if (!uploadResponse.ok) {
-        throw new Error('Failed to upload file to S3');
-      }
-
-      // Set success status
-      fileUploadStatus.set(fileId, 'success');
-      updateUploadStatusInUI();
-
-      // Store the mapping and add to uploaded URLs
-      fileToUrlMap.set(fileId, fileUrl);
-      uploadedFileUrls.push(fileUrl);
-      updateFileUrlsInput();
-
-      return fileUrl;
-    } catch (error) {
-      console.error('Error uploading file:', error);
-
-      // Set error status
-      fileUploadStatus.set(fileId, 'error');
-      updateUploadStatusInUI();
-
-      // Show danger alert on error
-      showAlert('danger');
-
-      throw error;
     }
-  }
 
-  // Function to handle file deletion
-  function handleFileDeleted(file: File) {
-    const fileId = getFileIdentifier(file);
-    const fileUrl = fileToUrlMap.get(fileId);
-
-    if (fileUrl) {
-      // Remove from uploaded URLs array
-      const urlIndex = uploadedFileUrls.indexOf(fileUrl);
-      if (urlIndex > -1) {
-        uploadedFileUrls.splice(urlIndex, 1);
-      }
-
-      // Remove from mapping
-      fileToUrlMap.delete(fileId);
-
-      // Remove upload status
-      fileUploadStatus.delete(fileId);
-
-      // Update hidden input
-      updateFileUrlsInput();
-    }
-  }
-
-  // Function to upload files immediately when they are added
-  async function uploadNewFiles(files: File[]) {
-    if (!fileList) return;
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
+    // Function to upload a single file to S3
+    async function uploadFileToS3(file: File, index: number): Promise<string> {
       const fileId = getFileIdentifier(file);
 
-      // Skip if already uploaded
-      if (fileToUrlMap.has(fileId)) {
-        continue;
-      }
-
       try {
-        await uploadFileToS3(file, i);
-      } catch (error) {
-        console.error('Error uploading file:', error);
-      }
-    }
-  }
-
-  // Listen for file changes from the file upload component
-  if (fileInput) {
-    // Listen for files being added
-    fileInput.addEventListener('files-added', (event: any) => {
-      const newFiles = event.detail.files;
-      if (newFiles && newFiles.length > 0) {
-        uploadNewFiles(newFiles);
-      }
-    });
-
-    // Listen for files being deleted
-    fileInput.addEventListener('file-deleted', (event: any) => {
-      const file = event.detail.file;
-      if (file) {
-        handleFileDeleted(file);
-      }
-    });
-
-    // Listen for file list updates to restore upload status
-    fileInput.addEventListener('file-list-updated', () => {
-      // Small delay to ensure DOM is updated
-      setTimeout(() => {
+        // Set uploading status
+        fileUploadStatus.set(fileId, 'uploading');
         updateUploadStatusInUI();
-      }, 10);
-    });
-  }
 
-  if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (!formAlertContainer || !submitButton || !formSpinner || !formFields) return;
-
-      const formData = new FormData(contactForm);
-      formFields.disabled = true;
-      formFields.classList.add('opacity-60');
-      submitButton.disabled = true;
-      formSpinner.classList.remove('hidden');
-      formAlertContainer.classList.add('hidden');
-
-      try {
-        // Files are already uploaded, just use the stored URLs
-        formData.set('fileUrls', JSON.stringify(uploadedFileUrls));
-
-        // Remove the files field since we're using URLs now
-        formData.delete('files');
-
-        const response = await fetch('/api/contact', {
+        // Get presigned URL
+        const response = await fetch('/api/upload-url', {
           method: 'POST',
-          body: formData,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fileName: file.name,
+            fileType: file.type,
+          }),
         });
 
-        const data = await response.json();
-
-        if (data.success) {
-          showAlert('success');
-          contactForm.reset();
-          resetSelectComponent();
-          resetFileUploadComponent();
-        } else {
-          showAlert('danger');
+        if (!response.ok) {
+          throw new Error('Failed to get upload URL');
         }
+
+        const { data } = await response.json();
+        const { presignedUrl, fileUrl } = data;
+
+        // Upload file to S3
+        const uploadResponse = await fetch(presignedUrl, {
+          method: 'PUT',
+          body: file,
+          headers: {
+            'Content-Type': file.type,
+          },
+        });
+
+        if (!uploadResponse.ok) {
+          throw new Error('Failed to upload file to S3');
+        }
+
+        // Set success status
+        fileUploadStatus.set(fileId, 'success');
+        updateUploadStatusInUI();
+
+        // Store the mapping and add to uploaded URLs
+        fileToUrlMap.set(fileId, fileUrl);
+        uploadedFileUrls.push(fileUrl);
+        updateFileUrlsInput();
+
+        return fileUrl;
       } catch (error) {
-        console.error('Error submitting form:', error);
+        console.error('Error uploading file:', error);
+
+        // Set error status
+        fileUploadStatus.set(fileId, 'error');
+        updateUploadStatusInUI();
+
+        // Show danger alert on error
         showAlert('danger');
-      } finally {
-        formFields.disabled = false;
-        formFields.classList.remove('opacity-60');
 
-        submitButton.disabled = false;
-        formSpinner.classList.add('hidden');
-
-        formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        throw error;
       }
-    });
-  }
+    }
+
+    // Function to handle file deletion
+    function handleFileDeleted(file: File) {
+      const fileId = getFileIdentifier(file);
+      const fileUrl = fileToUrlMap.get(fileId);
+
+      if (fileUrl) {
+        // Remove from uploaded URLs array
+        const urlIndex = uploadedFileUrls.indexOf(fileUrl);
+        if (urlIndex > -1) {
+          uploadedFileUrls.splice(urlIndex, 1);
+        }
+
+        // Remove from mapping
+        fileToUrlMap.delete(fileId);
+
+        // Remove upload status
+        fileUploadStatus.delete(fileId);
+
+        // Update hidden input
+        updateFileUrlsInput();
+      }
+    }
+
+    // Function to upload files immediately when they are added
+    async function uploadNewFiles(files: File[]) {
+      if (!fileList) return;
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileId = getFileIdentifier(file);
+
+        // Skip if already uploaded
+        if (fileToUrlMap.has(fileId)) {
+          continue;
+        }
+
+        try {
+          await uploadFileToS3(file, i);
+        } catch (error) {
+          console.error('Error uploading file:', error);
+        }
+      }
+    }
+
+    // Listen for file changes from the file upload component
+    if (fileInput) {
+      // Listen for files being added
+      fileInput.addEventListener('files-added', (event: any) => {
+        const newFiles = event.detail.files;
+        if (newFiles && newFiles.length > 0) {
+          uploadNewFiles(newFiles);
+        }
+      });
+
+      // Listen for files being deleted
+      fileInput.addEventListener('file-deleted', (event: any) => {
+        const file = event.detail.file;
+        if (file) {
+          handleFileDeleted(file);
+        }
+      });
+
+      // Listen for file list updates to restore upload status
+      fileInput.addEventListener('file-list-updated', () => {
+        // Small delay to ensure DOM is updated
+        setTimeout(() => {
+          updateUploadStatusInUI();
+        }, 10);
+      });
+    }
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!formAlertContainer || !submitButton || !formSpinner || !formFields) return;
+
+        const formData = new FormData(contactForm);
+        formFields.disabled = true;
+        formFields.classList.add('opacity-60');
+        submitButton.disabled = true;
+        formSpinner.classList.remove('hidden');
+        formAlertContainer.classList.add('hidden');
+
+        try {
+          // Files are already uploaded, just use the stored URLs
+          formData.set('fileUrls', JSON.stringify(uploadedFileUrls));
+
+          // Remove the files field since we're using URLs now
+          formData.delete('files');
+
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            showAlert('success');
+            contactForm.reset();
+            resetSelectComponent();
+            resetFileUploadComponent();
+          } else {
+            showAlert('danger');
+          }
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          showAlert('danger');
+        } finally {
+          formFields.disabled = false;
+          formFields.classList.remove('opacity-60');
+
+          submitButton.disabled = false;
+          formSpinner.classList.add('hidden');
+
+          formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+  });
 </script>
