@@ -33,7 +33,7 @@ async function getCategories() {
 async function getCategoryBySlug(slug: string) {
   const storyblokApi = useStoryblokApi();
 
-  const { data } = await storyblokApi.get(`cdn/stories/technology/${slug}`, {
+  const { data } = await storyblokApi.get(`cdn/stories/technologies/${slug}`, {
     content_type: 'technologyCategory',
     version: import.meta.env.STORYBLOK_ENV,
   });

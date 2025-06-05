@@ -1,5 +1,4 @@
 ---
-import ArticleCard from '@/components/ui/article-card.astro';
 import technologyService from '@/services/technology';
 import type { TechnologyHomeStoryblok } from '@/types/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
@@ -12,22 +11,25 @@ const { blok } = Astro.props as AstroProps;
 
 const { slug } = Astro.params;
 
-const categoryMatch = slug?.match(/^technology-placeholder\/([^\/]+)(?:\/page\/(\d+))?$/);
-const paginationMatch = slug?.match(/^technology-placeholder(?:\/[^\/]+)?\/page\/(\d+)$/);
+const categoryMatch = slug?.match(/^technologies\/([^\/]+)(?:\/page\/(\d+))?$/);
+const paginationMatch = slug?.match(/^technologies(?:\/[^\/]+)?\/page\/(\d+)$/);
 
 const isCategory = !!categoryMatch;
 const pageNumber = paginationMatch ? parseInt(paginationMatch[1], 10) : 1;
 
-let articles;
+let technologies;
 let totalPages;
 
 if (isCategory) {
   const category = await technologyService.getCategoryBySlug(categoryMatch[1]);
   totalPages = await technologyService.getTotal(category.uuid);
-  articles = await technologyService.getPaginated({ category: category.uuid, page: pageNumber });
+  technologies = await technologyService.getPaginated({
+    category: category.uuid,
+    page: pageNumber,
+  });
 } else {
   totalPages = await technologyService.getTotal();
-  articles = await technologyService.getPaginated({ page: pageNumber });
+  technologies = await technologyService.getPaginated({ page: pageNumber });
 }
 
 const categories = await technologyService.getCategories();
@@ -40,7 +42,7 @@ const categories = await technologyService.getCategories();
         data-active={!isCategory}
         class="flex shrink-0 list-none items-center justify-center rounded-full text-sm font-medium text-gray-950 transition-colors hover:text-gray-700 data-[active=true]:bg-gray-950 data-[active=true]:text-white data-[active=true]:hover:text-white"
       >
-        <a class="px-2.5 py-0.5" href="/technology-placeholder">Tout</a>
+        <a class="px-2.5 py-0.5" href="/technologies">Tout</a>
       </li>
       {
         categories.map((category) => (
@@ -62,7 +64,7 @@ const categories = await technologyService.getCategories();
     </div>
   </nav>
   <div class="my-10 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
-    {articles.map((article) => <ArticleCard article={article} />)}
+    {JSON.stringify(technologies)}
   </div>
   {
     totalPages > 1 && (
@@ -75,7 +77,7 @@ const categories = await technologyService.getCategories();
             >
               <a
                 class="block w-8 text-center"
-                href={`/${isCategory ? `technology-placeholder/${categoryMatch[1]}` : 'technology-placeholder'}${index + 1 === 1 ? '' : `/page/${index + 1}`}`}
+                href={`/${isCategory ? `technologies/${categoryMatch[1]}` : 'technologies'}${index + 1 === 1 ? '' : `/page/${index + 1}`}`}
               >
                 {index + 1}
               </a>
