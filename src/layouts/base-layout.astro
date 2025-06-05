@@ -90,14 +90,6 @@ const pathname = Astro.url.pathname;
     <script>
       document.addEventListener('astro:after-swap', () => {
         window.plausible('pageview');
-
-        window.dataLayer.push({
-          event: 'pageview',
-          page: {
-            url: window.location.pathname,
-            title: document.title,
-          },
-        });
       });
     </script>
   </head>
