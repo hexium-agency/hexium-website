@@ -38,7 +38,10 @@ const Tag = isLink ? 'a' : 'button';
     styles[color]
   )}
   id={id}
-  {...isMeeting && { onclick: 'plausible("clickCalendar")' }}
+  {...isMeeting && {
+    onclick:
+      'plausible("clickCalendar"); window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: "bookAppointment" });',
+  }}
   {...isLink ? { href: link } : { type: 'submit' }}
   {...isMeeting
     ? {
