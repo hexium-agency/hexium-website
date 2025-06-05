@@ -62,7 +62,7 @@ const pathname = Astro.url.pathname;
       )
     }
     <ClientRouter />
-    <script async defer>
+    <script async defer is:inline>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
@@ -90,6 +90,14 @@ const pathname = Astro.url.pathname;
     <script>
       document.addEventListener('astro:after-swap', () => {
         window.plausible('pageview');
+
+        window.dataLayer.push({
+          event: 'pageview',
+          page: {
+            url: window.location.pathname,
+            title: document.title,
+          },
+        });
       });
     </script>
   </head>
