@@ -110,7 +110,7 @@ export const POST: APIRoute = async ({ request }) => {
         privacy: privacy === 'on' ? 'Accepté' : 'Refusé',
         files:
           parsedFileUrls.length > 0
-            ? parsedFileUrls.map((url) => `${encodeURIComponent(url)}`).join('\n')
+            ? parsedFileUrls.map((url) => `${encodeURI(url)}`).join('\n')
             : '',
       },
       subject: emailConfig.subject,
