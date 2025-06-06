@@ -1,0 +1,74 @@
+---
+import type { TechnologyPlaceholderStoryblok } from '@/types/storyblok';
+import { parseStoryblokImage } from '@/utils/storyblok';
+import { Image } from 'astro:assets';
+
+interface AstroProps {
+  technology: TechnologyPlaceholderStoryblok;
+}
+
+const { technology } = Astro.props as AstroProps;
+
+const logo = technology.content.logoFullLight || technology.content.logoFullDark;
+
+const hasPage = technology.content.page && technology.content.page.length > 0;
+const pageUrl = hasPage ? `/technologies/${technology.slug}` : null;
+---
+
+<div class={`group relative isolate h-full ${hasPage ? 'cursor-pointer' : ''}`}>
+  <div
+    class={`relative overflow-hidden rounded-2xl bg-gray-950/5 p-6 shadow-[0_2px_10px] shadow-gray-900/20 transition-all duration-300 h-full flex flex-col ${
+      hasPage ? 'hover:shadow-[0_4px_20px] hover:shadow-gray-900/25 hover:-translate-y-1' : ''
+    }`}
+  >
+    <div class="mb-4 flex items-center gap-4">
+      {
+        logo && (
+          <div class="flex-shrink-0">
+            <Image
+              sizes="48px"
+              class="h-12 w-12 object-contain"
+              style="color: transparent;"
+              {...parseStoryblokImage(logo)}
+              alt={`${technology.name} logo`}
+            />
+          </div>
+        )
+      }
+      <div class="min-w-0 flex-1">
+        <h3
+          class={`font-heading text-xl font-semibold tracking-[-0.015em] text-pretty text-gray-950 transition-all ${
+            hasPage ? 'group-hover:opacity-80' : ''
+          }`}
+        >
+          {
+            hasPage ? (
+              <a href={pageUrl}>
+                {technology.name}
+                <span class="absolute inset-0 z-10" aria-hidden="true" />
+              </a>
+            ) : (
+              technology.name
+            )
+          }
+        </h3>
+      </div>
+    </div>
+
+    {
+      technology.content.description && (
+        <p class="line-clamp-3 flex-1 text-sm/6 text-gray-600">{technology.content.description}</p>
+      )
+    }
+
+    {
+      hasPage && (
+        <div class="mt-4 flex justify-end">
+          <span class="text-sm text-gray-500 transition-all group-hover:translate-x-1 group-hover:text-gray-700">
+            en savoir plus →
+          </span>
+        </div>
+      )
+    }
+  </div>
+</div>
