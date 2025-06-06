@@ -4187,33 +4187,50 @@
       "display_name": "TECHNOLOGY",
       "description": null,
       "created_at": "2024-12-08T16:04:33.858Z",
-      "updated_at": "2025-06-03T13:37:08.769Z",
+      "updated_at": "2025-06-06T07:47:49.886Z",
       "id": 6663004,
       "schema": {
-        "categories": {
-          "type": "options",
+        "category": {
+          "type": "option",
           "pos": 0,
-          "is_reference_type": true,
           "source": "internal_stories",
           "entry_appearance": "card",
           "allow_advanced_search": true,
-          "display_name": "CATÉGORIES",
+          "display_name": "CATÉGORIE",
           "required": true,
           "filter_content_type": [
             "technologyCategory"
           ],
-          "id": "V-5c2ol7RUO0-8P0PK5bZw"
+          "id": "V-5c2ol7RUO0-8P0PK5bZw",
+          "max_options": "1",
+          "use_uuid": true
+        },
+        "body": {
+          "type": "bloks",
+          "pos": 1,
+          "display_name": "BODY",
+          "id": "nuDZe6ppTcWW7EleZcqzvA",
+          "required": true,
+          "minimum": 1,
+          "restrict_type": "groups",
+          "restrict_components": true,
+          "component_whitelist": [],
+          "component_group_whitelist": [
+            "93a7a4d7-21bc-4948-85aa-4e23e114a336",
+            "106bc6ec-816a-497e-bac8-2a812c419ee0",
+            "83d83b65-3eb1-45c3-8681-76b4dd75c360"
+          ]
         },
         "description": {
           "type": "textarea",
-          "pos": 1,
+          "pos": 2,
           "display_name": "DESCRIPTION",
           "required": true,
           "id": "tlZo0nf4QbGqBeHfkH13Qw"
         },
         "logoOutline": {
           "type": "asset",
-          "pos": 2,
+          "pos": 3,
           "id": "Nngn-pmqThaaIsc3TIkn1w",
           "display_name": "LOGO - OUTLINE",
           "required": true,
@@ -4224,7 +4241,7 @@
         },
         "logoFullDark": {
           "type": "asset",
-          "pos": 3,
+          "pos": 4,
           "id": "387qfYMySOKjpHx_YqE5Vg",
           "display_name": "LOGO - FULL - FOND SOMBRE",
           "required": true,
@@ -4235,7 +4252,7 @@
         },
         "logoFullLight": {
           "type": "asset",
-          "pos": 4,
+          "pos": 5,
           "filetypes": [
             "images"
           ],
@@ -4246,7 +4263,7 @@
         },
         "colorLight": {
           "type": "custom",
-          "pos": 5,
+          "pos": 6,
           "field_type": "native-color-picker",
           "options": [],
           "id": "YJ3SJWnFSoWW9vGdX2FxXQ",
@@ -4255,7 +4272,7 @@
         },
         "colorDark": {
           "type": "custom",
-          "pos": 6,
+          "pos": 7,
           "required": true,
           "display_name": "COULEUR - FOND SOMBRE",
           "field_type": "native-color-picker",
@@ -4274,16 +4291,17 @@
             "logoFullDark",
             "logoFullLight",
             "description",
-            "categories"
+            "categories",
+            "category"
           ],
-          "pos": 7,
+          "pos": 8,
           "type": "tab",
           "name": "tab-0b0bffd8-c9e1-4bbb-a886-813caa0a2db4",
           "id": "Cwv_2MnhS7uohoE8qgottA"
         },
         "metaTitle": {
           "type": "text",
-          "pos": 8,
+          "pos": 9,
           "display_name": "META - TITRE",
           "required": true,
           "max_length": 60,
@@ -4298,14 +4316,14 @@
             "metaTitle",
             "ogDescription"
           ],
-          "pos": 9,
+          "pos": 10,
           "type": "tab",
           "name": "tab-e51a51e8-b02d-4127-8f59-1686a65aca4f",
           "id": "5RpR6LAtQSePWRaGplrKTw"
         },
         "metaDescription": {
           "type": "textarea",
-          "pos": 10,
+          "pos": 11,
           "display_name": "META - DESCRIPTION",
           "required": true,
           "max_length": 160,
@@ -4313,7 +4331,7 @@
         },
         "ogBadge": {
           "type": "text",
-          "pos": 11,
+          "pos": 12,
           "display_name": "OG - BADGE",
           "required": true,
           "max_length": 30,
@@ -4321,7 +4339,7 @@
         },
         "ogTitle": {
           "type": "text",
-          "pos": 12,
+          "pos": 13,
           "display_name": "OG - TITRE",
           "required": true,
           "max_length": 80,
@@ -4329,26 +4347,10 @@
         },
         "ogDescription": {
           "type": "textarea",
-          "pos": 13,
+          "pos": 14,
           "id": "yeShJ4YoTHiRtXopFq-M9A",
           "display_name": "OG - DESCRIPTION",
           "max_length": 150
-        },
-        "body": {
-          "type": "bloks",
-          "pos": 14,
-          "display_name": "BODY",
-          "id": "nuDZe6ppTcWW7EleZcqzvA",
-          "required": true,
-          "minimum": 1,
-          "restrict_type": "groups",
-          "restrict_components": true,
-          "component_whitelist": [],
-          "component_group_whitelist": [
-            "93a7a4d7-21bc-4948-85aa-4e23e114a336",
-            "106bc6ec-816a-497e-bac8-2a812c419ee0",
-            "83d83b65-3eb1-45c3-8681-76b4dd75c360"
-          ]
         }
       },
       "image": null,
@@ -4517,13 +4519,12 @@
       "display_name": "TECHNOLOGY PLACEHOLDER",
       "description": null,
       "created_at": "2025-06-03T13:31:01.293Z",
-      "updated_at": "2025-06-05T16:18:26.427Z",
+      "updated_at": "2025-06-06T15:02:29.973Z",
       "id": 7413043,
       "schema": {
         "category": {
-          "type": "options",
+          "type": "option",
           "pos": 0,
-          "is_reference_type": true,
           "source": "internal_stories",
           "entry_appearance": "link",
           "allow_advanced_search": true,
@@ -4533,21 +4534,8 @@
           "id": "6Cw1UVD_RZCg7lB1hJfENA",
           "filter_content_type": [
             "technologyCategory"
-          ]
-        },
-        "page": {
-          "type": "options",
-          "pos": 1,
-          "is_reference_type": true,
-          "source": "internal_stories",
-          "entry_appearance": "link",
-          "allow_advanced_search": true,
-          "min_options": "0",
-          "max_options": "1",
-          "filter_content_type": [
-            "technology"
           ],
-          "id": "qHSPLsRzSKadpSAaEnAx-g"
+          "use_uuid": true
         },
         "description": {
           "type": "textarea",
