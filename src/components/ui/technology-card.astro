@@ -13,60 +13,88 @@ const logo = technology.content.logoFullLight || technology.content.logoFullDark
 
 const hasPage = technology.content.page && technology.content.page.length > 0;
 const pageUrl = hasPage ? `/technologies/${technology.slug}` : null;
+
+const TitleWrapper = hasPage ? 'a' : 'span';
 ---
 
-<div class={`group relative isolate h-full ${hasPage ? 'cursor-pointer' : ''}`}>
+<div
+  class={`group relative h-full rounded-lg p-6 shadow-[0_1px_5px_-4px_rgba(19,19,22,0.7),0_4px_8px_rgba(32,42,54,0.05)] ring-1 ring-gray-900/7.5 transition-shadow ${
+    hasPage
+      ? 'hover:shadow-[0_1px_7px_-4px_rgba(19,19,22,0.8),0_4px_11px_rgba(32,42,54,0.05)] hover:ring-gray-900/12.5 cursor-pointer'
+      : ''
+  } dark:bg-gray-900`}
+>
   <div
-    class={`relative overflow-hidden rounded-2xl bg-gray-950/5 p-6 shadow-[0_2px_10px] shadow-gray-900/20 transition-all duration-300 h-full flex flex-col ${
-      hasPage ? 'hover:shadow-[0_4px_20px] hover:shadow-gray-900/25 hover:-translate-y-1' : ''
-    }`}
+    class="pointer-events-none absolute inset-1.5 rounded-sm border border-gray-50 opacity-0 transition-opacity group-hover:opacity-100 dark:border-white/5"
   >
-    <div class="mb-4 flex items-center gap-4">
-      {
-        logo && (
-          <div class="flex-shrink-0">
-            <Image
-              sizes="48px"
-              class="h-12 w-12 object-contain"
-              style="color: transparent;"
-              {...parseStoryblokImage(logo)}
-              alt={`${technology.name} logo`}
-            />
-          </div>
-        )
-      }
-      <div class="min-w-0 flex-1">
-        <h3
-          class={`font-heading text-xl font-semibold tracking-[-0.015em] text-pretty text-gray-950 transition-all ${
-            hasPage ? 'group-hover:opacity-80' : ''
-          }`}
-        >
-          {
-            hasPage ? (
-              <a href={pageUrl}>
-                {technology.name}
-                <span class="absolute inset-0 z-10" aria-hidden="true" />
-              </a>
-            ) : (
-              technology.name
-            )
-          }
-        </h3>
+  </div>
+
+  {
+    logo && (
+      <div
+        aria-hidden="true"
+        class="mb-4 text-gray-400 transition group-hover:text-gray-950 dark:text-gray-500 dark:group-hover:text-gray-300 [&>img]:h-8 [&>img]:w-auto"
+      >
+        <Image
+          sizes="32px"
+          class="h-8 w-auto object-contain"
+          style="color: transparent;"
+          {...parseStoryblokImage(logo)}
+          alt={`${technology.name} logo`}
+        />
       </div>
-    </div>
+    )
+  }
+
+  <div>
+    <h4 class="mb-2 text-[0.875rem]/5 font-medium text-gray-950 dark:text-white">
+      <TitleWrapper
+        class="inline-flex items-center justify-center"
+        {...hasPage ? { href: pageUrl } : {}}
+      >
+        {technology.name}
+        {
+          hasPage && (
+            <>
+              <svg
+                viewBox="0 0 10 10"
+                aria-hidden="true"
+                class="before:transtion-opacity ml-2 h-2.5 w-2.5 flex-none opacity-60 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-6 group-hover:opacity-0 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+              >
+                <path
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                />
+              </svg>
+              <svg
+                viewBox="0 0 10 10"
+                aria-hidden="true"
+                class="before:transtion-opacity -ml-2.5 h-2.5 w-2.5 flex-none -translate-x-2 opacity-0 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-0 group-hover:opacity-100 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+              >
+                <path
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                />
+              </svg>
+            </>
+          )
+        }
+        <span class="absolute inset-0"></span>
+      </TitleWrapper>
+    </h4>
 
     {
       technology.content.description && (
-        <p class="line-clamp-3 flex-1 text-sm/6 text-gray-600">{technology.content.description}</p>
-      )
-    }
-
-    {
-      hasPage && (
-        <div class="mt-4 flex justify-end">
-          <span class="text-sm text-gray-500 transition-all group-hover:translate-x-1 group-hover:text-gray-700">
-            en savoir plus →
-          </span>
+        <div class="text-[0.875rem]/5 text-gray-600 dark:text-gray-400">
+          <p>{technology.content.description}</p>
         </div>
       )
     }
