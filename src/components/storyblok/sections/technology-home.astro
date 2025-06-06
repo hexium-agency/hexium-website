@@ -12,25 +12,17 @@ const { blok } = Astro.props as AstroProps;
 
 const { slug } = Astro.params;
 
-const categoryMatch = slug?.match(/^technologies\/([^\/]+)(?:\/page\/(\d+))?$/);
-const paginationMatch = slug?.match(/^technologies(?:\/[^\/]+)?\/page\/(\d+)$/);
+const categoryMatch = slug?.match(/^technologies\/([^\/]+)$/);
 
 const isCategory = !!categoryMatch;
-const pageNumber = paginationMatch ? parseInt(paginationMatch[1], 10) : 1;
 
 let technologies;
-let totalPages;
 
 if (isCategory) {
   const category = await technologyService.getCategoryBySlug(categoryMatch[1]);
-  totalPages = await technologyService.getTotal(category.uuid);
-  technologies = await technologyService.getPaginated({
-    category: category.uuid,
-    page: pageNumber,
-  });
+  technologies = await technologyService.getCategoryTechnologies(category.uuid);
 } else {
-  totalPages = await technologyService.getTotal();
-  technologies = await technologyService.getPaginated({ page: pageNumber });
+  technologies = await technologyService.getAllTechnologies();
 }
 
 const categories = await technologyService.getCategories();
@@ -67,27 +59,6 @@ const categories = await technologyService.getCategories();
   <div class="my-10 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
     {technologies.map((technology) => <TechnologyCard technology={technology} />)}
   </div>
-  {
-    totalPages > 1 && (
-      <nav>
-        <ul class="flex flex-nowrap justify-center gap-2">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <li
-              data-active={index + 1 === pageNumber}
-              class="shrink-0 list-none rounded-full text-sm font-medium text-gray-950 transition-colors hover:text-gray-700 data-[active=true]:bg-gray-950 data-[active=true]:text-white data-[active=true]:hover:text-white"
-            >
-              <a
-                class="block w-8 text-center"
-                href={`/${isCategory ? `technologies/${categoryMatch[1]}` : 'technologies'}${index + 1 === 1 ? '' : `/page/${index + 1}`}`}
-              >
-                {index + 1}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    )
-  }
 </section>
 
 <script>

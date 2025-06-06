@@ -1,22 +1,37 @@
 import type {
   TechnologyPlaceholderStoryblok,
+  TechnologyStoryblok,
   TechnologyCategoryStoryblok,
 } from '@/types/storyblok';
-import { useStoryblokApi, type ISbStoriesParams } from '@storyblok/astro';
-import { type ISbStoryData, type ISbStories } from '@storyblok/astro';
+import { useStoryblokApi } from '@storyblok/astro';
+import { type ISbStoryData } from '@storyblok/astro';
 
 export const TECHNOLOGIES_PER_PAGE = 12;
+
+export type TechnologyUnion = TechnologyPlaceholderStoryblok | TechnologyStoryblok;
+
+function mergeTechnologies(
+  technologies: ISbStoryData<TechnologyStoryblok>[],
+  placeholderTechnologies: ISbStoryData<TechnologyPlaceholderStoryblok>[]
+) {
+  return [...technologies, ...placeholderTechnologies].sort((a, b) => a.name.localeCompare(b.name));
+}
 
 async function getAllTechnologies() {
   const storyblokApi = useStoryblokApi();
 
   const technologies = await storyblokApi.getAll('cdn/stories', {
+    content_type: 'technology',
+    version: import.meta.env.STORYBLOK_ENV,
+    resolve_relations: ['technology.category'],
+  });
+  const placeholderTechonlogies = await storyblokApi.getAll('cdn/stories', {
     content_type: 'technologyPlaceholder',
     version: import.meta.env.STORYBLOK_ENV,
     resolve_relations: ['technologyPlaceholder.category'],
   });
 
-  return technologies as ISbStoryData<TechnologyPlaceholderStoryblok>[];
+  return mergeTechnologies(technologies, placeholderTechonlogies);
 }
 
 async function getCategories() {
@@ -41,85 +56,39 @@ async function getCategoryBySlug(slug: string) {
   return data.story as ISbStoryData<TechnologyCategoryStoryblok>;
 }
 
-async function getLatest(category?: string) {
+async function getCategoryTechnologies(category: string) {
   const storyblokApi = useStoryblokApi();
 
-  const params: ISbStoriesParams = {
+  const technologies = await storyblokApi.getAll('cdn/stories', {
+    content_type: 'technology',
     version: import.meta.env.STORYBLOK_ENV,
+    resolve_relations: ['technology.category'],
+    filter_query: {
+      category: {
+        in: category,
+      },
+    },
+  });
+
+  const placeholderTechnologies = await storyblokApi.getAll('cdn/stories', {
     content_type: 'technologyPlaceholder',
-    per_page: 4,
+    version: import.meta.env.STORYBLOK_ENV,
     resolve_relations: ['technologyPlaceholder.category'],
-    sort_by: 'published_at:desc',
-  };
-
-  if (category) {
-    params.filter_query = {
+    filter_query: {
       category: {
         in: category,
       },
-    };
-  }
+    },
+  });
 
-  const { data } = await storyblokApi.get(`cdn/stories`, params);
-
-  return data.stories as ISbStoryData<TechnologyPlaceholderStoryblok>[];
-}
-
-async function getPaginated({ category, page = 1 }: { category?: string; page?: number }) {
-  const storyblokApi = useStoryblokApi();
-
-  const params: ISbStoriesParams = {
-    version: import.meta.env.STORYBLOK_ENV,
-    content_type: 'technologyPlaceholder',
-    per_page: TECHNOLOGIES_PER_PAGE,
-    resolve_relations: ['technologyPlaceholder.category'],
-    sort_by: 'published_at:desc',
-    page,
-  };
-
-  if (category) {
-    params.filter_query = {
-      category: {
-        in: category,
-      },
-    };
-  }
-
-  const { data } = await storyblokApi.get(`cdn/stories`, params);
-
-  return data.stories as ISbStoryData<TechnologyPlaceholderStoryblok>[];
-}
-
-async function getTotal(category?: string) {
-  const storyblokApi = useStoryblokApi();
-
-  const params: ISbStoriesParams = {
-    version: import.meta.env.STORYBLOK_ENV,
-    content_type: 'technologyPlaceholder',
-    per_page: TECHNOLOGIES_PER_PAGE,
-    sort_by: 'published_at:desc',
-  };
-
-  if (category) {
-    params.filter_query = {
-      category: {
-        in: category,
-      },
-    };
-  }
-
-  const data = (await storyblokApi.get(`cdn/stories`, params)) as ISbStories;
-
-  return Math.ceil(data.total / data.perPage);
+  return mergeTechnologies(technologies, placeholderTechnologies);
 }
 
 const technologyService = {
   getAllTechnologies,
   getCategories,
   getCategoryBySlug,
-  getLatest,
-  getPaginated,
-  getTotal,
+  getCategoryTechnologies,
 };
 
 export default technologyService;

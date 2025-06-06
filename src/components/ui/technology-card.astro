@@ -1,17 +1,20 @@
 ---
-import type { TechnologyPlaceholderStoryblok } from '@/types/storyblok';
+import type { TechnologyPlaceholderStoryblok, TechnologyStoryblok } from '@/types/storyblok';
 import { parseStoryblokImage } from '@/utils/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
 import { Image } from 'astro:assets';
 
+type TechnologyUnion = TechnologyPlaceholderStoryblok | TechnologyStoryblok;
+
 interface AstroProps {
-  technology: TechnologyPlaceholderStoryblok;
+  technology: ISbStoryData<TechnologyUnion>;
 }
 
 const { technology } = Astro.props as AstroProps;
 
 const logo = technology.content.logoFullLight || technology.content.logoFullDark;
 
-const hasPage = technology.content.page && technology.content.page.length > 0;
+const hasPage = technology.content.component === 'technology';
 const pageUrl = hasPage ? `/technologies/${technology.slug}` : null;
 
 const TitleWrapper = hasPage ? 'a' : 'span';
