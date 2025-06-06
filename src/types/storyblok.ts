@@ -830,7 +830,8 @@ export interface TechnologyHomeStoryblok {
 }
 
 export interface TechnologyPlaceholderStoryblok {
-  categories: (ISbStoryData<TechnologyCategoryStoryblok> | string)[];
+  category: (ISbStoryData<TechnologyCategoryStoryblok> | string)[];
+  page?: (ISbStoryData<TechnologyStoryblok> | string)[];
   description: string;
   logoOutline: AssetStoryblok;
   logoFullDark: AssetStoryblok;
@@ -880,7 +881,7 @@ export interface WorkStoryblok {
 }
 
 export interface WorkCategoryStoryblok {
-  body: WorkHomeStoryblok[];
+  body: (WorkHomeStoryblok | HeroHorizontalStoryblok | HeroVerticalStoryblok)[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
