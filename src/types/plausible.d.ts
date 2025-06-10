@@ -5,4 +5,5 @@ interface Plausible {
 
 interface Window {
   plausible: Plausible;
+  dataLayer: any[];
 }

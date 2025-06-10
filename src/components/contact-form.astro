@@ -480,6 +480,10 @@ const { light = false } = Astro.props;
           const data = await response.json();
 
           if (data.success) {
+            if (formData.get('subject') === 'project') {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({ event: 'submitContactForm' });
+            }
             showAlert('success');
             contactForm.reset();
             resetSelectComponent();
