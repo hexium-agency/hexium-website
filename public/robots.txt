@@ -1,4 +1,6 @@
 User-Agent: *
 Allow: /
+Disallow: /meeting
+Disallow: /404
 
 Sitemap: https://www.hexium.io/sitemap.xml
