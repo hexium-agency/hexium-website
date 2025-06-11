@@ -484,6 +484,7 @@ const { light = false } = Astro.props;
             if (formData.get('subject') === 'project') {
               window.dataLayer = window.dataLayer || [];
               window.dataLayer.push({ event: 'submitContactForm' });
+              window.plausible('submitContactForm');
             }
             showAlert('success');
             contactForm.reset();
