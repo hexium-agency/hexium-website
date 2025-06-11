@@ -113,4 +113,5 @@ const endTime = formatTime(eventData.endTime);
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: 'bookAppointment' });
+  window.plausible('bookAppointment');
 </script>
