@@ -1,0 +1,67 @@
+---
+import TechnologyCard from '@/components/ui/technology-card.astro';
+import technologyService from '@/services/technology';
+import type { TechnologyHomeStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: TechnologyHomeStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const { slug } = Astro.params;
+
+const categoryMatch = slug?.match(/^technologies\/([^\/]+)$/);
+
+const isCategory = !!categoryMatch;
+
+let technologies;
+
+if (isCategory) {
+  const category = await technologyService.getCategoryBySlug(categoryMatch[1]);
+  technologies = await technologyService.getCategoryTechnologies(category.uuid);
+} else {
+  technologies = await technologyService.getAllTechnologies();
+}
+
+const categories = await technologyService.getCategories();
+---
+
+<section {...storyblokEditable(blok)} class="container py-20 pt-10 sm:py-32 sm:pt-10">
+  <nav class="relative">
+    <ul class="dragscroll scrollbar-hide flex flex-nowrap gap-2 overflow-x-auto pr-20">
+      <li
+        data-active={!isCategory}
+        class="flex shrink-0 list-none items-center justify-center rounded-full text-sm font-medium text-gray-950 transition-colors hover:text-gray-700 data-[active=true]:bg-gray-950 data-[active=true]:text-white data-[active=true]:hover:text-white"
+      >
+        <a class="px-2.5 py-0.5" href="/technologies">Tout</a>
+      </li>
+      {
+        categories.map((category) => (
+          <li
+            data-active={isCategory && slug?.startsWith(category.full_slug)}
+            class="flex shrink-0 list-none items-center justify-center rounded-full text-sm font-medium text-gray-950 transition-colors hover:text-gray-700 data-[active=true]:bg-gray-950 data-[active=true]:text-white data-[active=true]:hover:text-white"
+          >
+            <a class="px-2.5 py-0.5" href={`/${category.full_slug}`}>
+              {category.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div
+      class="pointer-events-none absolute inset-0 -right-1 bg-gradient-to-r from-transparent from-80% to-gray-50 to-95%"
+      aria-hidden="true"
+    >
+    </div>
+  </nav>
+  <div class="my-10 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+    {technologies.map((technology) => <TechnologyCard technology={technology} />)}
+  </div>
+</section>
+
+<script>
+  import dragscroll from 'dragscroll';
+  dragscroll.reset();
+</script>

@@ -83,6 +83,14 @@ export async function GET() {
       });
     });
 
+  const technologyCategories = await storyblokSSRService
+    .getAllStories('technologyCategory')
+    .then((technologyCategories) => {
+      return technologyCategories.map((technologyCategory) => {
+        return createSitemapEntry(technologyCategory);
+      });
+    });
+
   const works = await storyblokSSRService.getAllStories('work').then((works) => {
     return works
       .map((work) => {
@@ -109,6 +117,7 @@ export async function GET() {
     ...definitions,
     ...pages,
     ...technologies,
+    ...technologyCategories,
     ...workCategories,
     ...works
   );
