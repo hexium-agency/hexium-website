@@ -745,14 +745,7 @@ export interface TeamStoryblok {
 }
 
 export interface TechnologyStoryblok {
-  logoOutline: AssetStoryblok;
-  logoFullDark: AssetStoryblok;
-  logoFullLight: AssetStoryblok;
-  metaTitle: string;
-  metaDescription: string;
-  ogBadge: string;
-  ogTitle: string;
-  ogDescription?: string;
+  category: ISbStoryData<TechnologyCategoryStoryblok> | string;
   body: (
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
@@ -779,12 +772,52 @@ export interface TechnologyStoryblok {
     | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
+  description: string;
+  logoOutline: AssetStoryblok;
+  logoFullDark: AssetStoryblok;
+  logoFullLight: AssetStoryblok;
+  metaTitle: string;
+  metaDescription: string;
+  ogBadge: string;
+  ogTitle: string;
+  ogDescription?: string;
   component: "technology";
   _uid: string;
   [k: string]: any;
 }
 
 export interface TechnologyCategoryStoryblok {
+  body: (
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | BlogHomeStoryblok
+    | CallToActionStoryblok
+    | ContactHomeStoryblok
+    | DefinitionHomeStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | TechnologyHomeStoryblok
+    | WorkHomeStoryblok
+    | AccordionGroupStoryblok
+    | AgencyNoteStoryblok
+    | ButtonGroupStoryblok
+    | ContactWidgetStoryblok
+    | FeaturedTechnologiesStoryblok
+    | FeaturedTestimonialsStoryblok
+    | FeaturedWorksStoryblok
+    | GridStoryblok
+    | ImageStoryblok
+    | LatestArticlesStoryblok
+    | MarqueeLogosStoryblok
+    | SpacerStoryblok
+  )[];
+  metaTitle: string;
+  metaDescription: string;
+  ogBadge: string;
+  OgTitle: string;
+  ogDescription?: string;
   component: "technologyCategory";
   _uid: string;
   [k: string]: any;
@@ -792,6 +825,17 @@ export interface TechnologyCategoryStoryblok {
 
 export interface TechnologyHomeStoryblok {
   component: "technologyHome";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface TechnologyPlaceholderStoryblok {
+  category: ISbStoryData<TechnologyCategoryStoryblok> | string;
+  description: string;
+  logoOutline: AssetStoryblok;
+  logoFullDark: AssetStoryblok;
+  logoFullLight: AssetStoryblok;
+  component: "technologyPlaceholder";
   _uid: string;
   [k: string]: any;
 }
@@ -836,7 +880,7 @@ export interface WorkStoryblok {
 }
 
 export interface WorkCategoryStoryblok {
-  body: WorkHomeStoryblok[];
+  body: (WorkHomeStoryblok | HeroHorizontalStoryblok | HeroVerticalStoryblok)[];
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
