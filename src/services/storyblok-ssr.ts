@@ -14,6 +14,7 @@ async function getAllStories<T>(
     | 'definition'
     | 'page'
     | 'technology'
+    | 'technologyCategory'
     | 'work'
     | 'workCategory'
 ) {
