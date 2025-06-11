@@ -56,7 +56,7 @@ const categories = await technologyService.getCategories();
     >
     </div>
   </nav>
-  <div class="my-10 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
+  <div class="my-10 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
     {technologies.map((technology) => <TechnologyCard technology={technology} />)}
   </div>
 </section>
