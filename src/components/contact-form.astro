@@ -24,9 +24,10 @@ const { light = false } = Astro.props;
     <input type="hidden" id="created_at" name="created_at" value="" />
 
     <input type="hidden" id="fileUrls" name="fileUrls" value="" />
-
     {
-      !light && (
+      light ? (
+        <input type="hidden" id="subject" name="subject" value="project" />
+      ) : (
         <div>
           <Select id="subject" name="subject" required label="Sujet">
             <SelectOption value="project">Projet</SelectOption>
@@ -480,6 +481,10 @@ const { light = false } = Astro.props;
           const data = await response.json();
 
           if (data.success) {
+            if (formData.get('subject') === 'project') {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({ event: 'submitContactForm' });
+            }
             showAlert('success');
             contactForm.reset();
             resetSelectComponent();
