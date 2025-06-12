@@ -15,12 +15,27 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
 ---
 
 <div {...storyblokEditable(blok)} class="group/dropdown lg:relative">
+  <!-- Desktop: lien cliquable si il y a un lien, sinon div non-cliquable -->
+  {
+    blok.link ? (
+      <a
+        href={blok.link.cached_url || blok.link.url || ''}
+        class="dropdown-title hidden cursor-pointer items-center justify-between px-3 py-1.5 text-sm font-medium transition-colors hover:text-gray-600 lg:flex"
+      >
+        <span>{blok.title}</span>
+      </a>
+    ) : (
+      <div class="dropdown-title pointer-events-none hidden items-center justify-between px-3 py-1.5 text-sm font-medium lg:flex">
+        <span>{blok.title}</span>
+      </div>
+    )
+  }
+
+  <!-- Mobile: toujours cliquable pour ouvrir le dropdown -->
   <div
-    class="dropdown-title flex items-center justify-between px-6 py-1.5 text-sm font-medium lg:px-3"
-    data-has-link={blok.link ? 'true' : 'false'}
-    data-link-url={blok.link?.cached_url || blok.link?.url || ''}
+    class="dropdown-title flex cursor-pointer items-center justify-between px-6 py-1.5 text-sm font-medium lg:hidden"
   >
-    <span class={blok.link ? 'cursor-pointer' : 'pointer-events-none'}>{blok.title}</span>
+    <span class="pointer-events-none">{blok.title}</span>
 
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +43,7 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
       viewBox="0 0 24 24"
       stroke-width={1.5}
       stroke="currentColor"
-      class="pointer-events-none size-4 lg:hidden"
+      class="pointer-events-none size-4"
     >
       <path stroke-linecap="round" stroke-line-join="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
     </svg>
@@ -92,8 +107,6 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
 
     dropdownItems.forEach((item) => {
       const container = item.nextElementSibling as HTMLElement;
-      const hasLink = item.getAttribute('data-has-link') === 'true';
-      const linkUrl = item.getAttribute('data-link-url') || '';
 
       item.addEventListener('mouseenter', () => {
         if (window.innerWidth >= 1024) {
@@ -104,18 +117,11 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
       item.addEventListener('click', (e) => {
         e.stopPropagation();
 
-        // Si on est sur desktop et qu'il y a un lien, on navigue vers le lien
-        if (window.innerWidth >= 1024 && hasLink && linkUrl) {
-          window.location.href = linkUrl;
-          return;
-        }
-
-        // Sur desktop sans lien, on ne fait rien
         if (window.innerWidth >= 1024) {
           return;
         }
 
-        // Sur mobile, on gère le dropdown
+        // Toggle current dropdown
         if (!container) {
           return;
         }
