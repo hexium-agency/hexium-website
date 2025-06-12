@@ -12,13 +12,31 @@ const { blok } = Astro.props as AstroProps;
 const shouldFlexHorizontally = blok.items.every((item) => item.component === 'navbarColumn');
 
 const subDropdownItems = blok.items.filter((item) => item.component === 'navbarSubDropdown');
+
+const normalizeUrl = (url: string | undefined): string => {
+  if (!url) return '';
+
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url.endsWith('/') ? url.slice(0, -1) : url;
+  }
+
+  let normalizedUrl = url.startsWith('/') ? url : `/${url}`;
+
+  if (normalizedUrl.length > 1 && normalizedUrl.endsWith('/')) {
+    normalizedUrl = normalizedUrl.slice(0, -1);
+  }
+
+  return normalizedUrl;
+};
+
+const titleLinkUrl = normalizeUrl(blok.link?.cached_url || blok.link?.url);
 ---
 
 <div {...storyblokEditable(blok)} class="group/dropdown lg:relative">
   {
-    blok.link?.cached_url || blok.link?.url ? (
+    titleLinkUrl ? (
       <a
-        href={blok.link?.cached_url || blok.link?.url || ''}
+        href={titleLinkUrl}
         class="dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium transition-colors group-hover/dropdown:text-gray-600 lg:flex"
       >
         <span>{blok.title}</span>
