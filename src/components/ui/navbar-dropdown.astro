@@ -15,23 +15,21 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
 ---
 
 <div {...storyblokEditable(blok)} class="group/dropdown lg:relative">
-  <!-- Desktop: lien cliquable si il y a un lien, sinon div non-cliquable -->
   {
-    blok.link?.url ? (
+    blok.link?.cached_url || blok.link?.url ? (
       <a
-        href={blok.link.cached_url || blok.link.url || ''}
-        class="dropdown-title hidden cursor-pointer items-center justify-between px-3 py-1.5 text-sm font-medium transition-colors hover:text-gray-600 lg:flex"
+        href={blok.link?.cached_url || blok.link?.url || ''}
+        class="dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium transition-colors group-hover/dropdown:text-gray-600 lg:flex"
       >
         <span>{blok.title}</span>
       </a>
     ) : (
-      <div class="dropdown-title pointer-events-none hidden items-center justify-between px-3 py-1.5 text-sm font-medium lg:flex">
+      <div class="dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium transition-colors group-hover/dropdown:text-gray-600 lg:flex">
         <span>{blok.title}</span>
       </div>
     )
   }
 
-  <!-- Mobile: toujours cliquable pour ouvrir le dropdown -->
   <div
     class="dropdown-title flex cursor-pointer items-center justify-between px-6 py-1.5 text-sm font-medium lg:hidden"
   >
