@@ -17,7 +17,7 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
 <div {...storyblokEditable(blok)} class="group/dropdown lg:relative">
   <!-- Desktop: lien cliquable si il y a un lien, sinon div non-cliquable -->
   {
-    blok.link ? (
+    blok.link?.url ? (
       <a
         href={blok.link.cached_url || blok.link.url || ''}
         class="dropdown-title hidden cursor-pointer items-center justify-between px-3 py-1.5 text-sm font-medium transition-colors hover:text-gray-600 lg:flex"
