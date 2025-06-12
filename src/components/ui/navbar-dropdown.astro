@@ -17,10 +17,8 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
 <div {...storyblokEditable(blok)} class="group/dropdown lg:relative">
   <div
     class="dropdown-title flex items-center justify-between px-6 py-1.5 text-sm font-medium lg:px-3"
-    data-has-link={blok.link ? 'true' : 'false'}
-    data-link-url={blok.link?.cached_url || blok.link?.url || ''}
   >
-    <span class={blok.link ? 'cursor-pointer' : 'pointer-events-none'}>{blok.title}</span>
+    <span class="pointer-events-none">{blok.title}</span>
 
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -92,8 +90,6 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
 
     dropdownItems.forEach((item) => {
       const container = item.nextElementSibling as HTMLElement;
-      const hasLink = item.getAttribute('data-has-link') === 'true';
-      const linkUrl = item.getAttribute('data-link-url') || '';
 
       item.addEventListener('mouseenter', () => {
         if (window.innerWidth >= 1024) {
@@ -104,18 +100,11 @@ const subDropdownItems = blok.items.filter((item) => item.component === 'navbarS
       item.addEventListener('click', (e) => {
         e.stopPropagation();
 
-        // Si on est sur desktop et qu'il y a un lien, on navigue vers le lien
-        if (window.innerWidth >= 1024 && hasLink && linkUrl) {
-          window.location.href = linkUrl;
-          return;
-        }
-
-        // Sur desktop sans lien, on ne fait rien
         if (window.innerWidth >= 1024) {
           return;
         }
 
-        // Sur mobile, on gère le dropdown
+        // Toggle current dropdown
         if (!container) {
           return;
         }
