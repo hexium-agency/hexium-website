@@ -37,12 +37,12 @@ const titleLinkUrl = normalizeUrl(blok.link?.cached_url || blok.link?.url);
     titleLinkUrl ? (
       <a
         href={titleLinkUrl}
-        class="dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium transition-colors group-hover/dropdown:text-gray-600 lg:flex"
+        class="navbar-link dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium lg:flex"
       >
         <span>{blok.title}</span>
       </a>
     ) : (
-      <div class="dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium transition-colors group-hover/dropdown:text-gray-600 lg:flex">
+      <div class="navbar-link dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium lg:flex">
         <span>{blok.title}</span>
       </div>
     )
