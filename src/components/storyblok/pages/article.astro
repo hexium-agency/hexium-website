@@ -18,6 +18,7 @@ interface AstroProps {
 const { blok, story } = Astro.props as AstroProps;
 
 const headings = extractHeadingsFromRichText(blok.content);
+console.log(story);
 ---
 
 <article {...storyblokEditable(blok)} class="container">
@@ -30,7 +31,7 @@ const headings = extractHeadingsFromRichText(blok.content);
             label: (story.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).name,
             href: `/${(story.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).full_slug}`,
           },
-          { label: story.name, href: story.full_slug },
+          { label: story.name, href: story.slug },
         ]}
       />
       <ArticleJumpToSection headings={headings} />
