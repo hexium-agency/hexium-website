@@ -115,7 +115,7 @@ export function parseStoryblokLink(link: MultilinkStoryblok | undefined): string
   if (link?.linktype === 'story') {
     const url = link.cached_url || link.href || '';
 
-    if (url === 'home') {
+    if (url === 'home' || url === '/home') {
       return '/';
     }
 
@@ -125,7 +125,7 @@ export function parseStoryblokLink(link: MultilinkStoryblok | undefined): string
   if (link?.linktype === 'url') {
     const url = link.cached_url || link.href || '';
 
-    if (url === 'home') {
+    if (url === 'home' || url === '/home') {
       return '/';
     }
 
