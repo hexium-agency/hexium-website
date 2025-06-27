@@ -37,7 +37,11 @@ const { navbar } = Astro.props as AstroProps;
           Planifier un appel
         </button>
         <Button color="blueFull" isLink link="/contact" isArrowShowed={false}>Contact</Button>
-        <button class="ml-1 p-1.5 lg:hidden" data-target="#menu">
+        <button
+          class="ml-1 p-1.5 lg:hidden"
+          data-target="#menu"
+          aria-label="Ouvrir le menu de navigation"
+        >
           <svg
             class="h-auto w-6 text-gray-700"
             xmlns="http://www.w3.org/2000/svg"
@@ -125,6 +129,7 @@ const { navbar } = Astro.props as AstroProps;
               <button
                 class="cursor-pointer rounded-full border border-gray-200 p-1.5"
                 data-target="#menu"
+                aria-label="Fermer le menu de navigation"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
