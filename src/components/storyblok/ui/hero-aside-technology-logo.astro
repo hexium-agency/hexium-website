@@ -7,7 +7,7 @@ interface AstroProps {
   sizeClasses?: string;
 }
 
-const { blok, sizeClasses = 'size-[300px] sm:size-[400px] lg:size-[500px]' } =
+const { blok, sizeClasses = 'size-[300px] sm:size-[400px] 2xl:size-[500px]' } =
   Astro.props as AstroProps;
 
 const logos = {
@@ -42,7 +42,7 @@ if (blok.technology && logos[blok.technology as keyof typeof logos]) {
 
 <div
   class={cn(
-    'absolute top-30 left-1/2 -z-10 flex opacity-80 -translate-x-1/2 flex-shrink-0 items-center justify-center lg:relative lg:inset-auto lg:z-auto lg:opacity-100 lg:top-0 lg:left-0 lg:translate-x-0',
+    'absolute top-30 left-1/2 -z-10 flex opacity-80 -translate-x-1/2 flex-shrink-0 items-center justify-center lg:relative lg:inset-auto lg:z-auto lg:opacity-100 lg:top-0 lg:-left-64 xl:left-0 lg:translate-x-0',
     sizeClasses
   )}
 >
