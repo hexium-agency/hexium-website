@@ -266,14 +266,25 @@ const spaceYLg: Record<string, string> = {
 
 const { blok } = Astro.props as AstroProps;
 
-const Tag = blok.tag;
+const listComponents = [
+  'cardIconTitleTextFull',
+  'cardIconTitleTextLight',
+  'cardIconTitleTextNormal',
+];
+
+const hasListComponents =
+  blok.items?.some((item) => item && item.component && listComponents.includes(item.component)) ||
+  false;
+
+const Tag = hasListComponents ? 'ul' : blok.tag || 'div';
 ---
 
 <Tag
   {...storyblokEditable(blok)}
-  class:list={[
+  class={[
     'grid',
     'mx-auto',
+    hasListComponents ? 'list-none' : '',
     parseStoryblokMaxWidth(blok.maxWidth!),
     cols[blok.cols!],
     blok.cols !== blok.colsSm && colsSm[blok.colsSm!],
@@ -291,7 +302,10 @@ const Tag = blok.tag;
     blok.spaceY !== blok.spaceYSm && spaceYSm[blok.spaceYSm!],
     blok.spaceYSm !== blok.spaceYMd && spaceYMd[blok.spaceYMd!],
     blok.spaceYMd !== blok.spaceYLg && spaceYLg[blok.spaceYLg!],
-  ]}
+  ]
+    .filter(Boolean)
+    .join(' ')}
+  {...hasListComponents ? { role: 'list' } : {}}
 >
   {blok.items?.map((item) => <StoryblokComponent blok={item} />)}
 </Tag>

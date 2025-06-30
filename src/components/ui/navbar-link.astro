@@ -16,8 +16,8 @@ const { blok } = Astro.props as AstroProps;
   <a
     href={parseStoryblokLink(blok.link)}
     class={cn(
-      'navbar-link flex items-center rounded-lg px-6 py-1.5 text-sm',
-      blok?.icon?.filename ? 'lg:px-1' : 'lg:px-2'
+      'navbar-link flex items-center rounded-lg px-6 py-1.5 text-sm container',
+      blok?.icon?.filename ? 'lg:!px-1' : 'lg:!px-2'
     )}
   >
     {

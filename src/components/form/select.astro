@@ -15,6 +15,7 @@ const { id, name, required = false, label, labelInline = false } = Astro.props;
 <div>
   <label
     id={`${id}-label`}
+    for={id}
     class={cn('block text-sm/6 font-medium text-gray-950', labelInline && 'sr-only')}
   >
     {label}

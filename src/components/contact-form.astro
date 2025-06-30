@@ -80,7 +80,7 @@ const { light = false } = Astro.props;
     {
       !light && (
         <div>
-          <Label for="files" optional>
+          <Label for="files" optional renderAsLabel={false}>
             Documents
           </Label>
           <FileUpload id="files" name="files" />
