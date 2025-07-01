@@ -1,12 +1,11 @@
-import { useEffect, useRef } from 'react';
-import { DotsHoverBlock } from '@/lib/dots/dots-hover-block';
-import hexRgb from 'hex-rgb';
+import { useState } from 'react';
+import { cn } from '../../lib/utils';
 
 interface ApplicationType {
   name: string;
-  logoOutline: string;
-  logoFull: string;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   color: string;
+  description: string;
   onClick?: () => void;
 }
 
@@ -15,77 +14,115 @@ interface FeaturedApplicationProps {
 }
 
 export default function FeaturedApplication({ applicationType }: FeaturedApplicationProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const applicationsColors = applicationType.map((application) =>
-    hexRgb(application.color, { format: 'array' })
-  );
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const buttons = containerRef.current.querySelectorAll('button');
-    let maxZ = buttons.length;
-
-    buttons.forEach((button, index) => {
-      const color = applicationsColors[index];
-      new DotsHoverBlock(button, [color]);
-
-      button.addEventListener('mouseenter', () => {
-        maxZ += 1;
-
-        buttons.forEach((b) => {
-          b.style.setProperty('--focus-z', maxZ.toString());
-        });
-
-        button.style.zIndex = (maxZ + 1).toString();
-      });
-
-      button.addEventListener('mouseleave', () => {
-        button.style.zIndex = '0';
-      });
-    });
-  }, [applicationsColors]);
+  const handleClick = (application: ApplicationType, index: number) => {
+    setSelectedIndex(index);
+    application.onClick?.();
+  };
 
   return (
-    <div
-      ref={containerRef}
-      className="featured-technologies relative mx-auto flex max-w-4xl flex-auto flex-wrap justify-center pt-px pl-px"
-    >
-      {applicationType.map((application, index) => (
-        <button
-          key={application.name}
-          className="group relative -mt-px -ml-px flex w-1/2 flex-none cursor-pointer items-center justify-center border border-gray-800 bg-gray-950 py-8 transition-[border-color,z-index] delay-150 hover:border-gray-700 hover:delay-0 hover:duration-300 focus:!z-[--focus-z] focus:transition-none sm:w-1/3"
-          style={{ '--focus-z': 0, zIndex: 0 } as React.CSSProperties}
-          data-color={applicationsColors[index]}
-          onClick={application.onClick}
-        >
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-[84%]" />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(42.89% 50% at 50% 50%, rgba(19, 19, 22, 0.8) 8.57%, rgba(19, 19, 22, 0) 100%)',
-            }}
-          />
-          <div className="relative flex w-full flex-col items-center">
-            <div className="no-hover:translate-y-0 relative aspect-[104/42] w-[calc(104/16*1rem)] max-w-full transition-transform duration-300 group-hover:translate-y-0 group-focus:translate-y-0 md:translate-y-4">
-              <img
-                src={application.logoOutline}
-                alt={application.name}
-                className="absolute inset-0 h-full w-full text-transparent transition-opacity duration-500 group-hover:opacity-0 group-focus:opacity-0 md:text-white"
+    <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3">
+      {applicationType.map((application, index) => {
+        const isSelected = selectedIndex === index;
+        const IconComponent = application.icon;
+
+        return (
+          <button
+            key={application.name}
+            className={cn(
+              'group relative flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-white/10 p-6 backdrop-blur-sm transition-all duration-300 ease-out',
+              {
+                'scale-105 border-white/30 bg-white/90 shadow-2xl': isSelected,
+                'bg-white/5 hover:scale-102 hover:bg-white/10 hover:shadow-xl': !isSelected,
+              }
+            )}
+            onClick={() => handleClick(application, index)}
+            style={
+              {
+                '--accent-color': application.color,
+              } as React.CSSProperties
+            }
+          >
+            {isSelected && (
+              <div
+                className="absolute inset-0 -z-10 rounded-2xl opacity-20 blur-xl"
+                style={{
+                  background: `radial-gradient(circle at center, ${application.color}, transparent 70%)`,
+                }}
               />
-              <img
-                src={application.logoFull}
-                alt={application.name}
-                className="absolute inset-0 h-full w-full transition-opacity duration-500 group-hover:opacity-100 group-focus:opacity-100 md:opacity-0 dark:hidden"
+            )}
+
+            <div className="relative mb-4 flex h-16 w-16 items-center justify-center">
+              <div
+                className={cn('absolute inset-0 rounded-full transition-all duration-300', {
+                  'scale-110 opacity-20': isSelected,
+                  'scale-100 opacity-0 group-hover:scale-105 group-hover:opacity-10': !isSelected,
+                })}
+                style={{
+                  backgroundColor: application.color,
+                }}
+              />
+
+              <IconComponent
+                className={cn('h-8 w-8 transition-all duration-300', {
+                  'text-gray-800': isSelected,
+                  'text-white/80 group-hover:text-white': !isSelected,
+                })}
+                style={{
+                  color: isSelected ? application.color : undefined,
+                }}
               />
             </div>
-            <div className="no-hover:opacity-100 mt-2 text-sm font-medium text-white transition-opacity duration-300 group-hover:opacity-100 group-hover:delay-75 group-focus:opacity-100 group-focus:delay-75 md:opacity-0">
+
+            <h3
+              className={cn('mb-2 text-center text-lg font-semibold transition-all duration-300', {
+                'text-gray-800': isSelected,
+                'text-white/90 group-hover:text-white': !isSelected,
+              })}
+            >
               {application.name}
-            </div>
-          </div>
-        </button>
-      ))}
+            </h3>
+
+            <p
+              className={cn('text-center text-sm leading-relaxed transition-all duration-300', {
+                'text-gray-600': isSelected,
+                'text-white/70 group-hover:text-white/80': !isSelected,
+              })}
+            >
+              {application.description}
+            </p>
+
+            {isSelected && (
+              <div className="absolute top-3 right-3">
+                <div
+                  className="flex h-6 w-6 items-center justify-center rounded-full"
+                  style={{ backgroundColor: application.color }}
+                >
+                  <svg className="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+            )}
+
+            <div
+              className={cn(
+                'absolute bottom-0 left-1/2 h-1 -translate-x-1/2 transform rounded-full transition-all duration-300',
+                {
+                  'w-2/3 opacity-100': isSelected,
+                  'w-0 opacity-0 group-hover:w-1/3 group-hover:opacity-50': !isSelected,
+                }
+              )}
+              style={{ backgroundColor: application.color }}
+            />
+          </button>
+        );
+      })}
     </div>
   );
 }

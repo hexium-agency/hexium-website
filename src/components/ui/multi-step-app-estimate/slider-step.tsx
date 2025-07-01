@@ -22,8 +22,8 @@ export default function SliderStep({
   return (
     <div className="flex h-80 w-full flex-col">
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold sm:text-2xl">{title}</h2>
-        {subtitle && <p className="text-sm text-black/50">{subtitle}</p>}
+        <h2 className="mt-4 text-xl font-semibold sm:text-2xl">{title}</h2>
+        {subtitle && <p className="text-sm text-white/90">{subtitle}</p>}
       </div>
 
       <div className="flex h-full flex-col justify-center gap-y-4 px-5">
@@ -35,7 +35,7 @@ export default function SliderStep({
           step={1}
           className="w-full"
         />
-        <div className="text-center font-medium text-black">
+        <div className="text-center font-medium text-white">
           {value === 0 ? 'Aucune' : value}
           {value === max ? '+' : ''} {label}
           {value > 1 ? 's' : ''}

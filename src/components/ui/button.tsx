@@ -1,4 +1,6 @@
+import { Slot } from '@/components/ui/Slot';
 import { cn } from '@/lib/utils';
+import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -11,12 +13,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | 'whiteLink'
     | 'disabled';
   className?: string;
+  asChild?: boolean;
 }
 
 export default function Button({
   children,
   className,
   color = 'blackFull',
+  asChild = false,
   ...props
 }: ButtonProps) {
   const styles = {
@@ -30,8 +34,10 @@ export default function Button({
     disabled: 'cursor-not-allowed bg-gray-400 text-gray-500 ring-gray-400 ring-1',
   };
 
+  const Comp = asChild ? Slot : 'button';
+
   return (
-    <button
+    <Comp
       className={cn(
         'group before:transtion-opacity relative isolate inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-md px-3 py-1 text-left text-sm font-medium shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay hover:before:opacity-100',
         styles[color],
@@ -40,6 +46,6 @@ export default function Button({
       {...props}
     >
       {children}
-    </button>
+    </Comp>
   );
 }

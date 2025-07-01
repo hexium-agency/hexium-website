@@ -3,16 +3,45 @@ import ProgressBar from '@/components/ui/multi-step-app-estimate/progress-bar';
 import StepContainer from '@/components/ui/multi-step-app-estimate/step-container';
 import StepNavigation from '@/components/ui/multi-step-app-estimate/step-navigation';
 import FinalSummary from '@/components/ui/multi-step-app-estimate/final-summary';
+import FeaturedApplication from '@/components/ui/featured-application';
+import DevicePhoneMobileIcon from '@/components/icons/device-phone-mobile-icon';
+import ComputerDesktopIcon from '@/components/icons/computer-desktop-icon';
+import RectangleStackIcon from '@/components/icons/rectangle-stack-icon';
 import { useState } from 'react';
 import { generateSteps } from '@/utils/generate-steps';
 import type { StepConfig, Option } from '@/config/steps-config';
+import { mobileStepsConfig, pwaStepsConfig, webAppStepsConfig } from '@/config/steps-config';
 
-interface MultiStepProps {
-  stepsConfig: StepConfig[];
+interface StepConfigMultiplier {
+  stepConfig: StepConfig[];
   multiplier: number;
 }
 
-export default function MultiStepAppEstimate({ stepsConfig, multiplier }: MultiStepProps) {
+const technologies = [
+  {
+    name: 'Application Mobile',
+    icon: DevicePhoneMobileIcon,
+    color: '#3B82F6',
+    description:
+      'Concrétisez votre vision avec une application mobile livrée en quelques semaines !',
+  },
+  {
+    name: 'PWA',
+    icon: RectangleStackIcon,
+    color: '#000000',
+    description: 'Déployez votre idée en une app unique, accessible sur tous les écrans.',
+  },
+  {
+    name: 'Application Web',
+    icon: ComputerDesktopIcon,
+    color: '#b51341',
+    description:
+      'Passez de l’idée à l’action avec une application web sur-mesure, rapide et innovante.',
+  },
+];
+
+export default function MultiStepAppEstimate() {
+  const [selectedTechnology, setSelectedTechnology] = useState<number>(0);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, Option | Option[] | null>>(
     {}
   );
@@ -25,28 +54,70 @@ export default function MultiStepAppEstimate({ stepsConfig, multiplier }: MultiS
     }));
   };
 
-  // Filter steps to ignore those that should be passed
-  const filteredStepsConfig = stepsConfig.filter((_, index) => {
-    if (index === 0) return true;
+  const handleTechnologySelect = (index: number) => {
+    setSelectedTechnology(index);
+  };
 
-    // Check if the previous step has an option with pass_next_step set to true
-    const previousStep = stepsConfig[index - 1];
-    const previousOption = selectedOptions[previousStep.id];
+  const getConfigForTechnology = (techIndex: number): StepConfigMultiplier => {
+    const configs = [
+      { stepConfig: mobileStepsConfig, multiplier: 1 },
+      { stepConfig: pwaStepsConfig, multiplier: 0.8 },
+      { stepConfig: webAppStepsConfig, multiplier: 1 },
+    ];
+    return configs[techIndex];
+  };
 
-    // If the previous option has pass_next_step set to true, ignore this step
-    if (Array.isArray(previousOption)) {
-      return !previousOption.some((opt) => opt.pass_next_step);
-    }
-    return !previousOption?.pass_next_step;
-  });
+  const selectedConfig =
+    selectedTechnology !== null ? getConfigForTechnology(selectedTechnology) : null;
 
-  const steps = generateSteps(filteredStepsConfig, selectedOptions, handleSelect);
+  const filteredStepsConfig = selectedConfig
+    ? selectedConfig.stepConfig.filter((_, index) => {
+        if (index === 0) return true;
 
-  const { currentStepIndex, isLastStep, next, back, direction } = useMultiStep(steps);
+        const previousStep = selectedConfig.stepConfig[index - 1];
+        const previousOption = selectedOptions[previousStep.id];
 
-  // Verify if the current step has a valid selection
+        if (Array.isArray(previousOption)) {
+          return !previousOption.some((opt) => opt.pass_next_step);
+        }
+        return !previousOption?.pass_next_step;
+      })
+    : [];
+
+  const steps = selectedConfig
+    ? generateSteps(filteredStepsConfig, selectedOptions, handleSelect)
+    : [];
+
+  const allSteps = [
+    <div className="flex flex-col items-center justify-center">
+      <h2 className="mt-4 mb-2 text-center text-2xl font-bold text-white">
+        Choisissez le type d'application
+      </h2>
+      <p className="mb-8 text-center text-white/70">
+        Sélectionnez le type d'application que vous souhaitez développer
+      </p>
+      <FeaturedApplication
+        applicationType={technologies.map((tech, index) => ({
+          ...tech,
+          onClick: () => handleTechnologySelect(index),
+        }))}
+      />
+    </div>,
+    ...steps,
+  ];
+
+  const totalSteps = allSteps.length;
+  const { currentStepIndex, isLastStep, next, back, direction } = useMultiStep(allSteps);
+
   const isCurrentStepValid = () => {
-    const currentStep = filteredStepsConfig[currentStepIndex];
+    if (currentStepIndex === 0) {
+      return selectedTechnology !== null;
+    }
+
+    if (!selectedConfig) return false;
+
+    const actualStepIndex = currentStepIndex - 1;
+    const currentStep = filteredStepsConfig[actualStepIndex];
 
     if (currentStep.type === 'slider') {
       return true;
@@ -74,39 +145,43 @@ export default function MultiStepAppEstimate({ stepsConfig, multiplier }: MultiS
   };
 
   return (
-    <div className="mx-auto rounded-3xl px-6 py-8 shadow-2xl md:px-10">
+    <div className="mx-auto rounded-3xl bg-gray-950 shadow-2xl md:px-10">
       {!showFinalSummary ? (
-        <>
+        <div className="px-6 py-8">
           <ProgressBar
-            progress={Math.round((currentStepIndex / (filteredStepsConfig.length - 1)) * 100)}
+            progress={Math.round((currentStepIndex / (totalSteps - 1)) * 100)}
+            currentStep={currentStepIndex}
+            totalSteps={totalSteps}
           />
 
           <div className="relative mt-2 h-[340px] overflow-hidden">
-            {steps.map((stepContent, index) => (
+            {allSteps.map((stepContent, index) => (
               <StepContainer
                 key={`step-${index}`}
                 isActive={currentStepIndex === index}
                 direction={direction}
               >
-                {stepContent}
+                <div className="text-white">{stepContent}</div>
               </StepContainer>
             ))}
           </div>
 
           <StepNavigation
             currentStep={currentStepIndex}
-            totalSteps={filteredStepsConfig.length}
+            totalSteps={totalSteps}
             onNext={handleNext}
             onPrevious={back}
             isNextDisabled={!isCurrentStepValid()}
           />
-        </>
+        </div>
       ) : (
-        <FinalSummary
-          selectedOptions={selectedOptions}
-          stepsConfig={stepsConfig}
-          multiplier={multiplier}
-        />
+        selectedConfig && (
+          <FinalSummary
+            selectedOptions={selectedOptions}
+            stepsConfig={selectedConfig.stepConfig}
+            multiplier={selectedConfig.multiplier}
+          />
+        )
       )}
     </div>
   );

@@ -20,8 +20,8 @@ export default function SelectStep({
   return (
     <div className="w-full space-y-6">
       <div className="space-y-2">
-        <h2 className="text-xl font-semibold sm:text-2xl">{title}</h2>
-        {subtitle && <p className="text-sm text-black/50">{subtitle}</p>}
+        <h2 className="mt-4 text-xl font-semibold sm:text-2xl">{title}</h2>
+        {subtitle && <p className="text-sm text-white/90">{subtitle}</p>}
       </div>
 
       <div className={cn('mx-0.5', options.length >= 4 ? 'grid grid-cols-2 gap-3' : 'space-y-3')}>

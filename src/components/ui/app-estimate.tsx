@@ -1,56 +1,37 @@
+import Button from '@/components/ui/button';
 import MultiStepAppEstimate from '@/components/ui/multi-step-app-estimate/multi-step-app-estimate';
 import FeaturedApplication from '@/components/ui/featured-application';
-import {
-  mobileStepsConfig,
-  pwaStepsConfig,
-  webAppStepsConfig,
-  type StepConfig,
-} from '@/config/steps-config';
 import { useState } from 'react';
 
-interface StepConfigMultiplier {
-  stepConfig: StepConfig[];
-  multiplier: number;
-}
-
-const technologies = [
-  {
-    name: 'Application Mobile',
-    logoOutline: '/icons/mobile-outline.svg',
-    logoFull: '/icons/mobile-full.svg',
-    color: '#b51341',
-  },
-  {
-    name: 'PWA',
-    logoOutline: '/icons/pwa-outline.svg',
-    logoFull: '/icons/pwa-full.svg',
-    color: '#4ce813',
-  },
-  {
-    name: 'Application Web',
-    logoOutline: '/icons/web-outline.svg',
-    logoFull: '/icons/web-full.svg',
-    color: '#3B82F6',
-  },
-];
-
 export default function AppEstimate() {
-  const [selectedStepsConfig, setSelectedStepsConfig] = useState<StepConfigMultiplier | null>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const handleTechnologyClick = (index: number) => {
-    const configs = [
-      { stepConfig: mobileStepsConfig, multiplier: 1 },
-      { stepConfig: pwaStepsConfig, multiplier: 0.8 },
-      { stepConfig: webAppStepsConfig, multiplier: 1 },
-    ];
-    setSelectedStepsConfig(configs[index]);
+  const handleStart = () => {
+    setIsTransitioning(true);
+    // Wait for the fade out animation to complete before showing the next component
+    setTimeout(() => {
+      setHasStarted(true);
+      setIsTransitioning(false);
+    }, 500);
   };
 
   return (
     <div className="mx-3 py-10 md:mx-auto md:max-w-7xl">
-      {selectedStepsConfig === null && (
-        <div className="mx-auto flex flex-col items-center justify-center rounded-3xl bg-gray-950 px-6 py-10 text-white shadow-2xl md:px-10">
-          <div className="mx-auto max-w-lg">
+      {!hasStarted && (
+        <div
+          className={`relative mx-auto flex min-h-[512px] flex-col items-center justify-center overflow-hidden rounded-3xl bg-gray-950 px-6 py-10 text-white shadow-2xl transition-all duration-500 ease-in-out md:px-10 ${
+            isTransitioning
+              ? 'translate-y-4 scale-95 opacity-0'
+              : 'translate-y-0 scale-100 opacity-100'
+          }`}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-transparent to-gray-950"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-950 from-10% via-transparent to-gray-950 to-90%"></div>
+          <div className="absolute bottom-1/4 left-1/2 h-[1000px] w-[600px] -translate-x-1/2 rounded-b-full bg-gradient-to-b from-gray-950 to-gray-950/80 to-80% blur-3xl"></div>
+          <div className="absolute bottom-1/3 left-1/2 h-[1000px] w-[600px] -translate-x-1/2 rounded-b-full bg-blue-500/60 blur-3xl"></div>
+          <div className="pointer-events-none absolute inset-0 bg-[url('../images/noise.png')] bg-repeat opacity-60 mix-blend-soft-light"></div>
+          <div className="z-50 mx-auto max-w-lg">
             <h2 className="text-center font-mono text-xs leading-none font-medium text-gray-200 uppercase">
               Vous cherchez à faire estimer votre application ?
             </h2>
@@ -62,22 +43,18 @@ export default function AppEstimate() {
               minutes et vous donne une idée de la complexité de votre projet.
             </div>
           </div>
-          <div className="mt-8 w-full">
-            <FeaturedApplication
-              applicationType={technologies.map((tech, index) => ({
-                ...tech,
-                url: '#',
-                onClick: () => handleTechnologyClick(index),
-              }))}
-            />
+
+          <div className="z-50 mt-8">
+            <Button onClick={handleStart} color="blueFull" disabled={isTransitioning}>
+              C'est parti
+            </Button>
           </div>
         </div>
       )}
-      {selectedStepsConfig && (
-        <MultiStepAppEstimate
-          stepsConfig={selectedStepsConfig.stepConfig}
-          multiplier={selectedStepsConfig.multiplier}
-        />
+      {hasStarted && (
+        <div className="animate-slide-up-fade-in">
+          <MultiStepAppEstimate />
+        </div>
       )}
     </div>
   );

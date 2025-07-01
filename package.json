@@ -63,5 +63,8 @@
     "prettier-plugin-astro-organize-imports": "^0.4.11",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "storyblok": "^3.36.0"
+  },
+  "volta": {
+    "node": "20.19.3"
   }
 }
