@@ -8,6 +8,7 @@ interface AstroProps {
   link?: string;
   id?: string;
   isMeeting?: boolean;
+  isSubmit?: boolean;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   isArrowShowed = true,
   id,
   isMeeting = false,
+  isSubmit = false,
 } = Astro.props as AstroProps;
 
 const styles = {
@@ -44,7 +46,7 @@ const Tag = isLink && !isMeeting ? 'a' : 'button';
     'data-cal-namespace': 'etude-de-projet',
     'data-cal-config': '{"layout":"month_view"}',
   }}
-  {...isLink && !isMeeting ? { href: link } : { type: 'button' }}
+  {...isLink && !isMeeting ? { href: link } : { type: isSubmit ? 'submit' : 'button' }}
 >
   <slot />
   {
