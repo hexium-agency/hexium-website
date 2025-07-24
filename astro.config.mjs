@@ -94,6 +94,13 @@ export default defineConfig({
       },
       apiOptions: {
         region: 'eu',
+        ...(process.env.NODE_ENV === 'development' && {
+          cache: {
+            type: 'memory',
+            clear: 'auto',
+          },
+          timeout: 10000,
+        }),
       },
     }),
   ],
