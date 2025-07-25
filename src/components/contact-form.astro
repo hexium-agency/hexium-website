@@ -10,13 +10,17 @@ import Select from '@/components/form/select.astro';
 import Textarea from '@/components/form/textarea.astro';
 
 const { light = false } = Astro.props;
+const recaptchaSiteKey = import.meta.env.RECAPTCHA_SITE_KEY;
 ---
 
+<script is:inline src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}
+></script>
 <form id="contactForm" action="/api/contact" method="POST" enctype="multipart/form-data">
   <div id="formAlertContainer" class="mb-4 hidden"></div>
 
   <fieldset id="formFields" class="space-y-3">
     <input type="hidden" id="fileUrls" name="fileUrls" value="" />
+    <input type="hidden" id="recaptchaSiteKey" value={recaptchaSiteKey} />
     {
       light ? (
         <input type="hidden" id="subject" name="subject" value="project" />
@@ -150,6 +154,9 @@ const { light = false } = Astro.props;
     const formFields = document.getElementById('formFields') as HTMLFieldSetElement | null;
     const createdAtInput = document.getElementById('created_at') as HTMLInputElement | null;
     const fileUrlsInput = document.getElementById('fileUrls') as HTMLInputElement | null;
+    const recaptchaSiteKeyInput = document.getElementById(
+      'recaptchaSiteKey'
+    ) as HTMLInputElement | null;
 
     let timestampSet = false;
     let uploadedFileUrls: string[] = [];
@@ -459,45 +466,52 @@ const { light = false } = Astro.props;
         formSpinner.classList.remove('hidden');
         formAlertContainer.classList.add('hidden');
 
-        try {
-          // Files are already uploaded, just use the stored URLs
-          formData.set('fileUrls', JSON.stringify(uploadedFileUrls));
+        // @ts-ignore
+        grecaptcha.ready(function () {
+          // @ts-ignore
+          grecaptcha
+            .execute(recaptchaSiteKeyInput?.value || '', { action: 'submit' })
+            .then(async function (token: any) {
+              try {
+                // Files are already uploaded, just use the stored URLs
+                formData.set('fileUrls', JSON.stringify(uploadedFileUrls));
 
-          // Remove the files field since we're using URLs now
-          formData.delete('files');
+                // Remove the files field since we're using URLs now
+                formData.delete('files');
+                const response = await fetch('/api/contact', {
+                  method: 'POST',
+                  body: formData,
+                });
 
-          const response = await fetch('/api/contact', {
-            method: 'POST',
-            body: formData,
-          });
+                const data = await response.json();
 
-          const data = await response.json();
+                if (data.success) {
+                  if (formData.get('subject') === 'project') {
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({ event: 'submitContactForm' });
+                    window.plausible('submitContactForm');
+                  }
+                  showAlert('success');
+                  contactForm.reset();
+                  resetSelectComponent();
+                  resetFileUploadComponent();
+                } else {
+                  showAlert('danger');
+                }
+              } catch (error) {
+                console.error('Error submitting form:', error);
+                showAlert('danger');
+              } finally {
+                formFields.disabled = false;
+                formFields.classList.remove('opacity-60');
 
-          if (data.success) {
-            if (formData.get('subject') === 'project') {
-              window.dataLayer = window.dataLayer || [];
-              window.dataLayer.push({ event: 'submitContactForm' });
-              window.plausible('submitContactForm');
-            }
-            showAlert('success');
-            contactForm.reset();
-            resetSelectComponent();
-            resetFileUploadComponent();
-          } else {
-            showAlert('danger');
-          }
-        } catch (error) {
-          console.error('Error submitting form:', error);
-          showAlert('danger');
-        } finally {
-          formFields.disabled = false;
-          formFields.classList.remove('opacity-60');
+                submitButton.disabled = false;
+                formSpinner.classList.add('hidden');
 
-          submitButton.disabled = false;
-          formSpinner.classList.add('hidden');
-
-          formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+                formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            });
+        });
       });
     }
   });

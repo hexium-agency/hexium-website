@@ -42,6 +42,8 @@ function errorResponse() {
   );
 }
 
+const RECAPTCHA_SECRET_KEY = import.meta.env.RECAPTCHA_SECRET_KEY;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
@@ -55,9 +57,31 @@ export const POST: APIRoute = async ({ request }) => {
     const message = formData.get('message') as string;
     const privacy = formData.get('privacy') as string;
     const fileUrls = formData.get('fileUrls') as string;
+    const recaptchaToken = formData.get('recaptchaToken') as string;
 
     if (!subject || !firstname || !lastname || !email || !message) {
       throw new Error('Tous les champs obligatoires doivent être remplis.');
+    }
+
+    const recaptchaURL = 'https://www.google.com/recaptcha/api/siteverify';
+    const requestHeaders = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+    const requestBody = new URLSearchParams({
+      secret: RECAPTCHA_SECRET_KEY,
+      response: recaptchaToken,
+    });
+
+    const response = await fetch(recaptchaURL, {
+      method: 'POST',
+      headers: requestHeaders,
+      body: requestBody.toString(),
+    });
+
+    const responseData = await response.json();
+
+    if (!responseData.success) {
+      return jsonResponse(false, 'Vérification de sécurité échouée. Veuillez réessayer.');
     }
 
     // Parse file URLs from JSON string
