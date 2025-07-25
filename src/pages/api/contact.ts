@@ -1,6 +1,5 @@
 import { sendEmail } from '@/utils/brevo';
 import { createProspect } from '@/utils/sellsy';
-import { checkBotId } from 'botid/server';
 import type { APIRoute } from 'astro';
 
 export const prerender = false;
@@ -55,11 +54,22 @@ export const POST: APIRoute = async ({ request }) => {
     const company = (formData.get('company') as string) || '';
     const message = formData.get('message') as string;
     const privacy = formData.get('privacy') as string;
+    const websiteHoneypot = formData.get('website') as string;
+    const createdAt = formData.get('created_at') as string;
     const fileUrls = formData.get('fileUrls') as string;
 
-    const verification = await checkBotId();
-    if (verification.isBot) {
-      throw new Error('Activité suspecte détectée');
+    if (websiteHoneypot && websiteHoneypot.trim() !== '') {
+      return errorResponse();
+    }
+
+    if (createdAt) {
+      const createdAtTime = new Date(createdAt).getTime();
+      const currentTime = new Date().getTime();
+      const timeDifference = (currentTime - createdAtTime) / 1000; // in seconds
+
+      if (timeDifference < 8) {
+        return errorResponse();
+      }
     }
 
     if (!subject || !firstname || !lastname || !email || !message) {
