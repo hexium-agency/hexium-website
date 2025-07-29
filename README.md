@@ -46,3 +46,18 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## ⚡️ Tips for Fast Local Development with Storyblok
+
+When working locally with Storyblok, fetching content in **draft** mode (`STORYBLOK_ENV=draft`) can be significantly slower because Storyblok bypasses its CDN to always fetch the latest unpublished content.
+
+To speed up local development, set your environment variable to:
+
+```env
+STORYBLOK_ENV=published
+NODE_ENV=development
+```
+
+This ensures your app fetches content from Storyblok's CDN, resulting in much faster response times and a snappier local dev experience.
+
+If you want to preview unpublished changes or edits, switch back to draft mode, but be aware that fetches may take longer.
