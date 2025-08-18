@@ -80,7 +80,7 @@ const { light = false } = Astro.props;
     {
       !light && (
         <div>
-          <Label for="files" optional>
+          <Label for="files" optional renderAsLabel={false}>
             Documents
           </Label>
           <FileUpload id="files" name="files" />
@@ -102,7 +102,7 @@ const { light = false } = Astro.props;
   </fieldset>
 
   <div class="mt-4 flex items-center justify-between">
-    <Button id="submitButton" isArrowShowed={false} isLink={false}>Envoyer</Button>
+    <Button id="submitButton" isArrowShowed={false} isSubmit isLink={false}>Envoyer</Button>
 
     <div id="formSpinner" class="hidden">
       <svg

@@ -2,12 +2,16 @@
 interface Props {
   for: string;
   optional?: boolean;
+  renderAsLabel?: boolean;
 }
 
-const { for: htmlFor, optional } = Astro.props;
+const { for: htmlFor, optional, renderAsLabel = true } = Astro.props;
+
+const Element = renderAsLabel ? 'label' : 'div';
+const elementProps = renderAsLabel ? { for: htmlFor } : {};
 ---
 
-<label for={htmlFor} class="mb-1 flex items-center gap-2 text-sm font-medium text-gray-950">
+<Element {...elementProps} class="mb-1 flex items-center gap-2 text-sm font-medium text-gray-950">
   <slot />
   {
     optional && (
@@ -16,4 +20,4 @@ const { for: htmlFor, optional } = Astro.props;
       </span>
     )
   }
-</label>
+</Element>

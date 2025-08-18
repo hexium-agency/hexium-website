@@ -8,6 +8,7 @@ interface AstroProps {
   link?: string;
   id?: string;
   isMeeting?: boolean;
+  isSubmit?: boolean;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   isArrowShowed = true,
   id,
   isMeeting = false,
+  isSubmit = false,
 } = Astro.props as AstroProps;
 
 const styles = {
@@ -29,7 +31,7 @@ const styles = {
   whiteLink: 'bg-none text-white ring-0 after:hidden shadow-none before:hidden after:hidden',
 };
 
-const Tag = isLink ? 'a' : 'button';
+const Tag = isLink && !isMeeting ? 'a' : 'button';
 ---
 
 <Tag
@@ -40,15 +42,11 @@ const Tag = isLink ? 'a' : 'button';
   id={id}
   {...isMeeting && {
     onclick: 'plausible("clickCalendar");',
+    'data-cal-link': 'anthony-hexium/etude-de-projet',
+    'data-cal-namespace': 'etude-de-projet',
+    'data-cal-config': '{"layout":"month_view"}',
   }}
-  {...isLink ? { href: link } : { type: 'submit' }}
-  {...isMeeting
-    ? {
-        'data-cal-link': 'anthony-hexium/etude-de-projet',
-        'data-cal-namespace': 'etude-de-projet',
-        'data-cal-config': '{"layout":"month_view"}',
-      }
-    : {}}
+  {...isLink && !isMeeting ? { href: link } : { type: isSubmit ? 'submit' : 'button' }}
 >
   <slot />
   {

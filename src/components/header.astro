@@ -37,7 +37,11 @@ const { navbar } = Astro.props as AstroProps;
           Planifier un appel
         </button>
         <Button color="blueFull" isLink link="/contact" isArrowShowed={false}>Contact</Button>
-        <button class="ml-1 p-1.5 lg:hidden" data-target="#menu">
+        <button
+          class="ml-1 p-1.5 lg:hidden"
+          data-target="#menu"
+          aria-label="Ouvrir le menu de navigation"
+        >
           <svg
             class="h-auto w-6 text-gray-700"
             xmlns="http://www.w3.org/2000/svg"
@@ -76,70 +80,73 @@ const { navbar } = Astro.props as AstroProps;
         >
           {/* close button */}
           <div
-            class="!absolute top-0 right-0 left-0 z-[9999] container flex h-[60px] items-center justify-between !rounded-none border-b border-gray-200 bg-gray-50 lg:hidden"
+            class="!absolute top-0 right-0 left-0 z-[9999] flex h-[60px] items-center justify-between !rounded-none border-b border-gray-200 bg-gray-50 lg:hidden"
           >
-            <div>
-              <div class="navbar-mobile-logo hidden">
-                <a class="group flex items-center gap-2" href="/">
-                  <Image
-                    priority={true}
-                    loading="eager"
-                    src={Logo}
-                    alt="Logo de Hexium"
-                    sizes="10vw"
-                    class="h-8 w-auto object-contain transition group-hover:opacity-90"
-                  />
-                  <Image
-                    priority={true}
-                    loading="eager"
-                    src={LogoText}
-                    alt="Logo de Hexium"
-                    sizes="10vw"
-                    class="h-3 w-auto object-contain opacity-80"
-                  />
-                </a>
-              </div>
-              <div
-                class="back-button hidden cursor-pointer rounded-full border border-gray-200 p-1.5"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-6"
+            <div class="container flex items-center justify-between">
+              <div>
+                <div class="navbar-mobile-logo hidden">
+                  <a class="group flex items-center gap-2" href="/">
+                    <Image
+                      priority={true}
+                      loading="eager"
+                      src={Logo}
+                      alt="Logo de Hexium"
+                      sizes="10vw"
+                      class="h-8 w-auto object-contain transition group-hover:opacity-90"
+                    />
+                    <Image
+                      priority={true}
+                      loading="eager"
+                      src={LogoText}
+                      alt="Logo de Hexium"
+                      sizes="10vw"
+                      class="h-3 w-auto object-contain opacity-80"
+                    />
+                  </a>
+                </div>
+                <div
+                  class="back-button hidden cursor-pointer rounded-full border border-gray-200 p-1.5"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
-                </svg>
-                <span class="sr-only">Retour</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+                  </svg>
+                  <span class="sr-only">Retour</span>
+                </div>
               </div>
-            </div>
 
-            <div class="dropdown-title"></div>
+              <div class="dropdown-title"></div>
 
-            <div class="-mr-2 p-1.5">
-              <button
-                class="cursor-pointer rounded-full border border-gray-200 p-1.5"
-                data-target="#menu"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="size-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+              <div class="-mr-2 p-1.5">
+                <button
+                  class="cursor-pointer rounded-full border border-gray-200 p-1.5"
+                  data-target="#menu"
+                  aria-label="Fermer le menu de navigation"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="size-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
           {navbar.map((item) => <StoryblokComponent blok={item} />)}
