@@ -444,12 +444,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         formSpinner.classList.remove('hidden');
         formAlertContainer.classList.add('hidden');
 
-        // @ts-ignore
-        grecaptcha.ready(async () => {
+        window.grecaptcha.ready(async () => {
           const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
           try {
-            // @ts-ignore
-            const token = await grecaptcha.execute(recaptchaSiteKey, { action: 'submit' });
+            const token = await window.grecaptcha.execute(recaptchaSiteKey, { action: 'submit' });
             if (!token) throw new Error('No recaptcha token received');
 
             formData.set('recaptchaToken', token);
