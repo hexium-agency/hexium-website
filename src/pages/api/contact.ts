@@ -50,6 +50,8 @@ async function verifyRecaptcha(recaptchaToken: string): Promise<boolean> {
 
   const responseData = await response.json();
 
+  console.log(responseData);
+
   return responseData.success === true && responseData.score >= Number(RECAPTCHA_MINIMUM_SCORE);
 }
 

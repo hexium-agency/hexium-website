@@ -132,3 +132,7 @@
     }
   }
 }
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
