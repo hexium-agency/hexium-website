@@ -29,6 +29,7 @@ const emails: Record<Subject, { to: string; subject: string; templateId: number 
 };
 
 const RECAPTCHA_SECRET_KEY = import.meta.env.RECAPTCHA_SECRET_KEY;
+const RECAPTCHA_MINIMUM_SCORE = import.meta.env.RECAPTCHA_MINIMUM_SCORE;
 
 async function verifyRecaptcha(recaptchaToken: string): Promise<boolean> {
   const recaptchaURL = 'https://www.google.com/recaptcha/api/siteverify';
@@ -49,7 +50,7 @@ async function verifyRecaptcha(recaptchaToken: string): Promise<boolean> {
 
   const responseData = await response.json();
 
-  return responseData.success === true;
+  return responseData.success === true && responseData.score >= Number(RECAPTCHA_MINIMUM_SCORE);
 }
 
 function jsonResponse(success: boolean, message: string) {
