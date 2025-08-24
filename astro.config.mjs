@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
+import mkcert from 'vite-plugin-mkcert';
 
 import { storyblok } from '@storyblok/astro';
 import tailwindcss from '@tailwindcss/vite';
@@ -143,6 +144,6 @@ export default defineConfig({
     '/technologies/vuejs': '/technologies/vue-js',
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), mkcert()],
   },
 });
