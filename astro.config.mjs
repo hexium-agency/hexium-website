@@ -16,6 +16,7 @@ const env = loadEnv('', process.cwd(), 'STORYBLOK');
 export default defineConfig({
   adapter: vercel(),
   output: 'server',
+  trailingSlash: 'never',
   image: {
     domains: ['a.storyblok.com'],
     remotePatterns: [{ protocol: 'https' }],
