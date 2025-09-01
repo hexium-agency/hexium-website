@@ -11,7 +11,7 @@ export const prerender = true;
 
 function createSitemapEntry(story: ISbStoryData<unknown>): SitemapEntry {
   return {
-    loc: `${import.meta.env.WEBSITE_URL}/${story.full_slug}`,
+    loc: `${import.meta.env.WEBSITE_URL}/${story.full_slug.replace(/\/$/, '')}`,
     lastmod: story.published_at || story.created_at,
   };
 }
