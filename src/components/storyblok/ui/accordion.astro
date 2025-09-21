@@ -32,7 +32,7 @@ const { blok } = Astro.props as AstroProps;
     <div
       class="content pb-4 text-justify text-[0.875rem]/5 text-pretty text-gray-600 dark:text-gray-400"
     >
-      <Richtext text={blok.text} class="space-y-4" />
+      <Richtext text={blok.text} class="space-y-4 [&_ul]:list-disc [&_ul]:list-outside [&_ul]:pl-5 [&_li]:mt-4 [&_li]:marker:text-gray-700" />
     </div>
   </div>
 </div>
