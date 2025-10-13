@@ -1,5 +1,4 @@
 import { sendEmail } from '@/utils/brevo';
-import { createProspect } from '@/utils/sellsy';
 import type { APIRoute } from 'astro';
 
 export const prerender = false;
@@ -96,16 +95,6 @@ export const POST: APIRoute = async ({ request }) => {
       } catch (error) {
         console.error('Error parsing file URLs:', error);
       }
-    }
-
-    if (subject === 'project') {
-      await createProspect({
-        firstname,
-        lastname,
-        email,
-        company,
-        message,
-      });
     }
 
     const emailConfig = emails[subject];
