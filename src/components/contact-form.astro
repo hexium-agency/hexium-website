@@ -10,11 +10,8 @@ import Select from '@/components/form/select.astro';
 import Textarea from '@/components/form/textarea.astro';
 
 const { light = false } = Astro.props;
-const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 ---
 
-<script is:inline src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}
-></script>
 <form id="contactForm" action="/api/contact" method="POST" enctype="multipart/form-data">
   <div id="formAlertContainer" class="mb-4 hidden"></div>
 
@@ -444,53 +441,45 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         formSpinner.classList.remove('hidden');
         formAlertContainer.classList.add('hidden');
 
-        window.grecaptcha.ready(async () => {
-          const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
-          try {
-            const token = await window.grecaptcha.execute(recaptchaSiteKey, { action: 'submit' });
-            if (!token) throw new Error('No recaptcha token received');
+        try {
+          // Files are already uploaded, just use the stored URLs
+          formData.set('fileUrls', JSON.stringify(uploadedFileUrls));
 
-            formData.set('recaptchaToken', token);
+          // Remove the files field since we're using URLs now
+          formData.delete('files');
 
-            // Files are already uploaded, just use the stored URLs
-            formData.set('fileUrls', JSON.stringify(uploadedFileUrls));
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            body: formData,
+          });
 
-            // Remove the files field since we're using URLs now
-            formData.delete('files');
+          const data = await response.json();
 
-            const response = await fetch('/api/contact', {
-              method: 'POST',
-              body: formData,
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-              if (formData.get('subject') === 'project') {
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({ event: 'submitContactForm' });
-                window.plausible('submitContactForm');
-              }
-              showAlert('success');
-              contactForm.reset();
-              resetSelectComponent();
-              resetFileUploadComponent();
-            } else {
-              showAlert('danger');
+          if (data.success) {
+            if (formData.get('subject') === 'project') {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({ event: 'submitContactForm' });
+              window.plausible('submitContactForm');
             }
-          } catch (error) {
-            console.error('Error submitting form:', error);
+            showAlert('success');
+            contactForm.reset();
+            resetSelectComponent();
+            resetFileUploadComponent();
+          } else {
             showAlert('danger');
-          } finally {
-            formFields.disabled = false;
-            formFields.classList.remove('opacity-60');
-
-            submitButton.disabled = false;
-            formSpinner.classList.add('hidden');
-
-            formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
-        });
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          showAlert('danger');
+        } finally {
+          formFields.disabled = false;
+          formFields.classList.remove('opacity-60');
+
+          submitButton.disabled = false;
+          formSpinner.classList.add('hidden');
+
+          formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     }
   });
