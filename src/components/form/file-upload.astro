@@ -11,44 +11,37 @@ interface Props {
 const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.props;
 ---
 
-<div
-  class="mt-1 flex justify-center rounded-md border-[0.5px] border-dashed border-gray-300 bg-white px-6 py-4 text-sm shadow transition-all duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] hover:border-gray-400 hover:bg-white/50"
->
-  <div class="text-center">
-    <svg
-      class="mx-auto h-8 w-8 text-gray-400"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-      ></path>
-    </svg>
-    <div class="mt-2 flex justify-center text-sm text-gray-600">
-      <label
-        for={id}
-        class="relative cursor-pointer rounded-md font-medium text-gray-900 transition-colors duration-300 focus-within:ring-1 focus-within:ring-gray-900 focus-within:outline-none hover:text-gray-700"
+<div>
+  <label
+    for={id}
+    class="mt-1 flex cursor-pointer justify-center rounded-md border-[0.5px] border-dashed border-gray-300 bg-white px-6 py-4 text-sm shadow transition-all duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] hover:border-gray-400 hover:bg-white/50"
+  >
+    <div class="text-center">
+      <svg
+        class="mx-auto h-8 w-8 text-gray-400"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
       >
-        <span>Sélectionner des fichiers</span>
-        <input
-          id={id}
-          name={name}
-          type="file"
-          multiple={multiple}
-          accept={accept}
-          class="sr-only"
-        />
-      </label>
-      <p class="hidden pl-1 sm:block">ou glisser-déposer</p>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+        ></path>
+      </svg>
+      <div class="mt-2 flex justify-center text-sm text-gray-600">
+        <span class="font-medium text-gray-900 transition-colors duration-300 hover:text-gray-700">
+          Sélectionner des fichiers
+        </span>
+        <p class="hidden pl-1 sm:block">ou glisser-déposer</p>
+      </div>
+      <p class="mt-1 text-xs text-gray-600">Images et documents acceptés (taille illimitée)</p>
     </div>
-    <p class="mt-1 text-xs text-gray-600">images et documents acceptés (taille illimitée)</p>
-    <FileList id="fileList" />
-  </div>
+    <input id={id} name={name} type="file" multiple={multiple} accept={accept} class="sr-only" />
+  </label>
+  <FileList id="fileList" />
 </div>
 
 <script>
@@ -72,7 +65,7 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
     }
 
     // Update the file list display
-    function updateFileList() {
+    function updateFileList(newlyAddedFiles: File[] = []) {
       // Clear the file list
       fileList.innerHTML = '';
 
@@ -80,6 +73,16 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
       selectedFiles.forEach((file, index) => {
         // Clone the template
         const fileItem = fileItemTemplate.content.cloneNode(true) as DocumentFragment;
+        const fileItemDiv = fileItem.querySelector('div') as HTMLDivElement;
+
+        // Check if this file is newly added and add animation class
+        const isNewFile = newlyAddedFiles.some(
+          (newFile) => newFile.name === file.name && newFile.size === file.size
+        );
+
+        if (isNewFile && fileItemDiv) {
+          fileItemDiv.classList.add('file-item-enter');
+        }
 
         // Set the file name
         const fileNameElement = fileItem.querySelector('.file-name') as HTMLSpanElement;
@@ -178,7 +181,7 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
         }
 
         // Update the file list display
-        updateFileList();
+        updateFileList(newlyAddedFiles);
 
         // Dispatch custom event with newly added files
         if (newlyAddedFiles.length > 0) {
@@ -253,7 +256,7 @@ const { id, name, accept = 'image/*,.pdf,.doc,.docx', multiple = true } = Astro.
             }
 
             // Update the file list display
-            updateFileList();
+            updateFileList(newlyAddedFiles);
 
             // Update the file input
             updateFileInput();
