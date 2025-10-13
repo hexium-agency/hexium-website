@@ -18,7 +18,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 <form id="contactForm" action="/api/contact" method="POST" enctype="multipart/form-data">
   <div id="formAlertContainer" class="mb-4 hidden"></div>
 
-  <fieldset id="formFields" class="space-y-3">
+  <fieldset id="formFields" class="w-full min-w-0 space-y-3">
     <input type="hidden" id="fileUrls" name="fileUrls" value="" />
     {
       light ? (
