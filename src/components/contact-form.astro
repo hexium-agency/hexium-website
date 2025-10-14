@@ -509,8 +509,12 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
         } finally {
           formFields.disabled = false;
           formFields.classList.remove('opacity-60');
+
           submitButton.disabled = false;
+          submitButton.classList.remove('cursor-wait');
+          submitText.classList.remove('hidden');
           formSpinner.classList.add('hidden');
+
           formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
