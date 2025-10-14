@@ -6,12 +6,36 @@ interface Props {
 const { id } = Astro.props;
 ---
 
-<div id={id} class="mt-2 text-sm text-gray-500"></div>
+<style>
+  @keyframes slideInFromTop {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .file-item-enter {
+    animation: slideInFromTop 0.3s ease-out forwards;
+  }
+</style>
+
+<div id={id} class="mt-2 flex flex-col gap-y-2 text-sm text-gray-500"></div>
 
 <template id="file-item-template">
-  <div class="flex items-center justify-between py-1 text-sm">
-    <div class="flex items-center gap-1">
-      <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <div
+    class="relative flex w-full min-w-0 items-center justify-between gap-2.5 rounded-md border-[0.5px] border-gray-300 p-3 py-1 text-sm"
+  >
+    <div class="flex min-w-0 flex-1 items-center gap-2">
+      <svg
+        class="size-6 shrink-0 text-gray-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -19,18 +43,23 @@ const { id } = Astro.props;
           d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
         ></path>
       </svg>
-      <span class="file-name text-gray-600"></span>
-      <span class="file-size text-xs text-gray-400"></span>
+      <div class="flex min-w-0 flex-1 flex-col">
+        <span class="file-name truncate text-sm leading-5 font-medium text-gray-950"></span>
+        <span class="file-size text-muted-foreground truncate text-xs leading-4"></span>
+      </div>
     </div>
-    <div class="flex items-center gap-2">
-      <!-- Upload status indicator -->
-      <span class="upload-status text-xs text-gray-500"></span>
+    <div class="flex shrink-0 items-center gap-2">
       <button
         type="button"
-        class="delete-file cursor-pointer text-gray-400 transition-colors hover:text-red-500"
+        class="delete-file inline-flex size-7 shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none hover:bg-gray-200"
         aria-label="Supprimer le fichier"
       >
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg
+          class="pointer-events-none size-4 shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"

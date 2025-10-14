@@ -1,13 +1,34 @@
 import { sendEmail } from '@/utils/brevo';
-import { createProspect } from '@/utils/sellsy';
+import { validate } from '@/utils/turnstile-validator';
 import type { APIRoute } from 'astro';
 
 export const prerender = false;
+
+// Types
 export type Subject = 'project' | 'job' | 'collaboration' | 'other';
 
-const emails: Record<Subject, { to: string; subject: string; templateId: number }> = {
+type ContactFormData = {
+  subject: Subject;
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: string;
+  company: string;
+  message: string;
+  privacy: string;
+  fileUrls: string[];
+};
+
+type EmailConfig = {
+  to: string;
+  subject: string;
+  templateId: number;
+};
+
+// Configuration
+const EMAIL_CONFIGS: Record<Subject, EmailConfig> = {
   project: {
-    to: 'anthony@hexium.io',
+    to: 'contact@hexium.io',
     subject: '[PROJET]',
     templateId: 7,
   },
@@ -28,33 +49,7 @@ const emails: Record<Subject, { to: string; subject: string; templateId: number 
   },
 };
 
-const RECAPTCHA_SECRET_KEY = import.meta.env.RECAPTCHA_SECRET_KEY;
-const RECAPTCHA_MINIMUM_SCORE = import.meta.env.RECAPTCHA_MINIMUM_SCORE;
-
-async function verifyRecaptcha(recaptchaToken: string): Promise<boolean> {
-  const recaptchaURL = 'https://www.google.com/recaptcha/api/siteverify';
-  const requestHeaders = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  };
-
-  const requestBody = new URLSearchParams({
-    secret: RECAPTCHA_SECRET_KEY,
-    response: recaptchaToken,
-  });
-
-  const response = await fetch(recaptchaURL, {
-    method: 'POST',
-    headers: requestHeaders,
-    body: requestBody.toString(),
-  });
-
-  const responseData = await response.json();
-
-  console.log(responseData);
-
-  return responseData.success === true && responseData.score >= Number(RECAPTCHA_MINIMUM_SCORE);
-}
-
+// Helper Functions
 function jsonResponse(success: boolean, message: string) {
   return new Response(JSON.stringify({ success, message }), {
     status: success ? 200 : 500,
@@ -62,76 +57,94 @@ function jsonResponse(success: boolean, message: string) {
   });
 }
 
+function parseFormData(formData: FormData): ContactFormData {
+  return {
+    subject: (formData.get('subject') || 'other') as Subject,
+    firstname: formData.get('firstname') as string,
+    lastname: formData.get('lastname') as string,
+    email: formData.get('email') as string,
+    phone: (formData.get('phone') as string) || '',
+    company: (formData.get('company') as string) || '',
+    message: formData.get('message') as string,
+    privacy: formData.get('privacy') as string,
+    fileUrls: parseFileUrls(formData.get('fileUrls') as string),
+  };
+}
+
+function parseFileUrls(fileUrlsJson: string): string[] {
+  if (!fileUrlsJson) return [];
+
+  try {
+    return JSON.parse(fileUrlsJson);
+  } catch (error) {
+    console.error('Error parsing file URLs:', error);
+    return [];
+  }
+}
+
+function validateRequiredFields(data: ContactFormData): void {
+  const { subject, firstname, lastname, email, message } = data;
+
+  if (!subject || !firstname || !lastname || !email || !message) {
+    throw new Error('Tous les champs obligatoires doivent être remplis.');
+  }
+}
+
+async function validateTurnstile(token: string, clientIp: string): Promise<void> {
+  const result = await validate(token, clientIp, 3);
+
+  if (!result.success) {
+    console.error('Turnstile validation failed:', result);
+    throw new Error('Échec de la vérification. Veuillez réessayer.');
+  }
+}
+
+function formatFileUrls(fileUrls: string[]): string {
+  if (fileUrls.length === 0) return '';
+
+  return fileUrls.map((url) => encodeURIComponent(url)).join('\n');
+}
+
+async function sendContactEmail(data: ContactFormData): Promise<void> {
+  const config = EMAIL_CONFIGS[data.subject];
+  const { firstname, lastname, email, phone, company, message, privacy, fileUrls } = data;
+
+  await sendEmail({
+    to: [{ email: config.to }],
+    templateId: config.templateId,
+    subject: config.subject,
+    replyTo: { email },
+    params: {
+      name: `${firstname} ${lastname}`,
+      company,
+      email,
+      phone,
+      message,
+      privacy: privacy === 'on' ? 'Accepté' : 'Refusé',
+      files: formatFileUrls(fileUrls),
+    },
+  });
+}
+
+// Main Handler
 export const POST: APIRoute = async ({ request }) => {
   try {
+    // 1. Parse form data
     const formData = await request.formData();
+    const data = parseFormData(formData);
 
-    const subject = (formData.get('subject') || 'other') as Subject;
-    const firstname = formData.get('firstname') as string;
-    const lastname = formData.get('lastname') as string;
-    const email = formData.get('email') as string;
-    const phone = (formData.get('phone') as string) || '';
-    const company = (formData.get('company') as string) || '';
-    const message = formData.get('message') as string;
-    const privacy = formData.get('privacy') as string;
-    const fileUrls = formData.get('fileUrls') as string;
-    const recaptchaToken = formData.get('recaptchaToken') as string;
+    // 2. Validate required fields
+    validateRequiredFields(data);
 
-    if (!subject || !firstname || !lastname || !email || !message) {
-      throw new Error('Tous les champs obligatoires doivent être remplis.');
-    }
+    // 3. Validate Turnstile captcha
+    const turnstileToken = formData.get('turnstileToken') as string;
+    const clientIp = request.headers.get('x-forwarded-for') || '';
+    await validateTurnstile(turnstileToken, clientIp);
 
-    // Verify reCAPTCHA
-    if (!recaptchaToken) {
-      throw new Error('Vérification reCAPTCHA requise.');
-    }
+    // 4. Send email
+    await sendContactEmail(data);
 
-    const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
-    if (!isRecaptchaValid) {
-      throw new Error('Échec de la vérification reCAPTCHA. Veuillez réessayer.');
-    }
-
-    // Parse file URLs from JSON string
-    let parsedFileUrls: string[] = [];
-    if (fileUrls) {
-      try {
-        parsedFileUrls = JSON.parse(fileUrls);
-      } catch (error) {
-        console.error('Error parsing file URLs:', error);
-      }
-    }
-
-    if (subject === 'project') {
-      await createProspect({
-        firstname,
-        lastname,
-        email,
-        company,
-        message,
-      });
-    }
-
-    const emailConfig = emails[subject];
-
-    await sendEmail({
-      to: [{ email: emailConfig.to }],
-      templateId: emailConfig.templateId,
-      params: {
-        name: `${firstname} ${lastname}`,
-        company,
-        email,
-        phone,
-        message,
-        privacy: privacy === 'on' ? 'Accepté' : 'Refusé',
-        files:
-          parsedFileUrls.length > 0
-            ? parsedFileUrls.map((url) => `${encodeURIComponent(url)}`).join('\n')
-            : '',
-      },
-      subject: emailConfig.subject,
-      replyTo: { email },
-    });
-
+    // 5. Return success
     return jsonResponse(true, 'Votre message a été envoyé avec succès.');
   } catch (error) {
     console.error('Error processing form submission:', error);
