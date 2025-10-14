@@ -3,8 +3,12 @@
 
 /** @type {import('tailwindcss').Config} */
 export default {
-	theme: {
+  theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Inter Variable"', 'sans-serif'],
+        mono: ['"JetBrains Mono Variable"', 'monospace'],
+      },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
