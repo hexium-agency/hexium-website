@@ -10,7 +10,7 @@ type TurnstileResponse = {
     ephemeral_id?: string;
   };
 };
-const turnstilePrivateKey = import.meta.env.TURNSTILE_PRIVATE_KEY;
+const turnstilePrivateKey = import.meta.env.TURNSTILE_SECRET_KEY;
 
 export async function validate(
   token: string,
@@ -18,6 +18,12 @@ export async function validate(
   maxRetries = 3
 ): Promise<TurnstileResponse> {
   const idempotencyKey = randomUUID();
+
+  console.log(
+    'Turnstile Private Key:',
+    turnstilePrivateKey ? `${turnstilePrivateKey.substring(0, 10)}...` : 'UNDEFINED'
+  );
+  console.log('Token to validate:', token ? `${token.substring(0, 20)}...` : 'NO TOKEN');
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {

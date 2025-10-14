@@ -14,7 +14,7 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
 ---
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<form id="contactForm" action="/api/contact" method="POST" enctype="multipart/form-data">
+<form id="contactForm" method="POST" enctype="multipart/form-data">
   <div id="formAlertContainer" class="mb-4 hidden"></div>
 
   <fieldset id="formFields" class="w-full min-w-0 space-y-3">
@@ -95,14 +95,7 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
       )
     }
 
-    <div
-      class="cf-turnstile"
-      data-sitekey=`${turnstilePublicKey}`
-      data-theme="light"
-      data-size="normal"
-      data-callback="onSuccess"
-    >
-    </div>
+    <div id="turnstile-widget" data-sitekey={turnstilePublicKey} class="hidden"></div>
   </fieldset>
 
   <div class="mt-4 flex items-center justify-between">
@@ -139,6 +132,8 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
 </template>
 
 <script>
+  import { InvisibleTurnstile } from '@/utils/turnstile-client';
+
   document.addEventListener('astro:page-load', () => {
     const subjectSelect = document.getElementById('subject') as HTMLSelectElement | null;
     const companyField = document.getElementById('companyField') as HTMLDivElement | null;
@@ -164,6 +159,23 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
     let uploadedFileUrls: string[] = [];
     let fileToUrlMap = new Map<string, string>(); // Maps file identifier to URL
     let fileUploadStatus = new Map<string, 'uploading' | 'success' | 'error'>(); // Track upload status
+
+    // Initialize invisible Turnstile
+    const turnstileWidget = document.getElementById('turnstile-widget');
+    const turnstilePublicKey = turnstileWidget?.dataset.sitekey || '';
+    const turnstile = new InvisibleTurnstile(turnstilePublicKey);
+    let turnstileReady = false;
+
+    // Initialize Turnstile asynchronously
+    turnstile
+      .init()
+      .then(() => {
+        turnstileReady = true;
+        console.log('Turnstile initialized successfully');
+      })
+      .catch((error) => {
+        console.error('Failed to initialize Turnstile:', error);
+      });
 
     function toggleCompanyField() {
       if (!subjectSelect || !companyField) return;
@@ -446,7 +458,9 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
         if (!formAlertContainer || !submitButton || !submitText || !formSpinner || !formFields)
           return;
 
+        // Create FormData BEFORE disabling fields (disabled fields are excluded from FormData)
         const formData = new FormData(contactForm);
+
         formFields.disabled = true;
         formFields.classList.add('opacity-60');
         submitButton.disabled = true;
@@ -456,10 +470,18 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
         formAlertContainer.classList.add('hidden');
 
         try {
-          // Files are already uploaded, just use the stored URLs
-          formData.set('fileUrls', JSON.stringify(uploadedFileUrls));
+          // Wait for Turnstile to be ready if not already
+          if (!turnstileReady) {
+            console.log('Waiting for Turnstile to initialize...');
+            await turnstile.init().catch(() => {});
+          }
 
-          // Remove the files field since we're using URLs now
+          // Execute invisible Turnstile and get token
+          const token = await turnstile.getToken();
+          formData.set('turnstileToken', token);
+
+          // Files already uploaded
+          formData.set('fileUrls', JSON.stringify(uploadedFileUrls));
           formData.delete('files');
 
           const response = await fetch('/api/contact', {
@@ -473,7 +495,7 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
             if (formData.get('subject') === 'project') {
               window.dataLayer = window.dataLayer || [];
               window.dataLayer.push({ event: 'submitContactForm' });
-              window.plausible('submitContactForm');
+              window.plausible?.('submitContactForm');
             }
             showAlert('success');
             contactForm.reset();
@@ -488,12 +510,8 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
         } finally {
           formFields.disabled = false;
           formFields.classList.remove('opacity-60');
-
-            submitButton.disabled = false;
-            submitButton.classList.remove('cursor-wait');
-            submitText.classList.remove('hidden');
-            formSpinner.classList.add('hidden');
-
+          submitButton.disabled = false;
+          formSpinner.classList.add('hidden');
           formAlertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
