@@ -1,4 +1,5 @@
 import { sendEmail } from '@/utils/brevo';
+import { validate } from '@/utils/turnstile-validator';
 import type { APIRoute } from 'astro';
 
 export const prerender = false;
@@ -6,22 +7,22 @@ export type Subject = 'project' | 'job' | 'collaboration' | 'other';
 
 const emails: Record<Subject, { to: string; subject: string; templateId: number }> = {
   project: {
-    to: 'anthony@hexium.io',
+    to: 'gwladys@hexium.io',
     subject: '[PROJET]',
     templateId: 7,
   },
   job: {
-    to: 'contact@hexium.io',
+    to: 'gwladys@hexium.io',
     subject: '[EMPLOI]',
     templateId: 9,
   },
   collaboration: {
-    to: 'contact@hexium.io',
+    to: 'gwladys@hexium.io',
     subject: '[COLLAB]',
     templateId: 10,
   },
   other: {
-    to: 'contact@hexium.io ',
+    to: 'gwladys@hexium.io ',
     subject: '[AUTRE]',
     templateId: 11,
   },
@@ -47,9 +48,21 @@ export const POST: APIRoute = async ({ request }) => {
     const message = formData.get('message') as string;
     const privacy = formData.get('privacy') as string;
     const fileUrls = formData.get('fileUrls') as string;
+    const turnstileToken = formData.get('turnstileToken') as string;
 
     if (!subject || !firstname || !lastname || !email || !message) {
       throw new Error('Tous les champs obligatoires doivent être remplis.');
+    }
+
+    const validator = await validate(
+      turnstileToken,
+      request.headers.get('x-forwarded-for') || '',
+      3
+    );
+
+    if (!validator.success) {
+      console.log('Validation failed:', validator);
+      throw new Error('Échec de la vérification. Veuillez réessayer.');
     }
 
     // Parse file URLs from JSON string

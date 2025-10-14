@@ -10,8 +10,10 @@ import Select from '@/components/form/select.astro';
 import Textarea from '@/components/form/textarea.astro';
 
 const { light = false } = Astro.props;
+const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
 ---
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <form id="contactForm" action="/api/contact" method="POST" enctype="multipart/form-data">
   <div id="formAlertContainer" class="mb-4 hidden"></div>
 
@@ -92,6 +94,15 @@ const { light = false } = Astro.props;
         </div>
       )
     }
+
+    <div
+      class="cf-turnstile"
+      data-sitekey=`${turnstilePublicKey}`
+      data-theme="light"
+      data-size="normal"
+      data-callback="onSuccess"
+    >
+    </div>
   </fieldset>
 
   <div class="mt-4 flex items-center justify-between">
