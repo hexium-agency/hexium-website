@@ -20,7 +20,6 @@ export async function validate(
   const idempotencyKey = randomUUID();
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    console.log('Attempt:', attempt, 'Max retries:', maxRetries);
     try {
       const formData = new FormData();
       formData.append('secret', turnstilePrivateKey);
@@ -33,26 +32,20 @@ export async function validate(
         body: formData,
       });
 
-      console.log('Turnstile response:', response);
-
       const result = await response.json();
 
       if (response.ok) {
-        console.log('Response ok');
         return result;
       }
 
       // If this is the last attempt, return the error
       if (attempt === maxRetries) {
-        console.log('Attempt:', attempt, 'Max retries:', maxRetries);
         return result;
       }
 
-      console.log('Retrying...');
       // Retry
       await new Promise((resolve) => setTimeout(resolve, Math.pow(2, attempt) * 1000));
     } catch (error) {
-      console.log('Error:', error);
       if (attempt === maxRetries) {
         return { success: false, 'error-codes': ['internal-error'] };
       }
