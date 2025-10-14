@@ -19,12 +19,6 @@ export async function validate(
 ): Promise<TurnstileResponse> {
   const idempotencyKey = randomUUID();
 
-  console.log(
-    'Turnstile Private Key:',
-    turnstilePrivateKey ? `${turnstilePrivateKey.substring(0, 10)}...` : 'UNDEFINED'
-  );
-  console.log('Token to validate:', token ? `${token.substring(0, 20)}...` : 'NO TOKEN');
-
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const formData = new FormData();
@@ -49,7 +43,7 @@ export async function validate(
         return result;
       }
 
-      // Wait before retrying (exponential backoff)
+      // Retry
       await new Promise((resolve) => setTimeout(resolve, Math.pow(2, attempt) * 1000));
     } catch (error) {
       if (attempt === maxRetries) {

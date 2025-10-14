@@ -1,4 +1,3 @@
-// Client-side invisible Turnstile implementation
 export class InvisibleTurnstile {
   private siteKey: string;
   private widgetId: string | null = null;
@@ -22,7 +21,6 @@ export class InvisibleTurnstile {
   }
 
   async init(): Promise<void> {
-    // If already initialized, return immediately
     if (this.widgetId !== null) {
       return;
     }
@@ -33,8 +31,6 @@ export class InvisibleTurnstile {
     const el = document.getElementById('turnstile-widget');
     if (!el) throw new Error('Turnstile element not found');
 
-    // Keep it hidden - we'll execute it programmatically
-    // el.classList.remove('hidden');
 
     this.widgetId = turnstile.render(el, {
       sitekey: this.siteKey,
@@ -49,9 +45,7 @@ export class InvisibleTurnstile {
     return new Promise((resolve, reject) => {
       if (!this.widgetId) return reject('Turnstile not initialized');
 
-      // Reset before executing to get a fresh token
       turnstile.reset(this.widgetId);
-
       turnstile.execute(this.widgetId, { callback: resolve, 'error-callback': reject });
     });
   }

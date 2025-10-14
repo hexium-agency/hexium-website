@@ -171,7 +171,6 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
       .init()
       .then(() => {
         turnstileReady = true;
-        console.log('Turnstile initialized successfully');
       })
       .catch((error) => {
         console.error('Failed to initialize Turnstile:', error);
