@@ -7,22 +7,22 @@ export type Subject = 'project' | 'job' | 'collaboration' | 'other';
 
 const emails: Record<Subject, { to: string; subject: string; templateId: number }> = {
   project: {
-    to: 'gwladys@hexium.io',
+    to: 'contact@hexium.io',
     subject: '[PROJET]',
     templateId: 7,
   },
   job: {
-    to: 'gwladys@hexium.io',
+    to: 'contact@hexium.io',
     subject: '[EMPLOI]',
     templateId: 9,
   },
   collaboration: {
-    to: 'gwladys@hexium.io',
+    to: 'contact@hexium.io',
     subject: '[COLLAB]',
     templateId: 10,
   },
   other: {
-    to: 'gwladys@hexium.io ',
+    to: 'contact@hexium.io ',
     subject: '[AUTRE]',
     templateId: 11,
   },
