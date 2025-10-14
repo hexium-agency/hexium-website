@@ -27,33 +27,6 @@ const emails: Record<Subject, { to: string; subject: string; templateId: number 
   },
 };
 
-const RECAPTCHA_SECRET_KEY = import.meta.env.RECAPTCHA_SECRET_KEY;
-const RECAPTCHA_MINIMUM_SCORE = import.meta.env.RECAPTCHA_MINIMUM_SCORE;
-
-async function verifyRecaptcha(recaptchaToken: string): Promise<boolean> {
-  const recaptchaURL = 'https://www.google.com/recaptcha/api/siteverify';
-  const requestHeaders = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  };
-
-  const requestBody = new URLSearchParams({
-    secret: RECAPTCHA_SECRET_KEY,
-    response: recaptchaToken,
-  });
-
-  const response = await fetch(recaptchaURL, {
-    method: 'POST',
-    headers: requestHeaders,
-    body: requestBody.toString(),
-  });
-
-  const responseData = await response.json();
-
-  console.log(responseData);
-
-  return responseData.success === true && responseData.score >= Number(RECAPTCHA_MINIMUM_SCORE);
-}
-
 function jsonResponse(success: boolean, message: string) {
   return new Response(JSON.stringify({ success, message }), {
     status: success ? 200 : 500,
@@ -74,20 +47,9 @@ export const POST: APIRoute = async ({ request }) => {
     const message = formData.get('message') as string;
     const privacy = formData.get('privacy') as string;
     const fileUrls = formData.get('fileUrls') as string;
-    const recaptchaToken = formData.get('recaptchaToken') as string;
 
     if (!subject || !firstname || !lastname || !email || !message) {
       throw new Error('Tous les champs obligatoires doivent être remplis.');
-    }
-
-    // Verify reCAPTCHA
-    if (!recaptchaToken) {
-      throw new Error('Vérification reCAPTCHA requise.');
-    }
-
-    const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
-    if (!isRecaptchaValid) {
-      throw new Error('Échec de la vérification reCAPTCHA. Veuillez réessayer.');
     }
 
     // Parse file URLs from JSON string
