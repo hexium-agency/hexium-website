@@ -31,7 +31,6 @@ export class InvisibleTurnstile {
     const el = document.getElementById('turnstile-widget');
     if (!el) throw new Error('Turnstile element not found');
 
-
     this.widgetId = turnstile.render(el, {
       sitekey: this.siteKey,
       size: 'normal',
@@ -45,15 +44,18 @@ export class InvisibleTurnstile {
     return new Promise((resolve, reject) => {
       if (!this.widgetId) return reject('Turnstile not initialized');
 
-      turnstile.reset(this.widgetId);
-      turnstile.execute(this.widgetId, { callback: resolve, 'error-callback': reject });
-    });
-  }
+      // Remove the existing widget and create a new one to avoid "already executing" error
+      turnstile.remove(this.widgetId);
+      const el = document.getElementById('turnstile-widget');
+      if (!el) return reject('Turnstile element not found');
 
-  reset(): void {
-    const turnstile = (window as any).turnstile;
-    if (this.widgetId && turnstile) {
-      turnstile.reset(this.widgetId);
-    }
+      // Create a new widget instance
+      this.widgetId = turnstile.render(el, {
+        sitekey: this.siteKey,
+        size: 'normal',
+        callback: resolve,
+        'error-callback': reject,
+      });
+    });
   }
 }
