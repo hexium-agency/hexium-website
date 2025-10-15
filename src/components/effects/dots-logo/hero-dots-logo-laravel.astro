@@ -24,10 +24,13 @@ const colorLogo = hexRgb('#FF2D20', { format: 'array' });
 <script>
   import { DotsBlock } from '@/lib/dots/dots-block';
   document.addEventListener('astro:page-load', () => {
-    const logoColor = document.querySelector('#laravel-dots-container')?.getAttribute('data-color');
-    const logoColorRgb = logoColor?.split(',').map(Number);
-    new DotsBlock(document.querySelector('#laravel-dots-container') as HTMLElement, [
-      logoColorRgb!,
-    ]);
+    const container = document.querySelector('#laravel-dots-container');
+    if (container) {
+      const logoColor = container.getAttribute('data-color');
+      const logoColorRgb = logoColor?.split(',').map(Number);
+      if (logoColorRgb) {
+        new DotsBlock(container as HTMLElement, [logoColorRgb]);
+      }
+    }
   });
 </script>
