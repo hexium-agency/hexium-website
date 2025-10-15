@@ -5,10 +5,6 @@
 export default {
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['"Inter Variable"', 'sans-serif'],
-        mono: ['"JetBrains Mono Variable"', 'monospace'],
-      },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
