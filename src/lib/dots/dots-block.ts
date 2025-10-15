@@ -13,7 +13,7 @@ export class DotsBlock {
   }
 
   private showDots(): void {
-    if (!this.dotsContainer) {
+    if (!this.dotsContainer && this.linkElement) {
       this.dotsContainer = document.createElement('div');
       this.dotsContainer.className = 'absolute inset-0.5';
       this.dotsContainer.style.opacity = '0';
@@ -30,7 +30,9 @@ export class DotsBlock {
       });
     }
 
-    this.fadeIn(this.dotsContainer);
+    if (this.dotsContainer) {
+      this.fadeIn(this.dotsContainer);
+    }
   }
 
   private fadeIn(element: HTMLElement): void {

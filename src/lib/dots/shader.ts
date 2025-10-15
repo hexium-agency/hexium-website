@@ -183,6 +183,11 @@ export class Shader {
     this.canvas.width = this.offscreenCanvas.width = this.canvas.offsetWidth * dpr;
     this.canvas.height = this.offscreenCanvas.height = this.canvas.offsetHeight * dpr;
 
+    // Ensure canvas has valid dimensions before proceeding
+    if (this.canvas.width === 0 || this.canvas.height === 0) {
+      return;
+    }
+
     this.gl = this.offscreenCanvas.getContext('webgl2')!;
     this.ctx = this.canvas.getContext('2d')!;
 
@@ -298,7 +303,10 @@ export class Shader {
     this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4);
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.drawImage(this.gl.canvas, 0, 0);
+    // Only draw if the canvas has valid dimensions
+    if (this.gl.canvas.width > 0 && this.gl.canvas.height > 0) {
+      this.ctx.drawImage(this.gl.canvas, 0, 0);
+    }
 
     this.scheduleNextFrame();
   }
