@@ -160,21 +160,23 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
     let fileToUrlMap = new Map<string, string>(); // Maps file identifier to URL
     let fileUploadStatus = new Map<string, 'uploading' | 'success' | 'error'>(); // Track upload status
 
-    // Initialize invisible Turnstile
     const turnstileWidget = document.getElementById('turnstile-widget');
-    const turnstilePublicKey = turnstileWidget?.dataset.sitekey || '';
-    const turnstile = new InvisibleTurnstile(turnstilePublicKey);
+    let turnstile: InvisibleTurnstile | null = null;
     let turnstileReady = false;
 
-    // Initialize Turnstile asynchronously
-    turnstile
-      .init()
-      .then(() => {
-        turnstileReady = true;
-      })
-      .catch((error) => {
-        console.error('Failed to initialize Turnstile:', error);
-      });
+    if (turnstileWidget) {
+      const turnstilePublicKey = turnstileWidget?.dataset.sitekey || '';
+      turnstile = new InvisibleTurnstile(turnstilePublicKey);
+
+      turnstile
+        .init()
+        .then(() => {
+          turnstileReady = true;
+        })
+        .catch((error) => {
+          console.error('Failed to initialize Turnstile:', error);
+        });
+    }
 
     function toggleCompanyField() {
       if (!subjectSelect || !companyField) return;
@@ -469,15 +471,14 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
         formAlertContainer.classList.add('hidden');
 
         try {
-          // Wait for Turnstile to be ready if not already
-          if (!turnstileReady) {
-            console.log('Waiting for Turnstile to initialize...');
-            await turnstile.init().catch(() => {});
-          }
+          if (turnstileWidget && turnstile) {
+            if (!turnstileReady) {
+              await turnstile.init().catch(() => {});
+            }
 
-          // Execute invisible Turnstile and get token
-          const token = await turnstile.getToken();
-          formData.set('turnstileToken', token);
+            const token = await turnstile.getToken();
+            formData.set('turnstileToken', token);
+          }
 
           // Files already uploaded
           formData.set('fileUrls', JSON.stringify(uploadedFileUrls));

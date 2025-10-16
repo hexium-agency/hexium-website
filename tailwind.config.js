@@ -3,7 +3,7 @@
 
 /** @type {import('tailwindcss').Config} */
 export default {
-	theme: {
+  theme: {
     extend: {
       typography: ({ theme }) => ({
         DEFAULT: {
