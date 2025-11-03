@@ -13,9 +13,9 @@
     "storyblok-pull-components": "storyblok pull-components --space 316058 --file-name storyblok"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/react": "^4.3.1",
-    "@astrojs/vercel": "^8.2.7",
+    "@astrojs/check": "^0.9.5",
+    "@astrojs/react": "^4.4.1",
+    "@astrojs/vercel": "^9.0.0",
     "@aws-sdk/client-s3": "^3.758.0",
     "@aws-sdk/s3-request-presigner": "^3.758.0",
     "@expressive-code/plugin-line-numbers": "^0.40.2",
@@ -28,7 +28,7 @@
     "@types/react-dom": "^19.0.4",
     "@uidotdev/usehooks": "^2.4.1",
     "@vercel/og": "^0.6.5",
-    "astro": "^5.13.9",
+    "astro": "^5.15.3",
     "astro-expressive-code": "^0.40.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
