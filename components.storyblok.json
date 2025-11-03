@@ -1734,7 +1734,7 @@
       "display_name": "DEFINITION",
       "description": null,
       "created_at": "2024-12-08T16:06:51.517Z",
-      "updated_at": "2025-04-12T08:44:58.790Z",
+      "updated_at": "2025-06-14T08:44:45.674Z",
       "id": 6663005,
       "schema": {
         "metaTitle": {
@@ -1828,7 +1828,8 @@
             "redo",
             "strike",
             "underline",
-            "undo"
+            "undo",
+            "add-table"
           ],
           "id": "ZYj1XF7KRSSlfTUx77lvig"
         },
@@ -2630,10 +2631,10 @@
     },
     {
       "name": "heroAsideTechnologyLogo",
-      "display_name": null,
+      "display_name": "HERO ASIDE - TECHNOLOGY LOGO",
       "description": "",
       "created_at": "2025-06-02T13:27:07.895Z",
-      "updated_at": "2025-06-03T07:55:14.824Z",
+      "updated_at": "2025-09-20T13:28:50.637Z",
       "id": 7408323,
       "schema": {
         "technology": {
@@ -2754,7 +2755,7 @@
       "is_nestable": true,
       "all_presets": [],
       "preset_id": null,
-      "real_name": "heroAsideTechnologyLogo",
+      "real_name": "HERO ASIDE - TECHNOLOGY LOGO",
       "component_group_uuid": "8ea8c301-26ba-48f2-b648-0c3ae4e0ecb5",
       "color": null,
       "icon": null,
@@ -3133,6 +3134,111 @@
       "content_type_asset_preview": null,
       "metadata": {},
       "component_group_name": "UI"
+    },
+    {
+      "name": "landing",
+      "display_name": "LANDING",
+      "description": null,
+      "created_at": "2025-08-16T13:26:59.463Z",
+      "updated_at": "2025-11-03T12:59:51.237Z",
+      "id": 80532354927684,
+      "schema": {
+        "metaTitle": {
+          "type": "text",
+          "pos": 0,
+          "display_name": "META - TITRE",
+          "required": true,
+          "max_length": 60,
+          "id": "xLi_33YtSuafDmPBLY0vVQ"
+        },
+        "body": {
+          "type": "bloks",
+          "pos": 1,
+          "restrict_type": "groups",
+          "restrict_components": true,
+          "component_whitelist": [],
+          "component_group_whitelist": [
+            "93a7a4d7-21bc-4948-85aa-4e23e114a336",
+            "106bc6ec-816a-497e-bac8-2a812c419ee0"
+          ],
+          "display_name": "BODY",
+          "minimum": 1,
+          "required": true,
+          "id": "rJcf03b2TyOn64vxXzRUSg"
+        },
+        "metaDescription": {
+          "type": "textarea",
+          "pos": 2,
+          "display_name": "META - DESCRIPTION",
+          "required": true,
+          "max_length": 160,
+          "id": "ngjdX2JNS32UpnCC8aAY9Q"
+        },
+        "ogBadge": {
+          "type": "text",
+          "pos": 3,
+          "display_name": "OG - BADGE",
+          "required": true,
+          "max_length": 30,
+          "id": "HrE-Tcr3Q6OR3hHOloWDMg"
+        },
+        "ogTitle": {
+          "type": "text",
+          "pos": 4,
+          "display_name": "OG - TITRE",
+          "required": true,
+          "max_length": 80,
+          "id": "L52dHWcyRwyGubjNRvb83Q"
+        },
+        "tab-1803a416-4867-4eda-841f-700f782371ad": {
+          "display_name": "Seo",
+          "keys": [
+            "ogTitle",
+            "ogBadge",
+            "metaDescription",
+            "metaTitle",
+            "ogDescription"
+          ],
+          "pos": 5,
+          "type": "tab",
+          "id": "GAOkFkhnTtqEH3APeCNxrQ"
+        },
+        "ogDescription": {
+          "type": "textarea",
+          "pos": 6,
+          "display_name": "OG - DESCRIPTION",
+          "max_length": 150,
+          "id": "2AhkMYHhTgmle2BUHZ1LRg"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "LANDING",
+      "component_group_uuid": "04509216-f19d-4707-af87-46fe49b02750",
+      "color": "#841d18",
+      "icon": "block-doc",
+      "internal_tags_list": [
+        {
+          "id": 52943,
+          "name": "data"
+        },
+        {
+          "id": 60278,
+          "name": "page"
+        }
+      ],
+      "internal_tag_ids": [
+        "52943",
+        "60278"
+      ],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "DATA"
     },
     {
       "name": "latestArticles",

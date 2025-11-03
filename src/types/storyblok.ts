@@ -540,6 +540,31 @@ export interface ImageStoryblok {
   [k: string]: any;
 }
 
+export interface LandingStoryblok {
+  metaTitle: string;
+  body: (
+    | HeroHomeStoryblok
+    | HeroHorizontalStoryblok
+    | HeroVerticalStoryblok
+    | BlogHomeStoryblok
+    | CallToActionStoryblok
+    | ContactHomeStoryblok
+    | DefinitionHomeStoryblok
+    | SectionStoryblok
+    | SectionHorizontalStoryblok
+    | SectionVerticalStoryblok
+    | TechnologyHomeStoryblok
+    | WorkHomeStoryblok
+  )[];
+  metaDescription: string;
+  ogBadge: string;
+  ogTitle: string;
+  ogDescription?: string;
+  component: "landing";
+  _uid: string;
+  [k: string]: any;
+}
+
 export interface LatestArticlesStoryblok {
   category?: ISbStoryData<BlogCategoryStoryblok> | string;
   component: "latestArticles";
