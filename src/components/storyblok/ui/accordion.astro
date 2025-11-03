@@ -15,24 +15,41 @@ const { blok } = Astro.props as AstroProps;
     class="group flex cursor-pointer items-center justify-between gap-x-3 py-4 pb-3 text-base/5 font-medium text-gray-950 dark:text-white"
   >
     {blok.title}
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      aria-hidden="true"
-      class="size-5 flex-none rotate-180 stroke-gray-400 transition group-hover:stroke-gray-950 dark:stroke-gray-200 dark:group-hover/summary:stroke-white [.accordion-open_&]:rotate-0"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="1.5"
-        d="M5.75 13.25 10 8.75l4.25 4.5"></path>
-    </svg>
+    <div class="relative size-6 shrink-0">
+      <svg
+        aria-hidden="true"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 rotate-90 text-gray-400 transition duration-300 group-hover:text-gray-950 dark:text-gray-200 dark:group-hover/summary:text-white [.accordion-open_&]:scale-x-0"
+      >
+        <path
+          fill="currentColor"
+          fill-rule="evenodd"
+          d="M6 12a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12"
+          clip-rule="evenodd"></path>
+      </svg>
+      <svg
+        aria-hidden="true"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="size-6 text-gray-400 transition duration-300 group-hover:text-gray-950 dark:text-gray-200 dark:group-hover/summary:text-white"
+      >
+        <path
+          fill="currentColor"
+          fill-rule="evenodd"
+          d="M6 12a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12"
+          clip-rule="evenodd"></path>
+      </svg>
+    </div>
   </h4>
   <div class="content-wrapper h-0 overflow-hidden">
     <div
       class="content pb-4 text-justify text-[0.875rem]/5 text-pretty text-gray-600 dark:text-gray-400"
     >
-      <Richtext text={blok.text} class="space-y-4 [&_ul]:list-disc [&_ul]:list-outside [&_ul]:pl-5 [&_li]:mt-4 [&_li]:marker:text-gray-700" />
+      <Richtext
+        text={blok.text}
+        class="space-y-4 [&_li]:mt-4 [&_li]:marker:text-gray-700 [&_ul]:list-outside [&_ul]:list-disc [&_ul]:pl-5"
+      />
     </div>
   </div>
 </div>
