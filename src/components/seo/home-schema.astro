@@ -1,18 +1,4 @@
 ---
-import type { PageStoryblok } from '@/types/storyblok';
-import type { ISbStoryData } from '@storyblok/astro';
-
-interface AstroProps {
-  story: ISbStoryData<PageStoryblok>;
-}
-
-const { story } = Astro.props as AstroProps;
-
-const { created_at, first_published_at, published_at, updated_at } = story;
-
-const datePublished = first_published_at || published_at || created_at;
-const dateModified = published_at || first_published_at || updated_at;
-
 const organizationJsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@id': import.meta.env.WEBSITE_URL + '/#organization',
@@ -108,22 +94,7 @@ const organizationJsonLd = JSON.stringify({
     minValue: 5,
     maxValue: 15,
   },
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: [
-        'https://schema.org/Monday',
-        'https://schema.org/Tuesday',
-        'https://schema.org/Wednesday',
-        'https://schema.org/Thursday',
-        'https://schema.org/Friday',
-        'https://schema.org/Saturday',
-        'https://schema.org/Sunday',
-      ],
-      opens: '08:00',
-      closes: '20:00',
-    },
-  ],
+  openingHours: 'Mo, Tu, We, Th, Fr, Sa, Su 08:00-20:00',
   sameAs: [
     'https://annuaire-entreprises.data.gouv.fr/entreprise/hexium-hexium-887922383',
     'https://www.francenum.gouv.fr/activateurs/hexium',
@@ -145,58 +116,7 @@ const websiteJsonLd = JSON.stringify({
   publisher: { '@id': import.meta.env.WEBSITE_URL + '/#organization' },
   inLanguage: 'fr',
 });
-
-const webpageJsonLd = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@id': import.meta.env.WEBSITE_URL + '/#webpage',
-  '@type': 'WebPage',
-  dateModified: dateModified,
-  datePublished: datePublished,
-  description: story.content.metaDescription,
-  name: story.content.metaTitle,
-  primaryImageOfPage: {
-    '@id': import.meta.env.WEBSITE_URL + '/#primaryImageOfPage',
-    '@type': 'ImageObject',
-    contentUrl:
-      import.meta.env.WEBSITE_URL +
-      '/og?badge=' +
-      encodeURIComponent(story.content.ogBadge) +
-      '&title=' +
-      encodeURIComponent(story.content.ogTitle),
-    url:
-      import.meta.env.WEBSITE_URL +
-      '/og?badge=' +
-      encodeURIComponent(story.content.ogBadge) +
-      '&title=' +
-      encodeURIComponent(story.content.ogTitle),
-    width: 1200,
-    height: 630,
-  },
-  inLanguage: 'fr',
-  isPartOf: { '@id': import.meta.env.WEBSITE_URL + '/#website' },
-  thumbnailUrl:
-    import.meta.env.WEBSITE_URL +
-    '/og?badge=' +
-    encodeURIComponent(story.content.ogBadge) +
-    '&title=' +
-    encodeURIComponent(story.content.ogTitle),
-  url: import.meta.env.WEBSITE_URL,
-});
-
-// const productJsonLd = JSON.stringify({
-//   '@context': 'https://schema.org/',
-//   '@type': 'CreativeWorkSeries',
-//   name: story.content.metaTitle,
-//   aggregateRating: {
-//     '@type': 'AggregateRating',
-//     ratingValue: '5',
-//     bestRating: '5',
-//     ratingCount: '29',
-//   },
-// });
 ---
 
 <script type="application/ld+json" set:html={organizationJsonLd} />
 <script type="application/ld+json" set:html={websiteJsonLd} />
-<script type="application/ld+json" set:html={webpageJsonLd} />
-<!-- <script type="application/ld+json" set:html={productJsonLd} /> -->
