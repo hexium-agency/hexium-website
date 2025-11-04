@@ -1,13 +1,22 @@
 ---
-const jsonLd = JSON.stringify({
+import type { PageStoryblok } from '@/types/storyblok';
+import type { ISbStoryData } from '@storyblok/astro';
+
+interface AstroProps {
+  story: ISbStoryData<PageStoryblok>;
+}
+
+const { story } = Astro.props as AstroProps;
+
+const { created_at, first_published_at, published_at, updated_at } = story;
+
+const datePublished = first_published_at || published_at || created_at;
+const dateModified = published_at || first_published_at || updated_at;
+
+const organizationJsonLd = JSON.stringify({
   '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Hexium - Agence & Studio de Développement',
-  legalName: 'Hexium',
-  description: 'Créateur de solutions digitales sur mesure',
-  url: import.meta.env.WEBSITE_URL,
-  logo: import.meta.env.WEBSITE_URL + '/images/logo-square-schema-organization.png',
-  image: import.meta.env.WEBSITE_URL + '/images/logo-rectangle-schema-organization.png',
+  '@id': import.meta.env.WEBSITE_URL + '/#organization',
+  '@type': ['Organization', 'Corporation', 'ProfessionalService'],
   address: [
     {
       '@type': 'PostalAddress',
@@ -19,18 +28,44 @@ const jsonLd = JSON.stringify({
     {
       '@type': 'PostalAddress',
       addressCountry: 'FR',
-      addressLocality: 'Paris',
-      postalCode: '75008',
-      streetAddress: '58 Rue de Monceau',
-    },
-    {
-      '@type': 'PostalAddress',
-      addressCountry: 'FR',
       addressLocality: 'Toulouse',
       postalCode: '31000',
       streetAddress: '48 Allée François Verdier',
     },
+    {
+      '@type': 'PostalAddress',
+      addressCountry: 'FR',
+      addressLocality: 'Paris',
+      postalCode: '75008',
+      streetAddress: '58 Rue de Monceau',
+    },
   ],
+  alternateName: 'Hexium',
+  areaServed: [
+    { '@type': 'Country', name: 'France' },
+    { '@type': 'Country', name: 'Belgium' },
+    { '@type': 'Country', name: 'Switzerland' },
+    { '@type': 'Continent', name: 'Europe' },
+  ],
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      areaServed: [
+        { '@type': 'Country', name: 'France' },
+        { '@type': 'Country', name: 'Belgium' },
+        { '@type': 'Country', name: 'Switzerland' },
+        { '@type': 'Continent', name: 'Europe' },
+      ],
+      availableLanguage: ['fr', 'en'],
+      contactType: 'customer service',
+      email: 'contact@hexium.io',
+      telephone: '+33430966323',
+      url: import.meta.env.WEBSITE_URL + '/contact',
+    },
+  ],
+  description: 'Agence de Développement - Web, Mobile & IA',
+  duns: '274784612',
+  email: 'contact@hexium.io',
   founder: {
     '@type': 'Person',
     name: 'Anthony Rubio',
@@ -39,11 +74,129 @@ const jsonLd = JSON.stringify({
     url: 'https://www.linkedin.com/in/anthonyrubiohexium/',
   },
   foundingDate: '2020-07-01',
-  sameAs: ['https://linkedin.com/company/hexium'],
-  vatID: 'FR12887922383',
-  email: 'contact@hexium.io',
+  identifier: [
+    {
+      '@type': 'PropertyValue',
+      propertyID: 'DUNS',
+      value: '274784612',
+    },
+    {
+      '@type': 'PropertyValue',
+      propertyID: 'SIREN',
+      value: '887922383',
+    },
+    {
+      '@type': 'PropertyValue',
+      propertyID: 'SIRET',
+      value: '88792238300013',
+    },
+  ],
+  image: import.meta.env.WEBSITE_URL + '/images/logo-rectangle-schema-organization.png',
+  legalName: 'Hexium',
+  logo: {
+    '@id': import.meta.env.WEBSITE_URL + '/#logo',
+    '@type': 'ImageObject',
+    caption: 'Hexium',
+    contentUrl: import.meta.env.WEBSITE_URL + '/images/logo-square-schema-organization.png',
+    url: import.meta.env.WEBSITE_URL + '/images/logo-square-schema-organization.png',
+    width: 600,
+    height: 600,
+  },
+  name: 'Hexium',
+  numberOfEmployees: {
+    '@type': 'QuantitativeValue',
+    minValue: 5,
+    maxValue: 15,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'https://schema.org/Monday',
+        'https://schema.org/Tuesday',
+        'https://schema.org/Wednesday',
+        'https://schema.org/Thursday',
+        'https://schema.org/Friday',
+        'https://schema.org/Saturday',
+        'https://schema.org/Sunday',
+      ],
+      opens: '08:00',
+      closes: '20:00',
+    },
+  ],
+  sameAs: [
+    'https://annuaire-entreprises.data.gouv.fr/entreprise/hexium-hexium-887922383',
+    'https://www.francenum.gouv.fr/activateurs/hexium',
+    'https://www.google.com/maps?cid=15741609430394618184',
+    'https://www.linkedin.com/company/hexium/',
+    'https://www.pappers.fr/entreprise/hexium-887922383',
+  ],
   telephone: '+33430966323',
+  url: import.meta.env.WEBSITE_URL,
+  vatID: 'FR12887922383',
 });
+
+const websiteJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@id': import.meta.env.WEBSITE_URL + '/#website',
+  '@type': 'WebSite',
+  name: 'Hexium',
+  url: import.meta.env.WEBSITE_URL,
+  publisher: { '@id': import.meta.env.WEBSITE_URL + '/#organization' },
+  inLanguage: 'fr',
+});
+
+const webpageJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@id': import.meta.env.WEBSITE_URL + '/#webpage',
+  '@type': 'WebPage',
+  dateModified: dateModified,
+  datePublished: datePublished,
+  description: story.content.metaDescription,
+  name: story.content.metaTitle,
+  primaryImageOfPage: {
+    '@id': import.meta.env.WEBSITE_URL + '/#primaryImageOfPage',
+    '@type': 'ImageObject',
+    contentUrl:
+      import.meta.env.WEBSITE_URL +
+      '/og?badge=' +
+      encodeURIComponent(story.content.ogBadge) +
+      '&title=' +
+      encodeURIComponent(story.content.ogTitle),
+    url:
+      import.meta.env.WEBSITE_URL +
+      '/og?badge=' +
+      encodeURIComponent(story.content.ogBadge) +
+      '&title=' +
+      encodeURIComponent(story.content.ogTitle),
+    width: 1200,
+    height: 630,
+  },
+  inLanguage: 'fr',
+  isPartOf: { '@id': import.meta.env.WEBSITE_URL + '/#website' },
+  thumbnailUrl:
+    import.meta.env.WEBSITE_URL +
+    '/og?badge=' +
+    encodeURIComponent(story.content.ogBadge) +
+    '&title=' +
+    encodeURIComponent(story.content.ogTitle),
+  url: import.meta.env.WEBSITE_URL,
+});
+
+// const productJsonLd = JSON.stringify({
+//   '@context': 'https://schema.org/',
+//   '@type': 'CreativeWorkSeries',
+//   name: story.content.metaTitle,
+//   aggregateRating: {
+//     '@type': 'AggregateRating',
+//     ratingValue: '5',
+//     bestRating: '5',
+//     ratingCount: '29',
+//   },
+// });
 ---
 
-<script type="application/ld+json" set:html={jsonLd} />
+<script type="application/ld+json" set:html={organizationJsonLd} />
+<script type="application/ld+json" set:html={websiteJsonLd} />
+<script type="application/ld+json" set:html={webpageJsonLd} />
+<!-- <script type="application/ld+json" set:html={productJsonLd} /> -->

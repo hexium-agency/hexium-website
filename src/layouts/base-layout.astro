@@ -11,8 +11,8 @@ import type {
   BlogCategoryStoryblok,
   DefinitionStoryblok,
   GlobalStoryblok,
-  PageStoryblok,
   LandingStoryblok,
+  PageStoryblok,
   TechnologyStoryblok,
   WorkStoryblok,
 } from '@/types/storyblok';
@@ -52,10 +52,12 @@ const pathname = Astro.url.pathname;
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <meta
       name="robots"
-      content={story.content.component === 'landing' ? 'noindex, follow' : 'index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1'}
+      content={story.content.component === 'landing'
+        ? 'noindex, follow'
+        : 'index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1'}
     />
     <PageSeo story={story} />
-    {story.slug === 'home' && <HomeSchema />}
+    {story.slug === 'home' && <HomeSchema story={story} />}
     {
       (story.content.component === 'article' || story.content.component === 'definition') && (
         <ArticleSchema story={story} />

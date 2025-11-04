@@ -42,15 +42,7 @@ const jsonLd = JSON.stringify({
     '@id': import.meta.env.WEBSITE_URL + pathname,
   },
   publisher: {
-    '@type': 'Organization',
-    name: 'Hexium - Agence & Studio de Développement',
-    url: import.meta.env.WEBSITE_URL,
-    logo: {
-      '@type': 'ImageObject',
-      url: import.meta.env.WEBSITE_URL + '/images/logo-square-schema-organization.png',
-      width: 600,
-      height: 600,
-    },
+    '@id': import.meta.env.WEBSITE_URL + '/#organization',
   },
   ...(author && {
     author: {
