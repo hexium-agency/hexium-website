@@ -1,10 +1,8 @@
-import { sendEmail } from '@/utils/brevo';
-import { validate } from '@/utils/turnstile-validator';
+import { createClient } from '@supabase/supabase-js'
 import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-// Types
 export type Subject = 'project' | 'job' | 'collaboration' | 'other';
 
 type ContactFormData = {
@@ -15,41 +13,10 @@ type ContactFormData = {
   phone: string;
   company: string;
   message: string;
-  privacy: string;
+  nda: string;
   fileUrls: string[];
 };
 
-type EmailConfig = {
-  to: string;
-  subject: string;
-  templateId: number;
-};
-
-// Configuration
-const EMAIL_CONFIGS: Record<Subject, EmailConfig> = {
-  project: {
-    to: 'contact@hexium.io',
-    subject: '[PROJET]',
-    templateId: 7,
-  },
-  job: {
-    to: 'contact@hexium.io',
-    subject: '[EMPLOI]',
-    templateId: 9,
-  },
-  collaboration: {
-    to: 'contact@hexium.io',
-    subject: '[COLLAB]',
-    templateId: 10,
-  },
-  other: {
-    to: 'contact@hexium.io ',
-    subject: '[AUTRE]',
-    templateId: 11,
-  },
-};
-
-// Helper Functions
 function jsonResponse(success: boolean, message: string) {
   return new Response(JSON.stringify({ success, message }), {
     status: success ? 200 : 500,
@@ -66,7 +33,7 @@ function parseFormData(formData: FormData): ContactFormData {
     phone: (formData.get('phone') as string) || '',
     company: (formData.get('company') as string) || '',
     message: formData.get('message') as string,
-    privacy: formData.get('privacy') as string,
+    nda: formData.get('nda') as string,
     fileUrls: parseFileUrls(formData.get('fileUrls') as string),
   };
 }
@@ -90,67 +57,52 @@ function validateRequiredFields(data: ContactFormData): void {
   }
 }
 
-async function validateTurnstile(token: string, clientIp: string): Promise<void> {
-  const result = await validate(token, clientIp, 3);
-
-  if (!result.success) {
-    console.error('Turnstile validation failed:', result);
-    throw new Error('Échec de la vérification. Veuillez réessayer.');
-  }
-}
-
 function formatFileUrls(fileUrls: string[]): string {
   if (fileUrls.length === 0) return '';
 
   return fileUrls.map((url) => encodeURIComponent(url)).join('\n');
 }
 
-async function sendContactEmail(data: ContactFormData): Promise<void> {
-  const config = EMAIL_CONFIGS[data.subject];
-  const { firstname, lastname, email, phone, company, message, privacy, fileUrls } = data;
+async function insertContactInSupabase(formData: ContactFormData): Promise<void> {
+  const supabase = createClient('https://tkmxktdmzlbbjsdkjhqf.supabase.co', import.meta.env.SUPABASE_SERVICE_ROLE_KEY)
 
-  await sendEmail({
-    to: [{ email: config.to }],
-    templateId: config.templateId,
-    subject: config.subject,
-    replyTo: { email },
-    params: {
-      name: `${firstname} ${lastname}`,
-      company,
-      email,
-      phone,
-      message,
-      privacy: privacy === 'on' ? 'Accepté' : 'Refusé',
-      files: formatFileUrls(fileUrls),
-    },
-  });
+  const { data, error } = await supabase
+    .from('contacts')
+    .insert([
+      {
+        type: formData.subject,
+        lastname: formData.lastname,
+        firstname: formData.firstname,
+        email: formData.email,
+        company: formData.company,
+        phone: formData.phone,
+        message: formData.message,
+        path: '',
+        wants_nda: formData.nda === 'on' ? true : false,
+      }
+    ])
+
+  if (error) {
+    console.log('Error inserting contact in supabase:', { error, data });
+    throw error;
+  }
 }
 
-// Main Handler
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // 1. Parse form data
-    const formData = await request.formData();
-    const data = parseFormData(formData);
+    const rawData = await request.formData();
+    const parsedData = parseFormData(rawData);
 
-    // 2. Validate required fields
-    validateRequiredFields(data);
+    validateRequiredFields(parsedData);
 
-    // 3. Validate Turnstile captcha
-    const turnstileToken = formData.get('turnstileToken') as string;
-    const clientIp = request.headers.get('x-forwarded-for') || '';
-    await validateTurnstile(turnstileToken, clientIp);
+    await insertContactInSupabase(parsedData);
 
-    // 4. Send email
-    await sendContactEmail(data);
-
-    // 5. Return success
     return jsonResponse(true, 'Votre message a été envoyé avec succès.');
   } catch (error) {
-    console.error('Error processing form submission:', error);
+    console.error('Error on /api/contact :', error);
     return jsonResponse(
       false,
-      "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer plus tard."
+      "Une erreur est survenue lors de l'envoi du message."
     );
   }
 };

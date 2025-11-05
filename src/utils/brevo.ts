@@ -10,7 +10,6 @@ interface BrevoEmailOptions {
   to: EmailRecipient[];
   templateId: number;
   params?: Record<string, any>;
-  subject: string;
   replyTo: EmailRecipient;
 }
 
