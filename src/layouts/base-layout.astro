@@ -52,6 +52,20 @@ const pathname = Astro.url.pathname;
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon-192x192.png" type="image/png" sizes="192x192" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link
+      rel="preload"
+      href="/fonts/inter-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/jetbrains-mono-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <meta
       name="robots"
       content={story.content.component === 'landing'
