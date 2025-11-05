@@ -58,6 +58,8 @@ export const POST: APIRoute = async ({ request }) => {
       return jsonResponse(true, 'The email has not been sent because the subject type is not a project.');
     }
 
+    const formattedMessage = message.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
     await sendEmail({
       to: [{ email: 'anthony@hexium.io' }],
       templateId: getTemplateIdByType(type),
@@ -67,7 +69,7 @@ export const POST: APIRoute = async ({ request }) => {
         company,
         email,
         phone,
-        message,
+        message: formattedMessage,
         nda: wants_nda ? '✅' : '❌',
         files: formatFileUrls(fileUrls),
       },
