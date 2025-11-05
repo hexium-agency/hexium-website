@@ -149,6 +149,7 @@ const { light = false } = Astro.props;
     let uploadedFileUrls: string[] = [];
     let fileToUrlMap = new Map<string, string>(); // Maps file identifier to URL
     let fileUploadStatus = new Map<string, 'uploading' | 'success' | 'error'>(); // Track upload status
+    let fileUploadProgress = new Map<string, number>(); // Track upload progress percentage
 
     function toggleCompanyField() {
       if (!subjectSelect || !companyField) return;
@@ -219,6 +220,7 @@ const { light = false } = Astro.props;
       uploadedFileUrls = [];
       fileToUrlMap.clear();
       fileUploadStatus.clear();
+      fileUploadProgress.clear();
 
       if (fileInput) {
         // Trigger the custom reset event to clear selectedFiles array
@@ -249,43 +251,75 @@ const { light = false } = Astro.props;
     function updateUploadStatusInUI() {
       if (!fileList) return;
 
-      const statusElements = fileList.querySelectorAll('.upload-status');
       const fileNameElements = fileList.querySelectorAll('.file-name');
+      const iconContainers = fileList.querySelectorAll('.file-icon-container');
 
       fileNameElements.forEach((nameElement, index) => {
         const fileName = nameElement.textContent;
         if (!fileName) return;
 
-        // Find the file by name (we need a better way to match files)
-        const fileItems = fileList.querySelectorAll('.file-name');
-        for (let i = 0; i < fileItems.length; i++) {
-          if (fileItems[i].textContent === fileName && statusElements[i]) {
-            const statusElement = statusElements[i] as HTMLSpanElement;
+        // Find matching file status by checking all files with this name
+        let matchingStatus: 'uploading' | 'success' | 'error' | null = null;
+        let matchingFileId: string | null = null;
 
-            // Find matching file status by checking all files with this name
-            let matchingStatus: 'uploading' | 'success' | 'error' | null = null;
+        fileUploadStatus.forEach((status, fileId) => {
+          if (fileId.startsWith(fileName + '-')) {
+            matchingStatus = status;
+            matchingFileId = fileId;
+          }
+        });
 
-            fileUploadStatus.forEach((status, fileId) => {
-              if (fileId.startsWith(fileName + '-')) {
-                matchingStatus = status;
-              }
-            });
+        if (iconContainers[index]) {
+          const iconContainer = iconContainers[index] as HTMLElement;
 
-            if (matchingStatus === 'uploading') {
-              statusElement.innerHTML =
-                '<svg class="h-3 w-3 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
-              statusElement.className = 'upload-status text-xs text-gray-500';
-            } else if (matchingStatus === 'success') {
-              statusElement.textContent = '✓';
-              statusElement.className = 'upload-status text-xs text-green-500';
-            } else if (matchingStatus === 'error') {
-              statusElement.textContent = '✗';
-              statusElement.className = 'upload-status text-xs text-red-500';
+          if (matchingStatus === 'uploading' && matchingFileId) {
+            const progress = fileUploadProgress.get(matchingFileId) || 0;
+
+            // Check if spinner already exists - if so, just update the percentage
+            const existingProgressSpan = iconContainer.querySelector('.upload-progress-text');
+            if (existingProgressSpan) {
+              // Just update the text without replacing the spinner
+              existingProgressSpan.textContent = `${Math.round(progress)}`;
+            } else {
+              // Create new spinner with progress
+              iconContainer.innerHTML = `
+                <div class="relative size-7 shrink-0">
+                  <svg class="size-7 animate-spin text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span class="upload-progress-text absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-gray-700 leading-none">${Math.round(progress)}</span>
+                </div>
+              `;
             }
-            break;
+          } else if (matchingStatus === 'success') {
+            iconContainer.innerHTML = `
+              <svg class="size-7 shrink-0 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            `;
+          } else if (matchingStatus === 'error') {
+            iconContainer.innerHTML = `
+              <svg class="size-7 shrink-0 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            `;
+          } else {
+            // Default icon
+            iconContainer.innerHTML = `
+              <svg class="size-7 shrink-0 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+              </svg>
+            `;
           }
         }
       });
+    }
+
+    // Function to update upload progress
+    function updateUploadProgress(fileId: string, progress: number) {
+      fileUploadProgress.set(fileId, progress);
+      updateUploadStatusInUI();
     }
 
     // Function to upload a single file to S3
@@ -295,6 +329,7 @@ const { light = false } = Astro.props;
       try {
         // Set uploading status
         fileUploadStatus.set(fileId, 'uploading');
+        fileUploadProgress.set(fileId, 0);
         updateUploadStatusInUI();
 
         // Get presigned URL
@@ -316,21 +351,45 @@ const { light = false } = Astro.props;
         const { data } = await response.json();
         const { presignedUrl, fileUrl } = data;
 
-        // Upload file to S3
-        const uploadResponse = await fetch(presignedUrl, {
-          method: 'PUT',
-          body: file,
-          headers: {
-            'Content-Type': file.type,
-          },
-        });
+        // Upload file to S3 using XMLHttpRequest for progress tracking
+        await new Promise<void>((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
 
-        if (!uploadResponse.ok) {
-          throw new Error('Failed to upload file to S3');
-        }
+          // Track upload progress
+          xhr.upload.addEventListener('progress', (e) => {
+            if (e.lengthComputable) {
+              const progress = (e.loaded / e.total) * 100;
+              updateUploadProgress(fileId, progress);
+            }
+          });
+
+          // Handle completion
+          xhr.addEventListener('load', () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              resolve();
+            } else {
+              reject(new Error(`Upload failed with status ${xhr.status}`));
+            }
+          });
+
+          // Handle errors
+          xhr.addEventListener('error', () => {
+            reject(new Error('Network error during upload'));
+          });
+
+          xhr.addEventListener('abort', () => {
+            reject(new Error('Upload aborted'));
+          });
+
+          // Start upload
+          xhr.open('PUT', presignedUrl);
+          xhr.setRequestHeader('Content-Type', file.type);
+          xhr.send(file);
+        });
 
         // Set success status
         fileUploadStatus.set(fileId, 'success');
+        fileUploadProgress.set(fileId, 100);
         updateUploadStatusInUI();
 
         // Store the mapping and add to uploaded URLs
@@ -344,6 +403,7 @@ const { light = false } = Astro.props;
 
         // Set error status
         fileUploadStatus.set(fileId, 'error');
+        fileUploadProgress.delete(fileId);
         updateUploadStatusInUI();
 
         // Show danger alert on error
@@ -387,6 +447,9 @@ const { light = false } = Astro.props;
 
         // Remove upload status
         fileUploadStatus.delete(fileId);
+
+        // Remove upload progress
+        fileUploadProgress.delete(fileId);
 
         // Update hidden input
         updateFileUrlsInput();
