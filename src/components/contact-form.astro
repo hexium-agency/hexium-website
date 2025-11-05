@@ -10,10 +10,8 @@ import Select from '@/components/form/select.astro';
 import Textarea from '@/components/form/textarea.astro';
 
 const { light = false } = Astro.props;
-const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
 ---
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <form id="contactForm" method="POST" enctype="multipart/form-data">
   <div id="formAlertContainer" class="mb-4 hidden"></div>
 
@@ -85,17 +83,11 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
 
     {
       !light && (
-        <div class="mt-4" id="privacyField">
-          <Checkbox
-            id="privacy"
-            name="privacy"
-            label="Je souhaite recevoir un accord de confidentialité"
-          />
+        <div class="mt-4" id="ndaField">
+          <Checkbox id="nda" name="nda" label="Je souhaite recevoir un accord de confidentialité" />
         </div>
       )
     }
-
-    <div id="turnstile-widget" data-sitekey={turnstilePublicKey} class="hidden"></div>
   </fieldset>
 
   <div class="mt-4 flex items-center justify-between">
@@ -132,13 +124,11 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
 </template>
 
 <script>
-  import { InvisibleTurnstile } from '@/utils/turnstile-client';
-
   document.addEventListener('astro:page-load', () => {
     const subjectSelect = document.getElementById('subject') as HTMLSelectElement | null;
     const companyField = document.getElementById('companyField') as HTMLDivElement | null;
     const contactForm = document.getElementById('contactForm') as HTMLFormElement | null;
-    const privacyField = document.getElementById('privacyField') as HTMLDivElement | null;
+    const ndaField = document.getElementById('ndaField') as HTMLDivElement | null;
     const formAlertContainer = document.getElementById(
       'formAlertContainer'
     ) as HTMLDivElement | null;
@@ -160,24 +150,6 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
     let fileToUrlMap = new Map<string, string>(); // Maps file identifier to URL
     let fileUploadStatus = new Map<string, 'uploading' | 'success' | 'error'>(); // Track upload status
 
-    const turnstileWidget = document.getElementById('turnstile-widget');
-    let turnstile: InvisibleTurnstile | null = null;
-    let turnstileReady = false;
-
-    if (turnstileWidget) {
-      const turnstilePublicKey = turnstileWidget?.dataset.sitekey || '';
-      turnstile = new InvisibleTurnstile(turnstilePublicKey);
-
-      turnstile
-        .init()
-        .then(() => {
-          turnstileReady = true;
-        })
-        .catch((error) => {
-          console.error('Failed to initialize Turnstile:', error);
-        });
-    }
-
     function toggleCompanyField() {
       if (!subjectSelect || !companyField) return;
 
@@ -188,19 +160,19 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
       }
     }
 
-    function togglePrivacyField() {
-      if (!privacyField) return;
+    function toggleNdaField() {
+      if (!ndaField) return;
 
       if (subjectSelect?.value === 'project') {
-        privacyField.style.display = 'block';
+        ndaField.style.display = 'block';
       } else {
-        privacyField.style.display = 'none';
+        ndaField.style.display = 'none';
       }
     }
 
     function toggleSpecificFields() {
       toggleCompanyField();
-      togglePrivacyField();
+      toggleNdaField();
     }
 
     if (subjectSelect) {
@@ -471,15 +443,6 @@ const turnstilePublicKey = import.meta.env.TURNSTILE_PUBLIC_KEY;
         formAlertContainer.classList.add('hidden');
 
         try {
-          if (turnstileWidget && turnstile) {
-            if (!turnstileReady) {
-              await turnstile.init().catch(() => {});
-            }
-
-            const token = await turnstile.getToken();
-            formData.set('turnstileToken', token);
-          }
-
           // Files already uploaded
           formData.set('fileUrls', JSON.stringify(uploadedFileUrls));
           formData.delete('files');
