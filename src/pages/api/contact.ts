@@ -6,6 +6,7 @@ export const prerender = false;
 export type Subject = 'project' | 'job' | 'collaboration' | 'other';
 
 type ContactFormData = {
+  path: string;
   subject: Subject;
   firstname: string;
   lastname: string;
@@ -35,6 +36,7 @@ function parseFormData(formData: FormData): ContactFormData {
     message: formData.get('message') as string,
     nda: formData.get('nda') as string,
     fileUrls: parseFileUrls(formData.get('fileUrls') as string),
+    path: '' as string,
   };
 }
 
@@ -57,12 +59,6 @@ function validateRequiredFields(data: ContactFormData): void {
   }
 }
 
-function formatFileUrls(fileUrls: string[]): string {
-  if (fileUrls.length === 0) return '';
-
-  return fileUrls.map((url) => encodeURIComponent(url)).join('\n');
-}
-
 async function insertContactInSupabase(formData: ContactFormData): Promise<void> {
   const supabase = createClient('https://tkmxktdmzlbbjsdkjhqf.supabase.co', import.meta.env.SUPABASE_SERVICE_ROLE_KEY)
 
@@ -77,8 +73,9 @@ async function insertContactInSupabase(formData: ContactFormData): Promise<void>
         company: formData.company,
         phone: formData.phone,
         message: formData.message,
-        path: '',
+        path: formData.path,
         wants_nda: formData.nda === 'on' ? true : false,
+        files: formData.fileUrls,
       }
     ])
 
@@ -90,8 +87,13 @@ async function insertContactInSupabase(formData: ContactFormData): Promise<void>
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    const referer = request.headers.get('referer') || '';
+    const refererPath = referer ? new URL(referer).pathname : '';
+
     const rawData = await request.formData();
     const parsedData = parseFormData(rawData);
+
+    parsedData.path = refererPath;
 
     validateRequiredFields(parsedData);
 

@@ -51,7 +51,7 @@ export const POST: APIRoute = async ({ request }) => {
       throw new Error('An error occurred while fetching the contact  with id "' + contactId + '" from Supabase.');
     }
 
-    const { type, firstname, lastname, email, phone, company, message, wants_nda, fileUrls } = data;
+    const { type, firstname, lastname, email, phone, company, message, wants_nda, files } = data;
 
     // Only send email for project submissions
     if (type != 'project') {
@@ -59,6 +59,14 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const formattedMessage = message.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
+    const formattedFiles = files && files.length > 0
+      ? files.map((url: string) => {
+          const lastPart = url.split('/').pop() || '';
+          const filename = lastPart.split('-').slice(1).join('-') || lastPart;
+          return `<a href="${url}">${filename}</a>`;
+        }).join('<br>')
+      : '';
 
     await sendEmail({
       to: [{ email: 'anthony@hexium.io' }],
@@ -71,7 +79,7 @@ export const POST: APIRoute = async ({ request }) => {
         phone,
         message: formattedMessage,
         nda: wants_nda ? '✅' : '❌',
-        files: formatFileUrls(fileUrls),
+        files: formattedFiles,
       },
     });
 
