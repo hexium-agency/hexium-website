@@ -354,11 +354,28 @@ const { light = false } = Astro.props;
     }
 
     // Function to handle file deletion
-    function handleFileDeleted(file: File) {
+    async function handleFileDeleted(file: File) {
       const fileId = getFileIdentifier(file);
       const fileUrl = fileToUrlMap.get(fileId);
 
       if (fileUrl) {
+        // Delete file from S3
+        try {
+          const response = await fetch('/api/delete-file', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fileUrl }),
+          });
+
+          if (!response.ok) {
+            console.error('Failed to delete file from S3');
+          }
+        } catch (error) {
+          console.error('Error deleting file from S3:', error);
+        }
+
         // Remove from uploaded URLs array
         const urlIndex = uploadedFileUrls.indexOf(fileUrl);
         if (urlIndex > -1) {

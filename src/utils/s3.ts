@@ -1,4 +1,9 @@
-import { ObjectCannedACL, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  DeleteObjectCommand,
+  ObjectCannedACL,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 const AWS_REGION = import.meta.env.AWS_REGION;
@@ -62,6 +67,7 @@ export async function generatePresignedUrl(
   fileType: string
 ): Promise<{ presignedUrl: string; fileUrl: string }> {
   if (!AWS_REGION || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY || !S3_BUCKET_NAME) {
+    console.log(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, S3_BUCKET_NAME);
     throw new Error('Missing required AWS environment variables.');
   }
 
@@ -95,4 +101,43 @@ export async function uploadMultipleFilesToS3(files: File[]): Promise<string[]> 
 
   const uploadPromises = files.map((file) => uploadFileToS3(file));
   return Promise.all(uploadPromises);
+}
+
+/**
+ * Extract S3 key from a file URL
+ * @param fileUrl The full S3 file URL
+ * @returns The S3 object key
+ */
+function extractS3Key(fileUrl: string): string | null {
+  try {
+    const url = new URL(fileUrl);
+    // Remove leading slash from pathname
+    return url.pathname.substring(1);
+  } catch (error) {
+    console.error('Error extracting S3 key from URL:', error);
+    return null;
+  }
+}
+
+/**
+ * Delete a file from S3
+ * @param fileUrl The full S3 file URL
+ * @returns Promise that resolves when the file is deleted
+ */
+export async function deleteFileFromS3(fileUrl: string): Promise<void> {
+  if (!AWS_REGION || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY || !S3_BUCKET_NAME) {
+    throw new Error('Missing required AWS environment variables.');
+  }
+
+  const key = extractS3Key(fileUrl);
+  if (!key) {
+    throw new Error('Invalid file URL: could not extract S3 key');
+  }
+
+  const command = new DeleteObjectCommand({
+    Bucket: S3_BUCKET_NAME,
+    Key: key,
+  });
+
+  await s3Client.send(command);
 }
