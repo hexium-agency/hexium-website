@@ -233,6 +233,9 @@ const { light = false } = Astro.props;
       if (fileUrlsInput) {
         fileUrlsInput.value = '';
       }
+
+      // Re-enable submit button after reset
+      updateSubmitButtonState();
     }
 
     // Function to create a unique identifier for a file
@@ -307,8 +310,8 @@ const { light = false } = Astro.props;
           } else {
             // Default icon
             iconContainer.innerHTML = `
-              <svg class="size-7 shrink-0 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+              <svg class="size-7 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               </svg>
             `;
           }
@@ -322,6 +325,27 @@ const { light = false } = Astro.props;
       updateUploadStatusInUI();
     }
 
+    // Function to check if any files are uploading and update submit button state
+    function updateSubmitButtonState() {
+      if (!submitButton) return;
+
+      // Check if any file is currently uploading
+      const hasUploadingFiles = Array.from(fileUploadStatus.values()).some(
+        (status) => status === 'uploading'
+      );
+
+      // Disable submit button if any files are uploading
+      submitButton.disabled = hasUploadingFiles;
+
+      if (hasUploadingFiles) {
+        submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+        submitButton.classList.remove('cursor-pointer');
+      } else {
+        submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+        submitButton.classList.add('cursor-pointer');
+      }
+    }
+
     // Function to upload a single file to S3
     async function uploadFileToS3(file: File, index: number): Promise<string> {
       const fileId = getFileIdentifier(file);
@@ -331,6 +355,7 @@ const { light = false } = Astro.props;
         fileUploadStatus.set(fileId, 'uploading');
         fileUploadProgress.set(fileId, 0);
         updateUploadStatusInUI();
+        updateSubmitButtonState();
 
         // Get presigned URL
         const response = await fetch('/api/upload-url', {
@@ -391,6 +416,7 @@ const { light = false } = Astro.props;
         fileUploadStatus.set(fileId, 'success');
         fileUploadProgress.set(fileId, 100);
         updateUploadStatusInUI();
+        updateSubmitButtonState();
 
         // Store the mapping and add to uploaded URLs
         fileToUrlMap.set(fileId, fileUrl);
@@ -405,6 +431,7 @@ const { light = false } = Astro.props;
         fileUploadStatus.set(fileId, 'error');
         fileUploadProgress.delete(fileId);
         updateUploadStatusInUI();
+        updateSubmitButtonState();
 
         // Show danger alert on error
         showAlert('danger');
@@ -453,6 +480,9 @@ const { light = false } = Astro.props;
 
         // Update hidden input
         updateFileUrlsInput();
+
+        // Update submit button state in case uploads were in progress
+        updateSubmitButtonState();
       }
     }
 
