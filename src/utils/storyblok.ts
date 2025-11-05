@@ -99,7 +99,7 @@ export function parseStoryblokBackgroundColorToTailwind(backgroundColor: number 
   }
 }
 
-export function parseStoryblokImage(image: AssetStoryblok) {
+export function parseStoryblokImage(image: AssetStoryblok, widths?: number[]) {
   const dimensions = image.filename?.match(/\/(\d+)x(\d+)\//);
 
   return {
@@ -107,7 +107,7 @@ export function parseStoryblokImage(image: AssetStoryblok) {
     alt: image.alt as string,
     width: parseInt(dimensions![1]),
     height: parseInt(dimensions![2]),
-    widths: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    widths: widths || [640, 750, 828, 1080, 1200, 1920],
   };
 }
 
