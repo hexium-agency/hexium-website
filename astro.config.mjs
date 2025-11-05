@@ -38,6 +38,7 @@ export default defineConfig({
         article: 'components/storyblok/pages/article',
         'blog-category': 'components/storyblok/pages/blog-category',
         definition: 'components/storyblok/pages/definition',
+        landing: 'components/storyblok/pages/landing',
         page: 'components/storyblok/pages/page',
         technology: 'components/storyblok/pages/technology',
         'technology-category': 'components/storyblok/pages/technology-category',
@@ -90,8 +91,7 @@ export default defineConfig({
         // content
         'badge-title': 'components/storyblok/content/badge-title',
         'content-call-to-action': 'components/storyblok/content/content-call-to-action',
-        'content-featured-testimonials':
-          'components/storyblok/content/content-featured-testimonials',
+        'content-featured-testimonials': 'components/storyblok/content/content-featured-testimonials',
       },
       apiOptions: {
         region: 'eu',
