@@ -107,7 +107,7 @@ export function parseStoryblokImage(image: AssetStoryblok, widths?: number[]) {
     alt: image.alt as string,
     width: parseInt(dimensions![1]),
     height: parseInt(dimensions![2]),
-    widths: widths || [640, 750, 828, 1080, 1200, 1920],
+    widths: widths || [320, 640, 750, 828, 1080, 1200, 1920],
   };
 }
 
