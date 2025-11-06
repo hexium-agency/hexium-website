@@ -64,8 +64,6 @@ const technologiesColors = technologies.map((technology) =>
   }
 </div>
 <script>
-  import { DotsHoverBlock } from '@/lib/dots/dots-hover-block';
-
   document.addEventListener('astro:page-load', () => {
     const containers = document.querySelectorAll('.featured-technologies');
 
@@ -74,10 +72,6 @@ const technologiesColors = technologies.map((technology) =>
       let maxZ = links.length;
 
       links.forEach((link) => {
-        const color = link.getAttribute('data-color') || '#FFFFFF';
-        const colorArray = color.split(',').map(Number);
-        new DotsHoverBlock(link, [colorArray]);
-
         link.addEventListener('mouseenter', () => {
           maxZ += 1;
 
@@ -92,6 +86,23 @@ const technologiesColors = technologies.map((technology) =>
           link.style.zIndex = '0';
         });
       });
+
+      // Lazy load dots during idle time
+      const initDots = async () => {
+        const { DotsHoverBlock } = await import('@/lib/dots/dots-hover-block');
+
+        links.forEach((link) => {
+          const color = link.getAttribute('data-color') || '#FFFFFF';
+          const colorArray = color.split(',').map(Number);
+          new DotsHoverBlock(link, [colorArray]);
+        });
+      };
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => initDots());
+      } else {
+        setTimeout(() => initDots(), 200);
+      }
     });
   });
 </script>
