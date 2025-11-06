@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import { loadEnv } from 'vite';
 
 import { storyblok } from '@storyblok/astro';
@@ -16,6 +16,37 @@ const env = loadEnv('', process.cwd(), 'STORYBLOK');
 export default defineConfig({
   adapter: vercel(),
   output: 'server',
+  experimental: {
+    fonts: [
+      {
+        provider: 'local',
+        name: 'Inter',
+        cssVariable: '--font-inter-variable',
+        variants: [
+          {
+            src: ['./public/fonts/inter-variable.woff2'],
+            weight: '100 900',
+            style: 'normal',
+            display: 'swap',
+          },
+        ],
+        fallbacks: ['ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol', 'Noto Color Emoji'],
+
+      },
+      {
+        provider: fontProviders.google(),
+        name: 'JetBrains Mono',
+        cssVariable: '--font-jetbrains-mono-variable',
+        display: 'swap',
+        weights: ['100 800'],
+        subsets: ['latin'],
+        styles: ['normal'],
+        fallbacks: ['ui-monospace', 'monospace', 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Symbol', 'Noto Color Emoji'],
+      },
+    ],
+  },
   trailingSlash: 'never',
   image: {
     domains: ['a.storyblok.com'],

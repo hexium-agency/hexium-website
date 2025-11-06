@@ -6,35 +6,12 @@
 @plugin 'tailwindcss-animate';
 @config '../../tailwind.config.js';
 
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url('/fonts/inter-variable.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url('/fonts/jetbrains-mono-variable.woff2') format('woff2');
-}
-
 @theme {
-  --font-heading:
-    'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-heading--font-variation-settings: 'opsz' 32;
-  --font-mono:
-    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
-  --font-sans:
-    'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans: var(--font-inter-variable);
+  --font-mono: var(--font-jetbrains-mono-variable);
+  --font-heading: var(--font-inter-variable);
   --font-sans--font-variation-settings: 'opsz' 14;
-
+  --font-heading--font-variation-settings: 'opsz' 32;
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1.25rem;
 
