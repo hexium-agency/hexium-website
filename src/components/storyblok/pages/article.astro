@@ -18,7 +18,6 @@ interface AstroProps {
 const { blok, story } = Astro.props as AstroProps;
 
 const headings = extractHeadingsFromRichText(blok.content);
-console.log(story);
 ---
 
 <article {...storyblokEditable(blok)} class="container">
