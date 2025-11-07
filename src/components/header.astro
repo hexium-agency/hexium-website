@@ -32,11 +32,13 @@ const { navbar } = Astro.props as AstroProps;
           data-cal-link="anthony-hexium/etude-de-projet"
           data-cal-namespace="etude-de-projet"
           data-cal-config='{"layout":"month_view"}'
-          class="group before:transtion-opacity relative isolate hidden cursor-pointer items-center justify-center rounded-md bg-gray-900 px-3 py-1 text-left text-sm font-medium text-white shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] ring-1 ring-gray-900 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay hover:before:opacity-100 lg:inline-flex"
+          class="group before:transtion-opacity relative isolate hidden cursor-pointer items-center justify-center rounded-lg bg-gray-900 px-3 py-1 text-left text-sm font-medium text-white shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] ring-1 ring-gray-900 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:from-white/20 before:opacity-50 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:from-white/10 after:from-[46%] after:to-[54%] after:mix-blend-overlay hover:before:opacity-100 lg:inline-flex"
         >
           Planifier un appel
         </button>
-        <Button color="blueFull" isLink link="/contact" isArrowShowed={false}>Contact</Button>
+        <Button color="blueFull" isLink link="/contact" isArrowShowed={false} isSmall>
+          Contact
+        </Button>
         <button
           class="ml-1 p-1.5 lg:hidden"
           data-target="#menu"
