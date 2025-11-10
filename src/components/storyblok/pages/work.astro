@@ -25,7 +25,6 @@ const technologies = (story.content.technologies || []) as ISbStoryData<Technolo
 const services = (story.content.services || []) as unknown as ISbStoryData<PageStoryblok>[];
 
 const headings = extractBadgeTitleFromRichText(blok.content as RichtextStoryblok);
-
 ---
 
 <div>
@@ -46,7 +45,7 @@ const headings = extractBadgeTitleFromRichText(blok.content as RichtextStoryblok
         {story.name}
       </h1>
       <h2
-        class="mx-auto max-w-4xl text-center text-4xl font-semibold tracking-tighter text-balance text-white sm:text-5xl lg:text-6xl"
+        class="mx-auto max-w-4xl text-center text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl lg:text-6xl"
       >
         {story.content.project}
       </h2>
