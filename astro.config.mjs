@@ -19,27 +19,22 @@ export default defineConfig({
   experimental: {
     fonts: [
       {
-        provider: 'local',
-        name: 'Inter',
-        cssVariable: '--font-inter-variable',
-        variants: [
-          {
-            src: ['./public/fonts/inter-variable.woff2'],
-            weight: '100 900',
-            style: 'normal',
-            display: 'swap',
-          },
-        ],
+        provider: fontProviders.google(),
+        name: 'Manrope',
+        cssVariable: '--font-manrope-variable',
+        display: 'swap',
+        weights: ['100 900'],
+        subsets: ['latin'],
+        styles: ['normal'],
         fallbacks: ['ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji',
           'Segoe UI Symbol', 'Noto Color Emoji'],
-
       },
       {
         provider: fontProviders.google(),
         name: 'JetBrains Mono',
         cssVariable: '--font-jetbrains-mono-variable',
         display: 'swap',
-        weights: ['100 800'],
+        weights: ['200 800'],
         subsets: ['latin'],
         styles: ['normal'],
         fallbacks: ['ui-monospace', 'monospace', 'Apple Color Emoji', 'Segoe UI Emoji',
