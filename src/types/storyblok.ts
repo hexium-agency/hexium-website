@@ -522,6 +522,7 @@ export interface HeroVerticalStoryblok {
   text?: string;
   buttons?: ButtonStoryblok[];
   background: "" | "white" | "gray" | "black";
+  bottomItems?: (AgencyNoteStoryblok | MarqueeLogosStoryblok | SpacerStoryblok)[];
   component: "heroVertical";
   _uid: string;
   [k: string]: any;
