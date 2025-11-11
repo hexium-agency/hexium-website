@@ -7,9 +7,11 @@
 @config '../../tailwind.config.js';
 
 @theme {
-  --font-sans: var(--font-manrope-variable);
+  --font-sans: var(--font-suisse);
   --font-mono: var(--font-jetbrains-mono-variable);
-  --font-heading: var(--font-manrope-variable);
+  --font-heading: var(--font-suisse);
+
+  --font-weight-book: 450;
 
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1.25rem;
