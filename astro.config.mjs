@@ -19,22 +19,52 @@ export default defineConfig({
   experimental: {
     fonts: [
       {
-        provider: fontProviders.google(),
-        name: 'Manrope',
-        cssVariable: '--font-manrope-variable',
-        display: 'swap',
-        weights: ['100 900'],
-        subsets: ['latin'],
-        styles: ['normal'],
+        provider: 'local',
+        name: 'Suisse',
+        cssVariable: '--font-suisse',
+        variants: [
+          {
+            src: ['./public/fonts/suisse-normal.woff2'],
+            weight: '400',
+            style: 'normal',
+            display: 'swap',
+          },
+          {
+            src: ['./public/fonts/suisse-book.woff2'],
+            weight: '450',
+            style: 'normal',
+            display: 'swap',
+          },
+          {
+            src: ['./public/fonts/suisse-medium.woff2'],
+            weight: '500',
+            style: 'normal',
+            display: 'swap',
+          },
+          {
+            src: ['./public/fonts/suisse-semibold.woff2'],
+            weight: '600',
+            style: 'normal',
+            display: 'swap',
+          },
+          {
+            src: ['./public/fonts/suisse-bold.woff2'],
+            weight: '700',
+            style: 'normal',
+            display: 'swap',
+          },
+        ],
         fallbacks: ['ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji',
           'Segoe UI Symbol', 'Noto Color Emoji'],
+
       },
+
       {
         provider: fontProviders.google(),
         name: 'JetBrains Mono',
         cssVariable: '--font-jetbrains-mono-variable',
         display: 'swap',
-        weights: ['200 800'],
+        weights: ['100 800'],
         subsets: ['latin'],
         styles: ['normal'],
         fallbacks: ['ui-monospace', 'monospace', 'Apple Color Emoji', 'Segoe UI Emoji',
@@ -76,6 +106,7 @@ export default defineConfig({
         'contact-home': 'components/storyblok/sections/contact-home',
         'definition-home': 'components/storyblok/sections/definition-home',
         'hero-home': 'components/storyblok/sections/hero-home',
+        'hero-vertical-landing': 'components/storyblok/sections/hero-vertical-landing',
         'hero-horizontal': 'components/storyblok/sections/hero-horizontal',
         'hero-vertical': 'components/storyblok/sections/hero-vertical',
         section: 'components/storyblok/sections/section',
