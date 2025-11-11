@@ -2336,7 +2336,7 @@
       "display_name": "GRILLE",
       "description": null,
       "created_at": "2024-12-13T14:47:37.052Z",
-      "updated_at": "2025-04-18T09:13:44.162Z",
+      "updated_at": "2025-11-11T11:39:32.129Z",
       "id": 6687188,
       "schema": {
         "tab-fe6a1b9e-7164-4e3a-b621-5bef269e4cf6": {
@@ -2449,7 +2449,8 @@
             "cardIconTitleTextFull",
             "cardIconTitleTextLight",
             "cardIconTitleTextNormal",
-            "cardImageTitleText"
+            "cardImageTitleText",
+            "accordionGroup"
           ],
           "minimum": 1,
           "required": true,
@@ -2802,7 +2803,7 @@
       "display_name": "HERO - HORIZONTAL",
       "description": "",
       "created_at": "2025-03-05T14:32:38.496Z",
-      "updated_at": "2025-06-02T13:31:59.962Z",
+      "updated_at": "2025-11-10T12:32:43.596Z",
       "id": 7046807,
       "schema": {
         "backgroundColor": {
@@ -2853,7 +2854,8 @@
           "display_name": "Config",
           "keys": [
             "effects",
-            "backgroundColor"
+            "backgroundColor",
+            "isLanding"
           ],
           "pos": 3,
           "type": "tab",
@@ -2921,6 +2923,13 @@
             "heroAsideTechnologyLogo"
           ],
           "id": "ChWxQiV7S2Suh_VlIyT8UA"
+        },
+        "isLanding": {
+          "type": "boolean",
+          "pos": 10,
+          "display_name": "IS LANDING",
+          "description": "Ajoute plus de padding-top pour laisser la place à la navbar",
+          "id": "IMLeuyfkQfmVHDMr487HWg"
         }
       },
       "image": null,
@@ -2952,7 +2961,7 @@
       "display_name": "HERO - VERTICAL",
       "description": "",
       "created_at": "2025-03-05T14:31:23.679Z",
-      "updated_at": "2025-11-10T09:45:55.712Z",
+      "updated_at": "2025-11-10T12:33:07.432Z",
       "id": 7046805,
       "schema": {
         "badge": {
@@ -2966,7 +2975,8 @@
         "tab-c3e0a00d-8e8d-45fc-9efc-829e25231da3": {
           "display_name": "Config",
           "keys": [
-            "background"
+            "background",
+            "isLanding"
           ],
           "pos": 0,
           "type": "tab",
@@ -3004,7 +3014,8 @@
           "restrict_type": "",
           "restrict_components": true,
           "component_whitelist": [
-            "button"
+            "button",
+            "buttonMeeting"
           ],
           "id": "Stp_DszhTnG70QL1bJjnsg"
         },
@@ -3046,6 +3057,13 @@
             "spacer"
           ],
           "id": "rx7gZ7m_Tzyr553uCk3rjg"
+        },
+        "isLanding": {
+          "type": "boolean",
+          "pos": 8,
+          "display_name": "IS LANDING",
+          "description": "Ajoute plus de padding-top pour laisser la place à la navbar",
+          "id": "joS88X_nRNOOYNDHKMro8Q"
         }
       },
       "image": null,
@@ -3056,6 +3074,140 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "HERO - VERTICAL",
+      "component_group_uuid": "93a7a4d7-21bc-4948-85aa-4e23e114a336",
+      "color": "#05807f",
+      "icon": "block-resize-fc",
+      "internal_tags_list": [
+        {
+          "id": 60282,
+          "name": "hero"
+        }
+      ],
+      "internal_tag_ids": [
+        "60282"
+      ],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "HERO"
+    },
+    {
+      "name": "heroVerticalLanding",
+      "display_name": "HERO - VERTICAL - LANDING",
+      "description": "",
+      "created_at": "2025-11-11T13:04:25.893Z",
+      "updated_at": "2025-11-11T13:06:56.845Z",
+      "id": 111315623511435,
+      "schema": {
+        "badge": {
+          "type": "text",
+          "pos": 0,
+          "required": false,
+          "display_name": "BADGE",
+          "description": "H1",
+          "id": "L9OiWXkXSXW-n5EW76mnOA"
+        },
+        "tab-c3e0a00d-8e8d-45fc-9efc-829e25231da3": {
+          "display_name": "Config",
+          "keys": [
+            "background",
+            "isLanding"
+          ],
+          "pos": 0,
+          "type": "tab",
+          "id": "w-CgDY6NRfye_IKeJSMdow"
+        },
+        "tab-42b6dffd-0e66-4900-a7c9-e9eb3b6dc332": {
+          "display_name": "Bas",
+          "keys": [
+            "bottomItems"
+          ],
+          "pos": 0,
+          "type": "tab",
+          "id": "Qrbf_Q5mSQCnyenrO23DMg"
+        },
+        "title": {
+          "type": "text",
+          "pos": 1,
+          "id": "0wkJBiBVT8WAHst7vRHqMA",
+          "display_name": "TITRE",
+          "required": true,
+          "description": "H1 si pas de badge renseigné - H2 si badge renseigné"
+        },
+        "text": {
+          "type": "textarea",
+          "pos": 2,
+          "id": "eEijSNhCTyCgcmokfhjN1w",
+          "required": false,
+          "display_name": "TEXTE"
+        },
+        "buttons": {
+          "type": "bloks",
+          "pos": 3,
+          "maximum": 2,
+          "display_name": "BOUTONS",
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "button",
+            "buttonMeeting"
+          ],
+          "id": "Stp_DszhTnG70QL1bJjnsg"
+        },
+        "background": {
+          "type": "option",
+          "pos": 5,
+          "use_uuid": true,
+          "display_name": "COULEUR DE FOND",
+          "required": true,
+          "options": [
+            {
+              "_uid": "9a4f1fda-2b02-49d0-81ad-960a855335da",
+              "value": "white",
+              "name": "BLANC"
+            },
+            {
+              "_uid": "2848bee5-622c-4e23-b8b0-4881b612c8c3",
+              "name": "GRIS",
+              "value": "gray"
+            },
+            {
+              "_uid": "c28db444-a644-4af6-b99b-638907b34b58",
+              "value": "black",
+              "name": "NOIR"
+            }
+          ],
+          "id": "pNNly8bYSA-WZ4KtBDumWQ",
+          "default_value": "white"
+        },
+        "bottomItems": {
+          "type": "bloks",
+          "pos": 7,
+          "display_name": "ITEMS - BAS",
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "agencyNote",
+            "marqueeLogos",
+            "spacer"
+          ],
+          "id": "rx7gZ7m_Tzyr553uCk3rjg"
+        },
+        "isLanding": {
+          "type": "boolean",
+          "pos": 8,
+          "display_name": "IS LANDING",
+          "description": "Ajoute plus de padding-top pour laisser la place à la navbar",
+          "id": "joS88X_nRNOOYNDHKMro8Q"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "HERO - VERTICAL - LANDING",
       "component_group_uuid": "93a7a4d7-21bc-4948-85aa-4e23e114a336",
       "color": "#05807f",
       "icon": "block-resize-fc",

@@ -86,6 +86,7 @@ export interface BlogCategoryStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HeroVerticalLandingStoryblok
     | BlogHomeStoryblok
     | CallToActionStoryblok
     | ContactHomeStoryblok
@@ -449,6 +450,7 @@ export interface GridStoryblok {
     | CardIconTitleTextLightStoryblok
     | CardIconTitleTextNormalStoryblok
     | CardImageTitleTextStoryblok
+    | AccordionGroupStoryblok
   )[];
   spaceX: number | string;
   spaceXSm?: number | string;
@@ -511,6 +513,7 @@ export interface HeroHorizontalStoryblok {
   buttons?: (ButtonStoryblok | ButtonMeetingStoryblok)[];
   bottomItems?: (SpacerStoryblok | MarqueeLogosStoryblok | AgencyNoteStoryblok)[];
   aside?: HeroAsideTechnologyLogoStoryblok[];
+  isLanding?: boolean;
   component: "heroHorizontal";
   _uid: string;
   [k: string]: any;
@@ -520,10 +523,24 @@ export interface HeroVerticalStoryblok {
   badge?: string;
   title: string;
   text?: string;
-  buttons?: ButtonStoryblok[];
+  buttons?: (ButtonStoryblok | ButtonMeetingStoryblok)[];
   background: "" | "white" | "gray" | "black";
   bottomItems?: (AgencyNoteStoryblok | MarqueeLogosStoryblok | SpacerStoryblok)[];
+  isLanding?: boolean;
   component: "heroVertical";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface HeroVerticalLandingStoryblok {
+  badge?: string;
+  title: string;
+  text?: string;
+  buttons?: (ButtonStoryblok | ButtonMeetingStoryblok)[];
+  background: "" | "white" | "gray" | "black";
+  bottomItems?: (AgencyNoteStoryblok | MarqueeLogosStoryblok | SpacerStoryblok)[];
+  isLanding?: boolean;
+  component: "heroVerticalLanding";
   _uid: string;
   [k: string]: any;
 }
@@ -547,6 +564,7 @@ export interface LandingStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HeroVerticalLandingStoryblok
     | BlogHomeStoryblok
     | CallToActionStoryblok
     | ContactHomeStoryblok
@@ -624,6 +642,7 @@ export interface PageStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HeroVerticalLandingStoryblok
     | BlogHomeStoryblok
     | CallToActionStoryblok
     | ContactHomeStoryblok
@@ -776,6 +795,7 @@ export interface TechnologyStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HeroVerticalLandingStoryblok
     | BlogHomeStoryblok
     | CallToActionStoryblok
     | ContactHomeStoryblok
@@ -817,6 +837,7 @@ export interface TechnologyCategoryStoryblok {
     | HeroHomeStoryblok
     | HeroHorizontalStoryblok
     | HeroVerticalStoryblok
+    | HeroVerticalLandingStoryblok
     | BlogHomeStoryblok
     | CallToActionStoryblok
     | ContactHomeStoryblok
