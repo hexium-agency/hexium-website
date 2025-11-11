@@ -1,5 +1,86 @@
 ---
+import Button from '@/components/button.astro';
+import Logo from '@/images/logo-navbar.png';
+import LogoText from '@/images/logo-text-black.png';
+import type { GlobalStoryblok } from '@/types/storyblok';
+import { Image } from 'astro:assets';
 
+interface AstroProps {
+  navbar: GlobalStoryblok['navbar'];
+}
+
+const { navbar } = Astro.props as AstroProps;
 ---
 
-aaa
+<>
+  <header class="absolute top-0 right-0 left-0 z-50 w-full py-4 md:py-6">
+    <div class="container flex flex-row-reverse items-center justify-center md:justify-between">
+      <div class="flex items-center gap-2">
+        <Button color="blueFull" isLink link="/contact" className="hidden md:inline-flex">
+          Parler à un expert
+        </Button>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <a class="group flex items-center gap-x-2 md:gap-x-3" href="/">
+          <Image
+            priority={true}
+            loading="eager"
+            src={Logo}
+            alt="Logo de Hexium"
+            sizes="10vw"
+            class="h-8 w-auto transition group-hover:opacity-90 md:h-10"
+          />
+          <Image
+            priority={true}
+            loading="eager"
+            src={LogoText}
+            alt="Logo de Hexium"
+            sizes="10vw"
+            class="h-3 w-auto opacity-80 md:h-4"
+          />
+        </a>
+      </div>
+    </div>
+  </header>
+</>
+
+<script type="text/javascript">
+  document.addEventListener('astro:page-load', () => {
+    (function (C, A, L) {
+      let p = function (a, ar) {
+        a.q.push(ar);
+      };
+      let d = C.document;
+      C.Cal =
+        C.Cal ||
+        function () {
+          let cal = C.Cal;
+          let ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement('script')).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api = function () {
+              p(api, arguments);
+            };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === 'string') {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ['initNamespace', namespace]);
+            } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+    Cal('init', 'etude-de-projet', { origin: 'https://cal.com' });
+
+    Cal.ns['etude-de-projet']('ui', { hideEventTypeDetails: true, layout: 'month_view' });
+  });
+</script>

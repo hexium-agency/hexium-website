@@ -1,5 +1,29 @@
 ---
+import HexiumLogo from '@/icons/logo-hexium-full.svg';
+import storyblokService from '@/services/storyblok';
+import type { GlobalStoryblok } from '@/types/storyblok';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 
+const styles = {
+  border: 'h-[1px] bg-gradient-to-r from-transparent via-gray-600/50 to-transparent',
+};
+
+const global = await storyblokService.getStory<GlobalStoryblok>('global');
+
+const { footerAgencies, footerColumns, footerLinks } = global.story.content;
 ---
 
-aaa
+<footer class="relative overflow-hidden bg-gray-950 text-sm">
+  <div class="container pt-20">
+    <div class="grid grid-cols-1 gap-x-2 gap-y-10 pb-8 sm:grid-cols-2 lg:grid-cols-4">
+      {footerAgencies.map((footerAgency) => <StoryblokComponent blok={footerAgency} />)}
+    </div>
+    <div class:list={styles.border}></div>
+    <div class="relative flex flex-col justify-between pt-6 pb-20 md:flex-row">
+      <HexiumLogo class="mb-10 h-6 w-auto text-gray-100 md:mb-0" />
+      <div class="relative flex flex-col items-center justify-center gap-x-4 gap-y-2 md:flex-row">
+        {footerLinks.map((footerLink) => <StoryblokComponent blok={footerLink} />)}
+      </div>
+    </div>
+  </div>
+</footer>
