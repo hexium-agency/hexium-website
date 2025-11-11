@@ -1000,7 +1000,7 @@
       "display_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL",
       "description": "",
       "created_at": "2025-03-25T15:07:52.887Z",
-      "updated_at": "2025-04-02T08:46:25.073Z",
+      "updated_at": "2025-11-11T14:50:00.367Z",
       "id": 7128313,
       "schema": {
         "icon": {
@@ -1044,6 +1044,99 @@
           "pos": 3,
           "display_name": "LIEN",
           "id": "ustSesQ4SempRD3kPMCO3Q"
+        },
+        "isInline": {
+          "type": "boolean",
+          "pos": 4,
+          "display_name": "TITRE + TEXTE SUR LA MÊME LIGNE ?",
+          "id": "uf8iPa_sQj6qexwadlU6ow"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL",
+      "component_group_uuid": "all",
+      "color": "var(--sb-color-accent-background-gainsboro)",
+      "icon": "",
+      "internal_tags_list": [],
+      "internal_tag_ids": [],
+      "content_type_asset_preview": null,
+      "metadata": null,
+      "component_group_name": ""
+    },
+    {
+      "name": "cardIconTitleTextFullNew",
+      "display_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL",
+      "description": "",
+      "created_at": "2025-11-11T14:48:35.704Z",
+      "updated_at": "2025-11-11T14:48:55.991Z",
+      "id": 111341222730060,
+      "schema": {
+        "icon": {
+          "type": "asset",
+          "pos": 0,
+          "display_name": "ICÔNE",
+          "required": true,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 681165,
+          "description": "Uniquement un SVG qui devra être normalisé avant",
+          "id": "tKMGIQNzTtS0gt9AdveLUQ"
+        },
+        "title": {
+          "type": "text",
+          "pos": 1,
+          "id": "lOVDahm7SxmWYscV9U62YA",
+          "display_name": "TITRE",
+          "required": true,
+          "description": "H4"
+        },
+        "text": {
+          "type": "textarea",
+          "pos": 2,
+          "customize_toolbar": true,
+          "toolbar": [
+            "bold",
+            "copy",
+            "cut",
+            "redo",
+            "undo",
+            "link"
+          ],
+          "required": true,
+          "display_name": "TEXTE",
+          "id": "5Q07nZ4dRRu4-5iZzm9x_Q"
+        },
+        "link": {
+          "type": "multilink",
+          "pos": 3,
+          "display_name": "LIEN",
+          "id": "ustSesQ4SempRD3kPMCO3Q"
+        },
+        "hasBorders": {
+          "type": "boolean",
+          "pos": 4,
+          "display_name": "BORDURES",
+          "default_value": true,
+          "id": "6-4waf47R2iiFxNrXcOXDw"
+        },
+        "isTextCentered": {
+          "type": "boolean",
+          "pos": 5,
+          "display_name": "TEXTE - CENTRÉ",
+          "id": "-8mF0BZOQ7CzSjJCf35QXA"
+        },
+        "isIconCentered": {
+          "type": "boolean",
+          "pos": 6,
+          "display_name": "ICÔNE - CENTRÉ",
+          "id": "_z8N3v85QHKdq0KaobQ3Qw"
         }
       },
       "image": null,
@@ -3095,7 +3188,7 @@
       "display_name": "HERO - VERTICAL - LANDING",
       "description": "",
       "created_at": "2025-11-11T13:04:25.893Z",
-      "updated_at": "2025-11-11T13:06:56.845Z",
+      "updated_at": "2025-11-11T13:23:47.610Z",
       "id": 111315623511435,
       "schema": {
         "badge": {
@@ -3188,7 +3281,9 @@
           "component_whitelist": [
             "agencyNote",
             "marqueeLogos",
-            "spacer"
+            "spacer",
+            "grid",
+            "buttonGroup"
           ],
           "id": "rx7gZ7m_Tzyr553uCk3rjg"
         },

@@ -255,7 +255,21 @@ export interface CardIconTitleTextFullStoryblok {
   title: string;
   text: string;
   link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  isInline?: boolean;
   component: "cardIconTitleTextFull";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardIconTitleTextFullNewStoryblok {
+  icon: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  hasBorders?: boolean;
+  isTextCentered?: boolean;
+  isIconCentered?: boolean;
+  component: "cardIconTitleTextFullNew";
   _uid: string;
   [k: string]: any;
 }
@@ -538,7 +552,13 @@ export interface HeroVerticalLandingStoryblok {
   text?: string;
   buttons?: (ButtonStoryblok | ButtonMeetingStoryblok)[];
   background: "" | "white" | "gray" | "black";
-  bottomItems?: (AgencyNoteStoryblok | MarqueeLogosStoryblok | SpacerStoryblok)[];
+  bottomItems?: (
+    | AgencyNoteStoryblok
+    | MarqueeLogosStoryblok
+    | SpacerStoryblok
+    | GridStoryblok
+    | ButtonGroupStoryblok
+  )[];
   isLanding?: boolean;
   component: "heroVerticalLanding";
   _uid: string;
