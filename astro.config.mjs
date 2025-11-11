@@ -123,6 +123,7 @@ export default defineConfig({
         'button-group': 'components/storyblok/ui/button-group',
         'card-bento': 'components/storyblok/ui/card-bento',
         'card-icon-title-text-full': 'components/storyblok/ui/card-icon-title-text-full',
+        'card-icon-title-text-full-new': 'components/storyblok/ui/card-icon-title-text-full-new',
         'card-icon-title-text-light': 'components/storyblok/ui/card-icon-title-text-light',
         'card-icon-title-text-normal': 'components/storyblok/ui/card-icon-title-text-normal',
         'card-image-title-text': 'components/storyblok/ui/card-image-title-text',
