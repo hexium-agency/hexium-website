@@ -1,0 +1,49 @@
+---
+import { cn } from '@/lib/utils';
+import type { AccordionGroupNewStoryblok } from '@/types/storyblok';
+import { parseStoryblokMaxWidth } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+interface AstroProps {
+  blok: AccordionGroupNewStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const setTitleFontSize = (fontSize: AccordionGroupNewStoryblok['titleFontSize'] | undefined) => {
+  switch (fontSize) {
+    case '16px':
+      return '[&_.accordion-title]:text-[1rem]/5';
+    case '18px':
+      return '[&_.accordion-title]:text-[1.125rem]/5';
+    default:
+      return '[&_.accordion-title]:text-[1rem]/5';
+  }
+};
+
+const setTextFontSize = (fontSize: AccordionGroupNewStoryblok['textFontSize'] | undefined) => {
+  switch (fontSize) {
+    case '14px':
+      return '[&_.accordion-text]:text-[0.875rem]/5';
+    case '16px':
+      return '[&_.accordion-text]:text-[1rem]/5.5';
+    case '18px':
+      return '[&_.accordion-text]:text-[1.125rem]/5.5';
+    default:
+      return '[&_.accordion-text]:text-[0.875rem]/5';
+  }
+};
+---
+
+<div
+  {...storyblokEditable(blok)}
+  class={cn(
+    'mx-auto space-y-1 divide-y-1 divide-gray-200 dark:divide-gray-900 w-full',
+    parseStoryblokMaxWidth(blok.maxWidth),
+    setTitleFontSize(blok.titleFontSize),
+    setTextFontSize(blok.textFontSize)
+  )}
+>
+  {blok.accordions.map((accordion) => <StoryblokComponent blok={accordion} />)}
+</div>

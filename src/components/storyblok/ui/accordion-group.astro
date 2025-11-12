@@ -15,7 +15,7 @@ const { blok } = Astro.props as AstroProps;
 <div
   {...storyblokEditable(blok)}
   class={cn(
-    'mx-auto space-y-1 divide-y-1 divide-gray-200 dark:divide-gray-900',
+    'mx-auto space-y-1 divide-y-1 divide-gray-200 dark:divide-gray-900 w-full',
     parseStoryblokMaxWidth(blok.maxWidth)
   )}
 >

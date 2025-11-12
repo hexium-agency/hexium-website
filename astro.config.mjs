@@ -116,7 +116,9 @@ export default defineConfig({
         workHome: 'components/storyblok/sections/work-home',
         // UI
         'accordion-group': 'components/storyblok/ui/accordion-group',
+        'accordion-group-new': 'components/storyblok/ui/accordion-group-new',
         accordion: 'components/storyblok/ui/accordion',
+        'accordion-new': 'components/storyblok/ui/accordion-new',
         'agency-note': 'components/storyblok/ui/agency-note',
         button: 'components/storyblok/ui/button',
         'button-meeting': 'components/storyblok/ui/button-meeting',
