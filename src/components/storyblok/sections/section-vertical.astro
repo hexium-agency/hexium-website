@@ -11,24 +11,33 @@ interface AstroProps {
 }
 
 const { blok } = Astro.props as AstroProps;
+
+const Title = blok.badge ? 'h2' : 'h1';
 ---
 
 <section
   {...storyblokEditable(blok)}
-  class:list={parseStoryblokBackgroundColor(blok.backgroundColor)}
+  class={cn(
+    parseStoryblokBackgroundColor(blok.backgroundColor),
+    blok.isBackgroundRounded && 'rounded-3xl mx-2 sm:mx-10'
+  )}
 >
   <div class="container py-20 sm:py-32">
-    <h2
-      {...blok.sectionId && { id: blok.sectionId }}
-      class:list={cn(
-        'text-2xs/[1.5] overflow-hidden font-mono font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200',
-        blok.style === 'centered' ? 'text-center' : 'text-left'
-      )}
-    >
-      {blok.badge}
-    </h2>
+    {
+      blok.badge && (
+        <h2
+          {...(blok.sectionId && { id: blok.sectionId })}
+          class:list={cn(
+            'text-2xs/[1.5] overflow-hidden font-sans font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200',
+            blok.style === 'centered' ? 'text-center' : 'text-left'
+          )}
+        >
+          {blok.badge}
+        </h2>
+      )
+    }
     <div class:list={cn('mt-4', blok.style === 'shared' && 'lg:grid lg:grid-cols-2 lg:gap-x-12')}>
-      <h3
+      <Title
         class:list={cn(
           'font-heading text-3xl font-medium tracking-tight text-balance text-gray-950 dark:text-white',
           blok.style === 'centered' ? 'text-center' : 'text-left',
@@ -38,7 +47,7 @@ const { blok } = Astro.props as AstroProps;
         )}
       >
         {blok.title}
-      </h3>
+      </Title>
       {
         blok.text?.content?.[0]?.content && (
           <Richtext
