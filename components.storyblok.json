@@ -1071,10 +1071,10 @@
     },
     {
       "name": "cardIconTitleTextFullNew",
-      "display_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL",
+      "display_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL (NEW)",
       "description": "",
       "created_at": "2025-11-11T14:48:35.704Z",
-      "updated_at": "2025-11-11T14:48:55.991Z",
+      "updated_at": "2025-11-12T08:56:10.631Z",
       "id": 111341222730060,
       "schema": {
         "icon": {
@@ -1119,22 +1119,70 @@
           "display_name": "LIEN",
           "id": "ustSesQ4SempRD3kPMCO3Q"
         },
+        "titleFontSize": {
+          "type": "option",
+          "pos": 4,
+          "use_uuid": true,
+          "id": "ivoboN-8S9S0016_BTIBnQ",
+          "display_name": "TITRE - TAILLE",
+          "options": [
+            {
+              "_uid": "3d6c5638-2194-4bf1-a06a-b17dedc1af86",
+              "name": "14px",
+              "value": "14px"
+            },
+            {
+              "_uid": "310a1fef-def6-49ed-9804-d291bd215920",
+              "value": "16px",
+              "name": "16px"
+            },
+            {
+              "_uid": "05e97301-388b-41aa-bb8c-d03488ce403d",
+              "value": "18px",
+              "name": "18px"
+            },
+            {
+              "_uid": "de6b195c-f8a7-4969-b64d-540887726329",
+              "value": "20px",
+              "name": "20px"
+            }
+          ]
+        },
+        "textFontSize": {
+          "type": "option",
+          "pos": 5,
+          "use_uuid": true,
+          "id": "WOIDWZW5SkmG_daq-XkZkQ",
+          "display_name": "TEXTE - TAILLE",
+          "options": [
+            {
+              "_uid": "8b7c58d6-2186-45e6-82bc-6804d77c47e9",
+              "name": "14px",
+              "value": "14px"
+            },
+            {
+              "_uid": "a0dcf5ad-2e76-4e2d-8095-4fa12b8a3c29",
+              "value": "16px",
+              "name": "16px"
+            }
+          ]
+        },
         "hasBorders": {
           "type": "boolean",
-          "pos": 4,
+          "pos": 6,
           "display_name": "BORDURES",
-          "default_value": true,
+          "default_value": false,
           "id": "6-4waf47R2iiFxNrXcOXDw"
         },
         "isTextCentered": {
           "type": "boolean",
-          "pos": 5,
+          "pos": 7,
           "display_name": "TEXTE - CENTRÉ",
           "id": "-8mF0BZOQ7CzSjJCf35QXA"
         },
         "isIconCentered": {
           "type": "boolean",
-          "pos": 6,
+          "pos": 8,
           "display_name": "ICÔNE - CENTRÉ",
           "id": "_z8N3v85QHKdq0KaobQ3Qw"
         }
@@ -1146,7 +1194,7 @@
       "is_nestable": true,
       "all_presets": [],
       "preset_id": null,
-      "real_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL",
+      "real_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL (NEW)",
       "component_group_uuid": "1434373d-383c-4e2f-96ee-ed921c348597",
       "color": "#424d6d",
       "icon": "block-tag",
@@ -2429,7 +2477,7 @@
       "display_name": "GRILLE",
       "description": null,
       "created_at": "2024-12-13T14:47:37.052Z",
-      "updated_at": "2025-11-11T11:39:32.129Z",
+      "updated_at": "2025-11-11T15:04:53.521Z",
       "id": 6687188,
       "schema": {
         "tab-fe6a1b9e-7164-4e3a-b621-5bef269e4cf6": {
@@ -2543,7 +2591,8 @@
             "cardIconTitleTextLight",
             "cardIconTitleTextNormal",
             "cardImageTitleText",
-            "accordionGroup"
+            "accordionGroup",
+            "cardIconTitleTextFullNew"
           ],
           "minimum": 1,
           "required": true,
@@ -4051,7 +4100,7 @@
       "display_name": "SECTION - HORIZONTAL",
       "description": null,
       "created_at": "2024-12-13T16:45:09.023Z",
-      "updated_at": "2025-05-10T09:29:17.262Z",
+      "updated_at": "2025-11-11T15:13:01.656Z",
       "id": 6688516,
       "schema": {
         "sectionId": {
@@ -4065,7 +4114,7 @@
           "type": "text",
           "pos": 1,
           "display_name": "BADGE",
-          "required": true,
+          "required": false,
           "tooltip": true,
           "description": "H2",
           "id": "WzHLggYDS4C2PrLedxY43Q"
@@ -4076,7 +4125,7 @@
           "display_name": "TITRE",
           "required": true,
           "tooltip": true,
-          "description": "H3",
+          "description": "H2 si pas de badge renseigné - H3 si badge renseigné",
           "id": "XKVAnBR8RY6OqEQjQGBjnw"
         },
         "text": {
@@ -4237,7 +4286,7 @@
       "display_name": "SECTION - VERTICAL",
       "description": null,
       "created_at": "2024-12-13T07:33:53.480Z",
-      "updated_at": "2025-05-10T09:28:42.681Z",
+      "updated_at": "2025-11-11T17:13:54.434Z",
       "id": 6684165,
       "schema": {
         "sectionId": {
@@ -4247,11 +4296,17 @@
           "description": "Utiliser pour créer un lien vers la section avec un #",
           "id": "Fd10osAmSNuZCbxqrPO-_w"
         },
+        "isBackgroundRounded": {
+          "type": "boolean",
+          "pos": 1,
+          "id": "8kpFFkX4SCGfY7_IhFHFgA",
+          "display_name": "FOND - ARRONDI"
+        },
         "backgroundColor": {
           "type": "option",
-          "pos": 1,
+          "pos": 2,
           "use_uuid": true,
-          "display_name": "COULEUR DE FOND",
+          "display_name": "FOND - COULEUR",
           "required": true,
           "source": "internal",
           "datasource_slug": "background-colors",
@@ -4260,7 +4315,7 @@
         },
         "titleMaxWidth": {
           "type": "option",
-          "pos": 2,
+          "pos": 3,
           "use_uuid": true,
           "source": "internal",
           "datasource_slug": "max-width",
@@ -4272,7 +4327,7 @@
         },
         "textMaxWidth": {
           "type": "option",
-          "pos": 3,
+          "pos": 4,
           "use_uuid": true,
           "required": true,
           "display_name": "TEXTE - LARGEUR MAX",
@@ -4284,7 +4339,7 @@
         },
         "style": {
           "type": "option",
-          "pos": 4,
+          "pos": 5,
           "use_uuid": true,
           "display_name": "STYLE",
           "required": true,
@@ -4310,25 +4365,25 @@
         },
         "badge": {
           "type": "text",
-          "pos": 5,
+          "pos": 6,
           "display_name": "BADGE",
-          "required": true,
+          "required": false,
           "tooltip": false,
           "description": "H2",
           "id": "SOOgIJleRA-X_vFmNVD4xg"
         },
         "title": {
           "type": "text",
-          "pos": 6,
+          "pos": 7,
           "display_name": "TITRE",
           "required": true,
           "tooltip": false,
-          "description": "H3",
+          "description": "H2 si pas de badge renseigné - H3 si badge renseigné",
           "id": "Oqh-taHASNmUtc1Y6pakyQ"
         },
         "text": {
           "type": "richtext",
-          "pos": 7,
+          "pos": 8,
           "display_name": "TEXTE",
           "required": false,
           "customize_toolbar": true,
@@ -4353,16 +4408,17 @@
             "titleMaxWidth",
             "textMaxWidth",
             "style",
-            "sectionId"
+            "sectionId",
+            "isBackgroundRounded"
           ],
-          "pos": 8,
+          "pos": 9,
           "type": "tab",
           "id": "Dr0gAflITDWXswsXkB3V2w",
           "name": "tab-0ebd2001-f948-4c35-97b3-0b17901dd5db"
         },
         "blocks": {
           "type": "bloks",
-          "pos": 9,
+          "pos": 10,
           "display_name": "BLOCKS",
           "id": "JNRKC9DUQX6hOr1dE6VF3Q",
           "restrict_type": "groups",
@@ -4402,7 +4458,7 @@
       "display_name": "ESPACEUR",
       "description": null,
       "created_at": "2024-12-13T14:00:09.584Z",
-      "updated_at": "2025-03-24T08:45:15.180Z",
+      "updated_at": "2025-11-12T09:10:41.636Z",
       "id": 6686898,
       "schema": {
         "space": {
@@ -4422,7 +4478,7 @@
           "use_uuid": true,
           "id": "Vz2u4sSzSzix-ep0vm-amw",
           "display_name": "ESPACE (640px - 768px)",
-          "required": true,
+          "required": false,
           "source": "internal",
           "datasource_slug": "space",
           "default_value": "4"
@@ -4432,7 +4488,7 @@
           "pos": 2,
           "use_uuid": true,
           "id": "6pXLkKkHRx-KcuXiaxTq-w",
-          "required": true,
+          "required": false,
           "display_name": "ESPACE (768px - 1024px)",
           "source": "internal",
           "datasource_slug": "space",
@@ -4444,7 +4500,7 @@
           "use_uuid": true,
           "id": "sIllZDiAQ0ycuBG9ScJ_nA",
           "display_name": "ESPACE (1024px +)",
-          "required": true,
+          "required": false,
           "source": "internal",
           "datasource_slug": "space",
           "default_value": "8"

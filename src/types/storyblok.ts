@@ -266,6 +266,8 @@ export interface CardIconTitleTextFullNewStoryblok {
   title: string;
   text: string;
   link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  titleFontSize?: "" | "14px" | "16px" | "18px" | "20px";
+  textFontSize?: "" | "14px" | "16px";
   hasBorders?: boolean;
   isTextCentered?: boolean;
   isIconCentered?: boolean;
@@ -465,6 +467,7 @@ export interface GridStoryblok {
     | CardIconTitleTextNormalStoryblok
     | CardImageTitleTextStoryblok
     | AccordionGroupStoryblok
+    | CardIconTitleTextFullNewStoryblok
   )[];
   spaceX: number | string;
   spaceXSm?: number | string;
@@ -705,7 +708,7 @@ export interface SectionStoryblok {
 
 export interface SectionHorizontalStoryblok {
   sectionId?: string;
-  badge: string;
+  badge?: string;
   title: string;
   text?: RichtextStoryblok;
   leftItems?: (
@@ -760,11 +763,12 @@ export interface SectionHorizontalStoryblok {
 
 export interface SectionVerticalStoryblok {
   sectionId?: string;
+  isBackgroundRounded?: boolean;
   backgroundColor: number | string;
   titleMaxWidth: number | string;
   textMaxWidth: number | string;
   style: "" | "centered" | "justified" | "shared";
-  badge: string;
+  badge?: string;
   title: string;
   text?: RichtextStoryblok;
   blocks?: (
@@ -788,9 +792,9 @@ export interface SectionVerticalStoryblok {
 
 export interface SpacerStoryblok {
   space: number | string;
-  smSpace: number | string;
-  mdSpace: number | string;
-  lgSpace: number | string;
+  smSpace?: number | string;
+  mdSpace?: number | string;
+  lgSpace?: number | string;
   component: "spacer";
   _uid: string;
   [k: string]: any;
