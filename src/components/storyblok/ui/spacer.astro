@@ -84,10 +84,10 @@ const { blok } = Astro.props as AstroProps;
 <div
   {...storyblokEditable(blok)}
   class:list={[
-    space[blok.space!],
-    blok.space! !== blok.smSpace && spaceSm[blok.smSpace!],
-    blok.space! !== blok.mdSpace && spaceMd[blok.mdSpace!],
-    blok.space! !== blok.lgSpace && spaceLg[blok.lgSpace!],
+    space[blok.space],
+    blok.space !== blok.smSpace && spaceSm[blok.smSpace!],
+    blok.space !== blok.mdSpace && spaceMd[blok.mdSpace!],
+    blok.space !== blok.lgSpace && spaceLg[blok.lgSpace!],
   ]}
   aria-hidden="true"
 >
