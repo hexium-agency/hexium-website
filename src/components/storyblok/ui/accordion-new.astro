@@ -1,0 +1,82 @@
+---
+import Richtext from '@/components/richtext.astro';
+import type { AccordionNewStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: AccordionNewStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div {...storyblokEditable(blok)} class="accordion pb-1">
+  <h4
+    class="accordion-title group flex cursor-pointer items-center justify-between gap-x-3 py-4 pb-3 font-medium text-gray-950 dark:text-white"
+  >
+    {blok.title}
+    <div class="relative size-6 shrink-0">
+      <svg
+        aria-hidden="true"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 rotate-90 text-gray-400 transition duration-300 group-hover:text-gray-950 dark:text-gray-200 dark:group-hover/summary:text-white [.accordion-open_&]:scale-x-0"
+      >
+        <path
+          fill="currentColor"
+          fill-rule="evenodd"
+          d="M6 12a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12"
+          clip-rule="evenodd"></path>
+      </svg>
+      <svg
+        aria-hidden="true"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="size-6 text-gray-400 transition duration-300 group-hover:text-gray-950 dark:text-gray-200 dark:group-hover/summary:text-white"
+      >
+        <path
+          fill="currentColor"
+          fill-rule="evenodd"
+          d="M6 12a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H6.75A.75.75 0 0 1 6 12"
+          clip-rule="evenodd"></path>
+      </svg>
+    </div>
+  </h4>
+  <div class="content-wrapper h-0 overflow-hidden">
+    <div class="content pb-4 text-justify text-pretty text-gray-600 dark:text-gray-400">
+      <Richtext
+        text={blok.text}
+        class="accordion-text space-y-4 [&_li]:mt-4 [&_li]:marker:text-gray-700 [&_ul]:list-outside [&_ul]:list-disc [&_ul]:pl-5"
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('.accordion').forEach((accordion) => {
+      const header = accordion.querySelector('h4') as HTMLHeadingElement;
+      const content = accordion.querySelector('.content-wrapper') as HTMLDivElement;
+      const contentInner = accordion.querySelector('.content') as HTMLDivElement;
+
+      content.style.transition = 'height 300ms';
+
+      header.addEventListener('click', () => {
+        const isOpen = accordion.classList.contains('accordion-open');
+
+        if (isOpen) {
+          content.style.height = contentInner.offsetHeight + 'px';
+          content.offsetHeight;
+          content.style.height = '0px';
+          accordion.classList.remove('accordion-open');
+        } else {
+          accordion.classList.add('accordion-open');
+          const height = contentInner.offsetHeight;
+          content.style.height = '0px';
+          content.offsetHeight;
+          content.style.height = height + 'px';
+        }
+      });
+    });
+  });
+</script>
