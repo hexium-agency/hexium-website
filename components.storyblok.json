@@ -126,7 +126,7 @@
       "display_name": "ACCORDÉON - GROUPE (NEW)",
       "description": "",
       "created_at": "2025-11-12T12:12:05.755Z",
-      "updated_at": "2025-11-12T12:19:58.153Z",
+      "updated_at": "2025-11-12T15:30:15.932Z",
       "id": 111656655904226,
       "schema": {
         "maxWidth": {
@@ -169,6 +169,11 @@
               "_uid": "713d68db-934c-464d-a8cd-7aa09d604057",
               "value": "18px",
               "name": "18px"
+            },
+            {
+              "_uid": "7cbf915f-c660-4684-b3c7-b5eb3eed743b",
+              "value": "20px",
+              "name": "20px"
             }
           ]
         },
@@ -193,7 +198,32 @@
               "value": "18px",
               "name": "18px"
             }
-          ]
+          ],
+          "display_name": "TEXTE - TAILLE"
+        },
+        "style": {
+          "type": "option",
+          "pos": 4,
+          "use_uuid": true,
+          "display_name": "STYLE",
+          "options": [
+            {
+              "_uid": "97542d45-f9d3-46d3-a485-3c66b71135c5",
+              "value": "none",
+              "name": "RIEN"
+            },
+            {
+              "_uid": "768d2eac-65dd-4b5b-8f61-686e11aa18b7",
+              "value": "none-open",
+              "name": "RIEN + OUVERT"
+            },
+            {
+              "_uid": "e6be1dea-cef5-43d2-9bc8-38a79d285978",
+              "name": "LIGNE SÉPARATRICE",
+              "value": "line"
+            }
+          ],
+          "id": "PISWXu-8RGS857EIAmWsZw"
         }
       },
       "image": null,
@@ -225,12 +255,12 @@
       "display_name": "ACCORDÉON (NEW)",
       "description": null,
       "created_at": "2025-11-12T12:12:05.567Z",
-      "updated_at": "2025-11-12T12:12:39.802Z",
+      "updated_at": "2025-11-12T13:52:31.775Z",
       "id": 111656655134177,
       "schema": {
         "title": {
           "type": "text",
-          "pos": 0,
+          "pos": 1,
           "display_name": "TITRE",
           "required": true,
           "tooltip": true,
@@ -239,7 +269,7 @@
         },
         "text": {
           "type": "richtext",
-          "pos": 1,
+          "pos": 2,
           "display_name": "TEXTE",
           "required": true,
           "customize_toolbar": true,
@@ -683,7 +713,7 @@
       "display_name": "BOUTON",
       "description": null,
       "created_at": "2024-12-05T14:22:36.884Z",
-      "updated_at": "2025-04-02T07:59:50.743Z",
+      "updated_at": "2025-11-14T14:54:53.940Z",
       "id": 6650665,
       "schema": {
         "title": {
@@ -747,6 +777,12 @@
           "display_name": "AFFICHER FLÈCHE",
           "default_value": true,
           "id": "Sri4E78HSwCVqqATJ__Ipg"
+        },
+        "isBig": {
+          "type": "boolean",
+          "pos": 4,
+          "display_name": "LARGE",
+          "id": "Vm97lqzGQ_SQholAlwhXqA"
         }
       },
       "image": null,
@@ -825,7 +861,7 @@
       "display_name": "BOUTON - MEETING",
       "description": null,
       "created_at": "2025-04-14T11:21:54.305Z",
-      "updated_at": "2025-04-14T11:22:28.473Z",
+      "updated_at": "2025-11-14T14:54:37.395Z",
       "id": 7215379,
       "schema": {
         "title": {
@@ -882,6 +918,12 @@
           "display_name": "AFFICHER FLÈCHE",
           "default_value": true,
           "id": "Sri4E78HSwCVqqATJ__Ipg"
+        },
+        "isBig": {
+          "type": "boolean",
+          "pos": 3,
+          "display_name": "LARGE",
+          "id": "dw6qw9UUSzWwgMy5f5GZ5g"
         }
       },
       "image": null,
@@ -2260,7 +2302,7 @@
       "display_name": "TESTIMONIALS - MIS EN AVANT",
       "description": "",
       "created_at": "2025-04-18T08:06:46.146Z",
-      "updated_at": "2025-04-18T08:08:09.556Z",
+      "updated_at": "2025-11-13T16:36:32.739Z",
       "id": 7234620,
       "schema": {
         "testimonials": {
@@ -2276,7 +2318,7 @@
             "testimonial"
           ],
           "min_options": "1",
-          "max_options": "6",
+          "max_options": "8",
           "id": "Il4HpU7YRjeK9sTr5Q08_A"
         }
       },
@@ -2288,6 +2330,55 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "TESTIMONIALS - MIS EN AVANT",
+      "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
+      "color": "#4656ae",
+      "icon": "block-1-2block",
+      "internal_tags_list": [
+        {
+          "id": 53107,
+          "name": "ui"
+        }
+      ],
+      "internal_tag_ids": [
+        "53107"
+      ],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "UI"
+    },
+    {
+      "name": "featuredTestimonialsNew",
+      "display_name": "TESTIMONIALS - MIS EN AVANT (NEW)",
+      "description": "",
+      "created_at": "2025-11-14T08:58:17.142Z",
+      "updated_at": "2025-11-14T09:23:59.453Z",
+      "id": 112316813898685,
+      "schema": {
+        "testimonials": {
+          "type": "options",
+          "pos": 0,
+          "is_reference_type": true,
+          "source": "internal_stories",
+          "entry_appearance": "card",
+          "allow_advanced_search": true,
+          "display_name": "TESTIMONIALS",
+          "required": true,
+          "min_options": "8",
+          "max_options": "8",
+          "filter_content_type": [
+            "testimonial"
+          ],
+          "id": "kRdu-PhkQia5C6XhAC8hsQ"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "TESTIMONIALS - MIS EN AVANT (NEW)",
       "component_group_uuid": "83d83b65-3eb1-45c3-8681-76b4dd75c360",
       "color": "#4656ae",
       "icon": "block-1-2block",
@@ -4449,7 +4540,7 @@
       "display_name": "SECTION - VERTICAL",
       "description": null,
       "created_at": "2024-12-13T07:33:53.480Z",
-      "updated_at": "2025-11-11T17:13:54.434Z",
+      "updated_at": "2025-11-13T12:06:27.208Z",
       "id": 6684165,
       "schema": {
         "sectionId": {
@@ -4593,7 +4684,7 @@
         }
       },
       "image": null,
-      "preview_field": "badge",
+      "preview_field": "title",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
@@ -5219,7 +5310,7 @@
       "display_name": "TESTIMONIAL",
       "description": null,
       "created_at": "2024-12-08T16:08:31.782Z",
-      "updated_at": "2025-05-03T08:29:10.659Z",
+      "updated_at": "2025-11-14T09:34:15.823Z",
       "id": 6663006,
       "schema": {
         "customer": {
@@ -5274,6 +5365,14 @@
           "display_name": "CONTENU",
           "required": true,
           "id": "osiFDaHqTgWNctwgaougZw"
+        },
+        "logoHeightFeaturedTestimonials": {
+          "type": "number",
+          "pos": 6,
+          "display_name": "HAUTEUR LOGO - TÉMOIGNAGES MIS EN AVANT",
+          "decimals": 0,
+          "id": "nohL8UQeRv2lvv4uR6X5Xg",
+          "description": "Par défaut à 20px si non renseigné"
         }
       },
       "image": null,

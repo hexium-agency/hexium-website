@@ -29,8 +29,9 @@ export interface AccordionGroupStoryblok {
 export interface AccordionGroupNewStoryblok {
   maxWidth: number | string;
   accordions: AccordionNewStoryblok[];
-  titleFontSize?: "" | "16px" | "18px";
+  titleFontSize?: "" | "16px" | "18px" | "20px";
   textFontSize?: "" | "14px" | "16px" | "18px";
+  style?: "" | "none" | "none-open" | "line";
   component: "accordionGroupNew";
   _uid: string;
   [k: string]: any;
@@ -121,6 +122,7 @@ export interface BlogCategoryStoryblok {
     | ContactWidgetStoryblok
     | FeaturedTechnologiesStoryblok
     | FeaturedTestimonialsStoryblok
+    | FeaturedTestimonialsNewStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -223,6 +225,7 @@ export interface ButtonStoryblok {
   link: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
   style: "" | "blackFull" | "blackLink" | "blueFull" | "grayFull" | "whiteFull" | "whiteLink";
   isArrowShowed?: boolean;
+  isBig?: boolean;
   component: "button";
   _uid: string;
   [k: string]: any;
@@ -239,6 +242,7 @@ export interface ButtonMeetingStoryblok {
   title: string;
   style: "" | "blackFull" | "blackLink" | "blueFull" | "grayFull" | "whiteFull" | "whiteLink";
   isArrowShowed?: boolean;
+  isBig?: boolean;
   component: "buttonMeeting";
   _uid: string;
   [k: string]: any;
@@ -351,6 +355,7 @@ export interface ContactHomeStoryblok {
     | ContactWidgetStoryblok
     | FeaturedTechnologiesStoryblok
     | FeaturedTestimonialsStoryblok
+    | FeaturedTestimonialsNewStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -427,6 +432,13 @@ export interface FeaturedTechnologiesStoryblok {
 export interface FeaturedTestimonialsStoryblok {
   testimonials: (ISbStoryData<TestimonialStoryblok> | string)[];
   component: "featuredTestimonials";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface FeaturedTestimonialsNewStoryblok {
+  testimonials: (ISbStoryData<TestimonialStoryblok> | string)[];
+  component: "featuredTestimonialsNew";
   _uid: string;
   [k: string]: any;
 }
@@ -714,6 +726,7 @@ export interface SectionStoryblok {
     | ContactWidgetStoryblok
     | FeaturedTechnologiesStoryblok
     | FeaturedTestimonialsStoryblok
+    | FeaturedTestimonialsNewStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -740,6 +753,7 @@ export interface SectionHorizontalStoryblok {
     | ContactWidgetStoryblok
     | FeaturedTechnologiesStoryblok
     | FeaturedTestimonialsStoryblok
+    | FeaturedTestimonialsNewStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -756,6 +770,7 @@ export interface SectionHorizontalStoryblok {
     | ContactWidgetStoryblok
     | FeaturedTechnologiesStoryblok
     | FeaturedTestimonialsStoryblok
+    | FeaturedTestimonialsNewStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -772,6 +787,7 @@ export interface SectionHorizontalStoryblok {
     | ContactWidgetStoryblok
     | FeaturedTechnologiesStoryblok
     | FeaturedTestimonialsStoryblok
+    | FeaturedTestimonialsNewStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -803,6 +819,7 @@ export interface SectionVerticalStoryblok {
     | ContactWidgetStoryblok
     | FeaturedTechnologiesStoryblok
     | FeaturedTestimonialsStoryblok
+    | FeaturedTestimonialsNewStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -861,6 +878,7 @@ export interface TechnologyStoryblok {
     | ContactWidgetStoryblok
     | FeaturedTechnologiesStoryblok
     | FeaturedTestimonialsStoryblok
+    | FeaturedTestimonialsNewStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -904,6 +922,7 @@ export interface TechnologyCategoryStoryblok {
     | ContactWidgetStoryblok
     | FeaturedTechnologiesStoryblok
     | FeaturedTestimonialsStoryblok
+    | FeaturedTestimonialsNewStoryblok
     | FeaturedWorksStoryblok
     | GridStoryblok
     | ImageStoryblok
@@ -945,6 +964,7 @@ export interface TestimonialStoryblok {
   lastname: string;
   position: string;
   content: string;
+  logoHeightFeaturedTestimonials?: string;
   component: "testimonial";
   _uid: string;
   [k: string]: any;
