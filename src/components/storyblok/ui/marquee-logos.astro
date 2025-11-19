@@ -163,11 +163,12 @@ const {
 
           const marquees = container.querySelectorAll('.rfm-marquee');
           marquees.forEach((m) => {
-            const duration = autoFill
-              ? (marqueeWidth * multiplier) / 50
-              : marqueeWidth < containerWidth
-                ? containerWidth / 50
-                : marqueeWidth / 50;
+            const duration =
+              (autoFill
+                ? (marqueeWidth * multiplier) / 50
+                : marqueeWidth < containerWidth
+                  ? containerWidth / 50
+                  : marqueeWidth / 50) * 1.5;
             m.style.setProperty('--duration', `${duration}s`);
           });
         };
