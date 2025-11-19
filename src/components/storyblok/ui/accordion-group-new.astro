@@ -17,6 +17,8 @@ const setTitleFontSize = (fontSize: AccordionGroupNewStoryblok['titleFontSize'] 
       return '[&_.accordion-title]:text-[1rem]/5';
     case '18px':
       return '[&_.accordion-title]:text-[1.125rem]/5';
+    case '20px':
+      return '[&_.accordion-title]:text-[1.25rem]/5';
     default:
       return '[&_.accordion-title]:text-[1rem]/5';
   }
@@ -34,16 +36,57 @@ const setTextFontSize = (fontSize: AccordionGroupNewStoryblok['textFontSize'] | 
       return '[&_.accordion-text]:text-[0.875rem]/5';
   }
 };
+
+const accordionStyle = blok.style ?? 'line';
 ---
 
 <div
   {...storyblokEditable(blok)}
   class={cn(
-    'mx-auto space-y-1 divide-y-1 divide-gray-200 dark:divide-gray-900 w-full',
+    'mx-auto space-y-1 divide-gray-200 dark:divide-gray-900 w-full',
     parseStoryblokMaxWidth(blok.maxWidth),
     setTitleFontSize(blok.titleFontSize),
-    setTextFontSize(blok.textFontSize)
+    setTextFontSize(blok.textFontSize),
+    accordionStyle === 'line' && 'divide-y-1'
   )}
+  data-style={accordionStyle}
 >
-  {blok.accordions.map((accordion) => <StoryblokComponent blok={accordion} />)}
+  {
+    blok.accordions.map((accordion) => (
+      <StoryblokComponent blok={accordion} style={accordionStyle} />
+    ))
+  }
 </div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    if (document.querySelector('[data-style="none-open"]')) {
+      return;
+    }
+
+    document.querySelectorAll('.accordion').forEach((accordion) => {
+      const header = accordion.querySelector('h4') as HTMLHeadingElement;
+      const content = accordion.querySelector('.content-wrapper') as HTMLDivElement;
+      const contentInner = accordion.querySelector('.content') as HTMLDivElement;
+
+      content.style.transition = 'height 300ms';
+
+      header.addEventListener('click', () => {
+        const isOpen = accordion.classList.contains('accordion-open');
+
+        if (isOpen) {
+          content.style.height = contentInner.offsetHeight + 'px';
+          content.offsetHeight;
+          content.style.height = '0px';
+          accordion.classList.remove('accordion-open');
+        } else {
+          accordion.classList.add('accordion-open');
+          const height = contentInner.offsetHeight;
+          content.style.height = '0px';
+          content.offsetHeight;
+          content.style.height = height + 'px';
+        }
+      });
+    });
+  });
+</script>
