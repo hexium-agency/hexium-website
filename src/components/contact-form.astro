@@ -14,7 +14,6 @@ const { light = false } = Astro.props;
 
 <form id="contactForm" method="POST" enctype="multipart/form-data">
   <div id="formAlertContainer" class="mb-4 hidden"></div>
-
   <fieldset id="formFields" class="w-full min-w-0 space-y-3">
     <input type="hidden" id="fileUrls" name="fileUrls" value="" />
     {
@@ -54,32 +53,20 @@ const { light = false } = Astro.props;
       </div>
     </div>
 
-    {
-      !light && (
-        <div id="companyField">
-          <Label for="company" optional>
-            Entreprise
-          </Label>
-          <Input autocomplete="organization" id="company" name="company" />
-        </div>
-      )
-    }
+    <div id="companyField">
+      <Label for="company" optional> Entreprise </Label>
+      <Input autocomplete="organization" id="company" name="company" />
+    </div>
 
     <div>
       <Label for="message">Message</Label>
       <Textarea id="message" name="message" required />
     </div>
 
-    {
-      !light && (
-        <div>
-          <Label for="files" optional renderAsLabel={false}>
-            Documents
-          </Label>
-          <FileUpload id="files" name="files" />
-        </div>
-      )
-    }
+    <div>
+      <Label for="files" optional renderAsLabel={false}> Documents </Label>
+      <FileUpload id="files" name="files" />
+    </div>
 
     {
       !light && (
@@ -90,8 +77,29 @@ const { light = false } = Astro.props;
     }
   </fieldset>
 
+  <div class="flex flex-col items-center justify-center py-4">
+    <div class="text-xs font-medium text-gray-500">- OU -</div>
+    <button
+      type="button"
+      onclick="plausible('clickCalendar')"
+      data-cal-link="anthony-hexium/etude-de-projet"
+      data-cal-namespace="etude-de-projet"
+      data-cal-config='{"layout":"month_view"}'
+      class="mt-2 cursor-pointer p-1 text-center text-base font-semibold text-[#3878FD]"
+    >
+      Prendre rendez-vous
+    </button>
+  </div>
+
   <div class="mt-4 flex items-center justify-between">
-    <Button id="submitButton" isArrowShowed={false} isSubmit isLink={false} isSmall>
+    <Button
+      id="submitButton"
+      isArrowShowed={false}
+      isSubmit
+      isLink={false}
+      isSmall
+      className="w-full"
+    >
       <span id="submitText">Envoyer</span>
       <span id="formSpinner" class="mx-3.5 my-0.5 hidden">
         <svg
