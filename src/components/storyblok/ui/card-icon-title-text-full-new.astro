@@ -11,10 +11,35 @@ interface AstroProps {
 
 const { blok } = Astro.props as AstroProps;
 
-const hasLink = !!parseStoryblokLink(blok.link);
-const hasIcon = blok.icon?.id;
+const setIconSize = (iconSize: CardIconTitleTextFullNewStoryblok['iconSize'] | undefined) => {
+  switch (iconSize) {
+    case '32px':
+      return '[&>svg]:h-8';
+    case '28px':
+      return '[&>svg]:h-7';
+    case '24px':
+      return '[&>svg]:h-6';
+    case '20px':
+      return '[&>svg]:h-5';
+    case '16px':
+      return '[&>svg]:h-4';
+    default:
+      return '[&>svg]:h-8';
+  }
+};
 
-const TitleWrapper = hasLink ? 'a' : 'span';
+const setTextFontSize = (
+  fontSize: CardIconTitleTextFullNewStoryblok['textFontSize'] | undefined
+) => {
+  switch (fontSize) {
+    case '14px':
+      return 'text-[0.875rem]/5';
+    case '16px':
+      return 'text-[1rem]/5.5';
+    default:
+      return 'text-[0.875rem]/5';
+  }
+};
 
 const setTitleFontSize = (
   fontSize: CardIconTitleTextFullNewStoryblok['titleFontSize'] | undefined
@@ -33,18 +58,13 @@ const setTitleFontSize = (
   }
 };
 
-const setTextFontSize = (
-  fontSize: CardIconTitleTextFullNewStoryblok['textFontSize'] | undefined
-) => {
-  switch (fontSize) {
-    case '14px':
-      return 'text-[0.875rem]/5';
-    case '16px':
-      return 'text-[1rem]/5.5';
-    default:
-      return 'text-[0.875rem]/5';
-  }
-};
+const hasLink = !!parseStoryblokLink(blok.link);
+const hasIcon = blok.icon?.id;
+const isStyleLeftVertical = blok.style === 'left-vertical';
+const isStyleCenteredVertical = blok.style === 'centered-vertical';
+const isStyleLeftHorizontal = blok.style === 'left-horizontal';
+
+const TitleWrapper = hasLink ? 'a' : 'span';
 ---
 
 <li
@@ -52,7 +72,7 @@ const setTextFontSize = (
   class={cn(
     'group relative list-none',
     blok.hasBorders &&
-      'dark:bg-gray-800 rounded-lg p-6 shadow-[0_1px_5px_-4px_rgba(19,19,22,0.7),0_4px_8px_rgba(32,42,54,0.05)] ring-1 ring-gray-900/7.5 transition-shadow hover:shadow-[0_1px_7px_-4px_rgba(19,19,22,0.8),0_4px_11px_rgba(32,42,54,0.05)] hover:ring-gray-900/12.5'
+      'dark:bg-gray-800 bg-white rounded-lg p-6 shadow-[0_1px_5px_-4px_rgba(19,19,22,0.7),0_4px_8px_rgba(32,42,54,0.05)] ring-1 ring-gray-900/7.5 transition-shadow hover:shadow-[0_1px_7px_-4px_rgba(19,19,22,0.8),0_4px_11px_rgba(32,42,54,0.05)] hover:ring-gray-900/12.5'
   )}
 >
   {
@@ -60,70 +80,84 @@ const setTextFontSize = (
       <div class="pointer-events-none absolute inset-1.5 rounded-sm border border-gray-50 opacity-0 transition-opacity group-hover:opacity-100 dark:border-white/5" />
     )
   }
-  {
-    hasIcon && (
-      <div
-        aria-hidden="true"
-        class={cn(
-          'mb-4 text-gray-400 transition dark:text-gray-400 [&>svg]:h-8 [&>svg]:w-auto',
-          blok.isIconCentered && 'flex justify-center',
-          hasLink && 'group-hover:text-gray-950 dark:group-hover:text-gray-300'
-        )}
-      >
-        <SvgDistant url={blok.icon} />
-      </div>
-    )
-  }
   <div class={cn(blok.isTextCentered && 'text-center')}>
-    <h4
-      class={cn(
-        'mb-2 font-medium text-gray-950 dark:text-white',
-        setTitleFontSize(blok.titleFontSize)
-      )}
-    >
-      <TitleWrapper
-        class="inline-flex items-center justify-center"
-        {...!!parseStoryblokLink(blok.link) ? { href: parseStoryblokLink(blok.link) } : {}}
+    <div class={cn(isStyleLeftHorizontal && 'flex items-center')}>
+      {
+        hasIcon && (
+          <div
+            aria-hidden="true"
+            class={cn(
+              'text-gray-400 transition dark:text-gray-400 [&>svg]:w-auto',
+              blok.isIconCentered && 'flex justify-center',
+              hasLink && 'group-hover:text-gray-950 dark:group-hover:text-gray-300',
+              setIconSize(blok.iconSize)
+            )}
+            style={[
+              blok.spaceAfterIcon &&
+                `margin-${blok.style !== 'left-horizontal' ? 'bottom' : 'right'}: ${blok.spaceAfterIcon};`,
+              blok.iconColor?.color && `color: ${blok.iconColor.color};`,
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
+            <SvgDistant url={blok.icon} />
+          </div>
+        )
+      }
+      <h4
+        class={cn(
+          'font-medium text-gray-950 dark:text-white',
+          setTitleFontSize(blok.titleFontSize)
+        )}
+        style={blok.titleColor?.color && `color: ${blok.titleColor.color};`}
       >
-        {blok.title}
-        {
-          !!parseStoryblokLink(blok.link) && (
-            <>
-              <svg
-                viewBox="0 0 10 10"
-                aria-hidden="true"
-                class="before:transtion-opacity ml-2 h-2.5 w-2.5 flex-none opacity-60 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-6 group-hover:opacity-0 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
-              >
-                <path
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
-                />
-              </svg>
-              <svg
-                viewBox="0 0 10 10"
-                aria-hidden="true"
-                class="before:transtion-opacity -ml-2.5 h-2.5 w-2.5 flex-none -translate-x-2 opacity-0 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-0 group-hover:opacity-100 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
-              >
-                <path
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
-                />
-              </svg>
-            </>
-          )
-        }
-        {hasLink && <span class="absolute inset-0" />}
-      </TitleWrapper>
-    </h4>
-    <div class={cn('text-gray-600 dark:text-gray-400', setTextFontSize(blok.textFontSize))}>
+        <TitleWrapper
+          class="inline-flex items-center justify-center"
+          {...!!parseStoryblokLink(blok.link) ? { href: parseStoryblokLink(blok.link) } : {}}
+        >
+          {blok.title}
+          {
+            !!parseStoryblokLink(blok.link) && (
+              <>
+                <svg
+                  viewBox="0 0 10 10"
+                  aria-hidden="true"
+                  class="before:transtion-opacity ml-2 h-2.5 w-2.5 flex-none opacity-60 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-6 group-hover:opacity-0 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+                >
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                  />
+                </svg>
+                <svg
+                  viewBox="0 0 10 10"
+                  aria-hidden="true"
+                  class="before:transtion-opacity -ml-2.5 h-2.5 w-2.5 flex-none -translate-x-2 opacity-0 transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] group-hover:translate-x-0 group-hover:opacity-100 before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)]"
+                >
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="m7.25 5-3.5-2.25v4.5L7.25 5Z"
+                  />
+                </svg>
+              </>
+            )
+          }
+          {hasLink && <span class="absolute inset-0" />}
+        </TitleWrapper>
+      </h4>
+    </div>
+    <div
+      class={cn('text-gray-600 dark:text-gray-400', setTextFontSize(blok.textFontSize))}
+      style={blok.spaceAfterTitle && `margin-top: ${blok.spaceAfterTitle};`}
+    >
       <p>
         {blok.text}
       </p>

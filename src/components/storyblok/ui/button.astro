@@ -17,6 +17,8 @@ const { blok } = Astro.props as AstroProps;
   isArrowShowed={blok.isArrowShowed}
   color={blok.style}
   link={parseStoryblokLink(blok.link)}
+  isBig={Boolean(blok.isBig)}
+  className="w-full md:w-auto"
 >
   {blok.title}
 </ButtonBase>

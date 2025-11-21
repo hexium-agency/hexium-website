@@ -15,7 +15,7 @@ const works = blok.works?.length ? blok.works : await workService.getLatest();
 
 <div
   {...storyblokEditable(blok)}
-  class="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3"
+  class="grid grid-cols-1 gap-x-5 gap-y-8 md:grid-cols-2 xl:grid-cols-3"
 >
   {
     works?.map((work, index) => (

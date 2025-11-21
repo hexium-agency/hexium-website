@@ -1,23 +1,29 @@
 ---
 import { cn } from '@/lib/utils';
-import type { CustomerStoryblok, WorkStoryblok } from '@/types/storyblok';
+import type { CustomerStoryblok, WorkCategoryStoryblok, WorkStoryblok } from '@/types/storyblok';
 import { parseStoryblokImage } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { Image } from 'astro:assets';
 
 interface AstroProps {
   work: ISbStoryData<WorkStoryblok>;
+  isMinimalStyle?: boolean;
 }
 
-const { work } = Astro.props as AstroProps;
+const { work, isMinimalStyle = false } = Astro.props as AstroProps;
 
 const hasContent = !!work.content.isPublished;
 const LinkWrapper = hasContent ? 'a' : 'div';
 
 const props = hasContent ? { 'data-href': `/${work.full_slug}`, tabindex: '0' } : { tabindex: '0' };
+
+const workCategories = work.content.category as ISbStoryData<WorkCategoryStoryblok>[];
 ---
 
-<div class={cn('group relative isolate', hasContent ? 'cursor-pointer' : '')} {...props}>
+<div
+  class={cn('group relative isolate flex flex-col', hasContent ? 'cursor-pointer' : '')}
+  {...props}
+>
   <div
     class="relative aspect-[1200/630] overflow-hidden rounded-xl bg-gray-950/5 shadow-[0_2px_10px] shadow-gray-900/20"
   >
@@ -40,21 +46,39 @@ const props = hasContent ? { 'data-href': `/${work.full_slug}`, tabindex: '0' } 
       width={200}
       height={100}
     />
-    <div
-      class="absolute inset-0 flex p-6 transition-all group-focus-within:bg-gray-950/30 group-focus-within:backdrop-blur-xs group-hover:bg-gray-950/30 group-hover:backdrop-blur-xs group-focus:bg-gray-950/30 group-focus:backdrop-blur-xs"
-    >
-      <div class="flex flex-col justify-end">
-        <h3
-          class="translate-y-[300px] text-lg/5 font-semibold tracking-tight text-white transition-all group-focus-within:translate-y-0 group-hover:translate-y-0 group-focus:translate-y-0"
-        >
-          <LinkWrapper {...hasContent ? { href: `/${work.full_slug}` } : {}}>
+    {
+      isMinimalStyle && (
+        <div class="absolute inset-0 flex p-6 transition-all group-focus-within:bg-gray-950/30 group-focus-within:backdrop-blur-xs group-hover:bg-gray-950/30 group-hover:backdrop-blur-xs group-focus:bg-gray-950/30 group-focus:backdrop-blur-xs">
+          <div class="flex flex-col justify-end">
+            <h3 class="translate-y-[300px] text-lg/5 font-semibold tracking-tight text-white transition-all group-focus-within:translate-y-0 group-hover:translate-y-0 group-focus:translate-y-0">
+              <LinkWrapper {...(hasContent ? { href: `/${work.full_slug}` } : {})}>
+                {work.content.project}
+                <span class="absolute inset-0 z-10" aria-hidden="true" />
+              </LinkWrapper>
+            </h3>
+          </div>
+        </div>
+      )
+    }
+  </div>
+  {
+    !isMinimalStyle && (
+      <div class="mt-6 flex flex-col md:px-4">
+        <div class="flex flex-wrap gap-2">
+          {workCategories.map((category) => (
+            <div class="text-2xs font-sans font-medium tracking-wide text-blue-600 uppercase">
+              {category.name}
+            </div>
+          ))}
+        </div>
+        <h3 class="font-heading mt-3 text-xl font-semibold tracking-[-0.015em] text-pretty text-gray-950 transition-all group-hover:opacity-80">
+          <LinkWrapper {...(hasContent ? { href: `/${work.full_slug}` } : {})}>
             {work.content.project}
-            <span class="absolute inset-0 z-10" aria-hidden="true"></span>
           </LinkWrapper>
         </h3>
       </div>
-    </div>
-  </div>
+    )
+  }
 </div>
 
 <script>

@@ -13,13 +13,32 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 
 const Title = blok.badge ? 'h2' : 'h1';
+
+function transformTitle(title: string, color: string) {
+  return title.replace(/#([^#]+)#/g, (_, words) => {
+    return words
+      .split(' ')
+      .map((word: string) => {
+        return `<span class="relative isolate inline-block font-semibold before:absolute before:inset-0 before:-z-10 before:blur-[5px] before:opacity-25 before:content-[var(--word)]" style="--word: attr(data-word); color: ${color}" data-word="${word}">${word}</span>`;
+      })
+      .join(' ');
+  });
+}
+
+const highlightWordsEffect = blok.effects?.find(
+  (effect: any) => effect.component === 'highlightWords'
+);
+
+const transformedTitle = highlightWordsEffect
+  ? transformTitle(blok.title, highlightWordsEffect.color.color)
+  : blok.title;
 ---
 
 <section
   {...storyblokEditable(blok)}
   class:list={cn(parseStoryblokBackgroundColor(blok.backgroundColor), 'overflow-hidden')}
 >
-  <div class="container py-20 sm:py-32">
+  <div class="container py-20 sm:py-24">
     <div
       class={cn(
         'grid gap-12 lg:gap-y-0',
@@ -32,17 +51,16 @@ const Title = blok.badge ? 'h2' : 'h1';
           blok.badge && (
             <h2
               {...(blok.sectionId && { id: blok.sectionId })}
-              class="text-2xs/[1.5] font-mono font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200"
+              class="text-2xs/[1.5] font-sans font-medium tracking-wider text-gray-600 uppercase dark:text-gray-200"
             >
               {blok.badge}
             </h2>
           )
         }
         <Title
-          class="font-heading mt-4 text-3xl font-medium tracking-tight text-balance text-gray-950 dark:text-white"
-        >
-          {blok.title}
-        </Title>
+          class="font-heading mt-4 text-3xl font-semibold tracking-tight text-balance text-gray-950 md:text-4xl dark:text-white"
+          set:html={transformedTitle}
+        />
         {
           blok.text?.content?.[0]?.content && (
             <Richtext

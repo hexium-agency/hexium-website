@@ -37,6 +37,8 @@ const technologyLogo = blok.aside?.find(
 );
 
 const maxNumberOfSpans = 19;
+
+const hasBottomItems = blok.bottomItems && blok.bottomItems?.length > 0;
 ---
 
 <section
@@ -45,11 +47,11 @@ const maxNumberOfSpans = 19;
     blok.background === 'white' && 'bg-gray-50',
     blok.background === 'gray' && 'bg-gray-100',
     blok.background === 'black' && 'bg-gray-950 dark',
+    blok.isLanding ? 'pb-16 pt-20 sm:pb-24 sm:pt-30' : 'py-16 sm:py-24',
     'relative'
   )}
 >
   <div class="absolute inset-0 backdrop-blur-xl backdrop-saturate-200"></div>
-
   <div
     class="spans-grid absolute inset-0 divide-zinc-50/20 [&_span]:h-full [&_span]:bg-gradient-to-r [&_span]:from-gray-50/20 [&_span]:from-50% [&_span]:to-gray-200/20 [&>span:first-child]:rounded-l-lg [&>span:last-child]:rounded-r-lg"
   >
@@ -58,7 +60,7 @@ const maxNumberOfSpans = 19;
   <div class="absolute inset-0 bg-[url('../images/noise.png')] opacity-5"></div>
   <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 to-80%"></div>
   <div
-    class="relative isolate z-10 container flex flex-col justify-between py-16 sm:py-24 lg:flex-row lg:gap-x-10"
+    class="relative isolate z-10 container flex flex-col justify-between lg:flex-row lg:gap-x-10"
   >
     <div class="w-full max-w-3xl flex-shrink-0">
       {
@@ -82,7 +84,7 @@ const maxNumberOfSpans = 19;
     </div>
     {blok.aside?.map((item) => <StoryblokComponent blok={item} />)}
   </div>
-  <div class={cn('container', blok.bottomItems && blok.bottomItems?.length > 0 && 'pb-16')}>
+  <div class="container">
     {blok.bottomItems?.map((item) => <StoryblokComponent blok={item} />)}
   </div>
 </section>

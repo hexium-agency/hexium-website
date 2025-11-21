@@ -8,8 +8,35 @@ interface AstroProps {
 }
 
 const { blok } = Astro.props as AstroProps;
+const subItems = blok.subItems?.split('\n').filter((item) => item.trim() !== '');
 ---
 
-<div {...storyblokEditable(blok)} class="flex justify-center gap-4">
-  {blok.items?.map((item) => <StoryblokComponent blok={item} />)}
+<div>
+  <div {...storyblokEditable(blok)} class="flex flex-wrap justify-center gap-4">
+    {blok.items?.map((item) => <StoryblokComponent blok={item} />)}
+  </div>
+  {
+    !!subItems && (
+      <ul class="mt-4 flex flex-col flex-wrap items-center justify-center gap-x-5 gap-y-2 md:flex-row">
+        {subItems.map((item) => (
+          <li class="flex items-center gap-1 text-green-600">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-5 shrink-0 text-green-600"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+            <span class="text-sm font-medium text-gray-600">{item}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
 </div>

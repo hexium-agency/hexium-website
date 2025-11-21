@@ -11,6 +11,8 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 
 const Title = blok.badge ? 'h2' : 'h1';
+
+const maxNumberOfSpans = 19;
 ---
 
 <section
@@ -18,26 +20,36 @@ const Title = blok.badge ? 'h2' : 'h1';
   class={cn(
     blok.background === 'white' && 'bg-gray-50',
     blok.background === 'gray' && 'bg-gray-100',
-    blok.background === 'black' && 'bg-gray-950 dark'
+    blok.background === 'black' && 'bg-gray-950 dark',
+    blok.isLanding ? 'pb-16 pt-20 sm:pb-24 sm:pt-30' : 'py-16 sm:py-24',
+    'relative'
   )}
 >
-  <div class="container py-16 sm:py-24">
+  <div class="absolute inset-0 backdrop-blur-xl backdrop-saturate-200"></div>
+  <div
+    class="spans-grid absolute inset-0 divide-zinc-50/20 [&_span]:h-full [&_span]:bg-gradient-to-r [&_span]:from-gray-50/20 [&_span]:from-50% [&_span]:to-gray-200/20 [&>span:first-child]:rounded-l-lg [&>span:last-child]:rounded-r-lg"
+  >
+    {[...Array(maxNumberOfSpans)].map(() => <span />)}
+  </div>
+  <div class="absolute inset-0 bg-[url('../images/noise.png')] opacity-5"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50 to-80%"></div>
+  <div class="container">
     <div class="mx-auto text-center">
       {
         blok.badge && (
-          <h1 class="mx-auto mb-4 max-w-4xl font-mono text-xs/6 font-medium tracking-wider text-balance text-blue-600 uppercase dark:text-gray-200">
+          <h1 class="font-book mx-auto mb-6 max-w-4xl font-sans text-sm/6 tracking-[0.05em] text-balance text-blue-600 uppercase dark:text-gray-200">
             {blok.badge}
           </h1>
         )
       }
       <Title
-        class="font-heading mx-auto max-w-4xl text-4xl font-medium tracking-tighter text-balance text-gray-950 sm:text-5xl lg:text-6xl dark:text-white"
+        class="font-heading mx-auto max-w-5xl text-4xl font-medium tracking-tight text-balance text-gray-950 sm:text-5xl lg:text-[60px]/[72px] dark:text-white"
       >
         {blok.title}
       </Title>
       {
         blok.text && (
-          <div class="mx-auto mt-6 max-w-2xl text-lg font-medium tracking-tight text-gray-600 dark:text-gray-400">
+          <div class="mx-auto mt-6 max-w-3xl text-lg font-normal whitespace-pre-line text-gray-600 dark:text-gray-400">
             {blok.text}
           </div>
         )
@@ -51,6 +63,9 @@ const Title = blok.badge ? 'h2' : 'h1';
           </div>
         )
       }
+    </div>
+    <div class="container">
+      {blok.bottomItems?.map((item) => <StoryblokComponent blok={item} />)}
     </div>
   </div>
 </section>

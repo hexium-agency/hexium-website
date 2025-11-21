@@ -6,16 +6,19 @@ import { storyblokEditable } from '@storyblok/astro';
 
 interface AstroProps {
   blok: AccordionNewStoryblok;
-  style: 'none' | 'none-open' | 'line';
+  style: 'none' | 'none-open' | 'line' | 'bg-1st-open';
 }
 
 const { blok, style } = Astro.props as AstroProps;
 ---
 
-<div {...storyblokEditable(blok)} class="accordion pb-1">
+<div
+  {...storyblokEditable(blok)}
+  class="accordion rounded-xl bg-white p-6 shadow ring-1 ring-gray-950/5"
+>
   <h4
     class={cn(
-      'accordion-title group flex cursor-pointer items-center justify-between gap-x-3 py-4 pb-3 font-medium text-gray-950 dark:text-white',
+      'accordion-title group flex cursor-pointer items-center justify-between gap-x-3 font-medium text-gray-950 dark:text-white',
       style === 'none-open' && 'cursor-default'
     )}
   >
@@ -53,8 +56,13 @@ const { blok, style } = Astro.props as AstroProps;
       )
     }
   </h4>
-  <div class={cn('content-wrapper overflow-hidden', ['line', 'none'].includes(style) && 'h-0')}>
-    <div class="content pb-4 text-justify text-pretty text-gray-600 dark:text-gray-400">
+  <div
+    class={cn(
+      'content-wrapper overflow-hidden',
+      ['line', 'none', 'bg-1st-open'].includes(style) && 'h-0'
+    )}
+  >
+    <div class="content pt-4 text-justify text-pretty text-gray-600 dark:text-gray-400">
       <Richtext
         text={blok.text}
         class="accordion-text space-y-4 [&_li]:mt-4 [&_li]:marker:text-gray-700 [&_ul]:list-outside [&_ul]:list-disc [&_ul]:pl-5"

@@ -43,7 +43,7 @@ const accordionStyle = blok.style ?? 'line';
 <div
   {...storyblokEditable(blok)}
   class={cn(
-    'mx-auto space-y-1 divide-gray-200 dark:divide-gray-900 w-full',
+    'mx-auto space-y-4 divide-gray-200 dark:divide-gray-900 w-full',
     parseStoryblokMaxWidth(blok.maxWidth),
     setTitleFontSize(blok.titleFontSize),
     setTextFontSize(blok.textFontSize),
@@ -60,31 +60,51 @@ const accordionStyle = blok.style ?? 'line';
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    if (document.querySelector('[data-style="none-open"]')) {
+    const accordionGroup = document.querySelector('[data-style]');
+    const accordionStyle = accordionGroup?.getAttribute('data-style');
+
+    if (accordionStyle === 'none-open') {
       return;
     }
 
-    document.querySelectorAll('.accordion').forEach((accordion) => {
+    const accordions = document.querySelectorAll('.accordion');
+
+    accordions.forEach((accordion, index) => {
       const header = accordion.querySelector('h4') as HTMLHeadingElement;
       const content = accordion.querySelector('.content-wrapper') as HTMLDivElement;
       const contentInner = accordion.querySelector('.content') as HTMLDivElement;
 
-      content.style.transition = 'height 300ms';
+      // Set initial height to 0 for closed accordions
+      if (!(accordionStyle === 'bg-1st-open' && index === 0)) {
+        content.style.height = '0px';
+      }
+
+      // Open the first accordion if style is "bg-1st-open"
+      if (accordionStyle === 'bg-1st-open' && index === 0) {
+        accordion.classList.add('accordion-open');
+        content.style.height = contentInner.offsetHeight + 'px';
+      }
 
       header.addEventListener('click', () => {
         const isOpen = accordion.classList.contains('accordion-open');
 
         if (isOpen) {
+          // Closing
+          content.style.transition = 'height 300ms ease-in-out';
           content.style.height = contentInner.offsetHeight + 'px';
-          content.offsetHeight;
-          content.style.height = '0px';
+          requestAnimationFrame(() => {
+            content.style.height = '0px';
+          });
           accordion.classList.remove('accordion-open');
         } else {
-          accordion.classList.add('accordion-open');
+          // Opening
           const height = contentInner.offsetHeight;
+          content.style.transition = 'height 300ms ease-in-out';
           content.style.height = '0px';
-          content.offsetHeight;
-          content.style.height = height + 'px';
+          requestAnimationFrame(() => {
+            content.style.height = height + 'px';
+          });
+          accordion.classList.add('accordion-open');
         }
       });
     });

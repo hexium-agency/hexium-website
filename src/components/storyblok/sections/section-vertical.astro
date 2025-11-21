@@ -13,6 +13,25 @@ interface AstroProps {
 const { blok } = Astro.props as AstroProps;
 
 const Title = blok.badge ? 'h2' : 'h1';
+
+function transformTitle(title: string, color: string) {
+  return title.replace(/#([^#]+)#/g, (_, words) => {
+    return words
+      .split(' ')
+      .map((word: string) => {
+        return `<span class="relative isolate inline-block font-semibold before:absolute before:inset-0 before:-z-10 before:blur-[5px] before:opacity-25 before:content-[var(--word)]" style="--word: attr(data-word); color: ${color}" data-word="${word}">${word}</span>`;
+      })
+      .join(' ');
+  });
+}
+
+const highlightWordsEffect = blok.effects?.find(
+  (effect: any) => effect.component === 'highlightWords'
+);
+
+const transformedTitle = highlightWordsEffect
+  ? transformTitle(blok.title, highlightWordsEffect.color.color)
+  : blok.title;
 ---
 
 <section
@@ -22,7 +41,7 @@ const Title = blok.badge ? 'h2' : 'h1';
     blok.isBackgroundRounded && 'rounded-3xl mx-2 sm:mx-10'
   )}
 >
-  <div class="container py-20 sm:py-32">
+  <div class="container py-20 sm:py-24">
     {
       blok.badge && (
         <h2
@@ -39,15 +58,14 @@ const Title = blok.badge ? 'h2' : 'h1';
     <div class:list={cn('mt-4', blok.style === 'shared' && 'lg:grid lg:grid-cols-2 lg:gap-x-12')}>
       <Title
         class:list={cn(
-          'font-heading text-3xl font-medium tracking-tight text-balance text-gray-950 dark:text-white',
+          'font-heading text-3xl font-semibold tracking-tight text-balance text-gray-950 md:text-4xl dark:text-white',
           blok.style === 'centered' ? 'text-center' : 'text-left',
           blok.style === 'centered' && parseStoryblokMaxWidth(blok.titleMaxWidth) + ' mx-auto',
           blok.style === 'justified' && 'max-w-2xl',
           blok.style === 'shared' && 'text-pretty'
         )}
-      >
-        {blok.title}
-      </Title>
+        set:html={transformedTitle}
+      />
       {
         blok.text?.content?.[0]?.content && (
           <Richtext
