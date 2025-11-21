@@ -1,0 +1,89 @@
+---
+import { cn } from '@/lib/utils';
+import testimonialService from '@/services/testimonial';
+import type { FeaturedTestimonialsNewStoryblok, TestimonialStoryblok } from '@/types/storyblok';
+import { type ISbStoryData } from '@storyblok/astro';
+
+interface AstroProps {
+  blok: FeaturedTestimonialsNewStoryblok;
+}
+
+import { parseStoryblokImage } from '@/utils/storyblok';
+import { Image } from 'astro:assets';
+const { blok } = Astro.props as AstroProps;
+
+let testimonials = await testimonialService.getTestimonialsByUuids(blok.testimonials as string[]);
+
+const testimonialUuids = blok.testimonials as string[];
+const testimonialsMap = new Map(testimonials.map((t) => [t.uuid, t]));
+testimonials = testimonialUuids
+  .map((uuid) => testimonialsMap.get(uuid))
+  .filter((t): t is ISbStoryData<TestimonialStoryblok> => Boolean(t));
+---
+
+<ul class="isolate grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+  {
+    testimonials.map((testimonial, index) => (
+      <li
+        class={cn(
+          'relative flex overflow-hidden rounded-xl bg-white shadow ring-1 ring-gray-950/5',
+          [0, 4].includes(index) && 'z-10 row-span-2',
+          index === 4 && 'md:col-start-2 md:row-start-4 xl:col-start-3 xl:row-start-2',
+          index === 7 && 'xl:hidden'
+        )}
+        style={
+          [0, 4].includes(index)
+            ? 'box-shadow:0 10px 32px rgb(33 33 38 / 0.15), 0 1px 1px rgb(0 0 0 / 0.05), 0 0 0 1px var(--tw-ring-color), 0 4px 6px rgb(33 33 38 / 0.08), 0 24px 68px rgb(33 33 38 / 0.10)' : ''
+        }
+      >
+        {[0, 4].includes(index) && (
+          <Image
+            class="absolute inset-0 size-full object-cover object-center"
+            {...parseStoryblokImage(testimonial.content.image)}
+            sizes="80vw"
+          />
+          <div class="absolute inset-0 bg-gray-950/60 backdrop-blur-[2.5px]"></div>
+        )}
+        <figure class="flex w-full flex-col items-start p-6">
+          {[0, 4].includes(index) && (
+          <Image
+            class="mb-10 w-auto relative"
+            style={
+              [0, 4].includes(index)
+                && `height: ${Boolean(testimonial.content.logoHeightFeaturedTestimonials) ? testimonial.content.logoHeightFeaturedTestimonials : '20'}px`
+            }
+            {...parseStoryblokImage(testimonial.content.customer.content.logoWhite)}
+            sizes="80vw"
+          />
+        )}
+          <blockquote
+            class={cn(
+              ' text-base/6 text-gray-950',
+              [0, 4].includes(index) ? 'text-xl text-white font-medium mt-auto' : 'text-base/6 text-gray-950 mb-auto'
+            )}
+          >
+            <p class="relative">
+              {testimonial.content.content}
+            </p>
+          </blockquote>
+          <figcaption class="mt-6 flex w-full items-center justify-between relative">
+            <dl class={cn('flex flex-wrap text-sm', [0, 4].includes(index) ? 'text-white/80' : 'text-gray-600')}>
+              <dt class="sr-only">Identité</dt>
+              <dd class={cn('w-full flex-none font-medium', [0, 4].includes(index) ? 'text-white' : 'text-gray-950')}>
+                {testimonial.content.firstname} {testimonial.content.lastname}
+              </dd>
+              <dt class="sr-only">Poste</dt>
+              <dd class="mt-0.5">{testimonial.content.position}</dd>
+              <span class="mx-0.5 mt-0.5">-</span>
+              <dt class="sr-only">Entreprise</dt>
+              <dd class="mt-0.5 flex items-center">
+                {typeof testimonial.content.customer !== 'string' &&
+                  testimonial.content.customer!.content!.name}
+              </dd>
+            </dl>
+          </figcaption>
+        </figure>
+      </li>
+    ))
+  }
+</ul>
