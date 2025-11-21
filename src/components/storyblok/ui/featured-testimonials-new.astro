@@ -45,7 +45,7 @@ testimonials = testimonialUuids
           <div class="absolute inset-0 bg-gray-950/60 backdrop-blur-[2.5px]"></div>
         )}
         <figure class="flex w-full flex-col items-start p-6">
-          {[0, 4].includes(index) && (
+          {[0, 4].includes(index) && typeof testimonial.content.customer !== 'string' && (
           <Image
             class="mb-10 w-auto relative"
             style={

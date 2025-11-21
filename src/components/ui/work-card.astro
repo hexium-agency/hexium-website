@@ -32,8 +32,6 @@ const workCategories = work.content.category as ISbStoryData<WorkCategoryStorybl
       class="absolute inset-0 size-full object-cover transition-all duration-300 group-focus-within:scale-105 group-hover:scale-105 group-focus:scale-105"
       style="color: transparent;"
       {...parseStoryblokImage(work.content.cover)}
-      width={450}
-      height={240}
     />
     <div class="absolute inset-0 bg-gray-950/60"></div>
     <Image
@@ -43,8 +41,6 @@ const workCategories = work.content.category as ISbStoryData<WorkCategoryStorybl
       {...parseStoryblokImage(
         (work.content.customer[0] as ISbStoryData<CustomerStoryblok>).content.logoWhite
       )}
-      width={200}
-      height={100}
     />
     {
       isMinimalStyle && (

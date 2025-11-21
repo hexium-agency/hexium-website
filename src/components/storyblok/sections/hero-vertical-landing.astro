@@ -1,0 +1,80 @@
+---
+import backgroundHeroVerticalLanding from '@/images/background-hero-vertical.png';
+import { cn } from '@/lib/utils';
+import type { HeroVerticalLandingStoryblok } from '@/types/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import { Image } from 'astro:assets';
+
+interface AstroProps {
+  blok: HeroVerticalLandingStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+
+const Title = blok.badge ? 'h2' : 'h1';
+
+const maxNumberOfSpans = 19;
+---
+
+<section
+  {...storyblokEditable(blok)}
+  class={cn(
+    blok.background === 'white' && 'bg-gray-50',
+    blok.background === 'gray' && 'bg-gray-100',
+    blok.background === 'black' && 'bg-gray-950 dark',
+    'relative pb-16 pt-20 sm:pb-24 sm:pt-30'
+  )}
+>
+  <div class="absolute inset-0">
+    <Image
+      src={backgroundHeroVerticalLanding}
+      alt="Background du Hero"
+      class="absolute inset-0 h-full w-full object-cover"
+      sizes="100vw"
+      widths={[320, 640, 750, 828, 1080, 1200, 1920]}
+    />
+  </div>
+  <div class="absolute inset-0 backdrop-blur-3xl"></div>
+  <div
+    class="spans-grid absolute inset-0 divide-zinc-50/20 [&_span]:h-full [&_span]:bg-gradient-to-r [&_span]:from-gray-50/20 [&_span]:from-50% [&_span]:to-gray-200/20 [&>span:first-child]:rounded-l-lg [&>span:last-child]:rounded-r-lg"
+  >
+    {[...Array(maxNumberOfSpans)].map(() => <span />)}
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent from-30% to-gray-50 to-80%"></div>
+  <div class="container">
+    <div class="mx-auto text-center">
+      {
+        blok.badge && (
+          <h1 class="font-book mx-auto mb-6 max-w-4xl font-sans text-sm/6 tracking-[0.05em] text-balance text-blue-600 uppercase dark:text-gray-200">
+            {blok.badge}
+          </h1>
+        )
+      }
+      <Title
+        class="font-heading mx-auto max-w-5xl text-4xl font-bold tracking-tight text-balance text-gray-950 sm:text-5xl lg:text-[60px]/[72px] dark:text-white"
+      >
+        {blok.title}
+      </Title>
+      {
+        blok.text && (
+          <div class="mx-auto mt-6 max-w-3xl text-lg font-normal whitespace-pre-line text-gray-600 dark:text-gray-400">
+            {blok.text}
+          </div>
+        )
+      }
+      {
+        !!blok.buttons?.length && (
+          <div class="mt-8 flex items-center justify-center gap-x-6">
+            {blok.buttons?.map((button) => (
+              <StoryblokComponent blok={button} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+    <div>
+      {blok.bottomItems?.map((item) => <StoryblokComponent blok={item} />)}
+    </div>
+  </div>
+</section>
