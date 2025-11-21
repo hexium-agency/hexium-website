@@ -10,6 +10,7 @@
   --font-sans: var(--font-suisse);
   --font-mono: var(--font-jetbrains-mono-variable);
   --font-heading: var(--font-suisse);
+  --font-heading--font-variation-settings: "opsz" 32;
 
   --font-weight-book: 450;
 
