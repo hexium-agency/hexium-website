@@ -80,7 +80,7 @@ export function parseStoryblokBackgroundColor(backgroundColor: number | string) 
     case 'gray':
       return 'bg-gray-100';
     case 'black':
-      return 'bg-gray-900 dark';
+      return 'bg-gray-950 dark';
     default:
       return 'bg-gray-50';
   }

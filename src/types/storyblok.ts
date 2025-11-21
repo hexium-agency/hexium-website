@@ -31,7 +31,7 @@ export interface AccordionGroupNewStoryblok {
   accordions: AccordionNewStoryblok[];
   titleFontSize?: "" | "16px" | "18px" | "20px";
   textFontSize?: "" | "14px" | "16px" | "18px";
-  style?: "" | "none" | "none-open" | "line";
+  style?: "" | "none" | "none-open" | "line" | "bg-1st-open";
   component: "accordionGroupNew";
   _uid: string;
   [k: string]: any;
@@ -233,6 +233,7 @@ export interface ButtonStoryblok {
 
 export interface ButtonGroupStoryblok {
   items: (ButtonStoryblok | ButtonMeetingStoryblok)[];
+  subItems?: string;
   component: "buttonGroup";
   _uid: string;
   [k: string]: any;
@@ -284,16 +285,32 @@ export interface CardIconTitleTextFullStoryblok {
   [k: string]: any;
 }
 
-export interface CardIconTitleTextFullNewStoryblok {
+export interface CardIconTitleTextFullLeftNewStoryblok {
   icon?: AssetStoryblok;
   title: string;
   text: string;
   link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  iconSize?: "" | "32px" | "28px" | "24px" | "20px" | "16px";
   titleFontSize?: "" | "14px" | "16px" | "18px" | "20px";
   textFontSize?: "" | "14px" | "16px";
   hasBorders?: boolean;
-  isTextCentered?: boolean;
-  isIconCentered?: boolean;
+  component: "cardIconTitleTextFullLeftNew";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface CardIconTitleTextFullNewStoryblok {
+  style: "" | "left-vertical" | "centered-vertical" | "left-horizontal";
+  iconSize?: "" | "32px" | "28px" | "24px" | "20px" | "16px";
+  titleFontSize?: "" | "14px" | "16px" | "18px" | "20px";
+  textFontSize?: "" | "14px" | "16px";
+  spaceAfterIcon?: "" | "8px" | "10px" | "12px" | "14px" | "16px" | "18px";
+  spaceAfterTitle?: "" | "4px" | "6px" | "8px" | "10px" | "12px" | "14px" | "16px" | "18px";
+  hasBorders?: boolean;
+  icon?: AssetStoryblok;
+  title: string;
+  text: string;
+  link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
   component: "cardIconTitleTextFullNew";
   _uid: string;
   [k: string]: any;
@@ -796,6 +813,7 @@ export interface SectionHorizontalStoryblok {
     | SpacerStoryblok
   )[];
   sizeLeftColumn: "" | "half" | "third";
+  effects?: HighlightWordsStoryblok[];
   component: "sectionHorizontal";
   _uid: string;
   [k: string]: any;
@@ -827,6 +845,7 @@ export interface SectionVerticalStoryblok {
     | MarqueeLogosStoryblok
     | SpacerStoryblok
   )[];
+  effects?: HighlightWordsStoryblok[];
   component: "sectionVertical";
   _uid: string;
   [k: string]: any;
