@@ -20,45 +20,20 @@ export default defineConfig({
     fonts: [
       {
         provider: 'local',
-        name: 'Suisse',
+        name: 'Inter',
         cssVariable: '--font-suisse',
         variants: [
           {
-            src: ['./public/fonts/suisse-normal.woff2'],
-            weight: '400',
+            src: ['./public/fonts/inter-variable.woff2'],
+            weight: '100 900',
             style: 'normal',
             display: 'swap',
-          },
-          {
-            src: ['./public/fonts/suisse-book.woff2'],
-            weight: '450',
-            style: 'normal',
-            display: 'swap',
-          },
-          {
-            src: ['./public/fonts/suisse-medium.woff2'],
-            weight: '500',
-            style: 'normal',
-            display: 'swap',
-          },
-          {
-            src: ['./public/fonts/suisse-semibold.woff2'],
-            weight: '600',
-            style: 'normal',
-            display: 'swap',
-          },
-          {
-            src: ['./public/fonts/suisse-bold.woff2'],
-            weight: '700',
-            style: 'normal',
-            display: 'swap',
-          },
+          }
         ],
         fallbacks: ['ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji',
           'Segoe UI Symbol', 'Noto Color Emoji'],
 
       },
-
       {
         provider: fontProviders.google(),
         name: 'JetBrains Mono',
@@ -133,6 +108,7 @@ export default defineConfig({
         'contact-widget': 'components/storyblok/ui/contact-widget',
         'featured-technologies': 'components/storyblok/ui/featured-technologies',
         'featured-testimonials': 'components/storyblok/ui/featured-testimonials',
+        'featured-testimonials-new': 'components/storyblok/ui/featured-testimonials-new',
         'featured-works': 'components/storyblok/ui/featured-works',
         grid: 'components/storyblok/ui/grid',
         'hero-aside-technology-logo': 'components/storyblok/ui/hero-aside-technology-logo',

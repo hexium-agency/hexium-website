@@ -126,7 +126,7 @@
       "display_name": "ACCORDÉON - GROUPE (NEW)",
       "description": "",
       "created_at": "2025-11-12T12:12:05.755Z",
-      "updated_at": "2025-11-12T15:30:15.932Z",
+      "updated_at": "2025-11-21T08:53:16.812Z",
       "id": 111656655904226,
       "schema": {
         "maxWidth": {
@@ -221,6 +221,11 @@
               "_uid": "e6be1dea-cef5-43d2-9bc8-38a79d285978",
               "name": "LIGNE SÉPARATRICE",
               "value": "line"
+            },
+            {
+              "_uid": "38175c68-ae95-434c-ab80-726951de29d4",
+              "value": "bg-1st-open",
+              "name": "BG + 1ST OPEN"
             }
           ],
           "id": "PISWXu-8RGS857EIAmWsZw"
@@ -814,7 +819,7 @@
       "display_name": "BOUTON - GROUPE",
       "description": null,
       "created_at": "2024-12-05T14:22:29.833Z",
-      "updated_at": "2025-04-14T11:22:41.340Z",
+      "updated_at": "2025-11-21T13:01:59.502Z",
       "id": 6650664,
       "schema": {
         "items": {
@@ -830,6 +835,12 @@
             "buttonMeeting"
           ],
           "id": "G-09qeECQ5e3PtBEMhnjtQ"
+        },
+        "subItems": {
+          "type": "textarea",
+          "pos": 1,
+          "description": "",
+          "id": "lq0y_OXNS0eUD8Axa1h_5w"
         }
       },
       "image": null,
@@ -1275,12 +1286,12 @@
       "component_group_name": ""
     },
     {
-      "name": "cardIconTitleTextFullNew",
-      "display_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL (NEW)",
+      "name": "cardIconTitleTextFullLeftNew",
+      "display_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL (LEFT) (NEW)",
       "description": "",
-      "created_at": "2025-11-11T14:48:35.704Z",
-      "updated_at": "2025-11-12T10:22:28.563Z",
-      "id": 111341222730060,
+      "created_at": "2025-11-20T13:02:44.040Z",
+      "updated_at": "2025-11-20T13:14:00.364Z",
+      "id": 114500255914343,
       "schema": {
         "icon": {
           "type": "asset",
@@ -1323,6 +1334,203 @@
           "pos": 3,
           "display_name": "LIEN",
           "id": "ustSesQ4SempRD3kPMCO3Q"
+        },
+        "iconSize": {
+          "type": "option",
+          "pos": 4,
+          "use_uuid": true,
+          "display_name": "ICÔNE - TAILLE",
+          "options": [
+            {
+              "_uid": "9cdfe4ad-79eb-4813-90b5-2fdbc528820e",
+              "name": "32px",
+              "value": "32px"
+            },
+            {
+              "_uid": "780b6b57-7fc8-481f-9529-fc17fc4a745d",
+              "value": "28px",
+              "name": "28px"
+            },
+            {
+              "_uid": "1f8fadfd-b4c9-4d7f-b5b3-21bfd94407b5",
+              "value": "24px",
+              "name": "24px"
+            },
+            {
+              "_uid": "c948f8a5-e48a-44e3-89e4-3df6de34b80b",
+              "value": "20px",
+              "name": "20px"
+            },
+            {
+              "_uid": "271485a4-b2dc-4635-a4f5-38ce53d31558",
+              "value": "16px",
+              "name": "16px"
+            }
+          ],
+          "id": "hwn1nn_XQsqIwcpU_Gzo4Q"
+        },
+        "titleFontSize": {
+          "type": "option",
+          "pos": 5,
+          "use_uuid": true,
+          "id": "ivoboN-8S9S0016_BTIBnQ",
+          "display_name": "TITRE - TAILLE",
+          "options": [
+            {
+              "_uid": "3d6c5638-2194-4bf1-a06a-b17dedc1af86",
+              "name": "14px",
+              "value": "14px"
+            },
+            {
+              "_uid": "310a1fef-def6-49ed-9804-d291bd215920",
+              "value": "16px",
+              "name": "16px"
+            },
+            {
+              "_uid": "05e97301-388b-41aa-bb8c-d03488ce403d",
+              "value": "18px",
+              "name": "18px"
+            },
+            {
+              "_uid": "de6b195c-f8a7-4969-b64d-540887726329",
+              "value": "20px",
+              "name": "20px"
+            }
+          ]
+        },
+        "textFontSize": {
+          "type": "option",
+          "pos": 6,
+          "use_uuid": true,
+          "id": "WOIDWZW5SkmG_daq-XkZkQ",
+          "display_name": "TEXTE - TAILLE",
+          "options": [
+            {
+              "_uid": "8b7c58d6-2186-45e6-82bc-6804d77c47e9",
+              "name": "14px",
+              "value": "14px"
+            },
+            {
+              "_uid": "a0dcf5ad-2e76-4e2d-8095-4fa12b8a3c29",
+              "value": "16px",
+              "name": "16px"
+            }
+          ]
+        },
+        "hasBorders": {
+          "type": "boolean",
+          "pos": 7,
+          "display_name": "BORDURES",
+          "default_value": false,
+          "id": "6-4waf47R2iiFxNrXcOXDw"
+        }
+      },
+      "image": null,
+      "preview_field": "title",
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL (LEFT) (NEW)",
+      "component_group_uuid": "1434373d-383c-4e2f-96ee-ed921c348597",
+      "color": "#424d6d",
+      "icon": "block-tag",
+      "internal_tags_list": [
+        {
+          "id": 53106,
+          "name": "orphan"
+        }
+      ],
+      "internal_tag_ids": [
+        "53106"
+      ],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "ORPHAN"
+    },
+    {
+      "name": "cardIconTitleTextFullNew",
+      "display_name": "CARD (ICÔNE - TITRE - TEXTE) - FULL (NEW)",
+      "description": "",
+      "created_at": "2025-11-11T14:48:35.704Z",
+      "updated_at": "2025-11-20T17:42:12.751Z",
+      "id": 111341222730060,
+      "schema": {
+        "style": {
+          "type": "option",
+          "pos": 0,
+          "use_uuid": true,
+          "display_name": "STYLE",
+          "options": [
+            {
+              "_uid": "00c3fb29-4eed-44bf-8962-1336dceaebf3",
+              "name": "GAUCHE (VERTICAL)",
+              "value": "left-vertical"
+            },
+            {
+              "_uid": "9c46e7d1-8c9d-4b08-ac88-a5932ea88645",
+              "value": "centered-vertical",
+              "name": "CENTRÉ (VERTICAL)"
+            },
+            {
+              "_uid": "2aff2920-c1aa-4101-bc3e-cf2297d97537",
+              "value": "left-horizontal",
+              "name": "GAUCHE (HORIZONTAL)"
+            }
+          ],
+          "required": true,
+          "id": "TtjS7w0RSlO5nKjiHJs5cg"
+        },
+        "iconColor": {
+          "type": "custom",
+          "pos": 1,
+          "display_name": "ICÔNE - COULEUR",
+          "field_type": "native-color-picker",
+          "options": [],
+          "id": "mUMaC5FrTk-iSXpxtKPa8w"
+        },
+        "iconSize": {
+          "type": "option",
+          "pos": 2,
+          "use_uuid": true,
+          "display_name": "ICÔNE - TAILLE",
+          "options": [
+            {
+              "_uid": "7459eb46-5c53-458a-b943-7c2c6df5a4e6",
+              "name": "32px",
+              "value": "32px"
+            },
+            {
+              "_uid": "5ce3fec2-4e8d-4be5-8894-4fbadb57881c",
+              "value": "28px",
+              "name": "28px"
+            },
+            {
+              "_uid": "6918e828-e1a4-452b-ae57-6560c7af6b55",
+              "value": "24px",
+              "name": "24px"
+            },
+            {
+              "_uid": "8235baef-0f1b-4bfc-8018-de477f376bc1",
+              "value": "20px",
+              "name": "20px"
+            },
+            {
+              "_uid": "0843efae-4209-4e7e-8132-457b5906c515",
+              "value": "16px",
+              "name": "16px"
+            }
+          ],
+          "id": "37AnBaBSTVO3Rr1vkP_NJg"
+        },
+        "titleColor": {
+          "type": "custom",
+          "pos": 3,
+          "id": "PjEFvgRGTiWDYVrqqT-VCA",
+          "display_name": "TITRE - COULEUR",
+          "field_type": "native-color-picker",
+          "options": []
         },
         "titleFontSize": {
           "type": "option",
@@ -1372,24 +1580,159 @@
             }
           ]
         },
+        "spaceAfterIcon": {
+          "type": "option",
+          "pos": 6,
+          "use_uuid": true,
+          "options": [
+            {
+              "_uid": "2c930ae7-8db6-4792-afae-5513aeb35e87",
+              "name": "8px",
+              "value": "8px"
+            },
+            {
+              "_uid": "420cbd43-9971-4ea3-9ff6-ecdea4ad677a",
+              "value": "10px",
+              "name": "10px"
+            },
+            {
+              "_uid": "a8f662eb-3740-4a8e-92a2-65678791273c",
+              "value": "12px",
+              "name": "12px"
+            },
+            {
+              "_uid": "0633a1f1-1a3f-4637-b2ec-c6e24cf1279b",
+              "value": "14px",
+              "name": "14px"
+            },
+            {
+              "_uid": "05287cd1-b2da-4164-9a2d-0e2c56ffd1a7",
+              "value": "16px",
+              "name": "16px"
+            },
+            {
+              "_uid": "27f3de1b-4743-4c05-94bf-2829abac45bb",
+              "value": "18px",
+              "name": "18px"
+            }
+          ],
+          "id": "Pf9_u-nWSViUs5Pm5VwE2w",
+          "display_name": "ESPACE - ICÔNE / TITRE"
+        },
+        "spaceAfterTitle": {
+          "type": "option",
+          "pos": 7,
+          "use_uuid": true,
+          "id": "eKAoM3F2TkKCXHI-q_W3bg",
+          "options": [
+            {
+              "_uid": "7490d3bc-b556-4feb-ad7e-ce2bc47efb77",
+              "value": "4px",
+              "name": "4px"
+            },
+            {
+              "_uid": "1dc23e0a-9d8d-4abb-93fa-a5036a3dd35f",
+              "value": "6px",
+              "name": "6px"
+            },
+            {
+              "_uid": "4e236dd1-13aa-43ba-8ded-21204868ebb5",
+              "name": "8px",
+              "value": "8px"
+            },
+            {
+              "_uid": "23b3a83c-62e2-404c-8bd9-67eb1041b416",
+              "value": "10px",
+              "name": "10px"
+            },
+            {
+              "_uid": "1c020d9d-5d87-4d2d-9ac2-02a0b4e181f5",
+              "value": "12px",
+              "name": "12px"
+            },
+            {
+              "_uid": "65d575f1-2e6c-4b5a-81da-f368a58ad1d2",
+              "value": "14px",
+              "name": "14px"
+            },
+            {
+              "_uid": "deae4e86-aabf-4346-8bbb-9e43f30d2b9b",
+              "value": "16px",
+              "name": "16px"
+            },
+            {
+              "_uid": "8f7add77-2ab1-42f0-a769-9ed6c0aa82dd",
+              "value": "18px",
+              "name": "18px"
+            }
+          ],
+          "display_name": "ESPACE - TITRE / TEXTE"
+        },
         "hasBorders": {
           "type": "boolean",
-          "pos": 6,
+          "pos": 8,
           "display_name": "BORDURES",
           "default_value": false,
           "id": "6-4waf47R2iiFxNrXcOXDw"
         },
-        "isTextCentered": {
-          "type": "boolean",
-          "pos": 7,
-          "display_name": "TEXTE - CENTRÉ",
-          "id": "-8mF0BZOQ7CzSjJCf35QXA"
+        "icon": {
+          "type": "asset",
+          "pos": 9,
+          "display_name": "ICÔNE",
+          "required": false,
+          "filetypes": [
+            "images"
+          ],
+          "asset_folder_id": 681165,
+          "description": "Uniquement un SVG qui devra être normalisé avant",
+          "id": "tKMGIQNzTtS0gt9AdveLUQ"
         },
-        "isIconCentered": {
-          "type": "boolean",
-          "pos": 8,
-          "display_name": "ICÔNE - CENTRÉ",
-          "id": "_z8N3v85QHKdq0KaobQ3Qw"
+        "title": {
+          "type": "text",
+          "pos": 10,
+          "id": "lOVDahm7SxmWYscV9U62YA",
+          "display_name": "TITRE",
+          "required": true,
+          "description": "H4"
+        },
+        "text": {
+          "type": "textarea",
+          "pos": 11,
+          "customize_toolbar": true,
+          "toolbar": [
+            "bold",
+            "copy",
+            "cut",
+            "redo",
+            "undo",
+            "link"
+          ],
+          "required": true,
+          "display_name": "TEXTE",
+          "id": "5Q07nZ4dRRu4-5iZzm9x_Q"
+        },
+        "link": {
+          "type": "multilink",
+          "pos": 12,
+          "display_name": "LIEN",
+          "id": "ustSesQ4SempRD3kPMCO3Q"
+        },
+        "tab-408d5f7b-d8d5-46df-84b3-3a4fbd558ce3": {
+          "display_name": "Config",
+          "keys": [
+            "spaceAfterTitle",
+            "iconSize",
+            "spaceAfterIcon",
+            "style",
+            "hasBorders",
+            "textFontSize",
+            "titleFontSize",
+            "iconColor",
+            "titleColor"
+          ],
+          "pos": 13,
+          "type": "tab",
+          "id": "QI1fe9jVRt-EszpPvVWM4w"
         }
       },
       "image": null,
@@ -4354,7 +4697,7 @@
       "display_name": "SECTION - HORIZONTAL",
       "description": null,
       "created_at": "2024-12-13T16:45:09.023Z",
-      "updated_at": "2025-11-11T15:13:01.656Z",
+      "updated_at": "2025-11-20T17:52:24.762Z",
       "id": 6688516,
       "schema": {
         "sectionId": {
@@ -4450,7 +4793,8 @@
             "backgroundColor",
             "revertSide",
             "sizeLeftColumn",
-            "sectionId"
+            "sectionId",
+            "effects"
           ],
           "pos": 8,
           "type": "tab",
@@ -4509,10 +4853,22 @@
           ],
           "id": "MwSd7AyzSwGeWx9MrHCeZQ",
           "default_value": "half"
+        },
+        "effects": {
+          "type": "bloks",
+          "pos": 13,
+          "display_name": "EFFETS",
+          "restrict_type": "groups",
+          "restrict_components": true,
+          "component_whitelist": [],
+          "component_group_whitelist": [
+            "f69348e7-4f7d-44ce-b1d8-3b497717c1d7"
+          ],
+          "id": "qB92DNxwSP6tUcwjcA5fgQ"
         }
       },
       "image": null,
-      "preview_field": "badge",
+      "preview_field": "title",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
@@ -4540,7 +4896,7 @@
       "display_name": "SECTION - VERTICAL",
       "description": null,
       "created_at": "2024-12-13T07:33:53.480Z",
-      "updated_at": "2025-11-13T12:06:27.208Z",
+      "updated_at": "2025-11-20T16:27:42.837Z",
       "id": 6684165,
       "schema": {
         "sectionId": {
@@ -4663,7 +5019,8 @@
             "textMaxWidth",
             "style",
             "sectionId",
-            "isBackgroundRounded"
+            "isBackgroundRounded",
+            "effects"
           ],
           "pos": 9,
           "type": "tab",
@@ -4681,6 +5038,18 @@
           "component_group_whitelist": [
             "83d83b65-3eb1-45c3-8681-76b4dd75c360"
           ]
+        },
+        "effects": {
+          "type": "bloks",
+          "pos": 11,
+          "display_name": "EFFETS",
+          "restrict_type": "groups",
+          "restrict_components": true,
+          "component_whitelist": [],
+          "component_group_whitelist": [
+            "f69348e7-4f7d-44ce-b1d8-3b497717c1d7"
+          ],
+          "id": "NcFB4n0UQfWbVClRnWcCIg"
         }
       },
       "image": null,
