@@ -1,6 +1,6 @@
 ---
 import type { ArticleStoryblok, DefinitionStoryblok, TeamStoryblok } from '@/types/storyblok';
-import { getReadingTime, getWordsCount } from '@/utils/storyblok';
+import { getReadingTime, getWordsCount, parseStoryblokYear } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 
 interface AstroProps {
@@ -26,9 +26,9 @@ const author = authorArray && authorArray.length > 0 ? authorArray[0] : null;
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Article',
-  headline: story.name,
+  headline: parseStoryblokYear(story.name),
   url: import.meta.env.WEBSITE_URL + pathname,
-  description: story.content.description,
+  description: parseStoryblokYear(story.content.description),
   ...(isArticle && {
     articleSection: articleCategories,
     image: [story.content.cover.filename],

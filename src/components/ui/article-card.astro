@@ -1,7 +1,7 @@
 ---
 import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
 import { formatIsoToDate, formatIsoToReadable } from '@/utils/date';
-import { parseStoryblokImage } from '@/utils/storyblok';
+import { parseStoryblokImage, parseStoryblokYear } from '@/utils/storyblok';
 import type { ISbStoryData } from '@storyblok/astro';
 import { Image } from 'astro:assets';
 
@@ -32,7 +32,7 @@ const createdAt = article?.created_at! || article?.published_at!;
       <a
         href={`/blog/${(article.content.category[0] as ISbStoryData<BlogCategoryStoryblok>).slug}/${article.slug}`}
       >
-        {article.name}
+        {parseStoryblokYear(article.name)}
         <span class="absolute inset-0 z-10" aria-hidden="true"></span>
       </a>
     </h3>

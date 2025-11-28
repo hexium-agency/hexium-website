@@ -13,8 +13,8 @@ export function extractBadgeTitleFromRichText(richText: RichtextStoryblok) {
     .filter((item) => item.type === 'blok' && item.attrs?.body?.[0]?.component === 'badgeTitle')
     .map((heading) => ({
       level: 2,
-      text: heading.attrs?.body?.[0]?.badge || heading.attrs?.content?.[0]?.title || '',
-      id: slugify(heading.attrs?.body?.[0]?.badge || heading.attrs?.content?.[0]?.title || '', {
+      text: parseStoryblokYear(heading.attrs?.body?.[0]?.badge || heading.attrs?.content?.[0]?.title || ''),
+      id: slugify(parseStoryblokYear(heading.attrs?.body?.[0]?.badge || heading.attrs?.content?.[0]?.title || ''), {
         lower: true,
       }),
     }));
@@ -27,8 +27,8 @@ export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
     .filter((item) => item.type === 'heading')
     .map((heading) => ({
       level: heading.attrs.level,
-      text: heading.content?.[0].text || '',
-      id: slugify(heading.content?.[0].text || '', {
+      text: parseStoryblokYear(heading.content?.[0].text || ''),
+      id: slugify(parseStoryblokYear(heading.content?.[0].text || ''), {
         lower: true,
       }),
     }));
@@ -177,4 +177,37 @@ export function parseStoryblokRichTextImage(image: any) {
     width: dimensions![1],
     height: dimensions![2],
   };
+}
+
+export function parseStoryblokYear(text: string): string {
+  const currentYear = new Date().getFullYear();
+  return text.replace(/#YEAR#/g, currentYear.toString());
+}
+
+export function parseStoryblokYearInRichText(
+  richText: RichtextStoryblok
+): RichtextStoryblok {
+  // Create a deep copy to avoid mutating the original
+  const processedRichText = { ...richText };
+
+  // Process text property if it exists
+  if (processedRichText.text) {
+    processedRichText.text = parseStoryblokYear(processedRichText.text);
+  }
+
+  // Recursively process content array if it exists
+  if (processedRichText.content && Array.isArray(processedRichText.content)) {
+    processedRichText.content = processedRichText.content.map((item) =>
+      parseStoryblokYearInRichText(item)
+    );
+  }
+
+  // Recursively process marks array if it exists
+  if (processedRichText.marks && Array.isArray(processedRichText.marks)) {
+    processedRichText.marks = processedRichText.marks.map((item) =>
+      parseStoryblokYearInRichText(item)
+    );
+  }
+
+  return processedRichText;
 }
