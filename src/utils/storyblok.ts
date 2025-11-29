@@ -180,6 +180,7 @@ export function parseStoryblokRichTextImage(image: any) {
 }
 
 export function parseStoryblokYear(text: string): string {
+  if (!text) return text;
   const currentYear = new Date().getFullYear();
   return text.replace(/#YEAR#/g, currentYear.toString());
 }
