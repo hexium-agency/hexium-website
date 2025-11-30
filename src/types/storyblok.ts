@@ -421,12 +421,13 @@ export interface CustomerStoryblok {
 }
 
 export interface DefinitionStoryblok {
+  author: (ISbStoryData<TeamStoryblok> | string)[];
+  shortDefinition: RichtextStoryblok;
+  content: RichtextStoryblok;
   metaTitle: string;
   metaDescription: string;
   ogBadge: string;
   ogTitle: string;
-  author: (ISbStoryData<TeamStoryblok> | string)[];
-  content: RichtextStoryblok;
   ogDescription?: string;
   component: "definition";
   _uid: string;

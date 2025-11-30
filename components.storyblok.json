@@ -819,7 +819,7 @@
       "display_name": "BOUTON - GROUPE",
       "description": null,
       "created_at": "2024-12-05T14:22:29.833Z",
-      "updated_at": "2025-11-21T13:01:59.502Z",
+      "updated_at": "2025-11-21T14:35:01.267Z",
       "id": 6650664,
       "schema": {
         "items": {
@@ -839,8 +839,9 @@
         "subItems": {
           "type": "textarea",
           "pos": 1,
-          "description": "",
-          "id": "lq0y_OXNS0eUD8Axa1h_5w"
+          "description": "Un item par ligne",
+          "id": "lq0y_OXNS0eUD8Axa1h_5w",
+          "display_name": "RÉASSURANCE"
         }
       },
       "image": null,
@@ -2423,58 +2424,12 @@
       "display_name": "DEFINITION",
       "description": null,
       "created_at": "2024-12-08T16:06:51.517Z",
-      "updated_at": "2025-06-14T08:44:45.674Z",
+      "updated_at": "2025-11-29T15:32:54.565Z",
       "id": 6663005,
       "schema": {
-        "metaTitle": {
-          "type": "text",
-          "pos": 0,
-          "display_name": "META - TITRE",
-          "required": true,
-          "max_length": 70,
-          "id": "vqDEqjnMTjKU_6cAlcgI9A"
-        },
-        "metaDescription": {
-          "type": "textarea",
-          "pos": 1,
-          "max_length": 160,
-          "required": true,
-          "display_name": "META - DESCRIPTION",
-          "id": "h1eY8N9tRG-N-ASacaGwHA"
-        },
-        "ogBadge": {
-          "type": "text",
-          "pos": 2,
-          "required": true,
-          "display_name": "OG - BADGE",
-          "max_length": 30,
-          "id": "-KAeFk-1RmOxLTU6-vxB6Q"
-        },
-        "ogTitle": {
-          "type": "text",
-          "pos": 3,
-          "display_name": "OG - TITRE",
-          "required": true,
-          "max_length": 80,
-          "id": "PIjLv7A3QeKArvt07PALAA"
-        },
-        "tab-66c80ba6-0f4a-4d0b-ad1d-601434434bad": {
-          "display_name": "Seo",
-          "keys": [
-            "metaTitle",
-            "metaDescription",
-            "obBadge",
-            "ogTitle",
-            "ogBadge",
-            "ogDescription"
-          ],
-          "pos": 4,
-          "type": "tab",
-          "id": "ZsgLpg9KTQutHWAUNENLrQ"
-        },
         "author": {
           "type": "options",
-          "pos": 5,
+          "pos": 0,
           "is_reference_type": true,
           "source": "internal_stories",
           "entry_appearance": "card",
@@ -2488,9 +2443,16 @@
           "max_options": "1",
           "id": "py-O5Yp4R0CxnaeaDG1lTA"
         },
+        "shortDefinition": {
+          "type": "richtext",
+          "pos": 1,
+          "display_name": "DÉFINITION - COURTE",
+          "required": true,
+          "id": "aAuQFnF6SlONPEodKg_CLA"
+        },
         "content": {
           "type": "richtext",
-          "pos": 6,
+          "pos": 2,
           "display_name": "CONTENU",
           "required": true,
           "customize_toolbar": true,
@@ -2522,9 +2484,55 @@
           ],
           "id": "ZYj1XF7KRSSlfTUx77lvig"
         },
+        "metaTitle": {
+          "type": "text",
+          "pos": 3,
+          "display_name": "META - TITRE",
+          "required": true,
+          "max_length": 70,
+          "id": "vqDEqjnMTjKU_6cAlcgI9A"
+        },
+        "metaDescription": {
+          "type": "textarea",
+          "pos": 4,
+          "max_length": 160,
+          "required": true,
+          "display_name": "META - DESCRIPTION",
+          "id": "h1eY8N9tRG-N-ASacaGwHA"
+        },
+        "ogBadge": {
+          "type": "text",
+          "pos": 5,
+          "required": true,
+          "display_name": "OG - BADGE",
+          "max_length": 30,
+          "id": "-KAeFk-1RmOxLTU6-vxB6Q"
+        },
+        "ogTitle": {
+          "type": "text",
+          "pos": 6,
+          "display_name": "OG - TITRE",
+          "required": true,
+          "max_length": 80,
+          "id": "PIjLv7A3QeKArvt07PALAA"
+        },
+        "tab-66c80ba6-0f4a-4d0b-ad1d-601434434bad": {
+          "display_name": "Seo",
+          "keys": [
+            "metaTitle",
+            "metaDescription",
+            "obBadge",
+            "ogTitle",
+            "ogBadge",
+            "ogDescription"
+          ],
+          "pos": 7,
+          "type": "tab",
+          "id": "ZsgLpg9KTQutHWAUNENLrQ"
+        },
         "ogDescription": {
           "type": "textarea",
-          "pos": 7,
+          "pos": 8,
           "display_name": "OG - DESCRIPTION",
           "required": false,
           "max_length": 148,
