@@ -25,13 +25,16 @@ export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
 
   return richText.content
     .filter((item) => item.type === 'heading')
-    .map((heading) => ({
-      level: heading.attrs.level,
-      text: parseStoryblokYear(heading.content?.[0].text || ''),
-      id: slugify(parseStoryblokYear(heading.content?.[0].text || ''), {
-        lower: true,
-      }),
-    }));
+    .map((heading) => {
+      const fullText = heading.content?.map(item => item.text || '').join('') || '';
+      return {
+        level: heading.attrs.level,
+        text: parseStoryblokYear(fullText),
+        id: slugify(parseStoryblokYear(fullText), {
+          lower: true,
+        }),
+      };
+    });
 }
 
 export function getReadingTime(richText: RichtextStoryblok) {
