@@ -3,7 +3,13 @@ import ArticleJumpToSection from '@/components/article-jump-to-section.astro';
 import Breadcrumb from '@/components/breadcrumb.astro';
 import RichText from '@/components/richtext.astro';
 import TableOfContents from '@/components/table-of-contents.astro';
-import type { ArticleStoryblok, BlogCategoryStoryblok } from '@/types/storyblok';
+import LinkedinIcon from '@/icons/linkedin.svg';
+import type {
+  ArticleStoryblok,
+  AssetStoryblok,
+  BlogCategoryStoryblok,
+  TeamStoryblok,
+} from '@/types/storyblok';
 import { formatIsoToDate, formatIsoToReadable } from '@/utils/date';
 import {
   extractHeadingsFromRichText,
@@ -25,6 +31,8 @@ const { blok, story } = Astro.props as AstroProps;
 const headings = extractHeadingsFromRichText(blok.content);
 
 const processedContent = parseStoryblokYearInRichText(blok.content);
+
+const author = blok.author[0] as ISbStoryData<TeamStoryblok>;
 ---
 
 <article {...storyblokEditable(blok)} class="container">
@@ -73,7 +81,6 @@ const processedContent = parseStoryblokYearInRichText(blok.content);
         </div>
         <footer class="mt-10 flex flex-col text-xs text-gray-600">
           <dl class="ml-auto">
-            <dt class="sr-only">Publié le</dt>
             <dd class="text-right">
               Publié le
               <time
@@ -96,7 +103,6 @@ const processedContent = parseStoryblokYearInRichText(blok.content);
                   story.published_at || story.first_published_at || (story.updated_at as string)
                 ) && (
                 <>
-                  <dt class="sr-only">Mis à jour le</dt>
                   <dd class="text-right">
                     Mis à jour le
                     <time
@@ -117,6 +123,28 @@ const processedContent = parseStoryblokYearInRichText(blok.content);
               )
             }
           </dl>
+          <div class="mt-10 flex items-start gap-4">
+            <div class="size-20 shrink-0 overflow-hidden rounded-full bg-blue-600/10 md:size-28">
+              <Image
+                {...parseStoryblokImage(author.content.picture as AssetStoryblok, [224])}
+                class="aspect-square size-full object-cover"
+              />
+            </div>
+            <div>
+              <!-- <div class="text-sm font-medium text-gray-600 uppercase">Auteur</div> -->
+              <div class="flex items-center gap-2">
+                <div class="text-xl font-semibold text-gray-950">
+                  {author.content.firstname}
+                  {author.content.lastname}
+                </div>
+                <a href={author.content.linkedin} target="_blank" class="group">
+                  <LinkedinIcon class="size-5 text-gray-600 transition group-hover:text-blue-600" />
+                </a>
+              </div>
+              <div class="text-sm text-gray-600">{author.content.position} @ Hexium</div>
+              <p class="mt-3 text-sm/5 text-gray-600 italic">{author.content.shortDescription}</p>
+            </div>
+          </div>
         </footer>
       </div>
     </div>
