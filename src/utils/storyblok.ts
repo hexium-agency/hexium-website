@@ -16,6 +16,7 @@ export function extractBadgeTitleFromRichText(richText: RichtextStoryblok) {
       text: parseStoryblokYear(heading.attrs?.body?.[0]?.badge || heading.attrs?.content?.[0]?.title || ''),
       id: slugify(parseStoryblokYear(heading.attrs?.body?.[0]?.badge || heading.attrs?.content?.[0]?.title || ''), {
         lower: true,
+        strict: true,
       }),
     }));
 }
@@ -32,6 +33,7 @@ export function extractHeadingsFromRichText(richText: RichtextStoryblok) {
         text: parseStoryblokYear(fullText),
         id: slugify(parseStoryblokYear(fullText), {
           lower: true,
+          strict: true,
         }),
       };
     });

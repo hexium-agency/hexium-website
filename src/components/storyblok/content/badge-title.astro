@@ -10,6 +10,7 @@ const { blok } = Astro.props as AstroProps;
 
 const slugifiedText = slugify(blok.badge || blok.title, {
   lower: true,
+  strict: true,
 });
 ---
 
