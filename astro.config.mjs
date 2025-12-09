@@ -120,6 +120,7 @@ export default defineConfig({
         'navbar-dropdown': 'components/ui/navbar-dropdown',
         'navbar-column': 'components/ui/navbar-column',
         'navbar-link': 'components/ui/navbar-link',
+        'navbar-sub-link': 'components/ui/navbar-sub-link',
         'navbar-sub-dropdown': 'components/ui/navbar-sub-dropdown',
         footerAgency: 'components/ui/footer-agency',
         footerLink: 'components/ui/footer-link',

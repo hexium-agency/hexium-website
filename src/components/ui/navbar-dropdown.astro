@@ -37,12 +37,12 @@ const titleLinkUrl = normalizeUrl(blok.link?.cached_url || blok.link?.url);
     titleLinkUrl ? (
       <a
         href={titleLinkUrl}
-        class="navbar-link dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium lg:flex"
+        class="navbar-link dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-[14px] font-medium tracking-[-0.15px] lg:flex"
       >
         <span>{blok.title}</span>
       </a>
     ) : (
-      <div class="navbar-link dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-sm font-medium lg:flex">
+      <div class="navbar-link dropdown-title hidden items-center justify-between rounded-lg px-3 py-1.5 text-[14px] font-medium tracking-[-0.15px] lg:flex">
         <span>{blok.title}</span>
       </div>
     )
@@ -69,7 +69,7 @@ const titleLinkUrl = normalizeUrl(blok.link?.cached_url || blok.link?.url);
     class="dropdown-container bg-gray-25 invisible absolute top-0 left-full z-50 flex h-screen w-full flex-col gap-4 opacity-0 transition-all duration-500 lg:top-[calc(100%+.5rem)] lg:left-0 lg:mt-2 lg:h-auto lg:w-max lg:min-w-[250px] lg:flex-row lg:rounded-md lg:shadow-lg lg:group-hover/dropdown:visible lg:group-hover/dropdown:opacity-100"
   >
     <div
-      class={`[&>*_a]:lg:py-2 lg:p-4 pt-[68px] w-full lg:pt-4 flex flex-col gap-4 lg:gap-1 [&_a]:font-semibold ${shouldFlexHorizontally ? 'lg:flex-row' : 'lg:flex-col'}`}
+      class={`[&>*_a]:lg:py-2 lg:p-4 pt-[68px] w-full lg:pt-4 flex flex-col gap-4 lg:gap-1 [&_a]:font-medium ${shouldFlexHorizontally ? 'lg:flex-row' : 'lg:flex-col'}`}
     >
       {blok.items.map((link) => <StoryblokComponent blok={link} />)}
     </div>

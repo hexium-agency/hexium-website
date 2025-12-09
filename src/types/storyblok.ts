@@ -422,7 +422,7 @@ export interface CustomerStoryblok {
 
 export interface DefinitionStoryblok {
   author: (ISbStoryData<TeamStoryblok> | string)[];
-  shortDefinition: RichtextStoryblok;
+  shortDefinition: string;
   content: RichtextStoryblok;
   metaTitle: string;
   metaDescription: string;
@@ -494,7 +494,7 @@ export interface FooterLinkGroupStoryblok {
 }
 
 export interface GlobalStoryblok {
-  navbar: (NavbarLinkStoryblok | NavbarDropdownStoryblok)[];
+  navbar: (NavbarDropdownStoryblok | NavbarLinkStoryblok)[];
   footerAgencies: FooterAgencyStoryblok[];
   footerColumns: FooterLinkGroupStoryblok[];
   footerLinks: FooterLinkStoryblok[];
@@ -676,7 +676,7 @@ export interface MarqueeLogosStoryblok {
 
 export interface NavbarColumnStoryblok {
   title?: string;
-  links: NavbarLinkStoryblok[];
+  links: NavbarSubLinkStoryblok[];
   component: "navbarColumn";
   _uid: string;
   [k: string]: any;
@@ -685,16 +685,14 @@ export interface NavbarColumnStoryblok {
 export interface NavbarDropdownStoryblok {
   title: string;
   link?: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
-  items: (NavbarLinkStoryblok | NavbarColumnStoryblok | NavbarSubDropdownStoryblok)[];
+  items: (NavbarColumnStoryblok | NavbarSubDropdownStoryblok | NavbarSubLinkStoryblok)[];
   component: "navbarDropdown";
   _uid: string;
   [k: string]: any;
 }
 
 export interface NavbarLinkStoryblok {
-  icon?: AssetStoryblok;
   title: string;
-  text?: string;
   link: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
   component: "navbarLink";
   _uid: string;
@@ -703,8 +701,18 @@ export interface NavbarLinkStoryblok {
 
 export interface NavbarSubDropdownStoryblok {
   title?: string;
-  items: (NavbarColumnStoryblok | NavbarLinkStoryblok)[];
+  items: (NavbarColumnStoryblok | NavbarSubLinkStoryblok)[];
   component: "navbarSubDropdown";
+  _uid: string;
+  [k: string]: any;
+}
+
+export interface NavbarSubLinkStoryblok {
+  icon?: AssetStoryblok;
+  title: string;
+  text?: string;
+  link: Exclude<MultilinkStoryblok, {linktype?: "email"} | {linktype?: "asset"}>;
+  component: "navbarSubLink";
   _uid: string;
   [k: string]: any;
 }
@@ -870,6 +878,7 @@ export interface TeamStoryblok {
   email: string;
   linkedin?: string;
   calendar?: string;
+  shortDescription: string;
   component: "team";
   _uid: string;
   [k: string]: any;

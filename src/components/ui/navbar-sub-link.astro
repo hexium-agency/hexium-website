@@ -1,0 +1,40 @@
+---
+import { cn } from '@/lib/utils';
+import type { NavbarSubLinkStoryblok } from '@/types/storyblok';
+import { parseStoryblokLink } from '@/utils/storyblok';
+import { storyblokEditable } from '@storyblok/astro';
+import { Image } from 'astro:assets';
+
+interface AstroProps {
+  blok: NavbarSubLinkStoryblok;
+}
+
+const { blok } = Astro.props as AstroProps;
+---
+
+<div {...storyblokEditable(blok)}>
+  <a
+    href={parseStoryblokLink(blok.link)}
+    class={cn(
+      'navbar-link container flex items-center rounded-lg px-6 py-1.5 text-[14px] tracking-[-0.15px]',
+      blok?.icon?.filename ? 'lg:px-1!' : 'lg:px-2!'
+    )}
+  >
+    {
+      blok?.icon?.filename && (
+        <div class="mr-3 flex w-[25px] items-center justify-center">
+          <Image
+            src={blok.icon.filename}
+            alt={blok.title}
+            class="h-4 w-auto object-contain"
+            sizes="10vw"
+            width={20}
+            height={20}
+            loading="eager"
+          />
+        </div>
+      )
+    }
+    {blok.title}
+  </a>
+</div>

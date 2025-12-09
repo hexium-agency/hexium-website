@@ -2424,7 +2424,7 @@
       "display_name": "DEFINITION",
       "description": null,
       "created_at": "2024-12-08T16:06:51.517Z",
-      "updated_at": "2025-11-29T15:32:54.565Z",
+      "updated_at": "2025-11-29T15:52:07.108Z",
       "id": 6663005,
       "schema": {
         "author": {
@@ -2444,11 +2444,17 @@
           "id": "py-O5Yp4R0CxnaeaDG1lTA"
         },
         "shortDefinition": {
-          "type": "richtext",
+          "type": "textarea",
           "pos": 1,
           "display_name": "DÉFINITION - COURTE",
           "required": true,
-          "id": "aAuQFnF6SlONPEodKg_CLA"
+          "id": "aAuQFnF6SlONPEodKg_CLA",
+          "customize_toolbar": true,
+          "toolbar": [
+            "bold",
+            "link"
+          ],
+          "max_length": 320
         },
         "content": {
           "type": "richtext",
@@ -2949,7 +2955,7 @@
       "display_name": "GLOBAL",
       "description": null,
       "created_at": "2024-12-05T14:28:48.514Z",
-      "updated_at": "2025-04-02T15:21:10.544Z",
+      "updated_at": "2025-12-09T14:43:19.344Z",
       "id": 6650763,
       "schema": {
         "navbar": {
@@ -2961,9 +2967,10 @@
           "restrict_type": "",
           "restrict_components": true,
           "component_whitelist": [
-            "navbarLink",
-            "navbarDropdown"
-          ]
+            "navbarDropdown",
+            "navbarLink"
+          ],
+          "component_denylist": []
         },
         "footerAgencies": {
           "type": "bloks",
@@ -4306,7 +4313,7 @@
       "display_name": "NAVBAR - COLONNE",
       "description": "",
       "created_at": "2025-04-02T14:53:05.740Z",
-      "updated_at": "2025-04-17T14:42:22.849Z",
+      "updated_at": "2025-12-09T14:42:11.276Z",
       "id": 7159972,
       "schema": {
         "title": {
@@ -4324,7 +4331,7 @@
           "restrict_type": "",
           "restrict_components": true,
           "component_whitelist": [
-            "navbarLink"
+            "navbarSubLink"
           ],
           "id": "lW0bjV4JTpeS35ncKNJtpg"
         }
@@ -4358,7 +4365,7 @@
       "display_name": "NAVBAR - DROPDOWN",
       "description": "",
       "created_at": "2025-04-02T14:50:32.376Z",
-      "updated_at": "2025-04-02T15:00:40.828Z",
+      "updated_at": "2025-12-09T14:42:11.249Z",
       "id": 7159969,
       "schema": {
         "title": {
@@ -4383,9 +4390,9 @@
           "restrict_type": "",
           "restrict_components": true,
           "component_whitelist": [
-            "navbarLink",
             "navbarColumn",
-            "navbarSubDropdown"
+            "navbarSubDropdown",
+            "navbarSubLink"
           ],
           "id": "mRNCPIdSQUKWuFwLTh-CJg"
         }
@@ -4418,8 +4425,108 @@
       "name": "navbarLink",
       "display_name": "NAVBAR - LIEN",
       "description": "",
+      "created_at": "2025-12-09T14:41:49.681Z",
+      "updated_at": "2025-12-09T14:43:55.991Z",
+      "id": 121248602863515,
+      "schema": {
+        "title": {
+          "type": "text",
+          "pos": 1,
+          "id": "1M9eFmCIT9iVogAbW_lAUA",
+          "display_name": "TITRE",
+          "required": true
+        },
+        "link": {
+          "type": "multilink",
+          "pos": 3,
+          "id": "KQtUxapHTyW_Rm07U3d5Dg",
+          "display_name": "LIEN",
+          "required": true
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "NAVBAR - LIEN",
+      "component_group_uuid": "d3e0d305-798c-4225-811a-87ae6e31b456",
+      "color": "#424d6d",
+      "icon": "block-arrow-pointer",
+      "internal_tags_list": [
+        {
+          "id": 53138,
+          "name": "navbar & footer"
+        }
+      ],
+      "internal_tag_ids": [
+        "53138"
+      ],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "NAVBAR & FOOTER"
+    },
+    {
+      "name": "navbarSubDropdown",
+      "display_name": "NAVBAR - SOUS-DROPDOWN",
+      "description": "",
+      "created_at": "2025-04-02T14:54:42.006Z",
+      "updated_at": "2025-12-09T14:42:11.487Z",
+      "id": 7159975,
+      "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0,
+          "id": "RWqkX9-fRJiRYGlZRx5PKA"
+        },
+        "items": {
+          "type": "bloks",
+          "pos": 1,
+          "display_name": "ITEMS",
+          "required": true,
+          "minimum": 1,
+          "restrict_type": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "navbarColumn",
+            "navbarSubLink"
+          ],
+          "component_group_whitelist": [],
+          "id": "HQfAx99DTm-hP9bWlEPbkg"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "NAVBAR - SOUS-DROPDOWN",
+      "component_group_uuid": "d3e0d305-798c-4225-811a-87ae6e31b456",
+      "color": "#424d6d",
+      "icon": "block-arrow-pointer",
+      "internal_tags_list": [
+        {
+          "id": 53138,
+          "name": "navbar & footer"
+        }
+      ],
+      "internal_tag_ids": [
+        "53138"
+      ],
+      "content_type_asset_preview": null,
+      "metadata": {},
+      "component_group_name": "NAVBAR & FOOTER"
+    },
+    {
+      "name": "navbarSubLink",
+      "display_name": "NAVBAR (SOUS) - LIEN",
+      "description": "",
       "created_at": "2025-04-02T14:48:17.254Z",
-      "updated_at": "2025-04-16T12:00:57.421Z",
+      "updated_at": "2025-12-09T14:42:11.041Z",
       "id": 7159968,
       "schema": {
         "icon": {
@@ -4460,60 +4567,7 @@
       "is_nestable": true,
       "all_presets": [],
       "preset_id": null,
-      "real_name": "NAVBAR - LIEN",
-      "component_group_uuid": "d3e0d305-798c-4225-811a-87ae6e31b456",
-      "color": "#424d6d",
-      "icon": "block-arrow-pointer",
-      "internal_tags_list": [
-        {
-          "id": 53138,
-          "name": "navbar & footer"
-        }
-      ],
-      "internal_tag_ids": [
-        "53138"
-      ],
-      "content_type_asset_preview": null,
-      "metadata": {},
-      "component_group_name": "NAVBAR & FOOTER"
-    },
-    {
-      "name": "navbarSubDropdown",
-      "display_name": "NAVBAR - SOUS-DROPDOWN",
-      "description": "",
-      "created_at": "2025-04-02T14:54:42.006Z",
-      "updated_at": "2025-04-03T09:40:39.013Z",
-      "id": 7159975,
-      "schema": {
-        "title": {
-          "type": "text",
-          "pos": 0,
-          "id": "RWqkX9-fRJiRYGlZRx5PKA"
-        },
-        "items": {
-          "type": "bloks",
-          "pos": 1,
-          "display_name": "ITEMS",
-          "required": true,
-          "minimum": 1,
-          "restrict_type": "",
-          "restrict_components": true,
-          "component_whitelist": [
-            "navbarColumn",
-            "navbarLink"
-          ],
-          "component_group_whitelist": [],
-          "id": "HQfAx99DTm-hP9bWlEPbkg"
-        }
-      },
-      "image": null,
-      "preview_field": null,
-      "is_root": false,
-      "preview_tmpl": null,
-      "is_nestable": true,
-      "all_presets": [],
-      "preset_id": null,
-      "real_name": "NAVBAR - SOUS-DROPDOWN",
+      "real_name": "NAVBAR (SOUS) - LIEN",
       "component_group_uuid": "d3e0d305-798c-4225-811a-87ae6e31b456",
       "color": "#424d6d",
       "icon": "block-arrow-pointer",
@@ -5166,7 +5220,7 @@
       "display_name": "TEAM",
       "description": "",
       "created_at": "2025-04-01T09:22:11.578Z",
-      "updated_at": "2025-04-01T09:35:51.619Z",
+      "updated_at": "2025-11-30T09:18:23.174Z",
       "id": 7153375,
       "schema": {
         "picture": {
@@ -5218,6 +5272,13 @@
           "pos": 6,
           "id": "payRHQtgSiqlny4xt3toYA",
           "display_name": "LIEN - CALENDRIER"
+        },
+        "shortDescription": {
+          "type": "textarea",
+          "pos": 7,
+          "display_name": "DESCRIPTION - COURTE",
+          "required": true,
+          "id": "n4Dc5wtPR5u1BMluHb2HEQ"
         }
       },
       "image": null,
