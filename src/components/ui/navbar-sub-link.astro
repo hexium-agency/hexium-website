@@ -1,7 +1,7 @@
 ---
 import { cn } from '@/lib/utils';
 import type { NavbarSubLinkStoryblok } from '@/types/storyblok';
-import { parseStoryblokLink } from '@/utils/storyblok';
+import { parseStoryblokImage, parseStoryblokLink } from '@/utils/storyblok';
 import { storyblokEditable } from '@storyblok/astro';
 import { Image } from 'astro:assets';
 
@@ -16,25 +16,24 @@ const { blok } = Astro.props as AstroProps;
   <a
     href={parseStoryblokLink(blok.link)}
     class={cn(
-      'navbar-link container flex items-center rounded-lg px-6 py-1.5 text-[14px] tracking-[-0.15px]',
+      'navbar-link container flex items-center rounded-lg px-6 py-1.5 text-[14px] tracking-[-0.15px] gap-3',
       blok?.icon?.filename ? 'lg:px-1!' : 'lg:px-2!'
     )}
   >
     {
       blok?.icon?.filename && (
-        <div class="mr-3 flex w-[25px] items-center justify-center">
-          <Image
-            src={blok.icon.filename}
-            alt={blok.title}
-            class="h-4 w-auto object-contain"
-            sizes="10vw"
-            width={20}
-            height={20}
-            loading="eager"
-          />
+        <div class="flex aspect-square size-10 flex-shrink-0 items-center justify-center rounded bg-white shadow-[0_1px_1px_rgba(0,0,0,0.05),0_0_0_1px_rgba(34,42,53,0.05),0_4px_6px_rgba(34,42,53,0.04),0_24px_68px_rgba(47,48,55,0.05),0_2px_3px_rgba(0,0,0,0.04)]">
+          <Image {...parseStoryblokImage(blok.icon, [20, 40])} class="h-7 w-auto object-contain" />
         </div>
       )
     }
-    {blok.title}
+    <div class="flex flex-1 flex-col justify-center">
+      <div class="text-sm font-semibold">{blok.title}</div>
+      {
+        blok.text && (
+          <p class="mt-0.5 text-xs leading-none font-normal text-gray-600">{blok.text}</p>
+        )
+      }
+    </div>
   </a>
 </div>
