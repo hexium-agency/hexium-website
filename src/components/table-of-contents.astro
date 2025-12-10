@@ -11,7 +11,11 @@ interface Props {
   offset?: number;
 }
 
-const { headings, headingsSelector = 'h2[id], h3[id], h4[id], h5[id], h6[id]', offset = -50 } = Astro.props;
+const {
+  headings,
+  headingsSelector = 'h2[id], h3[id], h4[id], h5[id], h6[id]',
+  offset = -50,
+} = Astro.props;
 
 const LevelsPaddings: Record<number, string> = {
   2: 'pl-0',
@@ -24,7 +28,7 @@ const LevelsPaddings: Record<number, string> = {
 
 <div>
   <nav>
-    <span class="font-heading font-mono text-xs font-semibold uppercase">Sommaire</span>
+    <span class="font-sans text-xs font-medium uppercase">Sommaire</span>
     <ol class="mt-2 space-y-1 border-l border-gray-200 pl-2 text-sm font-medium">
       {
         headings.map((heading) => (
@@ -45,61 +49,61 @@ const LevelsPaddings: Record<number, string> = {
 
 <script define:vars={{ headingsSelector, offset }}>
   document.addEventListener('astro:page-load', () => {
-  const headingLinks = document.querySelectorAll('[data-heading-link]');
-  const headings = Array.from(
-    document.querySelectorAll(headingsSelector)
-  );
+    const headingLinks = document.querySelectorAll('[data-heading-link]');
+    const headings = Array.from(document.querySelectorAll(headingsSelector));
 
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
         clearTimeout(timeout);
-        func(...args);
+        timeout = setTimeout(later, wait);
       };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
+    }
 
-  const updateActiveHeading = debounce(() => {
-    if (headings.length === 0) return;
+    const updateActiveHeading = debounce(() => {
+      if (headings.length === 0) return;
 
-    const scrollPosition = window.scrollY;
+      const scrollPosition = window.scrollY;
 
-    const distances = headings.map((heading) => ({
-      id: heading.id,
-      distance: Math.abs(heading.offsetTop - scrollPosition - offset),
-    }));
+      const distances = headings.map((heading) => ({
+        id: heading.id,
+        distance: Math.abs(heading.offsetTop - scrollPosition - offset),
+      }));
 
-    const closest = distances.reduce((prev, curr) => (curr.distance < prev.distance ? curr : prev));
+      const closest = distances.reduce((prev, curr) =>
+        curr.distance < prev.distance ? curr : prev
+      );
+
+      headingLinks.forEach((link) => {
+        const headingId = link.getAttribute('href')?.slice(1);
+        if (headingId === closest.id) {
+          link.setAttribute('data-active', '');
+        } else {
+          link.removeAttribute('data-active');
+        }
+      });
+    }, 20);
+
+    window.addEventListener('scroll', updateActiveHeading);
 
     headingLinks.forEach((link) => {
-      const headingId = link.getAttribute('href')?.slice(1);
-      if (headingId === closest.id) {
-        link.setAttribute('data-active', '');
-      } else {
-        link.removeAttribute('data-active');
-      }
-    });
-  }, 20);
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.slice(1);
+        const targetElement = document.getElementById(targetId);
 
-  window.addEventListener('scroll', updateActiveHeading);
+        if (targetElement) {
+          headingLinks.forEach((l) => l.removeAttribute('data-active'));
+          link.setAttribute('data-active', '');
 
-  headingLinks.forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const targetId = link.getAttribute('href')?.slice(1);
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement) {
-        headingLinks.forEach((l) => l.removeAttribute('data-active'));
-        link.setAttribute('data-active', '');
-
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-        history.pushState(null, '', `#${targetId}`);
-      }
-    });
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          history.pushState(null, '', `#${targetId}`);
+        }
+      });
     });
 
     updateActiveHeading();

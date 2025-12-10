@@ -41,7 +41,7 @@ const createdAt = article?.created_at! || article?.published_at!;
     </p>
     <dl class="order-first">
       <dt class="sr-only">Publié le</dt>
-      <dd class="font-mono text-xs text-gray-950">
+      <dd class="font-sans text-xs text-gray-600">
         <time datetime={formatIsoToDate(createdAt)}>{formatIsoToReadable(createdAt)}</time>
       </dd>
     </dl>
