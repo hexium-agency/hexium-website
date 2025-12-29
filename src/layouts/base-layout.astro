@@ -114,16 +114,26 @@ const pathname = Astro.url.pathname;
       data-api="/stats/api/event"
       data-domain="hexium.io"
       src="/stats/js/script.js"></script>
+    <script
+      type="text/javascript"
+      id="hs-script-loader"
+      async
+      defer
+      src="https://js-eu1.hs-scripts.com/144380850.js"></script>
     <script>
       window.plausible =
         window.plausible ||
         function () {
           (window.plausible.q = window.plausible.q || []).push(arguments);
         };
+
+      window._hsq = window._hsq || [];
     </script>
     <script>
       document.addEventListener('astro:after-swap', () => {
         window.plausible('pageview');
+        window._hsq.push(['setPath', window.location.pathname]);
+        window._hsq.push(['trackPageView']);
       });
     </script>
   </head>

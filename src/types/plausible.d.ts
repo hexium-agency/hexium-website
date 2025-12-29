@@ -6,4 +6,5 @@ interface Plausible {
 interface Window {
   plausible: Plausible;
   dataLayer: any[];
+  _hsq: [string, ...unknown[]][];
 }
